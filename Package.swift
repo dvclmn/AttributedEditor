@@ -10,7 +10,7 @@ let package = Package(
   products: [
     .library(
       name: "AttributedEditor",
-      targets: ["AttributedEditor"]
+      targets: ["AttributedEditor", "MarkdownHighlighter"]
     )
   ],
   dependencies: [
@@ -21,6 +21,14 @@ let package = Package(
   targets: [
     .target(
       name: "AttributedEditor",
+      dependencies: [
+        .product(name: "ColourKit", package: "BaseHelpers"),
+        .product(name: "CoreTools", package: "BaseHelpers"),
+        .product(name: "NSUI", package: "nsui")
+      ]
+    ),
+    .target(
+      name: "MarkdownHighlighter",
       dependencies: [
         .product(name: "ColourKit", package: "BaseHelpers"),
         .product(name: "CoreTools", package: "BaseHelpers"),

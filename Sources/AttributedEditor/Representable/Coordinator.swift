@@ -15,7 +15,7 @@ extension SourceEditorView {
   @MainActor
   public class Coordinator: NSObject, NSTextViewDelegate {
     let parent: SourceEditorView
-    weak var textView: BackgroundRenderingTextView?
+    weak var textView: BackingTextView?
     
     public init(_ view: SourceEditorView) {
       self.parent = view

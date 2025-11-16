@@ -49,7 +49,7 @@ public struct SourceEditorView: NSViewRepresentable {
     scrollView.drawsBackground = false
 
     /// Create and configure the text view
-    let textView = BackgroundRenderingTextView()
+    let textView = BackingTextView()
     textView.delegate = context.coordinator
     textView.isEditable = true
     textView.isSelectable = true
@@ -111,7 +111,7 @@ public struct SourceEditorView: NSViewRepresentable {
   }
 
   public func updateNSView(_ scrollView: NSScrollView, context: Context) {
-    guard let textView = scrollView.documentView as? BackgroundRenderingTextView else { return }
+    guard let textView = scrollView.documentView as? BackingTextView else { return }
 
     /// Only update if the text has changed externally (not from typing)
     if textView.string != text {

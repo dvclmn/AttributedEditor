@@ -11,6 +11,8 @@ import UIKit
 import AppKit
 #endif
 
+import SharedHelpers
+
 extension Markdown.Syntax {
   
   public var regexLiteral: MarkdownRegex? {

@@ -9,7 +9,7 @@ import AppKit
 
 // MARK: - Custom Text View with Background Rendering
 
-class BackgroundRenderingTextView: NSTextView {
+class BackingTextView: NSTextView {
   var blockRanges: [NSRange] = []
   
   override func draw(_ dirtyRect: NSRect) {
