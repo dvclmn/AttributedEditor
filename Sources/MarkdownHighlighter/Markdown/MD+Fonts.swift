@@ -7,7 +7,7 @@
 
 import AppKit
 
-extension MarkdownSyntaxHighlighter {
+extension MarkdownHighlighter {
   
   /// Fonts
   package var codeFont: NSFont {

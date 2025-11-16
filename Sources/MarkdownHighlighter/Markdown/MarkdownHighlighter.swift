@@ -11,7 +11,7 @@ import AppKit
 
 // MARK: - Markdown Syntax Highlighter
 
-public class MarkdownSyntaxHighlighter: SyntaxHighlighter {
+public class MarkdownHighlighter: Highlighter {
 
   private let areHeadersBig: Bool = false
   package let fontSize: CGFloat

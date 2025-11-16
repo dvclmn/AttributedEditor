@@ -7,7 +7,7 @@
 
 import AppKit
 
-extension MarkdownSyntaxHighlighter {
+extension MarkdownHighlighter {
   // Colors for different syntax elements
   package var headerColor: NSColor { .systemIndigo }
   package var boldColor: NSColor { .labelColor }

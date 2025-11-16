@@ -7,14 +7,6 @@
 
 import AppKit
 
-extension NSTextView {
-  func insertionPointPosition() -> InsertionPointPosition {
-    return InsertionPointPosition.from(
-      text: self.string,
-      range: self.selectedRange()
-    )
-  }
-}
 
 public struct InsertionPointPosition {
   let line: Int

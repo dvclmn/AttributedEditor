@@ -7,18 +7,19 @@
 
 import AppKit
 import SwiftUI
+import HighlighterCommon
 
-public enum KnownHighlighters {
-  case basic
-  case markdown
-}
+//public enum KnownHighlighters {
+//  case basic
+//  case markdown
+//}
 
 @MainActor
 public struct SourceEditorView: NSViewRepresentable {
   @Binding public var text: String
   @Binding var cursorPosition: InsertionPointPosition?
-  var highlighter: SyntaxHighlighter
-  var inputBehaviors: [TextInputBehavior]
+  var highlighter: any Highlighter
+//  var inputBehaviors: [TextInputBehavior]
   let debounceInterval: TimeInterval
 //  let fontSize: CGFloat
 //  var showLineNumbers: Bool
@@ -27,8 +28,9 @@ public struct SourceEditorView: NSViewRepresentable {
   public init(
     text: Binding<String>,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
-    highlighter: KnownHighlighters = .markdown,
-    //    highlighter: SyntaxHighlighter,
+    highlighter: any Highlighter,
+//    highlighter: KnownHighlighters = .markdown,
+    //    highlighter: Highlighter,
 //    inputBehaviors: [TextInputBehavior] = [],
     debounceInterval: TimeInterval = 0.1,
     config: Editor.Configuration
@@ -37,8 +39,8 @@ public struct SourceEditorView: NSViewRepresentable {
   ) {
     self._text = text
     self._cursorPosition = cursorPosition
-    self.highlighter = MarkdownHighlighter()
-//    self.highlighter = MarkdownSyntaxHighlighter(fontSize: fontSize)
+    self.highlighter = highlighter
+//    self.highlighter = MarkdownHighlighter(fontSize: fontSize)
 //    self.inputBehaviors = inputBehaviors
     self.debounceInterval = debounceInterval
     self.config = config

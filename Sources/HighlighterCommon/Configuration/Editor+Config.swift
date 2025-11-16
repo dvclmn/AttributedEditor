@@ -10,6 +10,8 @@ import CoreTools
 import Sharing
 import SwiftUI
 
+/// Highlighter Common expects the Source Editor to
+/// suppler an instance of this.
 public enum Editor {
 
   /// X main categories;
@@ -42,11 +44,11 @@ public enum Editor {
 
     let colours: Colours
   }
-
 }
 
 extension Editor.Configuration {
   var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
+  var defaultColour: NSColor { colours.nsColor(for: \.body) }
 
   public var codeBlockInsets: CGSize { insets.adjustLengths(by: 0.4) }
 

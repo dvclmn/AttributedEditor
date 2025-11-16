@@ -1,16 +1,17 @@
 //
-//  SyntaxHighlighter.swift
+//  Highlighter.swift
 //  BaseHelpers
 //
 //  Created by Dave Coleman on 15/11/2025.
 //
 
 import SwiftUI
+import HighlighterCommon
 
 //// MARK: - Basic Syntax Highlighter Implementation
 //
 ///// A simple highlighter supporting inline code, keywords, strings, and numbers
-//public class BasicSyntaxHighlighter: SyntaxHighlighter {
+//public class BasicHighlighter: Highlighter {
 //  
 //  let fontSize: CGFloat
 //
