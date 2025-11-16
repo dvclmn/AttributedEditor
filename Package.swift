@@ -15,7 +15,9 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/dvclmn/BaseHelpers", branch: "main"),
-    .package(url: "https://github.com/mattmassicotte/nsui", from: "1.3.0"),
+    .package(url: "https://github.com/dvclmn/BaseHelpers", branch: "main"),
+    .package(url: "https://github.com/pointfreeco/swift-sharing.git", from: "1.3.0"),
+    
 
   ],
   targets: [
@@ -24,7 +26,8 @@ let package = Package(
       dependencies: [
         .product(name: "ColourKit", package: "BaseHelpers"),
         .product(name: "CoreTools", package: "BaseHelpers"),
-        .product(name: "NSUI", package: "nsui")
+        .product(name: "NSUI", package: "nsui"),
+        .product(name: "Sharing", package: "swift-sharing")
       ]
     ),
     .target(
