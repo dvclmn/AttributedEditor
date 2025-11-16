@@ -22,7 +22,8 @@ let package = Package(
     .target(
       name: "MarkdownEditor",
       dependencies: [
-        .product(name: "SharedHelpers", package: "BaseHelpers"),
+        .product(name: "ColourKit", package: "BaseHelpers"),
+        .product(name: "BaseUtils", package: "BaseHelpers"),
         .product(name: "NSUI", package: "nsui")
       ]
     ),

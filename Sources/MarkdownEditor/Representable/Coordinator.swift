@@ -8,33 +8,76 @@
 //import BaseHelpers
 import SwiftUI
 
-extension MarkdownEditor {
 
-  public func makeCoordinator() -> Coordinator {
-    Coordinator(self)
-  }
-
+extension SourceEditorView {
+  // MARK: - Coordinator
+  
   @MainActor
   public class Coordinator: NSObject, NSTextViewDelegate {
-    let parent: MarkdownEditor
-
-    var selectedRanges: [NSValue] = []
-
-    public init(_ view: MarkdownEditor) {
+    let parent: SourceEditorView
+    weak var textView: BackgroundRenderingTextView?
+    
+    public init(_ view: SourceEditorView) {
       self.parent = view
     }
-
-    /// This is for communicating changes from within AppKit, back to SwiftUI
+    
+    /// Debouncing mechanism
+    private var highlightWorkItem: DispatchWorkItem?
+    
     public func textDidChange(_ notification: Notification) {
-      print("Ran `textDidChange`")
       guard let textView = notification.object as? NSTextView else { return }
+      
+      /// Update the binding immediately so SwiftUI stays in sync
       parent.text = textView.string
+      updateInsertionPointPosition()
+      
+      /// Cancel any pending highlight operation
+      highlightWorkItem?.cancel()
+      
+      /// Schedule a new highlight operation after the debounce interval
+      let workItem = DispatchWorkItem { [weak self] in
+        self?.applyHighlighting()
+      }
+      highlightWorkItem = workItem
+      
+      /// Execute after debounce interval on the main queue
+      DispatchQueue.main.asyncAfter(deadline: .now() + parent.debounceInterval, execute: workItem)
     }
-
+    
     public func textViewDidChangeSelection(_ notification: Notification) {
-      guard let textView = notification.object as? NSTextView else { return }
-      self.selectedRanges = textView.selectedRanges
+      updateInsertionPointPosition()
     }
-
   }
+  
 }
+
+//extension MarkdownEditor {
+//
+//  public func makeCoordinator() -> Coordinator {
+//    Coordinator(self)
+//  }
+//
+//  @MainActor
+//  public class Coordinator: NSObject, NSTextViewDelegate {
+//    let parent: MarkdownEditor
+//
+//    var selectedRanges: [NSValue] = []
+//
+//    public init(_ view: MarkdownEditor) {
+//      self.parent = view
+//    }
+//
+//    /// This is for communicating changes from within AppKit, back to SwiftUI
+//    public func textDidChange(_ notification: Notification) {
+//      print("Ran `textDidChange`")
+//      guard let textView = notification.object as? NSTextView else { return }
+//      parent.text = textView.string
+//    }
+//
+//    public func textViewDidChangeSelection(_ notification: Notification) {
+//      guard let textView = notification.object as? NSTextView else { return }
+//      self.selectedRanges = textView.selectedRanges
+//    }
+//
+//  }
+//}

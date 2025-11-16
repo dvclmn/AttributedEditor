@@ -7,7 +7,7 @@
 
 import AppKit
 
-import BaseHelpers
+//import BaseHelpers
 
 struct RegexMatch {
   let fullRange: NSRange
