@@ -1,5 +1,5 @@
 {
-  "originHash" : "113901ea7df54f577b490254968e8dc014251140b82962ec02df72c7fbd8fa8c",
+  "originHash" : "124fc823a6298441c1d37fce11cb0891f4b6ec6162bda4d061a0a9c5d9040ad6",
   "pins" : [
     {
       "identity" : "basehelpers",
@@ -8,15 +8,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "edd9c23b306183d7a405ab08b8d84b7521fa4372"
-      }
-    },
-    {
-      "identity" : "components",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/dvclmn/Components.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "65175509ed490cbf3c7afd251e3d6cfb7fc494fe"
       }
     },
     {
@@ -35,15 +26,6 @@
       "state" : {
         "revision" : "f1d74e1642956f0300756ad8d1d64e9034857bc3",
         "version" : "2.0.0"
-      }
-    },
-    {
-      "identity" : "styleconfig",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/dvclmn/StyleConfig.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "b4dfb59acad42f7581abdc456b33f0ec613d6605"
       }
     },
     {
