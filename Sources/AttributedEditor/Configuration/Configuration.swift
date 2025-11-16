@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
-import StringKit
-
+import CoreTools
+import ColourKit
 
 public enum TextView {
+  
+  /// X main categories;
+  ///
+  /// ## TextView
+  /// Applicable regardless of grammar used. Lower level, relating
+  /// to the `NSTextView` itself
+  ///
+  /// ## Grammar
   public struct Configuration {
     let fontSize: CGFloat
     
@@ -35,8 +43,33 @@ public enum TextView {
 }
 
 extension TextView.Configuration {
+
+
+  
+//  public var defaultTextColour: Color {
+//    
+//  }
+  
   public var codeBlockPadding: CGFloat {
     theme.insets * 0.4
+  }
+  
+  public var typingAttributes: TextAttributes {
+    return [
+      .font: defaultFont,
+      .foregroundColor: theme.textColour.nsColour,
+      .paragraphStyle: defaultParagraphStyle,
+      TextBackground.inlineCode.attributeKey: false,
+      TextBackground.codeBlock.attributeKey: false,
+      TextBackground.highlight.attributeKey: false,
+    ]
+  }
+  
+  public var paragraphStyle: NSParagraphStyle {
+    let paragraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.lineSpacing = self.theme.lineHeight
+    
+    return paragraphStyle
   }
   
 }
@@ -103,51 +136,37 @@ extension TextView.Configuration {
   
 
   
-  public var defaultTypingAttributes: TextAttributes {
-    return [
-      .font: defaultFont,
-      .foregroundColor: theme.textColour.nsColour,
-      .paragraphStyle: defaultParagraphStyle,
-      TextBackground.inlineCode.attributeKey: false,
-      TextBackground.codeBlock.attributeKey: false,
-      TextBackground.highlight.attributeKey: false,
-    ]
-  }
-  
-  public var defaultParagraphStyle: NSParagraphStyle {
-    let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.lineSpacing = self.theme.lineHeight
-    
-    return paragraphStyle
-  }
-}
 
-public enum TextBackground: CaseIterable {
   
-  case inlineCode
-  case codeBlock
-  case highlight
-  
-  public var attributeKey: NSAttributedString.Key {
-    switch self {
-      case .inlineCode: NSAttributedString.Key("inlineCode")
-      case .codeBlock: NSAttributedString.Key("codeBlock")
-      case .highlight: NSAttributedString.Key("highlight")
-    }
-  }
-  
-  public var insets: (dx: CGFloat, dy: CGFloat) {
-    switch self {
-      case .inlineCode, .codeBlock, .highlight:
-        (-2, -1)
-    }
-  }
-  
-  public func fillColour(from configuration: EditorConfiguration) -> Color {
-    switch self {
-      case .inlineCode: configuration.theme.inlineCodeBackgroundColour
-      case .codeBlock: configuration.theme.codeBlockBackgroundColour
-      case .highlight: configuration.theme.highlightBackground
-    }
-  }
-}
+
+//}
+
+//public enum TextBackground: CaseIterable {
+//  
+//  case inlineCode
+//  case codeBlock
+//  case highlight
+//  
+//  public var attributeKey: NSAttributedString.Key {
+//    switch self {
+//      case .inlineCode: NSAttributedString.Key("inlineCode")
+//      case .codeBlock: NSAttributedString.Key("codeBlock")
+//      case .highlight: NSAttributedString.Key("highlight")
+//    }
+//  }
+//  
+//  public var insets: (dx: CGFloat, dy: CGFloat) {
+//    switch self {
+//      case .inlineCode, .codeBlock, .highlight:
+//        (-2, -1)
+//    }
+//  }
+//  
+//  public func fillColour(from configuration: EditorConfiguration) -> Color {
+//    switch self {
+//      case .inlineCode: configuration.theme.inlineCodeBackgroundColour
+//      case .codeBlock: configuration.theme.codeBlockBackgroundColour
+//      case .highlight: configuration.theme.highlightBackground
+//    }
+//  }
+//}
