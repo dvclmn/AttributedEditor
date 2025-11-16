@@ -8,7 +8,6 @@
 //import BaseHelpers
 import SwiftUI
 
-
 extension MarkdownTextView {
 
   func setUpTextView(_ config: EditorConfiguration) {
@@ -17,22 +16,22 @@ extension MarkdownTextView {
     drawsBackground = false
     isRichText = false
     allowsUndo = true
-    
+
     isVerticallyResizable = true
     isHorizontallyResizable = false
-    
+
     let max = CGFloat.greatestFiniteMagnitude
 
     minSize = NSSize.zero
     maxSize = NSSize(width: max, height: max)
-    
+
     isAutomaticDashSubstitutionEnabled = false
-    
+
     autoresizingMask = [.width]
-    
+
     textContainer?.widthTracksTextView = true
     textContainer?.heightTracksTextView = false
-    
+
     textContainer?.lineFragmentPadding = config.theme.insets
     textContainerInset = NSSize(
       width: 0,
@@ -40,7 +39,7 @@ extension MarkdownTextView {
     )
     font = NSFont.systemFont(
       ofSize: config.theme.fontSize)
-    
+
     typingAttributes = config.defaultTypingAttributes
     defaultParagraphStyle = config.defaultParagraphStyle
   }
