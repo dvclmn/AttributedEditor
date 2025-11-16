@@ -19,7 +19,7 @@ extension Markdown {
     case heading4
     case heading5
     case heading6
-    //    case heading(level: Int)
+
     case bold
     case italic
     case boldItalic

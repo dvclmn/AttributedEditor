@@ -19,35 +19,39 @@ public struct AttributedEditorView: NSViewRepresentable {
   @Binding public var text: String
   @Binding var cursorPosition: InsertionPointPosition?
   var highlighter: any Highlighter
-//  var inputBehaviors: [TextInputBehavior]
+  //  var inputBehaviors: [TextInputBehavior]
   let debounceInterval: TimeInterval
-//  let fontSize: CGFloat
-//  var showLineNumbers: Bool
-  let config: Editor.Configuration
-
+  //  let fontSize: CGFloat
+  //  var showLineNumbers: Bool
+  //  let config: Editor.Configuration
+  
   public init(
     text: Binding<String>,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     highlighter: any Highlighter,
-//    highlighter: KnownHighlighters = .markdown,
+    //    highlighter: KnownHighlighters = .markdown,
     //    highlighter: Highlighter,
-//    inputBehaviors: [TextInputBehavior] = [],
+    //    inputBehaviors: [TextInputBehavior] = [],
     debounceInterval: TimeInterval = 0.1,
-    config: Editor.Configuration
-//    fontSize: CGFloat = 14,
-//    showLineNumbers: Bool = true,
+    //    config: Editor.Configuration
+    //    fontSize: CGFloat = 14,
+    //    showLineNumbers: Bool = true,
   ) {
     self._text = text
     self._cursorPosition = cursorPosition
     self.highlighter = highlighter
-//    self.highlighter = MarkdownHighlighter()
-//    self.inputBehaviors = inputBehaviors
+    //    self.highlighter = MarkdownHighlighter()
+    //    self.inputBehaviors = inputBehaviors
     self.debounceInterval = debounceInterval
-    self.config = config
-//    self.fontSize = fontSize
-//    self.showLineNumbers = showLineNumbers
+    //    self.config = config
+    //    self.fontSize = fontSize
+    //    self.showLineNumbers = showLineNumbers
   }
+}
 
+extension AttributedEditorView {
+
+  var config: Editor.Configuration { highlighter.editorConfig }
   public func makeNSView(context: Context) -> NSScrollView {
 
     /// Create the scroll view container

@@ -7,16 +7,20 @@
 
 import AppKit
 import HighlighterCommon
+
 //import NSUI
 
 public final class MarkdownHighlighter: Highlighter {
-  private let rules: [SyntaxRule]
-  
-  public init(rules: [SyntaxRule]) {
-    self.rules = rules
+  public var editorConfig: Editor.Configuration
+  var rules: [SyntaxRule] {
+    SyntaxRulesThingy.defaultSet(fontSize: editorConfig.fontSize)
   }
-  
-  public func highlight(text: String, config: Editor.Configuration) -> AttributedRanges {
+
+  public init(config: Editor.Configuration) {
+    self.editorConfig = config
+  }
+
+  public func highlight(text: String) -> AttributedRanges {
     var attributes: AttributedRanges = [:]
     let ns = text as NSString
     for rule in rules {
@@ -24,10 +28,12 @@ public final class MarkdownHighlighter: Highlighter {
     }
     return attributes
   }
-  
-  private func apply(_ rule: SyntaxRule,
-                     to text: NSString,
-                     attributes: inout AttributedRanges) {
+
+  private func apply(
+    _ rule: SyntaxRule,
+    to text: NSString,
+    attributes: inout AttributedRanges
+  ) {
     let pattern = rule.makePattern()
     guard let regex = try? NSRegularExpression(pattern: pattern, options: rule.regexOptions) else { return }
     let matches = regex.matches(in: text as String, range: NSRange(location: 0, length: text.length))
@@ -35,13 +41,15 @@ public final class MarkdownHighlighter: Highlighter {
       rule.apply(match, text, &attributes)
     }
   }
-  
-  // blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`
-  public func blockRanges(text: String) -> [NSRange] {
+
+  /// blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`
+  public func blockRanges(
+    text: String,
+  ) -> [NSRange] {
     var ranges: [NSRange] = []
     let ns = text as NSString
     let fullRange = NSRange(location: 0, length: ns.length)
-    
+
     for rule in rules where rule.exposesBlockRange {
       let pattern = rule.makePattern()
       guard let regex = try? NSRegularExpression(pattern: pattern, options: rule.regexOptions) else { continue }
@@ -54,6 +62,33 @@ public final class MarkdownHighlighter: Highlighter {
   }
 }
 
+struct SyntaxRulesThingy {
+  //  let fontSize: CGFloat
+  //  let config: Editor.Configuration
+  //  let rules: [SyntaxRule]
+}
+extension SyntaxRulesThingy {
+
+  static func defaultSet(fontSize: CGFloat) -> [SyntaxRule] {
+
+    //    let bodyFont: NSFont = Editor.FontStyle.body.font(size: fontSize)
+    let boldFont: NSFont = Editor.FontStyle.bold.font(size: fontSize)
+    let italicFont: NSFont = Editor.FontStyle.italic.font(size: fontSize)
+    let codeFont: NSFont = Editor.FontStyle.code.font(size: fontSize)
+
+    //    let headers = SyntaxRule.allHeadings(font: bodyFont)
+    let others: [SyntaxRule] = [
+      SyntaxRule.fencedCodeBlock(codeFont: codeFont),
+      SyntaxRule.bold(font: boldFont),
+      SyntaxRule.italic(font: italicFont),
+      SyntaxRule.horizontalRule(),
+      //      SyntaxRule.heading(level: 1, font: boldFont),
+    ]
+
+    return others
+    //    return headers + others
+  }
+}
 
 // MARK: - Markdown Syntax Highlighter
 
@@ -64,7 +99,7 @@ public final class MarkdownHighlighter: Highlighter {
 //  let monospacedFontReduction: CGFloat = 0.88
 //
 //  public init(
-//    
+//
 ////    fontSize: CGFloat
 //  ) {
 ////    self.fontSize = fontSize
@@ -111,25 +146,25 @@ public final class MarkdownHighlighter: Highlighter {
 //  ) {
 //    let pattern = "```([A-Za-z0-9_+-]*)\\n([\\s\\S]*?)```"
 //    guard let regex = try? NSRegularExpression(pattern: pattern) else { return }
-//    
+//
 //    let matches = regex.matches(in: text as String, range: NSRange(location: 0, length: text.length))
-//    
+//
 //    for match in matches {
 //      let blockRange = match.range(at: 0)
 //      let langRange  = match.range(at: 1)
 //      let bodyRange  = match.range(at: 2)
-//      
+//
 //      // Base block style (background, monospaced, etc.)
 //      attributes[blockRange] = [
 //        .font: codeFont,
 //        .foregroundColor: NSColor.secondaryLabelColor,
 //      ]
-//      
+//
 //      // Language tag (```swift)
 //      attributes[langRange] = [
 //        .foregroundColor: NSColor.tertiaryLabelColor,
 //      ]
-//      
+//
 //      // Body
 //      attributes[bodyRange] = [
 //        .foregroundColor: NSColor.textColor,

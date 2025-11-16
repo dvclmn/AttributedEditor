@@ -9,10 +9,7 @@ import AppKit
 
 extension SyntaxRule {
 
-  public static func fencedCodeBlock(
-    codeFont: NSFont,
-    langFont: NSFont
-  ) -> SyntaxRule {
+  public static func fencedCodeBlock(codeFont: NSFont) -> SyntaxRule {
     SyntaxRule(
       syntax: .codeBlock,
       delimiter: .fenced(start: "```", end: "```"),
@@ -31,7 +28,7 @@ extension SyntaxRule {
         ]
         if langRange.location != NSNotFound {
           attributes[langRange] = [
-            .font: langFont,
+            .font: codeFont,
             .foregroundColor: NSColor.tertiaryLabelColor,
           ]
         }
@@ -45,55 +42,6 @@ extension SyntaxRule {
     )
   }
 
-  public static func heading(level: Int, font: NSFont) -> SyntaxRule {
-    guard level <= 6 else { fatalError("Header levels 7 and above are unsupported") }
-
-    let prefix = String(repeating: "#", count: level) + " "
-    return SyntaxRule(
-      syntax: Markdown.Syntax(rawValue: "heading\(level)")!,
-      delimiter: .prefix(prefix),
-      role: .inlineText,
-      captures: .single(name: "content"),
-      regexOptions: [.anchorsMatchLines],
-      exposesBlockRange: false,
-      apply: { match, text, attributes in
-        let contentRange = match.range(named: "content")
-        attributes[contentRange] = [
-          .font: font
-        ]
-      }
-    )
-  }
-
-  public static func bold(wrapper: (String, String) = ("**", "**"), font: NSFont) -> SyntaxRule {
-    return SyntaxRule(
-      syntax: .bold,
-      delimiter: .wrapper(prefix: wrapper.0, suffix: wrapper.1),
-      role: .inlineText,
-      captures: .single(name: "content"),
-      regexOptions: [],
-      exposesBlockRange: false,
-      apply: { match, text, attributes in
-        let r = match.range(named: "content")
-        attributes[r] = [.font: font]
-      }
-    )
-  }
-
-  public static func italic(wrapper: (String, String) = ("*", "*"), font: NSFont) -> SyntaxRule {
-    return SyntaxRule(
-      syntax: .italic,
-      delimiter: .wrapper(prefix: wrapper.0, suffix: wrapper.1),
-      role: .inlineText,
-      captures: .single(name: "content"),
-      regexOptions: [],
-      exposesBlockRange: false,
-      apply: { match, text, attributes in
-        let r = match.range(named: "content")
-        attributes[r] = [.font: font]
-      }
-    )
-  }
 
   public static func link() -> SyntaxRule {
     return SyntaxRule(

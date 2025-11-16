@@ -11,10 +11,9 @@ import SwiftUI
 public typealias AttributedRanges = [NSRange: [NSAttributedString.Key: Any]]
 /// Protocol defining how text should be analyzed and highlighted
 public protocol Highlighter {
-  func highlight(
-    text: String,
-    config: Editor.Configuration
-  ) -> AttributedRanges
+  var editorConfig: Editor.Configuration { get }
+  
+  func highlight(text: String) -> AttributedRanges
   
   /// Optional: Return ranges that should have custom background rendering
   func blockRanges(text: String) -> [NSRange]

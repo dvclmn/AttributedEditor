@@ -27,23 +27,23 @@ public enum Editor {
 
     public let options: Options
 
-//    @Shared(.fontSize) var fontSize: CGFloat
-        let fontSize: CGFloat
+    //    @Shared(.fontSize) var fontSize: CGFloat
+    public let fontSize: CGFloat
 
     /// A multiplier/factor, not absolute. E.g. `1.4`
-    let lineSpacing: CGFloat
+    public let lineSpacing: CGFloat
 
     /// Note: `lineFragmentPadding` is leading and trailing,
     /// `textContainerInset` is top/bottom(?)
     public let insets: CGSize
-    let overScroll: CGFloat
+    public let overScroll: CGFloat
 
     /// Maximum comfortable reading width, where text
     /// stops growing and remains centered horizontally
-    let maxWidth: CGFloat?
+    public let maxWidth: CGFloat?
 
     public let colours: Colours
-    
+
     public init(
       options: Options = [.editable, .lineNumbers],
       fontSize: CGFloat = 15,

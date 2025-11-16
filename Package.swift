@@ -67,6 +67,7 @@ let package = Package(
         "HighlighterCommon",
         "AttributedEditor",
         "MarkdownHighlighter",
+        .product(name: "CoreTools", package: "BaseHelpers"),
 //        .product(name: "ColourKit", package: "BaseHelpers"),
 //        .product(name: "CoreTools", package: "BaseHelpers"),
 //        .product(name: "NSUI", package: "nsui"),
