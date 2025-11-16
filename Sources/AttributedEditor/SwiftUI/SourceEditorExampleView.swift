@@ -35,7 +35,6 @@ struct ContentView: View {
       AttributedEditorView(
         text: $editorText,
 //        cursorPosition: <#T##Binding<InsertionPointPosition?>#>,
-        highlighter: Mark,
         debounceInterval: <#T##TimeInterval#>,
         config: <#T##Editor.Configuration#>
       )

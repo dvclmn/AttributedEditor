@@ -5,9 +5,9 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-import SwiftUI
-import Sharing
 import HighlighterCommon
+import Sharing
+import SwiftUI
 
 extension Editor {
   public enum FontStyle {
@@ -20,14 +20,14 @@ extension Editor {
 }
 extension Editor.FontStyle {
   public func font(size: CGFloat) -> NSFont {
-//    @Shared(.fontSize) var fontSize
-    let body = NSFont.preferredFont(size: size)
+    //    @Shared(.fontSize) var fontSize
+    let bodyFont = NSFont.preferredFont(size: size)
     return switch self {
-      case .body: body
+      case .body: bodyFont
       case .code: NSFont.preferredFont(size: size, design: .monospaced)
-      case .italic: body.italic()
-      case .bold: body.bold()
-      case .boldItalic: body.boldItalic()
+      case .italic: bodyFont.italic()
+      case .bold: bodyFont.bold()
+      case .boldItalic: bodyFont.boldItalic()
     }
   }
 }

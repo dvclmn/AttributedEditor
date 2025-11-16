@@ -14,18 +14,21 @@ import HighlighterCommon
 public class MarkdownHighlighter: Highlighter {
 
   private let areHeadersBig: Bool = false
-  package let fontSize: CGFloat
+//  package let fontSize: CGFloat
   let monospacedFontReduction: CGFloat = 0.88
+//
+//  public init(
+//    
+////    fontSize: CGFloat
+//  ) {
+////    self.fontSize = fontSize
+//  }
 
-  public init(
-    
-//    fontSize: CGFloat
-  ) {
-//    self.fontSize = fontSize
-  }
-
-  public func highlight(text: String) -> [NSRange: [NSAttributedString.Key: Any]] {
-    var attributes: [NSRange: [NSAttributedString.Key: Any]] = [:]
+  public func highlight(
+    text: String,
+    config: Editor.Configuration
+  ) -> AttributedRanges {
+    var attributes: AttributedRanges = [:]
     let nsString = text as NSString
 
     /// Order matters: block-level syntax first, then inline
@@ -43,7 +46,7 @@ public class MarkdownHighlighter: Highlighter {
   }
 
   public func blockRanges(text: String) -> [NSRange] {
-    // Return ranges for fenced code blocks that should have custom backgrounds
+    /// Return ranges for fenced code blocks that should have custom backgrounds
     var ranges: [NSRange] = []
     let pattern = "```[^\\n]*\\n[\\s\\S]*?```"
     guard let regex = try? NSRegularExpression(pattern: pattern) else { return ranges }
@@ -87,26 +90,9 @@ public class MarkdownHighlighter: Highlighter {
       ]
     }
   }
-  
-//  private func highlightFencedCodeBlocks(in text: NSString, attributes: inout [NSRange: [NSAttributedString.Key: Any]])
-//  {
-//    /// Match fenced code blocks: ```language\n...\n```
-//    /// [\s\S] matches any character including newlines
-//    let pattern = "```([A-Za-z0-9_+-]*)\\n([\\s\\S]*?)```"
-////    let pattern = "```[^\\n]*\\n[\\s\\S]*?```"
-//    guard let regex = try? NSRegularExpression(pattern: pattern) else { return }
-//
-//    let matches = regex.matches(in: text as String, range: NSRange(location: 0, length: text.length))
-//    for match in matches {
-//      attributes[match.range] = [
-//        .foregroundColor: codeBlockColor,
-//        .font: codeFont,
-//      ]
-//    }
-//  }
 
   private func highlightHeaders(in text: NSString, attributes: inout [NSRange: [NSAttributedString.Key: Any]]) {
-    // Match headers: # Header, ## Header, etc. (from start of line)
+    /// Match headers: # Header, ## Header, etc. (from start of line)
     let pattern = "^#{1,6}\\s+.+$"
     guard let regex = try? NSRegularExpression(pattern: pattern, options: .anchorsMatchLines) else { return }
 
