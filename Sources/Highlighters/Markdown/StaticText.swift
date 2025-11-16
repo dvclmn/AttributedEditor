@@ -21,6 +21,14 @@ public struct MarkdownRanges {
   }
 }
 
+//struct MarkdownRanges {
+//  let all: NSRange
+//  let leading: NSRange
+//  let content: NSRange
+//  let trailing: NSRange
+//}
+
+
 //public func styleMarkdownText(theme: MarkdownTheme, appHandler: AppHandler) -> AttributedString {
 //  // Use the cache
 //  let (_, attributedString) = appHandler.getCachedMarkdownRanges(for: self, theme: theme)

@@ -8,14 +8,14 @@
 import AppKit
 import ColourKit
 
-extension TextView {
+extension Editor {
   public struct Colours {
     let body: CodableColour
     let insertionPoint: CodableColour
   }
 }
 
-extension TextView.Colours {
+extension Editor.Colours {
   
   /// Falls back to system colour
   func nsColor(

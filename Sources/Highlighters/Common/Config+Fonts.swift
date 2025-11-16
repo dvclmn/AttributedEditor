@@ -18,20 +18,20 @@ extension TextView.Configuration {
     
   }
   
-  public var italicFont: NSFont {
-    let descriptor = defaultFont.fontDescriptor.withSymbolicTraits(.italic)
-    return NSFont(descriptor: descriptor, size: fontSize) ?? defaultFont
-  }
+//  public var italicFont: NSFont {
+//    let descriptor = defaultFont.fontDescriptor.withSymbolicTraits(.italic)
+//    return NSFont(descriptor: descriptor, size: fontSize) ?? defaultFont
+//  }
+//
+//  public var boldItalicFont: NSFont {
+//    let descriptor = defaultFont.fontDescriptor.withSymbolicTraits([.bold, .italic])
+////    let descriptor = systemFont.fontDescriptor.withSymbolicTraits([.bold, .italic])
+//    return NSFont(descriptor: descriptor, size: fontSize) ?? defaultFont
+//  }
 
-  public var boldItalicFont: NSFont {
-    let descriptor = defaultFont.fontDescriptor.withSymbolicTraits([.bold, .italic])
-//    let descriptor = systemFont.fontDescriptor.withSymbolicTraits([.bold, .italic])
-    return NSFont(descriptor: descriptor, size: fontSize) ?? defaultFont
-  }
-
-  public var boldFont: NSFont {
-    NSFont.boldSystemFont(ofSize: theme.fontSize)
-  }
+//  public var boldFont: NSFont {
+//    NSFont.boldSystemFont(ofSize: theme.fontSize)
+//  }
 
 //  public var mediumFont: NSFont {
 //    NSFont.systemFont(ofSize: theme.fontSize, weight: .medium)
@@ -43,7 +43,7 @@ extension TextView.Configuration {
 
 }
 
-extension TextView {
+extension Editor {
   public enum FontStyle {
     case body
     case code
@@ -52,7 +52,7 @@ extension TextView {
     case boldItalic
   }
 }
-extension TextView.FontStyle {
+extension Editor.FontStyle {
   public var font: NSFont {
     @Shared(.fontSize) var fontSize
     let body = NSFont.preferredFont(size: fontSize)

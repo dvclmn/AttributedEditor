@@ -8,7 +8,10 @@
 import AppKit
 import SwiftUI
 
-// MARK: - NSViewRepresentable Wrapper
+public enum KnownHighlighters {
+  case basic
+  case markdown
+}
 
 @MainActor
 public struct SourceEditorView: NSViewRepresentable {
@@ -17,25 +20,30 @@ public struct SourceEditorView: NSViewRepresentable {
   var highlighter: SyntaxHighlighter
   var inputBehaviors: [TextInputBehavior]
   let debounceInterval: TimeInterval
-  let fontSize: CGFloat
-  var showLineNumbers: Bool
+//  let fontSize: CGFloat
+//  var showLineNumbers: Bool
+  let config: Editor.Configuration
 
   public init(
     text: Binding<String>,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
+    highlighter: KnownHighlighters = .markdown,
     //    highlighter: SyntaxHighlighter,
-    inputBehaviors: [TextInputBehavior] = [],
+//    inputBehaviors: [TextInputBehavior] = [],
     debounceInterval: TimeInterval = 0.1,
-    fontSize: CGFloat = 14,
-    showLineNumbers: Bool = true,
+    config: Editor.Configuration
+//    fontSize: CGFloat = 14,
+//    showLineNumbers: Bool = true,
   ) {
     self._text = text
     self._cursorPosition = cursorPosition
-    self.highlighter = MarkdownSyntaxHighlighter(fontSize: fontSize)
-    self.inputBehaviors = inputBehaviors
+    self.highlighter = MarkdownHighlighter()
+//    self.highlighter = MarkdownSyntaxHighlighter(fontSize: fontSize)
+//    self.inputBehaviors = inputBehaviors
     self.debounceInterval = debounceInterval
-    self.fontSize = fontSize
-    self.showLineNumbers = showLineNumbers
+    self.config = config
+//    self.fontSize = fontSize
+//    self.showLineNumbers = showLineNumbers
   }
 
   public func makeNSView(context: Context) -> NSScrollView {
@@ -51,42 +59,15 @@ public struct SourceEditorView: NSViewRepresentable {
     /// Create and configure the text view
     let textView = BackingTextView()
     textView.delegate = context.coordinator
-    textView.isEditable = true
-    textView.isSelectable = true
-    textView.isRichText = false
-    textView.textColor = NSColor.labelColor
-    textView.drawsBackground = false
-    textView.isAutomaticQuoteSubstitutionEnabled = false
-    textView.isAutomaticDashSubstitutionEnabled = false
-    textView.isAutomaticSpellingCorrectionEnabled = false
-    textView.allowsUndo = true
-    textView.textContainer?.lineFragmentPadding = 14
-    textView.textContainerInset = NSSize(
-      width: 0,
-      height: 0
-    )
-    textView.font = Self.editorFont(size: fontSize)
+    textView.setUpTextView(config)
 
-    let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.lineSpacing = 1.8
-    textView.defaultParagraphStyle = paragraphStyle
-    textView.typingAttributes.updateValue(Self.editorFont(size: fontSize), forKey: .font)
-
-    /// Configure for continuous wrapping
-    textView.maxSize = NSSize(
-      width: CGFloat.greatestFiniteMagnitude,
-      height: CGFloat.greatestFiniteMagnitude
-    )
-    textView.isVerticallyResizable = true
-    textView.isHorizontallyResizable = false
-    textView.textContainer?.widthTracksTextView = true
     textView.textContainer?.containerSize = NSSize(
       width: scrollView.contentSize.width,
-      height: CGFloat.greatestFiniteMagnitude
+      height:  CGFloat.greatestFiniteMagnitude
     )
 
     /// Add line numbers if enabled
-    if showLineNumbers {
+    if config.options.contains(.lineNumbers) {
       let rulerView = LineNumberRulerView(textView: textView)
       scrollView.verticalRulerView = rulerView
       scrollView.hasVerticalRuler = true

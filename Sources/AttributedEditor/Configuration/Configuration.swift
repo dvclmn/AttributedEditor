@@ -10,7 +10,7 @@ import CoreTools
 import Sharing
 import SwiftUI
 
-public enum TextView {
+public enum Editor {
 
   /// X main categories;
   ///
@@ -20,6 +20,11 @@ public enum TextView {
   ///
   /// ## Grammar
   public struct Configuration {
+
+//    let isEditable: Bool
+
+    let options: Options
+    
     @Shared(.fontSize) var fontSize: CGFloat
     //    let fontSize: CGFloat
 
@@ -40,7 +45,8 @@ public enum TextView {
 
 }
 
-extension TextView.Configuration {
+extension Editor.Configuration {
+  var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
 
   public var codeBlockInsets: CGSize { insets.adjustLengths(by: 0.4) }
 

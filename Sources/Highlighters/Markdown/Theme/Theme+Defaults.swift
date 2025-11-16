@@ -48,10 +48,10 @@ extension Markdown.Syntax {
     }
   }
   
-  public func defaultFont(withSize size: CGFloat) -> FontConfig {
-//  public func defaultFont(withSize size: CGFloat = 14) -> FontConfig {
-    defaultStyle.preset(withSize: size)
-  }
+//  public func defaultFont(withSize size: CGFloat) -> FontConfig {
+////  public func defaultFont(withSize size: CGFloat = 14) -> FontConfig {
+//    defaultStyle.preset(withSize: size)
+//  }
 
 }
 
