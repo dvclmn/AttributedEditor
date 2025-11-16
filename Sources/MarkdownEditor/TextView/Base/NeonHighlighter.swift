@@ -6,11 +6,11 @@
 //
 
 import AppKit
-import Neon
-import SwiftTreeSitter
-import TreeSitterMarkdown
-import TreeSitterMarkdownInline
-import TreeSitterSwift
+//import Neon
+//import SwiftTreeSitter
+//import TreeSitterMarkdown
+//import TreeSitterMarkdownInline
+//import TreeSitterSwift
 
 extension MarkdownController {
   
@@ -18,15 +18,15 @@ extension MarkdownController {
     for textView: NSTextView,
     with config: EditorConfiguration
   ) throws -> TextViewHighlighter {
-
+    
     textView.typingAttributes = config.defaultTypingAttributes
     let controller = textView.window?.windowController as? MarkdownController
-
+    
     let provider: TokenAttributeProvider = { token in
-
+      
       controller?.currentTokens.append(token)
-//      print("Token: \(token)")
-
+      //      print("Token: \(token)")
+      
       return switch token.name {
         case let keyword where keyword.hasPrefix("punctuation"): [.foregroundColor: NSColor.red]
         case let keyword where keyword.hasPrefix("text.title"): [.foregroundColor: NSColor.green]
@@ -71,14 +71,15 @@ extension MarkdownController {
       },
       locationTransformer: { _ in nil }
     )
-
     
     
     
-
-
+    
+    
+    
     return try TextViewHighlighter(textView: textView, configuration: highlighterConfig)
-
+  }
+}
 
     //    textView.typingAttributes = config.defaultTypingAttributes
     //
@@ -181,7 +182,7 @@ extension MarkdownController {
     //
     //    return try TextViewHighlighter(textView: textView, configuration: highlighterConfig)
 
-  }
+//}
   //    let regularFont = NSFont.monospacedSystemFont(ofSize: 16, weight: .regular)
   //    let boldFont = NSFont.monospacedSystemFont(ofSize: 16, weight: .bold)
   ////    let italicDescriptor = regularFont.fontDescriptor.withSymbolicTraits(.traitItalic) ?? regularFont.fontDescriptor
@@ -243,26 +244,26 @@ extension MarkdownController {
   //    return try TextViewHighlighter(textView: textView, configuration: highlighterConfig)
   //  }
 
-}
+//}
 
-extension NSColor {
-  static let lightBlue = NSColor(
-    #colorLiteral(
-      red: 0.5372549295425415, green: 0.8666666746139526, blue: 0.9843137264251709, alpha: 1))
-  static let darkGrey = NSColor(
-    #colorLiteral(
-      red: 0.14509804546833038, green: 0.14509804546833038, blue: 0.16470588743686676, alpha: 1))
-  static let xcodePink = NSColor(
-    #colorLiteral(
-      red: 0.9333333373069763, green: 0.5058823823928833, blue: 0.6901960968971252, alpha: 1))
-  static let offWhite = NSColor(
-    #colorLiteral(
-      red: 0.8705882430076599, green: 0.8745098114013672, blue: 0.8745098114013672, alpha: 1))
-  static let xcodePurple = NSColor(
-    #colorLiteral(
-      red: 0.6705882549285889, green: 0.5137255191802979, blue: 0.8941176533699036, alpha: 1))
-  static let xcodeMint = NSColor(
-    #colorLiteral(
-      red: 0.729411780834198, green: 0.9411764740943909, blue: 0.8941176533699036, alpha: 1))
-
-}
+//extension NSColor {
+//  static let lightBlue = NSColor(
+//    #colorLiteral(
+//      red: 0.5372549295425415, green: 0.8666666746139526, blue: 0.9843137264251709, alpha: 1))
+//  static let darkGrey = NSColor(
+//    #colorLiteral(
+//      red: 0.14509804546833038, green: 0.14509804546833038, blue: 0.16470588743686676, alpha: 1))
+//  static let xcodePink = NSColor(
+//    #colorLiteral(
+//      red: 0.9333333373069763, green: 0.5058823823928833, blue: 0.6901960968971252, alpha: 1))
+//  static let offWhite = NSColor(
+//    #colorLiteral(
+//      red: 0.8705882430076599, green: 0.8745098114013672, blue: 0.8745098114013672, alpha: 1))
+//  static let xcodePurple = NSColor(
+//    #colorLiteral(
+//)
+//  static let xcodeMint = NSColor(
+//    #colorLiteral(
+//      red: 0.729411780834198, green: 0.9411764740943909, blue: 0.8941176533699036, alpha: 1))
+//
+//}

@@ -5,9 +5,9 @@
 //  Created by Dave Coleman on 10/10/2024.
 //
 
-import AppKit
+//import AppKit
 //import Glyph
-import Rearrange
+//import Rearrange
 
 //extension MarkdownTextView {
 //  

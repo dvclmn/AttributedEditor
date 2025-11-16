@@ -6,7 +6,7 @@
 //
 
 import AppKit
-import Rearrange
+//import Rearrange
 
 //public class MarkdownTextStorage: NSTextStorage {
 //

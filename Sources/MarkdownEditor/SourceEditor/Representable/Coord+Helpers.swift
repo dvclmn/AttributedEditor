@@ -14,10 +14,11 @@ extension SourceEditorView.Coordinator {
     let selectedRange = textView.selectedRange()
 
     DispatchQueue.main.async {
-      self.parent.cursorPosition = calculateInsertionPointPosition(
-        in: textView.string,
-        range: selectedRange
-      )
+      self.pare
+//      self.parent.cursorPosition = calculateInsertionPointPosition(
+//        in: textView.string,
+//        range: selectedRange
+//      )
       
       /// Update typing attributes so new text matches existing style
       self.syncTypingAttributes()

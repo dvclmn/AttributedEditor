@@ -5,9 +5,8 @@
 //  Created by Dave Coleman on 21/8/2024.
 //
 
-import Foundation
 import SwiftUI
-import BaseHelpers
+//import BaseHelpers
 
 public struct EditorConfiguration: Sendable, Equatable {
   
