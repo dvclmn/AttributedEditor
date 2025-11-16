@@ -1,0 +1,170 @@
+//
+//  Representible.swift
+//  BaseHelpers
+//
+//  Created by Dave Coleman on 15/11/2025.
+//
+
+import AppKit
+import SwiftUI
+
+// MARK: - NSViewRepresentable Wrapper
+
+@MainActor
+public struct SourceEditorView: NSViewRepresentable {
+  @Binding public var text: String
+  @Binding var cursorPosition: InsertionPointPosition?
+  var highlighter: SyntaxHighlighter
+  var inputBehaviors: [TextInputBehavior]
+  let debounceInterval: TimeInterval
+  let fontSize: CGFloat
+  var showLineNumbers: Bool
+
+  public init(
+    text: Binding<String>,
+    cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
+    //    highlighter: SyntaxHighlighter,
+    inputBehaviors: [TextInputBehavior] = [],
+    debounceInterval: TimeInterval = 0.1,
+    fontSize: CGFloat = 14,
+    showLineNumbers: Bool = true,
+  ) {
+    self._text = text
+    self._cursorPosition = cursorPosition
+    self.highlighter = MarkdownSyntaxHighlighter(fontSize: fontSize)
+    self.inputBehaviors = inputBehaviors
+    self.debounceInterval = debounceInterval
+    self.fontSize = fontSize
+    self.showLineNumbers = showLineNumbers
+  }
+
+  public func makeNSView(context: Context) -> NSScrollView {
+
+    /// Create the scroll view container
+    let scrollView = NSScrollView()
+    scrollView.hasVerticalScroller = true
+    scrollView.hasHorizontalScroller = false
+    scrollView.autohidesScrollers = true
+    scrollView.borderType = .noBorder
+    scrollView.drawsBackground = false
+
+    /// Create and configure the text view
+    let textView = BackgroundRenderingTextView()
+    textView.delegate = context.coordinator
+    textView.isEditable = true
+    textView.isSelectable = true
+    textView.isRichText = false
+    textView.textColor = NSColor.labelColor
+    textView.drawsBackground = false
+    textView.isAutomaticQuoteSubstitutionEnabled = false
+    textView.isAutomaticDashSubstitutionEnabled = false
+    textView.isAutomaticSpellingCorrectionEnabled = false
+    textView.allowsUndo = true
+    textView.textContainer?.lineFragmentPadding = 14
+    textView.textContainerInset = NSSize(
+      width: 0,
+      height: 0
+    )
+    textView.font = Self.editorFont(size: fontSize)
+
+    let paragraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.lineSpacing = 1.8
+    textView.defaultParagraphStyle = paragraphStyle
+    textView.typingAttributes.updateValue(Self.editorFont(size: fontSize), forKey: .font)
+
+    /// Configure for continuous wrapping
+    textView.maxSize = NSSize(
+      width: CGFloat.greatestFiniteMagnitude,
+      height: CGFloat.greatestFiniteMagnitude
+    )
+    textView.isVerticallyResizable = true
+    textView.isHorizontallyResizable = false
+    textView.textContainer?.widthTracksTextView = true
+    textView.textContainer?.containerSize = NSSize(
+      width: scrollView.contentSize.width,
+      height: CGFloat.greatestFiniteMagnitude
+    )
+
+    /// Add line numbers if enabled
+    if showLineNumbers {
+      let rulerView = LineNumberRulerView(textView: textView)
+      scrollView.verticalRulerView = rulerView
+      scrollView.hasVerticalRuler = true
+      scrollView.rulersVisible = true
+    }
+
+    scrollView.documentView = textView
+
+    /// Store the text view in the coordinator for later access
+    context.coordinator.textView = textView
+
+    // Post a notification when text view is scrolled so line numbers update
+    NotificationCenter.default.addObserver(
+      forName: NSView.boundsDidChangeNotification,
+      object: scrollView.contentView,
+      queue: .main
+    ) { _ in
+      scrollView.verticalRulerView?.needsDisplay = true
+    }
+
+    return scrollView
+  }
+
+  public func updateNSView(_ scrollView: NSScrollView, context: Context) {
+    guard let textView = scrollView.documentView as? BackgroundRenderingTextView else { return }
+
+    /// Only update if the text has changed externally (not from typing)
+    if textView.string != text {
+
+      /// Preserve cursor position
+      let selectedRange = textView.selectedRange()
+      textView.string = text
+      textView.setSelectedRange(selectedRange)
+
+      /// Apply highlighting immediately for external changes
+      context.coordinator.applyHighlighting()
+    }
+  }
+
+  public func makeCoordinator() -> Coordinator {
+    Coordinator(self)
+  }
+
+  //  public func makeCoordinator() -> Coordinator {
+  //    Coordinator(
+  //      text: $text,
+  //      cursorPosition: $cursorPosition,
+  //      highlighter: highlighter,
+  //      inputBehaviors: inputBehaviors,
+  //      debounceInterval: debounceInterval,
+  ////      fontSize: fontSize
+  //    )
+  //  }
+
+  static func editorFont(
+    size: CGFloat = 15,
+    weight: NSFont.Weight = .regular
+  ) -> NSFont {
+    NSFont.monospacedSystemFont(ofSize: size, weight: weight)
+  }
+}
+
+extension SourceEditorView {
+  //  public var defaultTypingAttributes: Attributes {
+  //    return [
+  //      .font: defaultFont,
+  //      .foregroundColor: theme.textColour.nsColour,
+  //      .paragraphStyle: defaultParagraphStyle,
+  //      TextBackground.inlineCode.attributeKey: false,
+  //      TextBackground.codeBlock.attributeKey: false,
+  //      TextBackground.highlight.attributeKey: false,
+  //    ]
+  //  }
+
+  //  public var defaultParagraphStyle: NSParagraphStyle {
+  //    let paragraphStyle = NSMutableParagraphStyle()
+  //    paragraphStyle.lineSpacing = 1.8
+  //
+  //    return paragraphStyle
+  //  }
+}

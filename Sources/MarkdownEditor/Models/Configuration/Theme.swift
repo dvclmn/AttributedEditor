@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import BaseStyles
-import MemberwiseInit
+//import BaseStyles
+//import MemberwiseInit
 //import BaseHelpers
 
-@MemberwiseInit(.public)
+//@MemberwiseInit(.public)
 public struct MarkdownTheme: Sendable, Equatable {
 
   public var fontSize: CGFloat = 14
