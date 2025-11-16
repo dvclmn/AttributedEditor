@@ -3,14 +3,14 @@
 import PackageDescription
 
 let package = Package(
-  name: "MarkdownEditor",
+  name: "AttributedEditor",
   platforms: [
     .macOS("14.0")
   ],
   products: [
     .library(
-      name: "MarkdownEditor",
-      targets: ["MarkdownEditor"]
+      name: "AttributedEditor",
+      targets: ["AttributedEditor"]
     )
   ],
   dependencies: [
@@ -20,10 +20,10 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "MarkdownEditor",
+      name: "AttributedEditor",
       dependencies: [
         .product(name: "ColourKit", package: "BaseHelpers"),
-        .product(name: "BaseUtils", package: "BaseHelpers"),
+        .product(name: "CoreTools", package: "BaseHelpers"),
         .product(name: "NSUI", package: "nsui")
       ]
     ),

@@ -11,50 +11,49 @@ import UIKit
 import AppKit
 #endif
 
-
 //@MemberwiseInit(.public)
 public struct Markdown {
 
-//  @MemberwiseInit(.public)
-//  public struct Element: Hashable, Sendable {
-//    public var string: String
-//    public var syntax: Markdown.Syntax
-//    public var ranges: Markdown.Ranges
-//
-//    /// These are really only for code block background, should
-//    /// probably split into a more dedicated type at some point.
-//    public var originY: CGFloat?
-//    public var rectHeight: CGFloat?
-//    
-//    public init(
-//      string: String,
-//      syntax: Markdown.Syntax,
-//      ranges: Markdown.Ranges,
-//      originY: CGFloat? = nil,
-//      rectHeight: CGFloat? = nil
-//    ) {
-//      self.string = string
-//      self.syntax = syntax
-//      self.ranges = ranges
-//      self.originY = originY
-//      self.rectHeight = rectHeight
-//    }
-//  }
-  
+  //  @MemberwiseInit(.public)
+  //  public struct Element: Hashable, Sendable {
+  //    public var string: String
+  //    public var syntax: Markdown.Syntax
+  //    public var ranges: Markdown.Ranges
+  //
+  //    /// These are really only for code block background, should
+  //    /// probably split into a more dedicated type at some point.
+  //    public var originY: CGFloat?
+  //    public var rectHeight: CGFloat?
+  //
+  //    public init(
+  //      string: String,
+  //      syntax: Markdown.Syntax,
+  //      ranges: Markdown.Ranges,
+  //      originY: CGFloat? = nil,
+  //      rectHeight: CGFloat? = nil
+  //    ) {
+  //      self.string = string
+  //      self.syntax = syntax
+  //      self.ranges = ranges
+  //      self.originY = originY
+  //      self.rectHeight = rectHeight
+  //    }
+  //  }
+
   public init() {
-    
+
   }
 }
 
 extension Markdown {
 
-//  @MemberwiseInit(.public)
+  //  @MemberwiseInit(.public)
   public struct Ranges: Sendable, Hashable {
     public var all: NSRange
     public var leading: NSRange
     public var content: NSRange
     public var trailing: NSRange
-    
+
     public init(all: NSRange, leading: NSRange, content: NSRange, trailing: NSRange) {
       self.all = all
       self.leading = leading
@@ -122,4 +121,3 @@ extension Markdown.Ranges: CustomStringConvertible {
 //    return result
 //  }
 //}
-

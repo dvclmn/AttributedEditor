@@ -30,7 +30,7 @@ extension Markdown.Syntax {
   }
 
 
-  public var regexPattern: String? {
+  public var regexLegacy: String? {
 
     let emphasisContent: String = "(.*?)"
 
