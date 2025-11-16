@@ -5,9 +5,9 @@
 //  Created by Dave Coleman on 15/11/2025.
 //
 
-import AppKit
+//import AppKit
 
-extension MarkdownHighlighter {
+//extension MarkdownHighlighter {
   
   /// Fonts
 //  package var codeFont: NSFont {
@@ -22,4 +22,4 @@ extension MarkdownHighlighter {
 //    let fontDescriptor = systemFont.fontDescriptor.withSymbolicTraits(.italic)
 //    return NSFont(descriptor: fontDescriptor, size: fontSize) ?? systemFont
 //  }
-}
+//}

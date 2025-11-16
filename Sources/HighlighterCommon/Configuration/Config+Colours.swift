@@ -12,6 +12,14 @@ extension Editor {
   public struct Colours {
     public let body: CodableColour
     public let insertionPoint: CodableColour
+    
+    public init(
+      body: CodableColour = .system(.primary),
+      insertionPoint: CodableColour = .system(.accentColor)
+    ) {
+      self.body = body
+      self.insertionPoint = insertionPoint
+    }
   }
 }
 

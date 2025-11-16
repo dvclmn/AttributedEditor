@@ -15,6 +15,7 @@ let package = Package(
         "HighlighterCommon",
         "MarkdownHighlighter",
         "BasicHighlighter",
+        "SwiftUIExample",
       ]
     )
   ],
@@ -39,7 +40,7 @@ let package = Package(
       name: "HighlighterCommon",
       dependencies: [
         .product(name: "CoreTools", package: "BaseHelpers"),
-        .product(name: "Sharing", package: "swift-sharing"),
+//        .product(name: "Sharing", package: "swift-sharing"),
       ]
     ),
     .target(
@@ -58,6 +59,17 @@ let package = Package(
         .product(name: "ColourKit", package: "BaseHelpers"),
         .product(name: "CoreTools", package: "BaseHelpers"),
         .product(name: "NSUI", package: "nsui"),
+      ]
+    ),
+    .target(
+      name: "SwiftUIExample",
+      dependencies: [
+        "HighlighterCommon",
+        "AttributedEditor",
+        "MarkdownHighlighter",
+//        .product(name: "ColourKit", package: "BaseHelpers"),
+//        .product(name: "CoreTools", package: "BaseHelpers"),
+//        .product(name: "NSUI", package: "nsui"),
       ]
     ),
   ]

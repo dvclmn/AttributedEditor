@@ -28,7 +28,7 @@ public struct AttributedEditorView: NSViewRepresentable {
   public init(
     text: Binding<String>,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
-//    highlighter: any Highlighter,
+    highlighter: any Highlighter,
 //    highlighter: KnownHighlighters = .markdown,
     //    highlighter: Highlighter,
 //    inputBehaviors: [TextInputBehavior] = [],
@@ -40,7 +40,7 @@ public struct AttributedEditorView: NSViewRepresentable {
     self._text = text
     self._cursorPosition = cursorPosition
     self.highlighter = highlighter
-//    self.highlighter = MarkdownHighlighter(fontSize: fontSize)
+//    self.highlighter = MarkdownHighlighter()
 //    self.inputBehaviors = inputBehaviors
     self.debounceInterval = debounceInterval
     self.config = config

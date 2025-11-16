@@ -27,8 +27,8 @@ public enum Editor {
 
     public let options: Options
 
-    @Shared(.fontSize) var fontSize: CGFloat
-    //    let fontSize: CGFloat
+//    @Shared(.fontSize) var fontSize: CGFloat
+        let fontSize: CGFloat
 
     /// A multiplier/factor, not absolute. E.g. `1.4`
     let lineSpacing: CGFloat
@@ -43,6 +43,24 @@ public enum Editor {
     let maxWidth: CGFloat?
 
     public let colours: Colours
+    
+    public init(
+      options: Options = [.editable, .lineNumbers],
+      fontSize: CGFloat = 15,
+      lineSpacing: CGFloat = 1.4,
+      insets: CGSize = CGSize(10, 20),
+      overScroll: CGFloat = 40,
+      maxWidth: CGFloat? = nil,
+      colours: Colours = .init()
+    ) {
+      self.options = options
+      self.fontSize = fontSize
+      self.lineSpacing = lineSpacing
+      self.insets = insets
+      self.overScroll = overScroll
+      self.maxWidth = maxWidth
+      self.colours = colours
+    }
   }
 }
 

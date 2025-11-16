@@ -26,7 +26,7 @@ extension Highlighter {
     attributedString.setAttributes(defaultAttributes, range: NSRange(location: 0, length: attributedString.length))
 
     /// Get highlighted ranges from the syntax highlighter
-    let highlightedRanges = self.highlight(text: currentText)
+    let highlightedRanges = self.highlight(text: currentText, config: config)
 
     /// Apply each highlighted range's attributes
     for (range, attributes) in highlightedRanges {

@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import HighlighterCommon
+import AttributedEditor
+import MarkdownHighlighter
 
 struct ContentView: View {
+  @State private var cursorPosition: InsertionPointPosition? = nil
+  
   @State private var editorText = """
     let greeting = "Hello, World!"
     var count = 42
@@ -34,10 +39,13 @@ struct ContentView: View {
     VStack(spacing: 0) {
       AttributedEditorView(
         text: $editorText,
-//        cursorPosition: <#T##Binding<InsertionPointPosition?>#>,
-        debounceInterval: <#T##TimeInterval#>,
-        config: <#T##Editor.Configuration#>
-      )
+        cursorPosition: $cursorPosition,
+        highlighter: MarkdownHighlighter(
+          rules: [SyntaxRule.link()]
+        ),
+        config: .init()
+        )
+        
       // Editor with syntax highlighting
 //      SourceEditorView(
 //        text: $editorText,

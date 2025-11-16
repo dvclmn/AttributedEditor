@@ -8,10 +8,9 @@
 import CoreTools
 import SwiftUI
 
-
 extension Markdown {
   @CaseDetection
-  public enum Syntax: Identifiable, Equatable, Hashable, Sendable {
+  public enum Syntax: String, Identifiable, Equatable, Hashable, Sendable {
 
     case body
     case heading1
@@ -20,7 +19,7 @@ extension Markdown {
     case heading4
     case heading5
     case heading6
-//    case heading(level: Int)
+    //    case heading(level: Int)
     case bold
     case italic
     case boldItalic
@@ -47,13 +46,13 @@ extension Markdown.Syntax {
 
     switch self {
       case .heading1: return "Heading 1"
-        case .heading2: return "Heading 2"
+      case .heading2: return "Heading 2"
       case .heading3: return "Heading 3"
       case .heading4: return "Heading 4"
       case .heading5: return "Heading 5"
       case .heading6: return "Heading 6"
-//      case .heading(let level):
-//        return "Heading \(level)"
+      //      case .heading(let level):
+      //        return "Heading \(level)"
 
       case .bold: return "Bold"
       case .italic: return "Italic"
@@ -74,16 +73,17 @@ extension Markdown.Syntax {
 
   }
 
-  public var type: Markdown.SyntaxKind {
-    switch self {
-      case .bold, .italic, .boldItalic, .strikethrough, .highlight, .inlineCode:
-        return .inline
-
-      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6, .codeBlock, .quoteBlock, .list, .link, .image, .horizontalRule, .body:
-        return .block
-
-    }
-  }
+  //  public var type: Markdown.SyntaxKind {
+  //    switch self {
+  //      case .bold, .italic, .boldItalic, .strikethrough, .highlight, .inlineCode:
+  //        return .inline
+  //
+  //      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6, .codeBlock, .quoteBlock, .list, .link,
+  //        .image, .horizontalRule, .body:
+  //        return .block
+  //
+  //    }
+  //  }
 
   public var isCodeSyntax: Bool {
     switch self {
