@@ -6,7 +6,7 @@
 //
 
 import AppKit
-
+import HighlighterCommon
 //import NSUI
 
 // MARK: - Markdown Syntax Highlighter
@@ -18,9 +18,10 @@ public class MarkdownHighlighter: Highlighter {
   let monospacedFontReduction: CGFloat = 0.88
 
   public init(
-    fontSize: CGFloat
+    
+//    fontSize: CGFloat
   ) {
-    self.fontSize = fontSize
+//    self.fontSize = fontSize
   }
 
   public func highlight(text: String) -> [NSRange: [NSAttributedString.Key: Any]] {

@@ -32,14 +32,21 @@ struct ContentView: View {
 
   var body: some View {
     VStack(spacing: 0) {
-      // Editor with syntax highlighting
-      SourceEditorView(
+      AttributedEditorView(
         text: $editorText,
-//        highlighter: MarkdownSyntaxHighlighter(),
-//        highlighter: BasicSyntaxHighlighter(),
-        debounceInterval: 0.3,
-        //        font: Font.body
+//        cursorPosition: <#T##Binding<InsertionPointPosition?>#>,
+        highlighter: Mark,
+        debounceInterval: <#T##TimeInterval#>,
+        config: <#T##Editor.Configuration#>
       )
+      // Editor with syntax highlighting
+//      SourceEditorView(
+//        text: $editorText,
+////        highlighter: MarkdownSyntaxHighlighter(),
+////        highlighter: BasicSyntaxHighlighter(),
+//        debounceInterval: 0.3,
+//        //        font: Font.body
+//      )
       .frame(maxWidth: .infinity, maxHeight: .infinity)
 
       Divider()

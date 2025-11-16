@@ -9,17 +9,17 @@ import SwiftUI
 
 public typealias StyledRanges = [Markdown.Syntax: [Range<AttributedString.Index>]]
 
-public struct MarkdownRanges {
-  public var ranges: StyledRanges
-  public var text: AttributedString
-  public init(
-    ranges: StyledRanges,
-    text: AttributedString
-  ) {
-    self.ranges = ranges
-    self.text = text
-  }
-}
+//public struct MarkdownRanges {
+//  public var ranges: StyledRanges
+//  public var text: AttributedString
+//  public init(
+//    ranges: StyledRanges,
+//    text: AttributedString
+//  ) {
+//    self.ranges = ranges
+//    self.text = text
+//  }
+//}
 
 //struct MarkdownRanges {
 //  let all: NSRange
@@ -35,7 +35,7 @@ public struct MarkdownRanges {
 //  return attributedString
 //}
 
-extension String {
+//extension String {
   /// Convenience function to create a styled AttributedString
 //  public func styleMarkdownText(
 //    theme: MarkdownTheme,
@@ -48,9 +48,9 @@ extension String {
 ////    attributedString.applyMarkdownTheme(theme)
 ////    return attributedString
 //  }
-}
+//}
 
-extension AttributedString {
+//extension AttributedString {
 //  mutating func applyMarkdownTheme(_ theme: MarkdownTheme) {
 //    /// Create a String copy once - more efficient than repeatedly accessing self.string
 //    let stringContent = self.string
@@ -101,25 +101,25 @@ extension AttributedString {
 //      }
 //    }
 //  }
-}
+//}
 
-extension AttributeContainer {
-  
-  public static func fromTheme(_ theme: MarkdownTheme, for type: Markdown.Syntax) -> AttributeContainer {
-    var container = AttributeContainer()
-    
-    /// Add foreground color
-    container.foregroundColor = theme.colors[forType: type]
-    container.backgroundColor = theme.colors[forType: type, forComponent: .background]
-    
-    /// Add font if available
-    if let fontConfig = theme.fonts.fonts[type] {
-      container.font = fontConfig.resolvedFont()
-    }
-    
-    return container
-  }
-  
+//extension AttributeContainer {
+//  
+//  public static func fromTheme(_ theme: MarkdownTheme, for type: Markdown.Syntax) -> AttributeContainer {
+//    var container = AttributeContainer()
+//    
+//    /// Add foreground color
+//    container.foregroundColor = theme.colors[forType: type]
+//    container.backgroundColor = theme.colors[forType: type, forComponent: .background]
+//    
+//    /// Add font if available
+//    if let fontConfig = theme.fonts.fonts[type] {
+//      container.font = fontConfig.resolvedFont()
+//    }
+//    
+//    return container
+//  }
+//}
   
   
   // Create an AttributeContainer from a MarkdownTheme for a specific markdown type
@@ -155,5 +155,5 @@ extension AttributeContainer {
 //    
 //    return container
 //  }
-}
+//}
 

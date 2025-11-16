@@ -23,10 +23,10 @@ public enum Editor {
   /// ## Grammar
   public struct Configuration {
 
-//    let isEditable: Bool
+    //    let isEditable: Bool
 
-    let options: Options
-    
+    public let options: Options
+
     @Shared(.fontSize) var fontSize: CGFloat
     //    let fontSize: CGFloat
 
@@ -35,20 +35,22 @@ public enum Editor {
 
     /// Note: `lineFragmentPadding` is leading and trailing,
     /// `textContainerInset` is top/bottom(?)
-    let insets: CGSize
+    public let insets: CGSize
     let overScroll: CGFloat
 
     /// Maximum comfortable reading width, where text
     /// stops growing and remains centered horizontally
     let maxWidth: CGFloat?
 
-    let colours: Colours
+    public let colours: Colours
   }
 }
 
 extension Editor.Configuration {
-  var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
-  var defaultColour: NSColor { colours.nsColor(for: \.body) }
+  public var minFontSize: CGFloat { 9 }
+  public var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
+  public var defaultColour: NSColor { colours.nsColor(for: \.body) }
+  public var codeFontSize: CGFloat { max(minFontSize, fontSize * 0.88) }
 
   public var codeBlockInsets: CGSize { insets.adjustLengths(by: 0.4) }
 
@@ -69,6 +71,40 @@ extension Editor.Configuration {
   }
 
 }
+
+//extension Editor.Configuration {
+
+//  public var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
+
+//  public func font(_ style: TextView.FontStyle) -> NSFont {
+//
+//  }
+//
+//  public var italicFont: NSFont {
+//    let descriptor = defaultFont.fontDescriptor.withSymbolicTraits(.italic)
+//    return NSFont(descriptor: descriptor, size: fontSize) ?? defaultFont
+//  }
+//
+//  public var boldItalicFont: NSFont {
+//    let descriptor = defaultFont.fontDescriptor.withSymbolicTraits([.bold, .italic])
+////    let descriptor = systemFont.fontDescriptor.withSymbolicTraits([.bold, .italic])
+//    return NSFont(descriptor: descriptor, size: fontSize) ?? defaultFont
+//  }
+
+//  public var boldFont: NSFont {
+//    NSFont.boldSystemFont(ofSize: theme.fontSize)
+//  }
+
+//  public var mediumFont: NSFont {
+//    NSFont.systemFont(ofSize: theme.fontSize, weight: .medium)
+//  }
+//
+//  public var codeFont: NSFont {
+//    NSFont.monospacedSystemFont(ofSize: codeFontSize, weight: .medium)
+//  }
+//
+//}
+
 //public struct EditorConfiguration: Sendable, Equatable {
 
 //  public var isEditable: Bool = false

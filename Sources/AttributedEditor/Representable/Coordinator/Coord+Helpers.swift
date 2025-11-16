@@ -8,9 +8,9 @@
 import AppKit
 import HighlighterCommon
 
-extension SourceEditorView.Coordinator {
+extension AttributedEditorView.Coordinator {
 
-  private func updateInsertionPointPosition() {
+  func updateInsertionPointPosition() {
     guard let textView else { return }
 
     DispatchQueue.main.async {
@@ -32,17 +32,17 @@ extension SourceEditorView.Coordinator {
   //  }
 
   func applyHighlighting() {
-//    let currentText = text
+    //    let currentText = text
     guard let textView else { return }
     let currentText = textView.string
     let highlighter = self.parent.highlighter
     highlighter.apply(
       currentText: currentText,
-      textView: self.textView,
+      textView: textView,
       config: self.parent.config
     )
     textView.updateBlockRanges(highlighter.blockRanges(text: currentText))
-//    self.parent.highlighter
-    
+    //    self.parent.highlighter
+
   }
 }

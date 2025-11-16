@@ -70,7 +70,7 @@ extension Markdown.Syntax {
   }
 
   public var nsRegex: NSRegularExpression? {
-    guard let pattern = self.regexPattern else { return nil }
+    guard let pattern = self.regexLegacy else { return nil }
 
     do {
       let regex = try NSRegularExpression(pattern: pattern, options: self.regexOptions)

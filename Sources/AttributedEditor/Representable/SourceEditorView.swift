@@ -15,7 +15,7 @@ import HighlighterCommon
 //}
 
 @MainActor
-public struct SourceEditorView: NSViewRepresentable {
+public struct AttributedEditorView: NSViewRepresentable {
   @Binding public var text: String
   @Binding var cursorPosition: InsertionPointPosition?
   var highlighter: any Highlighter
@@ -28,7 +28,7 @@ public struct SourceEditorView: NSViewRepresentable {
   public init(
     text: Binding<String>,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
-    highlighter: any Highlighter,
+//    highlighter: any Highlighter,
 //    highlighter: KnownHighlighters = .markdown,
     //    highlighter: Highlighter,
 //    inputBehaviors: [TextInputBehavior] = [],
@@ -132,7 +132,7 @@ public struct SourceEditorView: NSViewRepresentable {
   }
 }
 
-extension SourceEditorView {
+//extension SourceEditorView {
   //  public var defaultTypingAttributes: Attributes {
   //    return [
   //      .font: defaultFont,
@@ -150,4 +150,4 @@ extension SourceEditorView {
   //
   //    return paragraphStyle
   //  }
-}
+//}

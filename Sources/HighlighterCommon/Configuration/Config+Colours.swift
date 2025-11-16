@@ -10,15 +10,15 @@ import ColourKit
 
 extension Editor {
   public struct Colours {
-    let body: CodableColour
-    let insertionPoint: CodableColour
+    public let body: CodableColour
+    public let insertionPoint: CodableColour
   }
 }
 
 extension Editor.Colours {
   
   /// Falls back to system colour
-  func nsColor(
+  public func nsColor(
     for keyPath: KeyPath<Self, CodableColour>
   ) -> NSColor {
     return self[keyPath: keyPath].nsColor ?? .labelColor
