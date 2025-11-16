@@ -5,7 +5,8 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-import AppKit
+import SwiftUI
+import Sharing
 
 extension TextView.Configuration {
   var minFontSize: CGFloat { 9 }
@@ -13,7 +14,7 @@ extension TextView.Configuration {
   public var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
   public var codeFontSize: CGFloat { max(minFontSize, fontSize * 0.88) }
 
-  public func font(_ style: FontStyle) -> NSFont {
+  public func font(_ style: TextView.FontStyle) -> NSFont {
     
   }
   
@@ -53,17 +54,14 @@ extension TextView {
 }
 extension TextView.FontStyle {
   public var font: NSFont {
-    switch self {
-      case .body:
-        NSFont.preferredFont(size: fon)
-      case .code:
-        <#code#>
-      case .italic:
-        <#code#>
-      case .bold:
-        <#code#>
-      case .boldItalic:
-        <#code#>
+    @Shared(.fontSize) var fontSize
+    let body = NSFont.preferredFont(size: fontSize)
+    return switch self {
+      case .body: body
+      case .code: NSFont.preferredFont(size: fontSize, design: .monospaced)
+      case .italic: body.italic()
+      case .bold: body.bold()
+      case .boldItalic: body.boldItalic()
     }
   }
 }

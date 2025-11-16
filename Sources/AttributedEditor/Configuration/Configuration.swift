@@ -38,10 +38,6 @@ public enum TextView {
     let colours: Colours
   }
 
-  public struct Colours {
-    let body: CodableColour
-    let insertionPoint: CodableColour
-  }
 }
 
 extension TextView.Configuration {
@@ -51,7 +47,7 @@ extension TextView.Configuration {
   public var typingAttributes: TextAttributes {
     return [
       .font: defaultFont,
-      .foregroundColor: colours.body.nsColor,
+      .foregroundColor: colours.nsColor(for: \.body),
       .paragraphStyle: paragraphStyle,
 
     ]
@@ -59,7 +55,7 @@ extension TextView.Configuration {
 
   public var paragraphStyle: NSParagraphStyle {
     let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.lineSpacing = self.theme.lineHeight
+    paragraphStyle.lineSpacing = lineSpacing
 
     return paragraphStyle
   }
@@ -127,4 +123,3 @@ extension TextView.Configuration {
 //extension EditorConfiguration {
 
 //}
-

@@ -15,8 +15,8 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/dvclmn/BaseHelpers", branch: "main"),
-    .package(url: "https://github.com/dvclmn/BaseHelpers", branch: "main"),
-    .package(url: "https://github.com/pointfreeco/swift-sharing.git", from: "1.3.0"),
+    .package(url: "https://github.com/mattmassicotte/nsui", from: "1.3.0"),
+    .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
     
 
   ],
