@@ -25,7 +25,7 @@ public final class MarkdownHighlighter: Highlighter {
     let ns = text as NSString
     print("Highlighting text: \(text)")
     for rule in rules {
-      rule.apply(to: ns, attributes: &attributes)
+      rule.applyAttributes(to: ns, attributes: &attributes)
     }
     return attributes
   }

@@ -9,35 +9,43 @@ import AppKit
 import Foundation
 import HighlighterCommon
 
+// TODO: Will need to bring the regex options back, wasn't sure how to do for Swift Regex
 public struct SyntaxRule {
   public let syntax: Markdown.Syntax
   public let delimiter: DelimiterShape
   public let role: ContentRole
   public let captures: CaptureProfile
-  public let regexOptions: NSRegularExpression.Options
+//  public let regexOptions: NSRegularExpression.Options
   public let exposesBlockRange: Bool
 
   /// Called when a match is found
-  public let apply: (
-    NSTextCheckingResult,
-    NSString,
-    inout AttributedRanges
-  ) -> Void
+  //  public let apply: (
+  //    NSTextCheckingResult,
+  //    NSString,
+  //    inout AttributedRanges
+  //  ) -> Void
+
+  public let apply:
+    (
+      Regex<AnyRegexOutput>.Match,
+      //    NSString,
+      inout AttributedRanges
+    ) -> Void
 
   public init(
     syntax: Markdown.Syntax,
     delimiter: DelimiterShape,
     role: ContentRole,
     captures: CaptureProfile,
-    regexOptions: NSRegularExpression.Options = [],
+//    regexOptions: NSRegularExpression.Options = [],
     exposesBlockRange: Bool = false,
-    apply: @escaping (NSTextCheckingResult, NSString, inout AttributedRanges) -> Void
+    apply: @escaping (Regex<AnyRegexOutput>.Match, inout AttributedRanges) -> Void
   ) {
     self.syntax = syntax
     self.delimiter = delimiter
     self.role = role
     self.captures = captures
-    self.regexOptions = regexOptions
+//    self.regexOptions = regexOptions
     self.exposesBlockRange = exposesBlockRange
     self.apply = apply
   }
