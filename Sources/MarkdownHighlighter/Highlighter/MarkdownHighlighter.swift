@@ -41,23 +41,44 @@ public final class MarkdownHighlighter: Highlighter {
   }
 
   /// blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`
-  public func blockRanges(
-    text: String,
-  ) -> [NSRange] {
-    var ranges: [NSRange] = []
+  public func blockRanges(text: String) -> [NSRange] {
+    var output: [NSRange] = []
     let ns = text as NSString
     let fullRange = NSRange(location: 0, length: ns.length)
-
+    
     for rule in rules where rule.exposesBlockRange {
-      let pattern = rule.makePattern()
-      guard let regex = try? NSRegularExpression(pattern: pattern, options: rule.regexOptions) else { continue }
+      let pattern: String
+      do {
+        pattern = try PatternBuilder.buildPattern(for: rule)
+      } catch { continue }
+      
+      guard let regex = try? NSRegularExpression(pattern: pattern, options: rule.regexOptions)
+      else { continue }
+      
       let matches = regex.matches(in: text, range: fullRange)
-      for m in matches {
-        ranges.append(m.range(at: 0))
-      }
+      output.append(contentsOf: matches.map { $0.range(at: 0) })
     }
-    return ranges
+    
+    return output
   }
+
+//  public func blockRanges(
+//    text: String,
+//  ) -> [NSRange] {
+//    var ranges: [NSRange] = []
+//    let ns = text as NSString
+//    let fullRange = NSRange(location: 0, length: ns.length)
+//
+//    for rule in rules where rule.exposesBlockRange {
+//      let pattern = rule.makePattern()
+//      guard let regex = try? NSRegularExpression(pattern: pattern, options: rule.regexOptions) else { continue }
+//      let matches = regex.matches(in: text, range: fullRange)
+//      for m in matches {
+//        ranges.append(m.range(at: 0))
+//      }
+//    }
+//    return ranges
+//  }
 }
 
 struct SyntaxRulesThingy {
