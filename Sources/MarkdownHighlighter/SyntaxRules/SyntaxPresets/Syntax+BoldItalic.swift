@@ -10,30 +10,26 @@ import CoreTools
 
 extension SyntaxRule {
   static func bold(fontSize: CGFloat) -> SyntaxRule {
-    
+
     let pattern = /(?<leading>\*\*)(?<content>[^\*\*\n]+?)(?<trailing>\*\*)(?!\*)/
-    
-    let outputType = (
-      Substring,
-      leading: Substring,
-      content: Substring,
-      trailing: Substring
-    ).self
-    
+
     return SyntaxRule(
       syntax: .inlineCode,
       pattern: Regex(pattern)
     ) { match, text, attrs in
-      
-      guard let output = match.output.extractValues(as: outputType),
-            let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
+
+      guard let output = match.output.extractValues(as: RegexShape.three),
+        let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
       else {
         print("Failed to extract Values, or find content range")
         return
       }
-
-      attrs[rangeContent, default: [:]][.font] = NSFont.boldSystemFont(ofSize: fontSize)
-//      attrs[rangeContent, default: [:]][.foregroundColor] = NSColor.systemOrange
+      let font = NSFont.boldSystemFont(ofSize: fontSize)
+      attrs.updating(.font, with: font, in: rangeContent)
+      attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: rangeContent)
+      
+      //      attrs[rangeContent, default: [:]][.font] = NSFont.boldSystemFont(ofSize: fontSize)
+      //      attrs[rangeContent, default: [:]][.foregroundColor] =
     }
   }
 }
@@ -49,9 +45,9 @@ extension SyntaxRule {
 //      role: .inlineText,
 //      captures: .single(name: "body"),
 //    ) { match, attrs in
-//      
+//
 ////      let thing = match.output.extractValues(as: )
-//      
+//
 ////      guard let range = match.range(withName: "body").toOptional() else { return }
 ////      attrs[range, default: [:]][.font] = NSFont.boldSystemFont(ofSize: fontSize)
 //    }
@@ -64,7 +60,7 @@ extension SyntaxRule {
 //      role: .inlineText,
 //      captures: .single(name: "body")
 //    ) { match, attrs in
-//      
+//
 //      guard let range = match.range(withName: "body").toOptional() else { return }
 //      let base = NSFont.systemFont(ofSize: fontSize)
 //      attrs[range, default: [:]][.font] =
