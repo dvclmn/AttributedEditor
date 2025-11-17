@@ -5,7 +5,7 @@
 //  Created by Dave Coleman on 15/11/2025.
 //
 
-import AttributedEditor
+import EditorCore
 import CoreTools
 import HighlighterCommon
 import MarkdownHighlighter

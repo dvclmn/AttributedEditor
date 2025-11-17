@@ -11,6 +11,7 @@ let package = Package(
     .library(
       name: "AttributedEditor",
       targets: [
+        "EditorCore",
         "AttributedEditor",
         "HighlighterCommon",
         "MarkdownHighlighter",
@@ -28,6 +29,18 @@ let package = Package(
   targets: [
     .target(
       name: "AttributedEditor",
+      dependencies: [
+        "HighlighterCommon",
+        "EditorCore",
+        "MarkdownHighlighter",
+//        .product(name: "ColourKit", package: "BaseHelpers"),
+        .product(name: "CoreTools", package: "BaseHelpers"),
+//        .product(name: "NSUI", package: "nsui"),
+//        .product(name: "Sharing", package: "swift-sharing"),
+      ]
+    ),
+    .target(
+      name: "EditorCore",
       dependencies: [
         "HighlighterCommon",
         .product(name: "ColourKit", package: "BaseHelpers"),
@@ -65,7 +78,7 @@ let package = Package(
       name: "SwiftUIExample",
       dependencies: [
         "HighlighterCommon",
-        "AttributedEditor",
+        "EditorCore",
         "MarkdownHighlighter",
         .product(name: "CoreTools", package: "BaseHelpers"),
 //        .product(name: "ColourKit", package: "BaseHelpers"),
