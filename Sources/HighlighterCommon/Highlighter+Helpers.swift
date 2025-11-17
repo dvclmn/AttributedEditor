@@ -15,19 +15,24 @@ extension Highlighter {
     textView: NSTextView,
     config: Editor.Configuration,
   ) {
+//    print("Did apply highlighter")
     let attributedString = NSMutableAttributedString(string: currentText)
 
     /// Apply default attributes to the entire text
     let defaultAttributes: [NSAttributedString.Key: Any] = [
       .font: config.defaultFont,
-      //      .font: NSFont.systemFont(ofSize: parent.fontSize),
       .foregroundColor: config.defaultColour,
     ]
-    attributedString.setAttributes(defaultAttributes, range: NSRange(location: 0, length: attributedString.length))
+    attributedString.setAttributes(
+      defaultAttributes,
+      range: NSRange(location: 0, length: attributedString.length)
+    )
 
     /// Get highlighted ranges from the syntax highlighter
     let highlightedRanges = self.highlight(text: currentText)
 
+    print("Highlighted ranges: \(highlightedRanges)")
+    
     /// Apply each highlighted range's attributes
     for (range, attributes) in highlightedRanges {
       attributedString.addAttributes(attributes, range: range)

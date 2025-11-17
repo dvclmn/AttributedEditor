@@ -32,17 +32,16 @@ extension AttributedEditorView.Coordinator {
   //  }
 
   func applyHighlighting() {
-    //    let currentText = text
     guard let textView else { return }
     let currentText = textView.string
     let highlighter = self.parent.highlighter
+    
     highlighter.apply(
       currentText: currentText,
       textView: textView,
       config: self.parent.config
     )
     textView.updateBlockRanges(highlighter.blockRanges(text: currentText))
-    //    self.parent.highlighter
 
   }
 }

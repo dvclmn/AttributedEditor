@@ -5,6 +5,7 @@
 //  Created by Dave Coleman on 17/11/2025.
 //
 
+import CoreTools
 import Foundation
 import HighlighterCommon
 
@@ -20,7 +21,17 @@ extension SyntaxRule {
 
     //    let matches = text.matches(of: self.pattern)
     for match in matches {
-      self.apply(match, text, &attributes)
+
+      //      DisplayString {
+      //        Divider()
+      //        Indented("Match") {
+      //          Labeled("Element count", value: match.count)
+      //          Labeled("Element count", value: match.output.toString)
+      //        }
+      //      }.print()
+
+      //      print("Here's a match: \(match)")
+      apply(match, text, &attributes)
     }
   }
 

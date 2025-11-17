@@ -24,7 +24,7 @@ public final class MarkdownHighlighter: Highlighter {
     var attributes: AttributedRanges = [:]
     //    let ns = text as NSString
 
-    let debug: String = DisplayString {
+    DisplayString {
       "\n\n//////"
       //      Labeled("Text to highlight", value: "\n\"\(text.truncate(to: 90))\"\n\n")
       Indented("Rules") {
@@ -32,8 +32,7 @@ public final class MarkdownHighlighter: Highlighter {
         Labeled("Name", value: rules.map(\.syntax.name))
       }
 
-    }.plainText
-    print(debug)
+    }.print()
 
     for rule in rules {
       rule.applyAttributes(to: text, attributes: &attributes)

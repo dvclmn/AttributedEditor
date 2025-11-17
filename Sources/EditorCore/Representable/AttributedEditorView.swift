@@ -65,7 +65,7 @@ extension AttributedEditorView {
     /// Store the text view in the coordinator for later access
     context.coordinator.textView = textView
 
-    // Post a notification when text view is scrolled so line numbers update
+    /// Post a notification when text view is scrolled so line numbers update
     NotificationCenter.default.addObserver(
       forName: NSView.boundsDidChangeNotification,
       object: scrollView.contentView,

@@ -25,7 +25,8 @@ public struct AttributedEditor: View {
     let highlighter: MarkdownHighlighter = .init(
       config: .init(
         isEditable: true,
-        options: [.lineNumbers],
+        options: [],
+//        options: [.lineNumbers],
         fontSize: fontSize,
         lineSpacing: 1.8,
         insets: CGSize(20, 40),
@@ -38,7 +39,6 @@ public struct AttributedEditor: View {
   }
 
   public var body: some View {
-
     AttributedEditorView(text: $text, highlighter: markdownHighlighter)
 
   }

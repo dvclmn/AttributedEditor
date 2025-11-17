@@ -35,12 +35,32 @@ extension SyntaxRule {
     ) { match, text, attrs in
       guard let output = match.output.extractValues(as: outputType) else { return }
 
-      let rangeLeading = Range(output.leading.indices).toNSRange(in: text)
+      guard let rangeContent = text.range(of: output.content)?.toNSRange(in: text) else {
+        print("Failed to find content range")
+        return
+      }
+      
+      DisplayString {
+        Indented("Output") {
+          Labeled("Leading", value: output.leading)
+          Labeled("Content", value: output.content)
+          Labeled("Trailing", value: output.trailing)
+        }
+        Labeled("NSRange", value: rangeContent.description)
+      }.print()
+      
+//      output.content
+      
+//      let range = mat
+      
+//      let nsRange = match.range.toNSRange(in: text)
+//      let rangeLeading = Range(output.leading.indices).toNSRange(in: text)
       //
       ////        .range.toNSRange(in: text)
       //
-      attrs[rangeLeading]?[.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
-      attrs[rangeLeading]?[.foregroundColor] = NSColor.systemOrange
+      attrs[rangeContent, default: [:]][.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
+//      attrs[rangeContent]?[.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
+      attrs[rangeContent, default: [:]][.foregroundColor] = NSColor.systemOrange
     }
 
     //
