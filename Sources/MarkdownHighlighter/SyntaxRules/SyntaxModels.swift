@@ -25,10 +25,3 @@ public enum ContentRole: Sendable {
   case ignored
 }
 
-public enum CaptureProfile: Sendable {
-  case none
-  case single(name: String)  // one named capture
-  case two(name1: String, name2: String)  // two named captures
-  case three(name1: String, name2: String, name3: String)
-  case blockBody(name: String)  // capture the block body
-}

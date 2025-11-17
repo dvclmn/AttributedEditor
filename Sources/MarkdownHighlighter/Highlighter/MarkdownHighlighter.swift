@@ -23,23 +23,9 @@ public final class MarkdownHighlighter: Highlighter {
     let ns = text as NSString
     for rule in rules {
       rule.apply(to: ns, attributes: &attributes)
-      //      apply(rule, to: ns, attributes: &attributes)
     }
     return attributes
   }
-
-  //  private func apply(
-  //    _ rule: SyntaxRule,
-  //    to text: NSString,
-  //    attributes: inout AttributedRanges
-  //  ) {
-  //    let pattern = rule.apply(<#NSTextCheckingResult#>, text, &attributes)
-  //    guard let regex = try? NSRegularExpression(pattern: pattern, options: rule.regexOptions) else { return }
-  //    let matches = regex.matches(in: text as String, range: NSRange(location: 0, length: text.length))
-  //    for match in matches {
-  //      rule.apply(match, text, &attributes)
-  //    }
-  //  }
 
   /// blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`
   public func blockRanges(text: String) -> [NSRange] {
