@@ -9,9 +9,9 @@ enum DefaultPattern {
   static func build(captures: CaptureProfile) -> String {
     switch captures {
       case .single(let name):
-        return "(?<\(name)>[\\s\\S]+?)"
+        "(?<\(name)>[\\s\\S]+?)"
       default:
-        return "([\\s\\S]+?)"
+        "([\\s\\S]+?)"
     }
   }
 }
