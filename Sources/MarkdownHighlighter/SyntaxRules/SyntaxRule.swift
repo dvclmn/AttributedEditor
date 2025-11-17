@@ -18,8 +18,9 @@ public typealias SyntaxOutput = (
 // TODO: Will need to bring the regex options back, wasn't sure how to do for Swift Regex
 public struct SyntaxRule {
 //public struct SyntaxRule<T: RegexComponent> {
+//public struct SyntaxRule<T: RegexComponent> {
   public let syntax: Markdown.Syntax
-  public let pattern: any RegexComponent
+  public let pattern: Regex<AnyRegexOutput>
 //  public let delimiter: DelimiterShape
 //  public let role: ContentRole
 //  public let captures: CaptureProfile
@@ -38,7 +39,7 @@ public struct SyntaxRule {
 
   public init(
     syntax: Markdown.Syntax,
-    pattern: any RegexComponent,
+    pattern: Regex<AnyRegexOutput>,
 //    delimiter: DelimiterShape,
 //    role: ContentRole,
 //    captures: CaptureProfile,

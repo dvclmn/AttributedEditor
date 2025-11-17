@@ -5,7 +5,7 @@
 //  Created by Dave Coleman on 17/11/2025.
 //
 
-import Foundation
+//import Foundation
 
 //public enum RuleValidationError: Error, CustomStringConvertible {
 //  case incompatible(delimiter: DelimiterShape, captures: CaptureProfile)
