@@ -9,7 +9,11 @@ import AppKit
 import Foundation
 import HighlighterCommon
 
-public typealias SyntaxOutput = (Regex<AnyRegexOutput>.Match, inout AttributedRanges) -> Void
+public typealias SyntaxOutput = (
+  Regex<AnyRegexOutput>.Match,
+  String,
+  inout AttributedRanges
+) -> Void
 
 // TODO: Will need to bring the regex options back, wasn't sure how to do for Swift Regex
 public struct SyntaxRule {
@@ -23,13 +27,13 @@ public struct SyntaxRule {
 //  public let regexOptions: NSRegularExpression.Options
   public let exposesBlockRange: Bool
 
-  /// Called when a match is found
   //  public let apply: (
   //    NSTextCheckingResult,
   //    NSString,
   //    inout AttributedRanges
   //  ) -> Void
 
+  /// Called when a match is found
   public let apply: SyntaxOutput
 
   public init(

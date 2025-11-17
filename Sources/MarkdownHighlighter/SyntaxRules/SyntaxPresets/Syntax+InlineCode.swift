@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import CoreTools
 
 extension SyntaxRule {
   static func inlineCode(fontSize: CGFloat) -> SyntaxRule {
@@ -17,10 +18,15 @@ extension SyntaxRule {
 //      delimiter: .wrapper(prefix: "`", suffix: "`"),
 //      role: .inlineText,
 //      captures: .single(name: captureName)
-    ) { match, attrs in
-      guard let range = match.range(withName: captureName).toOptional() else { return }
-      attrs[range, default: [:]][.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
-      attrs[range, default: [:]][.foregroundColor] = NSColor.systemOrange
+    ) { match, text, attrs in
+      
+//      guard let range = match.range.toNSRange(in: text) else { return }
+      let range = match.range.toNSRange(in: text)
+      
+      attrs[range]?[.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
+      attrs[range]?[.foregroundColor] = NSColor.systemOrange
+      
+//      guard let range = match.range(withName: captureName).toOptional() else { return }
     }
   }
 

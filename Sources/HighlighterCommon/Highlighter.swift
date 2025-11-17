@@ -21,7 +21,7 @@ public protocol Highlighter {
 
 extension Highlighter {
   /// Default implementation returns no block ranges
-  func blockRanges(text: String) -> [NSRange] {
+  public func blockRanges(text: String) -> [NSRange] {
     return []
   }
 }
