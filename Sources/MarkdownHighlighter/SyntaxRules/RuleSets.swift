@@ -16,14 +16,13 @@ import HighlighterCommon
 public enum MarkdownRules {
   public static func defaultSet(fontSize: CGFloat) -> [SyntaxRule] {
     [
-      heading(fontSize: fontSize),
-      blockquote(fontSize: fontSize),
-      fencedCodeBlock(fontSize: fontSize),
-      
-      bold(fontSize: fontSize),
-      italic(fontSize: fontSize),
-      inlineCode(fontSize: fontSize),
-      link(fontSize: fontSize),
+      .heading(fontSize: fontSize),
+      .blockquote(fontSize: fontSize),
+      .fencedCodeBlock(fontSize: fontSize),
+      .bold(fontSize: fontSize),
+      .italic(fontSize: fontSize),
+      .inlineCode(fontSize: fontSize),
+      .link(fontSize: fontSize),
     ]
   }
 }
