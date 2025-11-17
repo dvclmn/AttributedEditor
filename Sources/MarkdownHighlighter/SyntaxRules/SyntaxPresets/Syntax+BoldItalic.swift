@@ -16,10 +16,13 @@ extension SyntaxRule {
       syntax: .bold,
       delimiter: .wrapper(prefix: "**", suffix: "**"),
       role: .inlineText,
-      captures: .single(name: "body")
-    ) { match, text, attrs in
-      guard let range = match.range(withName: "body").toOptional() else { return }
-      attrs[range, default: [:]][.font] = NSFont.boldSystemFont(ofSize: fontSize)
+      captures: .single(name: "body"),
+    ) { match, attrs in
+      
+//      let thing = match.output.extractValues(as: )
+      
+//      guard let range = match.range(withName: "body").toOptional() else { return }
+//      attrs[range, default: [:]][.font] = NSFont.boldSystemFont(ofSize: fontSize)
     }
   }
 
@@ -29,7 +32,8 @@ extension SyntaxRule {
       delimiter: .wrapper(prefix: "*", suffix: "*"),
       role: .inlineText,
       captures: .single(name: "body")
-    ) { match, text, attrs in
+    ) { match, attrs in
+      
       guard let range = match.range(withName: "body").toOptional() else { return }
       let base = NSFont.systemFont(ofSize: fontSize)
       attrs[range, default: [:]][.font] =

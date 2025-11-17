@@ -16,7 +16,7 @@ extension SyntaxRule {
       delimiter: .paired(prefix: "[", mid: "](", suffix: ")"),
       role: .labelAndDestination,
       captures: .two(name1: "label", name2: "dest")
-    ) { match, text, attrs in
+    ) { match, attrs in
       if let label = match.range(withName: "label").toOptional() {
         attrs[label, default: [:]][.foregroundColor] = NSColor.systemBlue
         attrs[label, default: [:]][.underlineStyle] = NSUnderlineStyle.single.rawValue

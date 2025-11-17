@@ -18,6 +18,7 @@ public struct SyntaxRule {
   public let delimiter: DelimiterShape
   public let role: ContentRole
   public let captures: CaptureProfile
+//  public let regexOutput: any Rege
 //  public let regexOptions: NSRegularExpression.Options
   public let exposesBlockRange: Bool
 
@@ -35,6 +36,7 @@ public struct SyntaxRule {
     delimiter: DelimiterShape,
     role: ContentRole,
     captures: CaptureProfile,
+//    regexComponent: any RegexComponent,
 //    regexOptions: NSRegularExpression.Options = [],
     exposesBlockRange: Bool = false,
     apply: @escaping SyntaxOutput
@@ -44,6 +46,7 @@ public struct SyntaxRule {
     self.delimiter = delimiter
     self.role = role
     self.captures = captures
+//    self.regexOutput = regexComponent
 //    self.regexOptions = regexOptions
     self.exposesBlockRange = exposesBlockRange
     self.apply = apply

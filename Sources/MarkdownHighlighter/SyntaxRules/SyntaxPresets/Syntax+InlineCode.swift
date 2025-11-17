@@ -15,7 +15,7 @@ extension SyntaxRule {
       delimiter: .wrapper(prefix: "`", suffix: "`"),
       role: .inlineText,
       captures: .single(name: captureName)
-    ) { match, text, attrs in
+    ) { match, attrs in
       guard let range = match.range(withName: captureName).toOptional() else { return }
       attrs[range, default: [:]][.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
       attrs[range, default: [:]][.foregroundColor] = NSColor.systemOrange

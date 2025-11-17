@@ -32,10 +32,10 @@ extension SyntaxRule {
     }
   }
 
-  func applyAttributes(
-    to text: NSString,
-    attributes: inout AttributedRanges
-  ) {
+//  func applyAttributes(
+//    to text: NSString,
+//    attributes: inout AttributedRanges
+//  ) {
 
     //    let pattern: String
     //    let regex: NSRegularExpression
@@ -56,6 +56,6 @@ extension SyntaxRule {
     //    for match in matches {
     //      apply(match, text, &attributes)
     //    }
-  }
+//  }
 
 }

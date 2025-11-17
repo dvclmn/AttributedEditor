@@ -33,6 +33,14 @@ public enum CaptureProfile: Sendable {
   case blockBody(name: String)  // capture the block body
 }
 
+//public enum CaptureOutput<T: RegexComponent>: Sendable {
+//  case none
+//  case single()
+//  case two(name1: String, name2: String)
+//  case three(name1: String, name2: String, name3: String)
+//  case blockBody(name: String)  // capture the block body
+//}
+
 extension CaptureProfile {
   /// Number of captures expressed by this profile
   public var count: Int {

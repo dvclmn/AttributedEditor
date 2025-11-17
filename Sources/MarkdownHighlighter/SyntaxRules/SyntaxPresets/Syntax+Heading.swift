@@ -16,7 +16,7 @@ extension SyntaxRule {
       role: .blockText,
       captures: .single(name: "text"),
       regexOptions: [.anchorsMatchLines],
-    ) { match, text, attrs in
+    ) { match, attrs in
       guard let range = match.range(withName: "text").toOptional() else { return }
       attrs[range, default: [:]][.font] =
       NSFont.systemFont(ofSize: fontSize * 1.4, weight: .bold)

@@ -16,7 +16,7 @@ extension SyntaxRule {
       captures: .single(name: "body"),
       regexOptions: [.anchorsMatchLines],
 //      exposesBlockRange: true
-    ) { match, text, attrs in
+    ) { match, attrs in
       guard let range = match.range(withName: "body").toOptional() else { return }
       attrs[range, default: [:]][.foregroundColor] = NSColor.systemGray
     }
