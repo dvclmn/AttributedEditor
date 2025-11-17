@@ -14,23 +14,23 @@ import HighlighterCommon
 ///
 /// Inline rules after (bold, italic, code spans, links)
 public enum MarkdownRules {
-  public static func defaultSet(fontSize: CGFloat) -> [SyntaxRule] {
-    [
-//      .heading(fontSize: fontSize),
-//      .blockquote(fontSize: fontSize),
-//      .fencedCodeBlock(fontSize: fontSize),
-      
-//      .italic(fontSize: fontSize),
-      .inlineCode(fontSize: fontSize),
-//      .link(fontSize: fontSize),
-    ]
-  }
+//  public static func defaultSet(fontSize: CGFloat) -> [SyntaxRule] {
+//    [
+//      //      .heading(fontSize: fontSize),
+//      //      .blockquote(fontSize: fontSize),
+//      //      .fencedCodeBlock(fontSize: fontSize),
+//
+//      //      .italic(fontSize: fontSize),
+//      .inlineCode(fontSize: fontSize)
+//      //      .link(fontSize: fontSize),
+//    ]
+//  }
 
   public static func testSet(fontSize: CGFloat) -> [SyntaxRule] {
     [
-
       .inlineCode(fontSize: fontSize),
       .bold(fontSize: fontSize),
+      .italic(fontSize: fontSize),
     ]
   }
 }

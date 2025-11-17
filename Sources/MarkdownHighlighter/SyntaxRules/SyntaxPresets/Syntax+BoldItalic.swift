@@ -13,26 +13,63 @@ extension SyntaxRule {
 
     let pattern = /(?<leading>\*\*)(?<content>[^\*\*\n]+?)(?<trailing>\*\*)(?!\*)/
 
-//    let shape = RegexShape.three(RegexShape.threePreset)
-    
     return SyntaxRule(
-      syntax: .inlineCode,
+      syntax: .bold,
       pattern: Regex(pattern),
-//      regexShape: shape
+    ) {
+      match,
+      text,
+      attrs in
+
+      //      guard let output = match.output.extractValues(as: RegexShape.threePreset),
+      //        let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
+      //      else { return }
+      guard
+        let range = NSRange(
+          from: match,
+          as: RegexShape.three,
+          keyPath: \.content,
+          in: text
+        )
+      else { return }
+      let font = NSFont.boldSystemFont(ofSize: fontSize)
+      attrs.updating(.font, with: font, in: range)
+
+    }
+  }
+
+  static func italic(fontSize: CGFloat) -> SyntaxRule {
+
+    let pattern = /(?<leading>\*)(?<content>[^\*\n]+?)(?<trailing>\*)(?!\*)/
+
+    return SyntaxRule(
+      syntax: .italic,
+      pattern: Regex(pattern),
     ) { match, text, attrs in
 
-      guard let output = match.output.extractValues(as: RegexShape.threePreset),
-        let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
-      else {
-        print("Failed to extract Values, or find content range")
-        return
-      }
-      let font = NSFont.boldSystemFont(ofSize: fontSize)
-      attrs.updating(.font, with: font, in: rangeContent)
-//      attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: rangeContent)
+      //      guard let output = match.output.extractValues(as: RegexShape.threePreset),
+      //            let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
+      //      else { return }
+      guard
+        let range = NSRange(
+          from: match,
+          as: RegexShape.three,
+          keyPath: \.content,
+          in: text
+        )
+      else { return }
+
+      let font = NSFont.systemItalicFont(ofSize: fontSize)
+//      let system = NSFont.systemFont(ofSize: fontSize)
+//      let desc = system.fontDescriptor.withSymbolicTraits(.traitItalic)
+//      let font = system.italic()
+//      let font = NSFont(descriptor: desc, size: fontSize) ?? system
       
-      //      attrs[rangeContent, default: [:]][.font] = NSFont.boldSystemFont(ofSize: fontSize)
-      //      attrs[rangeContent, default: [:]][.foregroundColor] =
+      
+      
+      attrs.updating(.font, with: font, in: range)
+//      attrs.updating(.foregroundColor, with: NSColor.systemPink, in: range)
+
     }
   }
 }

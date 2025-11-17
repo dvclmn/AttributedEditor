@@ -19,7 +19,7 @@ public enum RegexShape {
     content: Substring,
     trailing: Substring
   )
-  static var threePreset: Three.Type { Three.self }
+  public static var three: Three.Type { Three.self }
 }
 
 extension AttributedRanges {
@@ -32,6 +32,25 @@ extension AttributedRanges {
   ) {
     self[range, default: [:]][key] = value
     //    attributedRanges[range, default: [:]][key] = value
+  }
+}
+extension NSRange {
+  public init?<T>(
+    from match: Regex<AnyRegexOutput>.Match,
+    as outputType: T.Type,
+    keyPath: KeyPath<T, Substring>,
+    //    keyPath: PartialKeyPath<Regex<AnyRegexOutput>.Match>,
+    in text: String
+  ) {
+    guard let output = match.output.extractValues(as: outputType) else { return nil }
+    let substring = output[keyPath: keyPath]
+    guard let range = text.range(of: substring)?.toNSRange(in: text) else { return nil }
+    self = range
+
+    //    guard let output = match.output.extractValues(as: outputType),
+    //          let rangeContent = text.range(of: output[keyPath: keyPath])?.toNSRange(in: text)
+    //    else { return nil }
+
   }
 }
 
