@@ -15,7 +15,6 @@ extension SyntaxRule {
       role: .inlineText,
       captures: .none,
       regexOptions: [.anchorsMatchLines],
-      exposesBlockRange: false,
       apply: { match, text, attributes in
         let r = match.range(at: 0)
         attributes[r] = [.foregroundColor: NSColor.quaternaryLabelColor]

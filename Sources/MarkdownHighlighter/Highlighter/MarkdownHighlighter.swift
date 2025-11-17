@@ -6,18 +6,15 @@
 //
 
 import AppKit
-import HighlighterCommon
 import CoreTools
+import HighlighterCommon
 
 public final class MarkdownHighlighter: Highlighter {
   public var editorConfig: Editor.Configuration
-  
+
   var rules: [SyntaxRule] {
-    MarkdownRules.defaultSet(fontSize: editorConfig.fontSize)
+    MarkdownRules.testSet(fontSize: editorConfig.fontSize)
   }
-//  var rules: [SyntaxRule] {
-//    SyntaxRulesThingy.defaultSet(fontSize: editorConfig.fontSize)
-//  }
 
   public init(config: Editor.Configuration) {
     self.editorConfig = config
@@ -75,9 +72,9 @@ public final class MarkdownHighlighter: Highlighter {
 }
 
 //struct SyntaxRulesThingy {
-  //  let fontSize: CGFloat
-  //  let config: Editor.Configuration
-  //  let rules: [SyntaxRule]
+//  let fontSize: CGFloat
+//  let config: Editor.Configuration
+//  let rules: [SyntaxRule]
 //}
 //extension SyntaxRulesThingy {
 //

@@ -25,4 +25,11 @@ public enum MarkdownRules {
       .link(fontSize: fontSize),
     ]
   }
+
+  public static func testSet(fontSize: CGFloat) -> [SyntaxRule] {
+    [
+      .bold(fontSize: fontSize),
+      .inlineCode(fontSize: fontSize),
+    ]
+  }
 }

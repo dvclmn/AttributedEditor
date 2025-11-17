@@ -9,13 +9,14 @@ import AppKit
 
 extension SyntaxRule {
   static func inlineCode(fontSize: CGFloat) -> SyntaxRule {
-    SyntaxRule(
+    let captureName: String = "code"
+    return SyntaxRule(
       syntax: .inlineCode,
       delimiter: .wrapper(prefix: "`", suffix: "`"),
       role: .inlineText,
-      captures: .single(name: "code")
+      captures: .single(name: captureName)
     ) { match, text, attrs in
-      guard let range = match.range(withName: "code").toOptional() else { return }
+      guard let range = match.range(withName: captureName).toOptional() else { return }
       attrs[range, default: [:]][.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
       attrs[range, default: [:]][.foregroundColor] = NSColor.systemOrange
     }

@@ -16,7 +16,6 @@ extension SyntaxRule {
       role: .blockText,
       captures: .single(name: "text"),
       regexOptions: [.anchorsMatchLines],
-      exposesBlockRange: true
     ) { match, text, attrs in
       guard let range = match.range(withName: "text").toOptional() else { return }
       attrs[range, default: [:]][.font] =

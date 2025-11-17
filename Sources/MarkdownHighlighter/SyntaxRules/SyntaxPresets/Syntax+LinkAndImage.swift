@@ -31,7 +31,6 @@ extension SyntaxRule {
       role: .labelAndDestination,
       captures: .two(name1: "alt", name2: "src"),
       regexOptions: [],
-      exposesBlockRange: false,
       apply: { match, text, attributes in
         if match.range(named: "alt").location != NSNotFound {
           attributes[match.range(named: "alt")] = [.foregroundColor: NSColor.secondaryLabelColor]
