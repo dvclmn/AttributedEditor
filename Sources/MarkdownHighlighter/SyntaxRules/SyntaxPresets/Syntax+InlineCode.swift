@@ -27,6 +27,7 @@ extension SyntaxRule {
       ) else { return }
 
       let font = NSFont.system(.body, size: fontSize, monospaced: true)
+      
       attrs.updating(.font, with: font, in: range)
       attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: range)
 

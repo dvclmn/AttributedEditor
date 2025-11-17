@@ -11,7 +11,7 @@ import Foundation
 import HighlighterCommon
 
 public enum RegexShape {
-//  case three(Three.Type)
+  //  case three(Three.Type)
 
   public typealias Three = (
     Substring,
@@ -34,23 +34,44 @@ extension AttributedRanges {
     //    attributedRanges[range, default: [:]][key] = value
   }
 }
+
+public typealias MatchRange = ()
 extension NSRange {
+  
+  public func ranges<T>(
+    match: Regex<AnyRegexOutput>.Match,
+    as outputType: T.Type,
+    for paths: KeyPath<T, Substring>...,
+    in text: String,
+    perform: (Regex<T>.Match, NSRange) -> Void
+  ) {
+//  ) -> [MatchRange] {
+    let thing = paths.map { path -> (Regex<T>.Match, NSRange) in
+      let range = NSRange(
+        from: match,
+        as: outputType,
+        keyPath: path,
+        in: text
+      )
+      
+      
+    }
+  }
+  
   public init?<T>(
     from match: Regex<AnyRegexOutput>.Match,
     as outputType: T.Type,
     keyPath: KeyPath<T, Substring>,
-    //    keyPath: PartialKeyPath<Regex<AnyRegexOutput>.Match>,
     in text: String
   ) {
-    guard let output = match.output.extractValues(as: outputType) else { return nil }
+    guard let output = match.output.extractValues(as: outputType) else {
+      return nil
+    }
     let substring = output[keyPath: keyPath]
-    guard let range = text.range(of: substring)?.toNSRange(in: text) else { return nil }
+    guard let range = text.range(of: substring)?.toNSRange(in: text) else {
+      return nil
+    }
     self = range
-
-    //    guard let output = match.output.extractValues(as: outputType),
-    //          let rangeContent = text.range(of: output[keyPath: keyPath])?.toNSRange(in: text)
-    //    else { return nil }
-
   }
 }
 
