@@ -6,13 +6,12 @@
 //
 
 import AppKit
+import CoreTools
 import Foundation
 import HighlighterCommon
 
 public enum RegexShape {
-  //  case three(Three.Type)
-  //}
-  //extension RegexShape {
+  case three(Three.Type)
 
   public typealias Three = (
     Substring,
@@ -20,19 +19,19 @@ public enum RegexShape {
     content: Substring,
     trailing: Substring
   )
-  static var three: Three.Type { Three.self }
+  static var threePreset: Three.Type { Three.self }
 }
 
 extension AttributedRanges {
-//extension SyntaxRule {
+  //extension SyntaxRule {
   mutating func updating(
     _ key: NSAttributedString.Key,
     with value: Any,
     in range: NSRange,
-//    attr attributedRanges: inout AttributedRanges
+    //    attr attributedRanges: inout AttributedRanges
   ) {
     self[range, default: [:]][key] = value
-//    attributedRanges[range, default: [:]][key] = value
+    //    attributedRanges[range, default: [:]][key] = value
   }
 }
 

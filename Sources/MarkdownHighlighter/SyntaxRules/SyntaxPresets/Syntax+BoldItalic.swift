@@ -13,12 +13,15 @@ extension SyntaxRule {
 
     let pattern = /(?<leading>\*\*)(?<content>[^\*\*\n]+?)(?<trailing>\*\*)(?!\*)/
 
+//    let shape = RegexShape.three(RegexShape.threePreset)
+    
     return SyntaxRule(
       syntax: .inlineCode,
-      pattern: Regex(pattern)
+      pattern: Regex(pattern),
+//      regexShape: shape
     ) { match, text, attrs in
 
-      guard let output = match.output.extractValues(as: RegexShape.three),
+      guard let output = match.output.extractValues(as: RegexShape.threePreset),
         let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
       else {
         print("Failed to extract Values, or find content range")
@@ -26,7 +29,7 @@ extension SyntaxRule {
       }
       let font = NSFont.boldSystemFont(ofSize: fontSize)
       attrs.updating(.font, with: font, in: rangeContent)
-      attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: rangeContent)
+//      attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: rangeContent)
       
       //      attrs[rangeContent, default: [:]][.font] = NSFont.boldSystemFont(ofSize: fontSize)
       //      attrs[rangeContent, default: [:]][.foregroundColor] =

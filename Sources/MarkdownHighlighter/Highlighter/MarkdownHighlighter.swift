@@ -40,28 +40,17 @@ public final class MarkdownHighlighter: Highlighter {
     return attributes
   }
 
-  //  #warning("Turn block back on soon")
   /// blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`
-  //  public func blockRanges(text: String) -> [NSRange] {
-  //    var output: [NSRange] = []
-  //    let ns = text as NSString
-  //    let fullRange = NSRange(location: 0, length: ns.length)
-  //
-  //    for rule in rules where rule.exposesBlockRange {
-  //      let pattern: String
-  //      do {
-  //        pattern = try PatternBuilder.buildPattern(for: rule)
-  //      } catch { continue }
-  //
-  //      guard let regex = try? NSRegularExpression(pattern: pattern, options: rule.regexOptions)
-  //      else { continue }
-  //
-  //      let matches = regex.matches(in: text, range: fullRange)
-  //      output.append(contentsOf: matches.map { $0.range(at: 0) })
-  //    }
-  //
-  //    return output
-  //  }
+  public func blockRanges(text: String) -> [NSRange] {
+    var output: [NSRange] = []
+    for rule in rules where rule.exposesBlockRange {
+      let matches = text.matches(of: rule.pattern)
+      let ranges = matches.map { $0.range.toNSRange(in: text) }
+      output.append(contentsOf: ranges)
+    }
+
+    return output
+  }
 
   //  public func blockRanges(
   //    text: String,

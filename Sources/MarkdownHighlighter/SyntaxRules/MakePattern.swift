@@ -16,7 +16,6 @@ extension SyntaxRule {
   ) {
     let matches = text.matches(of: pattern)
     for match in matches {
-
       apply(match, text, &attributes)
     }
   }

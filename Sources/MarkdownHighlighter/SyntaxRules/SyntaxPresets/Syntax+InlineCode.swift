@@ -22,7 +22,8 @@ extension SyntaxRule {
 
     return SyntaxRule(
       syntax: .inlineCode,
-      pattern: Regex(pattern)
+      pattern: Regex(pattern),
+      exposesBlockRange: true
     ) { match, text, attrs in
 
       guard let output = match.output.extractValues(as: outputType),
@@ -32,6 +33,8 @@ extension SyntaxRule {
         return
       }
 
+      let ranges: [NSRange]
+      
       //      DisplayString {
       //        Indented("Output") {
       //          Labeled("Leading", value: output.leading)
@@ -41,8 +44,9 @@ extension SyntaxRule {
       //        Labeled("NSRange", value: rangeContent.description)
       //      }.print()
 
-      attrs[rangeContent, default: [:]][.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
-      attrs[rangeContent, default: [:]][.foregroundColor] = NSColor.systemOrange
+      attrs.updating(.font, with: NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular), in: rangeContent)
+      attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: rangeContent)
+
     }
   }
 }
