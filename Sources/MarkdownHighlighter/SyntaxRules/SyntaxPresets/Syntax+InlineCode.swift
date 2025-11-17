@@ -18,15 +18,31 @@ extension SyntaxRule {
 //      delimiter: .wrapper(prefix: "`", suffix: "`"),
 //      role: .inlineText,
 //      captures: .single(name: captureName)
-    ) { match, text, attrs in
+    ) {
+      match,
+      text,
+      attrs in
       
-//      guard let range = match.range.toNSRange(in: text) else { return }
-      let range = match.range.toNSRange(in: text)
+      //      guard let range = match.range.toNSRange(in: text) else { return }
+      guard let output = match.output.extractValues(
+        as: (
+          Substring,
+          leading: Substring,
+          content: Substring,
+          trailing: Substring
+        ).self
+      ) else {
+        print("Couldn't extract strongly typed values from match")
+        return
+      }
       
-      attrs[range]?[.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
-      attrs[range]?[.foregroundColor] = NSColor.systemOrange
+      let rangeLeading = Range(output.leading.indices).toNSRange(in: text)
+        
+//        .range.toNSRange(in: text)
       
-//      guard let range = match.range(withName: captureName).toOptional() else { return }
+      attrs[rangeLeading]?[.font] = NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
+      attrs[rangeLeading]?[.foregroundColor] = NSColor.systemOrange
+      
     }
   }
 

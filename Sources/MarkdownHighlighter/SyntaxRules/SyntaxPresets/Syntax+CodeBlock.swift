@@ -5,9 +5,9 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-import AppKit
-
-extension SyntaxRule {
+//import AppKit
+//
+//extension SyntaxRule {
 
 //  static func fencedCodeBlock(fontSize: CGFloat) -> SyntaxRule {
 //    SyntaxRule(
@@ -62,4 +62,4 @@ extension SyntaxRule {
 
 
 
-}
+//}

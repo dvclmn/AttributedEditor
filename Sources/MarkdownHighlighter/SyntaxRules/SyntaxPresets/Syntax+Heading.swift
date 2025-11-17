@@ -5,10 +5,10 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-import AppKit
-
-extension SyntaxRule {
-  
+//import AppKit
+//
+//extension SyntaxRule {
+//  
 //  static func heading(fontSize: CGFloat) -> SyntaxRule {
 //    SyntaxRule(
 //      syntax: .heading1,
@@ -50,4 +50,4 @@ extension SyntaxRule {
 //    }
 //  }
 
-}
+//}

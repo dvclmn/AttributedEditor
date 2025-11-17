@@ -5,8 +5,8 @@
 //  Created by Dave Coleman on 17/11/2025.
 //
 
-import Foundation
-import HighlighterCommon
+//import Foundation
+//import HighlighterCommon
 
 //public enum PatternBuilder {
 //  public static func buildPattern(for rule: SyntaxRule) throws -> String {

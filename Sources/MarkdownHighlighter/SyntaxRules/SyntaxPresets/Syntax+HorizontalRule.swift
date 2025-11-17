@@ -5,9 +5,9 @@
 //  Created by Dave Coleman on 17/11/2025.
 //
 
-import AppKit
-
-extension SyntaxRule {
+//import AppKit
+//
+//extension SyntaxRule {
 //  public static func horizontalRule() -> SyntaxRule {
 //    return SyntaxRule(
 //      syntax: .horizontalRule,
@@ -21,4 +21,4 @@ extension SyntaxRule {
 //      }
 //    )
 //  }
-}
+//}

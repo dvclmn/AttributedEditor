@@ -5,11 +5,11 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-import AppKit
-import CoreTools
+//import AppKit
+//import CoreTools
 
 //@MainActor
-extension SyntaxRule {
+//extension SyntaxRule {
 
 //  static func bold(fontSize: CGFloat) -> SyntaxRule {
 //    SyntaxRule(
@@ -42,4 +42,4 @@ extension SyntaxRule {
 //    }
 //  }
 
-}
+//}
