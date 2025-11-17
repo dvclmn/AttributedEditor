@@ -25,16 +25,9 @@ extension SyntaxRule {
         keyPath: \.content,
         in: text
       ) else { return }
-      
-      let font = NSFont.italic(.preferredFont(.body))
-      
+
+      let font = NSFont.system(.body, size: fontSize, monospaced: true)
       attrs.updating(.font, with: font, in: range)
-
-//      guard let output = match.output.extractValues(as: RegexShape.threePreset),
-//        let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
-//      else { return }
-
-      attrs.updating(.font, with: NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular), in: range)
       attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: range)
 
     }

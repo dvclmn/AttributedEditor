@@ -32,7 +32,8 @@ extension SyntaxRule {
           in: text
         )
       else { return }
-      let font = NSFont.boldSystemFont(ofSize: fontSize)
+      let font = NSFont.system(.bold, size: fontSize)
+//      let font = NSFont.boldSystemFont(ofSize: fontSize)
       attrs.updating(.font, with: font, in: range)
 
     }
@@ -59,7 +60,7 @@ extension SyntaxRule {
         )
       else { return }
 
-      let font = NSFont.systemItalicFont(ofSize: fontSize)
+      let font = NSFont.system(.italic, size: fontSize)
 //      let system = NSFont.systemFont(ofSize: fontSize)
 //      let desc = system.fontDescriptor.withSymbolicTraits(.traitItalic)
 //      let font = system.italic()

@@ -8,28 +8,21 @@
 import Sharing
 import SwiftUI
 
-extension Editor {
-  public enum FontStyle {
-    case body
-//    case code
-    case italic
-    case bold
-    case boldItalic
-    case semiBold
-  }
-}
-extension Editor.FontStyle {
-  public func font(size: CGFloat) -> NSFont {
-    //    @Shared(.fontSize) var fontSize
-    let bodyFont = NSFont.preferredFont(size: size)
-    return switch self {
-      case .body: bodyFont
-//      case .code: NSFont.preferredFont(size: size, design: .monospaced)
-      case .italic: NSFont.systemItalicFont(ofSize: size)
-      case .bold: NSFont.boldSystemFont(ofSize: size)
-      case .boldItalic: NSFont.systemBoldItalicFont(ofSize: size)
-//      case .boldItalic: bodyFont.boldItalic()
-      case .semiBold: NSFont.preferredFont(size: size, weight: .semibold)
-    }
-  }
-}
+//extension Editor {
+//
+//}
+//extension Editor.FontStyle {
+//  public func font(size: CGFloat) -> NSFont {
+//    //    @Shared(.fontSize) var fontSize
+//    let bodyFont = NSFont.preferredFont(size: size)
+//    return switch self {
+//      case .body: bodyFont
+////      case .code: NSFont.preferredFont(size: size, design: .monospaced)
+//      case .italic: NSFont.systemItalicFont(ofSize: size)
+//      case .bold: NSFont.boldSystemFont(ofSize: size)
+//      case .boldItalic: NSFont.systemBoldItalicFont(ofSize: size)
+////      case .boldItalic: bodyFont.boldItalic()
+//      case .semiBold: NSFont.preferredFont(size: size, weight: .semibold)
+//    }
+//  }
+//}
