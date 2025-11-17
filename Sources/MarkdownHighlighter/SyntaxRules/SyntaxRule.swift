@@ -43,6 +43,10 @@ public struct SyntaxRule {
   }
 }
 
+extension SyntaxRule {
+  var isBlock: Bool { role == .blockText }
+}
+
 //public struct SyntaxRule {
 //  let syntax: Markdown.Syntax
 //  let delimiter: DelimiterShape

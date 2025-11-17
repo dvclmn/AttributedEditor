@@ -33,7 +33,7 @@ extension SyntaxRule {
   ) { match, text, attributes in
     guard let range = match.range(withName: "body").toOptional() else { return }
     
-    attributes[range, default: [:]][.font] =
+    attributes[range, default: [:]][.font] = 
 //    NSFontManager.shared.convert(NSFont.systemFont(ofSize: 14), toHaveTrait: .italicFontMask)
   }
 

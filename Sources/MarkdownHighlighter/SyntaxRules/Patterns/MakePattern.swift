@@ -9,22 +9,21 @@ import Foundation
 import HighlighterCommon
 
 extension SyntaxRule {
-  func apply(to text: NSString, attributes: inout AttributedRanges) {
-    //  func apply(_ rule: SyntaxRule, to text: NSString, attributes: inout AttributedRanges) {
+  func apply(
+    to text: NSString,
+    attributes: inout AttributedRanges
+  ) {
+
     let pattern: String
+    let regex: NSRegularExpression
     do {
       pattern = try PatternBuilder.buildPattern(for: self)
+      regex = try NSRegularExpression(pattern: pattern, options: regexOptions)
     } catch {
+      print("Error building regex pattern: \(error)")
       /// You might log the error or fail gracefully
       return
     }
-
-    guard
-      let regex = try? NSRegularExpression(
-        pattern: pattern,
-        options: regexOptions
-      )
-    else { return }
 
     let matches = regex.matches(
       in: text as String,
