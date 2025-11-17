@@ -16,9 +16,9 @@ public struct SyntaxRule {
 //public struct SyntaxRule<T: RegexComponent> {
   public let syntax: Markdown.Syntax
   public let pattern: any RegexComponent
-  public let delimiter: DelimiterShape
-  public let role: ContentRole
-  public let captures: CaptureProfile
+//  public let delimiter: DelimiterShape
+//  public let role: ContentRole
+//  public let captures: CaptureProfile
 //  public let regexOutput: any Rege
 //  public let regexOptions: NSRegularExpression.Options
   public let exposesBlockRange: Bool
@@ -35,9 +35,9 @@ public struct SyntaxRule {
   public init(
     syntax: Markdown.Syntax,
     pattern: any RegexComponent,
-    delimiter: DelimiterShape,
-    role: ContentRole,
-    captures: CaptureProfile,
+//    delimiter: DelimiterShape,
+//    role: ContentRole,
+//    captures: CaptureProfile,
 //    regexComponent: any RegexComponent,
 //    regexOptions: NSRegularExpression.Options = [],
     exposesBlockRange: Bool = false,
@@ -46,9 +46,9 @@ public struct SyntaxRule {
   ) {
     self.syntax = syntax
     self.pattern = pattern
-    self.delimiter = delimiter
-    self.role = role
-    self.captures = captures
+//    self.delimiter = delimiter
+//    self.role = role
+//    self.captures = captures
 //    self.regexOutput = regexComponent
 //    self.regexOptions = regexOptions
     self.exposesBlockRange = exposesBlockRange
@@ -57,7 +57,7 @@ public struct SyntaxRule {
 }
 
 extension SyntaxRule {
-  var isBlock: Bool { role == .blockText }
+//  var isBlock: Bool { role == .blockText }
 }
 
 //public struct SyntaxRule {

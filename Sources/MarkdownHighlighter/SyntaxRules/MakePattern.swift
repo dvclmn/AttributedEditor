@@ -14,7 +14,7 @@ extension SyntaxRule {
     attributes: inout AttributedRanges
   ) {
     //    let ns = text as NSString
-    let examplePattern = /`(?<code>.+?)`/
+//    let examplePattern = /`(?<code>.+?)`/
 
     //    do {
     //    } catch {
@@ -23,7 +23,7 @@ extension SyntaxRule {
     //    guard let regex = try? Regex(examplePattern) else {
     //      print()
     //    }
-    let matches = text.matches(of: examplePattern)
+    let matches = text.matches(of: self.pattern)
     for match in matches {
 
             self.apply(match, &attributes)

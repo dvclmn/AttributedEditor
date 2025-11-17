@@ -8,20 +8,20 @@
 import AppKit
 
 extension SyntaxRule {
-  static func blockquote(fontSize: CGFloat) -> SyntaxRule {
-    SyntaxRule(
-      syntax: .quoteBlock,
-      delimiter: .prefix("> "),
-      role: .blockText,
-      captures: .single(name: "body"),
-      regexOptions: [.anchorsMatchLines],
-//      exposesBlockRange: true
-    ) { match, attrs in
-      guard let range = match.range(withName: "body").toOptional() else { return }
-      attrs[range, default: [:]][.foregroundColor] = NSColor.systemGray
-    }
-  }
-  
+//  static func blockquote(fontSize: CGFloat) -> SyntaxRule {
+//    SyntaxRule(
+//      syntax: .quoteBlock,
+//      delimiter: .prefix("> "),
+//      role: .blockText,
+//      captures: .single(name: "body"),
+//      regexOptions: [.anchorsMatchLines],
+////      exposesBlockRange: true
+//    ) { match, attrs in
+//      guard let range = match.range(withName: "body").toOptional() else { return }
+//      attrs[range, default: [:]][.foregroundColor] = NSColor.systemGray
+//    }
+//  }
+//  
 //  public static func blockquote() -> SyntaxRule {
 //    return SyntaxRule(
 //      syntax: .quoteBlock,
