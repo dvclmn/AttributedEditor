@@ -10,18 +10,49 @@ import Foundation
 import HighlighterCommon
 
 public struct SyntaxRule {
-  let syntax: Markdown.Syntax
-  let delimiter: DelimiterShape
-  let role: ContentRole
-  let captures: CaptureProfile
-  let regexOptions: NSRegularExpression.Options
-  let exposesBlockRange: Bool  // whether this rule marks an area for block background rendering
-
-  /// Called when a match is found; responsible for adding attributed ranges
+  public let syntax: Markdown.Syntax
+  public let delimiter: DelimiterShape
+  public let role: ContentRole
+  public let captures: CaptureProfile
+  public let regexOptions: NSRegularExpression.Options
+  public let exposesBlockRange: Bool
+  
+  /// Called when a match is found
   public let apply: (NSTextCheckingResult, NSString, inout AttributedRanges) -> Void
-
-  // Convenience to build an NSRegularExpression once per rule if you like
+  
+  public init(
+    syntax: Markdown.Syntax,
+    delimiter: DelimiterShape,
+    role: ContentRole,
+    captures: CaptureProfile,
+    regexOptions: NSRegularExpression.Options = [],
+    exposesBlockRange: Bool = false,
+    apply: @escaping (NSTextCheckingResult, NSString, inout AttributedRanges) -> Void
+  ) {
+    self.syntax = syntax
+    self.delimiter = delimiter
+    self.role = role
+    self.captures = captures
+    self.regexOptions = regexOptions
+    self.exposesBlockRange = exposesBlockRange
+    self.apply = apply
+  }
 }
+
+
+//public struct SyntaxRule {
+//  let syntax: Markdown.Syntax
+//  let delimiter: DelimiterShape
+//  let role: ContentRole
+//  let captures: CaptureProfile
+//  let regexOptions: NSRegularExpression.Options
+//  let exposesBlockRange: Bool  // whether this rule marks an area for block background rendering
+//
+//  /// Called when a match is found; responsible for adding attributed ranges
+//  public let apply: (NSTextCheckingResult, NSString, inout AttributedRanges) -> Void
+//
+//  // Convenience to build an NSRegularExpression once per rule if you like
+//}
 
 //extension SyntaxRule {
 //  static func fencedCodeBlock() -> SyntaxRule {

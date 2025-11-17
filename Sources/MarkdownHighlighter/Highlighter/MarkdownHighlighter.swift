@@ -8,8 +8,6 @@
 import AppKit
 import HighlighterCommon
 
-//import NSUI
-
 public final class MarkdownHighlighter: Highlighter {
   public var editorConfig: Editor.Configuration
   var rules: [SyntaxRule] {
