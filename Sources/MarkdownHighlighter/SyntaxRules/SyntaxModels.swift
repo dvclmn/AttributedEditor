@@ -11,7 +11,7 @@ import Foundation
 import HighlighterCommon
 
 public enum RegexShape {
-  case three(Three.Type)
+//  case three(Three.Type)
 
   public typealias Three = (
     Substring,
