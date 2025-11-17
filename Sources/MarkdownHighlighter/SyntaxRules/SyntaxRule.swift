@@ -9,8 +9,11 @@ import AppKit
 import Foundation
 import HighlighterCommon
 
+public typealias SyntaxOutput = (Regex<AnyRegexOutput>.Match, inout AttributedRanges) -> Void
+
 // TODO: Will need to bring the regex options back, wasn't sure how to do for Swift Regex
 public struct SyntaxRule {
+//public struct SyntaxRule<T: RegexComponent> {
   public let syntax: Markdown.Syntax
   public let delimiter: DelimiterShape
   public let role: ContentRole
@@ -25,12 +28,7 @@ public struct SyntaxRule {
   //    inout AttributedRanges
   //  ) -> Void
 
-  public let apply:
-    (
-      Regex<AnyRegexOutput>.Match,
-      //    NSString,
-      inout AttributedRanges
-    ) -> Void
+  public let apply: SyntaxOutput
 
   public init(
     syntax: Markdown.Syntax,
@@ -39,7 +37,8 @@ public struct SyntaxRule {
     captures: CaptureProfile,
 //    regexOptions: NSRegularExpression.Options = [],
     exposesBlockRange: Bool = false,
-    apply: @escaping (Regex<AnyRegexOutput>.Match, inout AttributedRanges) -> Void
+    apply: @escaping SyntaxOutput
+//    apply: @escaping (Regex<T>.Match, inout AttributedRanges) -> Void
   ) {
     self.syntax = syntax
     self.delimiter = delimiter

@@ -16,11 +16,13 @@ extension SyntaxRule {
       role: .blockText,
       captures: .two(name1: "lang", name2: "body"),
       exposesBlockRange: true
-    ) { match, text, attrs in
-      guard let range = match.range(withName: "body").toOptional() else { return }
-      attrs[range, default: [:]][.font] =
-      NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
-      attrs[range, default: [:]][.foregroundColor] = NSColor.systemBlue
+    ) { match, attrs in
+      
+      
+//      guard let range = match.range(withName: "body").toOptional() else { return }
+//      attrs[range, default: [:]][.font] =
+//      NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
+//      attrs[range, default: [:]][.foregroundColor] = NSColor.systemBlue
     }
   }
   

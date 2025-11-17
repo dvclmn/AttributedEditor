@@ -9,7 +9,11 @@ import Foundation
 import HighlighterCommon
 
 enum FencedPattern {
-  static func build(start: String, end: String, captures: CaptureProfile) throws -> String {
+  static func build(
+    start: String,
+    end: String,
+    captures: CaptureProfile
+  ) throws -> String {
     let s = NSRegularExpression.escapedPattern(for: start)
     let e = NSRegularExpression.escapedPattern(for: end)
 
