@@ -5,6 +5,9 @@
 //  Created by Dave Coleman on 17/11/2025.
 //
 
+import Foundation
+import HighlighterCommon
+
 extension SyntaxRule {
   private func apply(_ rule: SyntaxRule, to text: NSString, attributes: inout AttributedRanges) {
     let pattern: String

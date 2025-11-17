@@ -5,6 +5,9 @@
 //  Created by Dave Coleman on 17/11/2025.
 //
 
+import Foundation
+import HighlighterCommon
+
 enum PairedPattern {
   static func build(prefix: String, mid: String, suffix: String, captures: CaptureProfile) throws -> String {
     let p = NSRegularExpression.escapedPattern(for: prefix)
