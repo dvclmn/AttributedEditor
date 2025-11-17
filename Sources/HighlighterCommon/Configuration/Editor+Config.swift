@@ -23,8 +23,7 @@ public enum Editor {
   /// ## Grammar
   public struct Configuration {
 
-    //    let isEditable: Bool
-
+    public let isEditable: Bool
     public let options: Options
 
     //    @Shared(.fontSize) var fontSize: CGFloat
@@ -45,7 +44,8 @@ public enum Editor {
     public let colours: Colours
 
     public init(
-      options: Options = [.editable, .lineNumbers],
+      isEditable: Bool = true,
+      options: Options = [.lineNumbers],
       fontSize: CGFloat = 15,
       lineSpacing: CGFloat = 1.4,
       insets: CGSize = CGSize(10, 20),
@@ -53,6 +53,7 @@ public enum Editor {
       maxWidth: CGFloat? = nil,
       colours: Colours = .init()
     ) {
+      self.isEditable = isEditable
       self.options = options
       self.fontSize = fontSize
       self.lineSpacing = lineSpacing

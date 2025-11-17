@@ -11,7 +11,7 @@ import HighlighterCommon
 import MarkdownHighlighter
 import SwiftUI
 
-struct ContentView: View {
+struct EditorExampleView: View {
   @State private var cursorPosition: InsertionPointPosition? = nil
   let config: Editor.Configuration = .init()
   @State private var editorText: String = ""
@@ -40,7 +40,6 @@ struct ContentView: View {
       .background(Color(NSColor.windowBackgroundColor))
     }
 
-    //    .frame(minWidth: 600, minHeight: 400)
     .background(Color.black.opacity(0.8))
     .onAppear {
       editorText = DummyContent.Strings.paragraphsWithCode[1]
@@ -48,6 +47,14 @@ struct ContentView: View {
   }
 }
 
+#if DEBUG
 #Preview {
-  ContentView()
+  EditorExampleView()
+    .frame(
+      width: 600,
+      height: 690,
+      alignment: .leading
+    )
+
 }
+#endif

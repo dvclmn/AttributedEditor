@@ -14,7 +14,7 @@ extension BackingTextView {
 
   func setUpTextView(_ config: Editor.Configuration) {
 
-    isEditable = config.options.contains(.editable)
+    isEditable = config.isEditable
     drawsBackground = false
     isRichText = false
     allowsUndo = true
