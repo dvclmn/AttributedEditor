@@ -19,7 +19,7 @@ public enum MarkdownRules {
 //      .heading(fontSize: fontSize),
 //      .blockquote(fontSize: fontSize),
 //      .fencedCodeBlock(fontSize: fontSize),
-//      .bold(fontSize: fontSize),
+      
 //      .italic(fontSize: fontSize),
       .inlineCode(fontSize: fontSize),
 //      .link(fontSize: fontSize),
@@ -28,8 +28,9 @@ public enum MarkdownRules {
 
   public static func testSet(fontSize: CGFloat) -> [SyntaxRule] {
     [
-//      .bold(fontSize: fontSize),
+
       .inlineCode(fontSize: fontSize),
+      .bold(fontSize: fontSize),
     ]
   }
 }

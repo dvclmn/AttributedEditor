@@ -5,8 +5,38 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-//import AppKit
-//import CoreTools
+import AppKit
+import CoreTools
+
+extension SyntaxRule {
+  static func bold(fontSize: CGFloat) -> SyntaxRule {
+    
+    let pattern = /(?<leading>\*\*)(?<content>[^\*\*\n]+?)(?<trailing>\*\*)(?!\*)/
+    
+    let outputType = (
+      Substring,
+      leading: Substring,
+      content: Substring,
+      trailing: Substring
+    ).self
+    
+    return SyntaxRule(
+      syntax: .inlineCode,
+      pattern: Regex(pattern)
+    ) { match, text, attrs in
+      
+      guard let output = match.output.extractValues(as: outputType),
+            let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
+      else {
+        print("Failed to extract Values, or find content range")
+        return
+      }
+
+      attrs[rangeContent, default: [:]][.font] = NSFont.boldSystemFont(ofSize: fontSize)
+//      attrs[rangeContent, default: [:]][.foregroundColor] = NSColor.systemOrange
+    }
+  }
+}
 
 //@MainActor
 //extension SyntaxRule {
