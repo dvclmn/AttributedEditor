@@ -7,12 +7,17 @@
 
 import AppKit
 import HighlighterCommon
+import CoreTools
 
 public final class MarkdownHighlighter: Highlighter {
   public var editorConfig: Editor.Configuration
+  
   var rules: [SyntaxRule] {
-    SyntaxRulesThingy.defaultSet(fontSize: editorConfig.fontSize)
+    MarkdownRules.defaultSet(fontSize: editorConfig.fontSize)
   }
+//  var rules: [SyntaxRule] {
+//    SyntaxRulesThingy.defaultSet(fontSize: editorConfig.fontSize)
+//  }
 
   public init(config: Editor.Configuration) {
     self.editorConfig = config
@@ -21,6 +26,7 @@ public final class MarkdownHighlighter: Highlighter {
   public func highlight(text: String) -> AttributedRanges {
     var attributes: AttributedRanges = [:]
     let ns = text as NSString
+    print("Highlighting text: \(text)")
     for rule in rules {
       rule.apply(to: ns, attributes: &attributes)
     }
@@ -68,33 +74,33 @@ public final class MarkdownHighlighter: Highlighter {
   //  }
 }
 
-struct SyntaxRulesThingy {
+//struct SyntaxRulesThingy {
   //  let fontSize: CGFloat
   //  let config: Editor.Configuration
   //  let rules: [SyntaxRule]
-}
-extension SyntaxRulesThingy {
-
-  static func defaultSet(fontSize: CGFloat) -> [SyntaxRule] {
-
-    //    let bodyFont: NSFont = Editor.FontStyle.body.font(size: fontSize)
-    let boldFont: NSFont = Editor.FontStyle.bold.font(size: fontSize)
-    let italicFont: NSFont = Editor.FontStyle.italic.font(size: fontSize)
-    let codeFont: NSFont = Editor.FontStyle.code.font(size: fontSize)
-
-    //    let headers = SyntaxRule.allHeadings(font: bodyFont)
-    let others: [SyntaxRule] = [
-      SyntaxRule.fencedCodeBlock(codeFont: codeFont),
-      SyntaxRule.bold(font: boldFont),
-      SyntaxRule.italic(font: italicFont),
-      SyntaxRule.horizontalRule(),
-      //      SyntaxRule.heading(level: 1, font: boldFont),
-    ]
-
-    return others
-    //    return headers + others
-  }
-}
+//}
+//extension SyntaxRulesThingy {
+//
+//  static func defaultSet(fontSize: CGFloat) -> [SyntaxRule] {
+//
+//    //    let bodyFont: NSFont = Editor.FontStyle.body.font(size: fontSize)
+//    let boldFont: NSFont = Editor.FontStyle.bold.font(size: fontSize)
+//    let italicFont: NSFont = Editor.FontStyle.italic.font(size: fontSize)
+//    let codeFont: NSFont = Editor.FontStyle.code.font(size: fontSize)
+//
+//    //    let headers = SyntaxRule.allHeadings(font: bodyFont)
+//    let others: [SyntaxRule] = [
+//      SyntaxRule.fencedCodeBlock(codeFont: codeFont),
+//      SyntaxRule.bold(font: boldFont),
+//      SyntaxRule.italic(font: italicFont),
+//      SyntaxRule.horizontalRule(),
+//      //      SyntaxRule.heading(level: 1, font: boldFont),
+//    ]
+//
+//    return others
+//    //    return headers + others
+//  }
+//}
 
 // MARK: - Markdown Syntax Highlighter
 

@@ -10,7 +10,7 @@ import HighlighterCommon
 
 extension SyntaxRule {
   func apply(to text: NSString, attributes: inout AttributedRanges) {
-//  func apply(_ rule: SyntaxRule, to text: NSString, attributes: inout AttributedRanges) {
+    //  func apply(_ rule: SyntaxRule, to text: NSString, attributes: inout AttributedRanges) {
     let pattern: String
     do {
       pattern = try PatternBuilder.buildPattern(for: self)
@@ -19,10 +19,12 @@ extension SyntaxRule {
       return
     }
 
-    guard let regex = try? NSRegularExpression(
-      pattern: pattern,
-      options: regexOptions
-    ) else { return }
+    guard
+      let regex = try? NSRegularExpression(
+        pattern: pattern,
+        options: regexOptions
+      )
+    else { return }
 
     let matches = regex.matches(
       in: text as String,
@@ -33,7 +35,5 @@ extension SyntaxRule {
       apply(match, text, &attributes)
     }
   }
-  
-  
 
 }

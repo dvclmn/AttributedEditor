@@ -36,6 +36,7 @@ struct EditorExampleView: View {
           Spacer()
         }
       }
+      Font.largeTitle
       .padding(8)
       .background(Color(NSColor.windowBackgroundColor))
     }

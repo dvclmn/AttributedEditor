@@ -16,10 +16,14 @@ public struct SyntaxRule {
   public let captures: CaptureProfile
   public let regexOptions: NSRegularExpression.Options
   public let exposesBlockRange: Bool
-  
+
   /// Called when a match is found
-  public let apply: (NSTextCheckingResult, NSString, inout AttributedRanges) -> Void
-  
+  public let apply: (
+    NSTextCheckingResult,
+    NSString,
+    inout AttributedRanges
+  ) -> Void
+
   public init(
     syntax: Markdown.Syntax,
     delimiter: DelimiterShape,
@@ -38,7 +42,6 @@ public struct SyntaxRule {
     self.apply = apply
   }
 }
-
 
 //public struct SyntaxRule {
 //  let syntax: Markdown.Syntax

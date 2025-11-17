@@ -11,10 +11,11 @@ import SwiftUI
 extension Editor {
   public enum FontStyle {
     case body
-    case code
+//    case code
     case italic
     case bold
     case boldItalic
+    case semiBold
   }
 }
 extension Editor.FontStyle {
@@ -23,10 +24,11 @@ extension Editor.FontStyle {
     let bodyFont = NSFont.preferredFont(size: size)
     return switch self {
       case .body: bodyFont
-      case .code: NSFont.preferredFont(size: size, design: .monospaced)
+//      case .code: NSFont.preferredFont(size: size, design: .monospaced)
       case .italic: bodyFont.italic()
       case .bold: bodyFont.bold()
       case .boldItalic: bodyFont.boldItalic()
+      case .semiBold: NSFont.preferredFont(size: size, weight: .semibold)
     }
   }
 }
