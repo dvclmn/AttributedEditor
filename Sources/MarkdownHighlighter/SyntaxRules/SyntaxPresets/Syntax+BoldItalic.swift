@@ -14,6 +14,7 @@ extension SyntaxRule {
   static func bold(fontSize: CGFloat) -> SyntaxRule {
     SyntaxRule(
       syntax: .bold,
+      pattern: /(?<code>\*\*)/,
       delimiter: .wrapper(prefix: "**", suffix: "**"),
       role: .inlineText,
       captures: .single(name: "body"),

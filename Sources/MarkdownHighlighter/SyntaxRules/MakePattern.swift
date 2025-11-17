@@ -26,8 +26,8 @@ extension SyntaxRule {
     let matches = text.matches(of: examplePattern)
     for match in matches {
 
-      //      self.apply(match, &attributes)
-      let thing = match.output.code
+            self.apply(match, &attributes)
+//      let thing = match.output.code
       //      apply(match, text, &attributes)
     }
   }
