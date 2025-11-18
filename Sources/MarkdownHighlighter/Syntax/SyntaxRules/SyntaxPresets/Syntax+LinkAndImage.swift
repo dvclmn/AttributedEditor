@@ -23,11 +23,7 @@ extension SyntaxRule where T == RegexShape.Three {
       pattern: pattern,
       theme: theme,
       exposesBlockRange: false
-    ) {
-      match,
-      text,
-      attrs in
-
+    ) { match, attrs in
       pattern.apply(
         match: match,
       ) {

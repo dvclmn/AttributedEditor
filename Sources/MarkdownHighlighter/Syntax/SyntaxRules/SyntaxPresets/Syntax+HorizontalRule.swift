@@ -23,10 +23,7 @@ extension SyntaxRule where T == RegexShape.Single {
       pattern: pattern,
       theme: theme,
       exposesBlockRange: false
-    ) {
-      match,
-      text,
-      attrs in
+    ) { match, attrs in
 
       let range = match.range
       let font = NSFont.system(.body, size: fontSize * 0.97, monospaced: true)

@@ -23,10 +23,7 @@ extension SyntaxRule where T == RegexShape.Three {
       pattern: pattern,
       theme: theme,
       exposesBlockRange: false
-    ) {
-      match,
-      text,
-      attrs in
+    ) { match, attrs in
 
       pattern.apply(
         match: match,
@@ -52,89 +49,83 @@ extension SyntaxRule where T == RegexShape.Three {
       }
     }
   }
-  
+
   static func italic(
     fontSize: CGFloat,
     theme: Markdown.Theme,
   ) -> SyntaxRule {
-    
+
     let pattern = /(?<leading>[\*_])(?<content>[^\*_ \n][^\n]*?[^\*_ \n])(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .italic
-    
+
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
       theme: theme,
       exposesBlockRange: false
-    ) {
-      match,
-      text,
-      attrs in
-      
+    ) { match, attrs in
+
       pattern.apply(
         match: match,
       ) {
         path,
         range in
-        
+
         let font = NSFont.system(.italic, size: fontSize)
-        
+
         switch path {
-            
+
           case \.leading,
             \.trailing:
             attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
             attrs.update(.foregroundColor, with: NSColor.gray, in: range)
-            
+
           case \.content:
             attrs.update(.font, with: font, in: range)
-            
+
           default: return
         }
-        
+
       }
     }
   }
-  
+
   static func boldItalic(
     fontSize: CGFloat,
     theme: Markdown.Theme,
   ) -> SyntaxRule {
-    
+
     let pattern = /(?<leading>(?:\*{3}|_{3}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .boldItalic
-    
+
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
       theme: theme,
       exposesBlockRange: false
-    ) {
-      match,
-      text,
-      attrs in
-      
+    ) { match, attrs in
+
       pattern.apply(
         match: match,
       ) {
         path,
         range in
-        
+
         let font = NSFont.system(.boldItalic, size: fontSize)
-        
+
         switch path {
-            
+
           case \.leading,
             \.trailing:
             attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
             attrs.update(.foregroundColor, with: NSColor.gray, in: range)
-            
+
           case \.content:
             attrs.update(.font, with: font, in: range)
-            
+
           default: return
         }
-        
+
       }
     }
   }

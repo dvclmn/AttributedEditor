@@ -11,7 +11,6 @@ import HighlighterCommon
 
 public typealias SyntaxOutput<T> = (
   Regex<T>.Match,
-  String,
   inout AttributedRanges
 ) -> Void
 
@@ -46,7 +45,7 @@ extension SyntaxRule {
   ) {
     let matches = text.matches(of: pattern)
     for match in matches {
-      apply(match, text, &attributes)
+      apply(match, &attributes)
     }
   }
 }
