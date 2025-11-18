@@ -9,11 +9,25 @@ import AppKit
 import CoreTools
 
 extension AttributedRanges {
-  public func withNSRanges(in text: String) -> [NSRange: [NSAttributedString.Key: Any]] {
-    self.reduce(into: [:]) { result, element in
-      result[element.key.toNSRange(in: text)] = element.value
+
+  public func withNSRanges(
+    in text: String
+  )
+    -> [(range: NSRange, attributes: [NSAttributedString.Key: Any])]
+  {
+    self.map { run in
+      (
+        range: run.range.toNSRange(in: text),
+        attributes: run.attributes
+      )
     }
   }
+
+  //  public func withNSRanges(in text: String) -> [NSRange: [NSAttributedString.Key: Any]] {
+  //    self.reduce(into: [:]) { result, element in
+  //      result[element.key.toNSRange(in: text)] = element.value
+  //    }
+  //  }
 }
 extension Highlighter {
 
@@ -37,11 +51,15 @@ extension Highlighter {
     let highlightedRanges = self.highlight(text: currentText)
 
     /// Convert from `Range<String.Index>` to `NSRange`
-    let ranges = highlightedRanges.withNSRanges(in: currentText)
-    
+//    let ranges = highlightedRanges.withNSRanges(in: currentText)
+    let runs = highlightedRanges.withNSRanges(in: currentText)
+
     /// Apply each highlighted range's attributes
-    for (range, attributes) in ranges {
-      attrString.addAttributes(attributes, range: range)
+//    for (range, attributes) in ranges {
+//      attrString.addAttributes(attributes, range: range)
+//    }
+    for run in runs {
+      attrString.addAttributes(run.attributes, range: run.range)
     }
 
     /// Preserve the current cursor position and selection
@@ -54,7 +72,7 @@ extension Highlighter {
     textView.setSelectedRange(selectedRange)
 
     textView.syncTypingAttributes()
-    
+
     /// Refresh line numbers
     textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
 

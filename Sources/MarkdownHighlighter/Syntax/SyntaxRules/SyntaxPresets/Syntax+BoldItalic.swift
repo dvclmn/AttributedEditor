@@ -16,9 +16,6 @@ extension SyntaxRule where T == RegexShape.Three {
   ) -> SyntaxRule {
 
     let pattern = /(?<leading>(?:\*{2}|_{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
-//    let pattern = /(?<leading>([\*_])\2)(?<content>[^\n]+?)(?<trailing>\k<leading>)/
-//    let pattern = /(?<leading>(?<d>[\*_])\k<d>)(?<content>[^\n]+?)(?<trailing>\k<leading>)/
-//    let pattern = /(?<leading>\*\*)(?<content>(?:[^\*\n])+?)(?<trailing>\*\*)/
     let syntax: Markdown.Syntax = .bold
 
     return SyntaxRule(
@@ -41,13 +38,13 @@ extension SyntaxRule where T == RegexShape.Three {
 
         switch path {
 
-          case \.leading,
-            \.trailing:
-            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
-
-          case \.content:
-            attrs.updating(.font, with: font, in: range)
+//          case \.leading,
+//            \.trailing:
+//            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+//            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
+//
+//          case \.content:
+//            attrs.updating(.font, with: font, in: range)
 
           default: return
         }
@@ -83,14 +80,14 @@ extension SyntaxRule where T == RegexShape.Three {
         let font = NSFont.system(.italic, size: fontSize)
         
         switch path {
-            
-          case \.leading,
-            \.trailing:
-            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
-            
-          case \.content:
-            attrs.updating(.font, with: font, in: range)
+//            
+//          case \.leading,
+//            \.trailing:
+//            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+//            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
+//            
+//          case \.content:
+//            attrs.updating(.font, with: font, in: range)
             
           default: return
         }
@@ -127,13 +124,13 @@ extension SyntaxRule where T == RegexShape.Three {
         
         switch path {
             
-          case \.leading,
-            \.trailing:
-            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
-            
-          case \.content:
-            attrs.updating(.font, with: font, in: range)
+//          case \.leading,
+//            \.trailing:
+//            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+//            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
+//            
+//          case \.content:
+//            attrs.updating(.font, with: font, in: range)
             
           default: return
         }

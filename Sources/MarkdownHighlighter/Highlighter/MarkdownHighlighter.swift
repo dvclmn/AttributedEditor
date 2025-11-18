@@ -18,9 +18,9 @@ public final class MarkdownHighlighter: Highlighter {
     let size = editorConfig.fontSize
     return [
       SyntaxRule.inlineCode(fontSize: size, theme: theme),
-      SyntaxRule.italic(fontSize: size, theme: theme),
-      SyntaxRule.bold(fontSize: size, theme: theme),
       SyntaxRule.boldItalic(fontSize: size, theme: theme),
+      SyntaxRule.bold(fontSize: size, theme: theme),
+      SyntaxRule.italic(fontSize: size, theme: theme),
     ]
     //    MarkdownRules.testSet(fontSize: editorConfig.fontSize)
   }
@@ -34,21 +34,15 @@ public final class MarkdownHighlighter: Highlighter {
   }
 
   public func highlight(text: String) -> AttributedRanges {
-    var attributes: AttributedRanges = [:]
-    //    DisplayString {
-    //      "\n\n//////"
-    //      //      Labeled("Text to highlight", value: "\n\"\(text.truncate(to: 90))\"\n\n")
-    //      Indented("Rules") {
-    //        Labeled("Count", value: rules.count)
-    //        Labeled("Name", value: rules.map(\.syntax.name))
-    //      }
-    //
-    //    }.print()
-
+    var runs: AttributedRanges = []
+    
+    // The order of `rules` completely determines precedence.
+    // No nondeterministic merging anymore.
     for rule in rules {
-      rule.applyAttributes(to: text, attributes: &attributes)
+      rule.applyAttributes(to: text, attributes: &runs)
     }
-    return attributes
+    
+    return runs
   }
 
   /// blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`

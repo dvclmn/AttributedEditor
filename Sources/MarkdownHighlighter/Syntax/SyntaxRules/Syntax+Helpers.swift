@@ -20,38 +20,53 @@ public enum RegexShape {
 }
 
 extension AttributedRanges {
-  mutating func updating(
+  
+  mutating func update(
     _ key: NSAttributedString.Key,
     with value: Any,
-    in range: Range<String.Index>,
+    in range: Range<String.Index>
   ) {
-    self[range, default: [:]][key] = value
+    // If an existing run matches exactly, update it.
+    if let idx = self.firstIndex(where: { $0.range == range }) {
+      self[idx].attributes[key] = value
+      return
+    }
+    
+    // Otherwise, append a new run.
+    self.append(AttributedRun(range: range, attributes: [key: value]))
   }
-  mutating func updatingIfPresent(
-    _ key: NSAttributedString.Key,
-    with value: Any?,
-    in range: Range<String.Index>,
-  ) {
-    guard let value else { return }
-    self[range, default: [:]][key] = value
-  }
+  
+//  mutating func updating(
+//    _ key: NSAttributedString.Key,
+//    with value: Any,
+//    in range: Range<String.Index>,
+//  ) {
+//    self[range, default: [:]][key] = value
+//  }
+//  mutating func updatingIfPresent(
+//    _ key: NSAttributedString.Key,
+//    with value: Any?,
+//    in range: Range<String.Index>,
+//  ) {
+//    guard let value else { return }
+//    self[range, default: [:]][key] = value
+//  }
 }
 
 extension Regex where Output == RegexShape.Three {
   public func apply(
     match: Match,
-//    for keyPaths: KeyPath<Output, Substring>...,
     perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void,
   ) {
     let paths: [KeyPath<Output, Substring>] = [\.0, \.leading, \.content, \.trailing]
-    
+
     for path in paths {
       let substring = match.output[keyPath: path]
 
       /// This range is correct because the `Substring` points into the parent string
       let range = substring.startIndex..<substring.endIndex
       perform(path, range)
-      
+
     }
   }
 }
