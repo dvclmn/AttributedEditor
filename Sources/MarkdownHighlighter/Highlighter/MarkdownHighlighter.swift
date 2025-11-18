@@ -17,7 +17,10 @@ public final class MarkdownHighlighter: Highlighter {
   var rules: [SyntaxRule<RegexShape.Three>] {
     let size = editorConfig.fontSize
     return [
-      SyntaxRule.inlineCode(fontSize: size, theme: theme)
+      SyntaxRule.inlineCode(fontSize: size, theme: theme),
+      SyntaxRule.italic(fontSize: size, theme: theme),
+      SyntaxRule.bold(fontSize: size, theme: theme),
+      SyntaxRule.boldItalic(fontSize: size, theme: theme),
     ]
     //    MarkdownRules.testSet(fontSize: editorConfig.fontSize)
   }
@@ -50,8 +53,8 @@ public final class MarkdownHighlighter: Highlighter {
 
   /// blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`
   public func blockRanges(text: String) -> [NSRange] {
-    
-//    fatalError("Put this back on soon")
+
+    //    fatalError("Put this back on soon")
     var output: [NSRange] = []
     for rule in rules where rule.exposesBlockRange {
       let matches = text.matches(of: rule.pattern)

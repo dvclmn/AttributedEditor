@@ -18,9 +18,6 @@ extension SyntaxRule where T == RegexShape.Three {
     let pattern = /(?<leading>`)(?<content>(?:[^`\n])+?)(?<trailing>`)/
     let syntax: Markdown.Syntax = .inlineCode
 
-    //    let syntaxCol = theme.colourPair(for: syntax, component: .syntax)
-    //    let contentCol = theme.colourPair(for: syntax, component: .content)
-
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
@@ -44,30 +41,19 @@ extension SyntaxRule where T == RegexShape.Three {
           case \.0:
             attrs.updating(
               .backgroundColor,
-              with: Colour.hsv(
-                h: 0.34,
-                s: 0.17,
-                v: 0.2
-              ).nsColor(),
+              with: ThemeColour.olive,
               in: range
             )
-          //          case \.leading:
+
           case \.leading,
             \.trailing:
             attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
-          //            attrs.updating(.backgroundColor, with: syntaxCol.bg, in: range)
 
           case \.content:
 
             attrs.updating(
               .foregroundColor,
-              with: Colour.hsv(
-                h: 0.02,
-                s: 0.69,
-                v: 0.82
-              ).nsColor(), in: range)
-
-          //            attrs.updating(.backgroundColor, with: contentCol.bg, in: range)
+              with: ThemeColour.reddish, in: range)
 
           default: return
         }

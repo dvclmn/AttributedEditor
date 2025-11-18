@@ -6,9 +6,147 @@
 //
 
 import AppKit
+import ColourKit
 import CoreTools
 
-extension SyntaxRule {
+extension SyntaxRule where T == RegexShape.Three {
+  static func bold(
+    fontSize: CGFloat,
+    theme: Markdown.Theme,
+  ) -> SyntaxRule {
+
+    let pattern = /(?<leading>(?:\*{2}|_{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
+//    let pattern = /(?<leading>([\*_])\2)(?<content>[^\n]+?)(?<trailing>\k<leading>)/
+//    let pattern = /(?<leading>(?<d>[\*_])\k<d>)(?<content>[^\n]+?)(?<trailing>\k<leading>)/
+//    let pattern = /(?<leading>\*\*)(?<content>(?:[^\*\n])+?)(?<trailing>\*\*)/
+    let syntax: Markdown.Syntax = .bold
+
+    return SyntaxRule(
+      syntax: syntax,
+      pattern: pattern,
+      theme: theme,
+      exposesBlockRange: false
+    ) {
+      match,
+      text,
+      attrs in
+
+      pattern.apply(
+        match: match,
+      ) {
+        path,
+        range in
+
+        let font = NSFont.system(.bold, size: fontSize)
+
+        switch path {
+
+          case \.leading,
+            \.trailing:
+            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
+
+          case \.content:
+            attrs.updating(.font, with: font, in: range)
+
+          default: return
+        }
+
+      }
+    }
+  }
+  
+  static func italic(
+    fontSize: CGFloat,
+    theme: Markdown.Theme,
+  ) -> SyntaxRule {
+    
+    let pattern = /(?<leading>[\*_])(?<content>[^\*_ \n][^\n]*?[^\*_ \n])(?<trailing>\k<leading>)/
+    let syntax: Markdown.Syntax = .italic
+    
+    return SyntaxRule(
+      syntax: syntax,
+      pattern: pattern,
+      theme: theme,
+      exposesBlockRange: false
+    ) {
+      match,
+      text,
+      attrs in
+      
+      pattern.apply(
+        match: match,
+      ) {
+        path,
+        range in
+        
+        let font = NSFont.system(.italic, size: fontSize)
+        
+        switch path {
+            
+          case \.leading,
+            \.trailing:
+            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
+            
+          case \.content:
+            attrs.updating(.font, with: font, in: range)
+            
+          default: return
+        }
+        
+      }
+    }
+  }
+  
+  static func boldItalic(
+    fontSize: CGFloat,
+    theme: Markdown.Theme,
+  ) -> SyntaxRule {
+    
+    let pattern = /(?<leading>(?:\*{3}|_{3}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
+    let syntax: Markdown.Syntax = .boldItalic
+    
+    return SyntaxRule(
+      syntax: syntax,
+      pattern: pattern,
+      theme: theme,
+      exposesBlockRange: false
+    ) {
+      match,
+      text,
+      attrs in
+      
+      pattern.apply(
+        match: match,
+      ) {
+        path,
+        range in
+        
+        let font = NSFont.system(.boldItalic, size: fontSize)
+        
+        switch path {
+            
+          case \.leading,
+            \.trailing:
+            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
+            
+          case \.content:
+            attrs.updating(.font, with: font, in: range)
+            
+          default: return
+        }
+        
+      }
+    }
+  }
+}
+
+//import AppKit
+//import CoreTools
+//
+//extension SyntaxRule {
 //  static func bold(fontSize: CGFloat) -> SyntaxRule {
 //
 //    let pattern = /(?<leading>\*\*)(?<content>[^\*\*\n]+?)(?<trailing>\*\*)(?!\*)/
@@ -65,15 +203,15 @@ extension SyntaxRule {
 ////      let desc = system.fontDescriptor.withSymbolicTraits(.traitItalic)
 ////      let font = system.italic()
 ////      let font = NSFont(descriptor: desc, size: fontSize) ?? system
-//      
-//      
-//      
+//
+//
+//
 //      attrs.updating(.font, with: font, in: range)
 ////      attrs.updating(.foregroundColor, with: NSColor.systemPink, in: range)
 //
 //    }
 //  }
-}
+//}
 
 //@MainActor
 //extension SyntaxRule {

@@ -39,8 +39,25 @@ extension Markdown {
   }
 }
 
+typealias ThemeColour = Markdown.Theme
 extension Markdown.Theme {
   static let defaultCodeBG: NSColor = .systemBackground
+
+  static var olive: NSColor {
+    Colour.hsv(
+      h: 0.34,
+      s: 0.17,
+      v: 0.2
+    ).nsColor()
+  }
+  
+  static var reddish: NSColor {
+    Colour.hsv(
+      h: 0.02,
+      s: 0.69,
+      v: 0.82
+    ).nsColor()
+  }
 
   //  public static var `default`: Markdown.Theme {
   //    .init(
@@ -72,7 +89,7 @@ extension Markdown.Theme {
     fallbackFore: NSColor = .textColor,
     fallbackBG: NSColor = .black
   ) -> (fg: NSColor, bg: NSColor) {
-//    let syntaxDefault = ColourPair(.system(.brown))
+    //    let syntaxDefault = ColourPair(.system(.brown))
     let colour: ColourPair? =
       switch (syntax, component) {
         case (.body, .syntax): syntaxCharacters
@@ -97,8 +114,8 @@ extension Markdown.Theme {
     let result = colour?.nsColourPair
     //    let result = colour?.nsColour(type)
     return result ?? (fallbackFore, fallbackBG)
-    
-//    fatalError("Wait")
+
+    //    fatalError("Wait")
   }
 
   //  func colour<Shape>(
