@@ -59,4 +59,28 @@ extension Markdown.Theme {
       highlight: ColourPair(.system(.cyan), background: .system(.purple)),
     )
   }
+
+  func colour<Shape>(
+    for syntax: Markdown.Syntax,
+    keypath: KeyPath<Regex<Shape>.Match, Substring>,
+//    withShape shape: RegexShape,
+    //    theme: Markdown.Theme,
+    fallback: NSColor = .textColor
+  ) -> NSColor {
+    let colour: NSColor? =
+    switch syntax {
+        //      case .body:
+        //        theme.body.nsColour
+
+      case .body: body.nsColour
+      case .inlineCode: inlineCode.nsColour
+      case .codeBlock: blockCode.nsColour
+      case .strikethrough: strikeThrough.nsColour
+      case .highlight: highlight.nsColour
+
+        default: fallback
+      }
+    return colour ?? fallback
+  }
 }
+

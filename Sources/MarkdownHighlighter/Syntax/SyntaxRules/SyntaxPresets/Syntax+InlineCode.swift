@@ -15,9 +15,9 @@ extension SyntaxRule where T == RegexShape.Three {
   ) -> SyntaxRule {
 
     let pattern = /(?<leading>`)(?<content>(?:[^`\n])+?)(?<trailing>`)/
-
+let syntax: Markdown.Syntax = .inlineCode
     return SyntaxRule(
-      syntax: .inlineCode,
+      syntax: syntax,
       pattern: pattern,
       theme: theme,
       exposesBlockRange: true
@@ -35,14 +35,13 @@ extension SyntaxRule where T == RegexShape.Three {
 
         switch path {
           case \.leading:
-            attrs.updating(.foregroundColor, with: NSColor.green, in: range)
+            attrs.updating(.foregroundColor, with: theme.colour(for: syntax), in: range)
 
           case \.content:
-            let thing = theme.
-            attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: range)
+            attrs.updating(.foregroundColor, with: theme.colour(for: syntax), in: range)
 
           case \.trailing:
-            attrs.updating(.foregroundColor, with: NSColor.systemPink, in: range)
+            attrs.updating(.foregroundColor, with: theme.colour(for: syntax), in: range)
 
           default: return
         }

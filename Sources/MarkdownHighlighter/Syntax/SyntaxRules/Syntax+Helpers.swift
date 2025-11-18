@@ -11,7 +11,8 @@ import Foundation
 import HighlighterCommon
 
 public enum RegexShape {
-
+  case three
+  
   public typealias Three = (
     Substring,
     leading: Substring,
