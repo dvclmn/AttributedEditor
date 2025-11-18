@@ -26,7 +26,6 @@ extension AttributedRanges {
     _ key: NSAttributedString.Key,
     with value: Any,
     in range: Range<String.Index>,
-    //    in range: NSRange,
   ) {
     self[range, default: [:]][key] = value
   }
@@ -41,15 +40,10 @@ extension Regex where Output == RegexShape.Three {
   ) {
 
     for path in keyPaths {
-      let substring = match.output[keyPath: path]
-      guard
-        let range = text.range(of: substring)
-        //        let r = text.range(of: substring)?.toNSRange(in: text)
-      else { continue }
+      let substr = match.output[keyPath: path]
+      guard let range = text.range(of: substr) else { continue }
 
       perform(path, range)
-      //      perform(typed, r)
-      //      perform(Regex<T>.Match(output: typed), r)
     }
   }
 }

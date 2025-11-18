@@ -24,34 +24,31 @@ extension Highlighter {
     config: Editor.Configuration,
   ) {
 
-    let attributedString = NSMutableAttributedString(string: currentText)
+    let attrString = NSMutableAttributedString(string: currentText)
 
     /// Apply default attributes to the entire text
     let defaultAttributes: [NSAttributedString.Key: Any] = [
       .font: config.defaultFont,
       .foregroundColor: config.defaultColour,
     ]
-    attributedString.setAttributes(
-      defaultAttributes,
-      range: NSRange(location: 0, length: attributedString.length)
-    )
+    attrString.setAttributes(defaultAttributes, range: attrString.fullRange)
 
     /// Get highlighted ranges from the syntax highlighter
     let highlightedRanges = self.highlight(text: currentText)
 
-    //    print("Highlighted ranges: \(highlightedRanges)")
+    /// Convert from `Range<String.Index>` to `NSRange`
     let ranges = highlightedRanges.withNSRanges(in: currentText)
     
     /// Apply each highlighted range's attributes
     for (range, attributes) in ranges {
-      attributedString.addAttributes(attributes, range: range)
+      attrString.addAttributes(attributes, range: range)
     }
 
     /// Preserve the current cursor position and selection
     let selectedRange = textView.selectedRange()
 
     /// Apply the attributed string to the text storage
-    textView.textStorage?.setAttributedString(attributedString)
+    textView.textStorage?.setAttributedString(attrString)
 
     /// Restore the cursor position
     textView.setSelectedRange(selectedRange)

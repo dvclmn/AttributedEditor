@@ -34,28 +34,16 @@ extension SyntaxRule where T == RegexShape.Three {
           //          case \.leading:
           //            attrs.updating(.foregroundColor, with: NSColor.green, in: range)
 
-          case \.content:
-            attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: range)
+//          case \.content:
+//            attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: range)
 
           case \.trailing:
             attrs.updating(.foregroundColor, with: NSColor.systemPink, in: range)
 
-          default: break
+          default: return
         }
 
       }
-      //      guard let range = NSRange(
-      //        from: match,
-      //        as: RegexShape.three,
-      //        keyPath: \.content,
-      //        in: text
-      //      ) else { return }
-      //
-      //      let font = NSFont.system(.body, size: fontSize, monospaced: true)
-      //
-      //      attrs.updating(.font, with: font, in: range)
-      //      attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: range)
-
     }
   }
 }
