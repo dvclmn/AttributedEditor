@@ -14,6 +14,7 @@ extension Markdown {
   /// handled elsewhere
   public struct Theme {
     let body: ColourPair
+    let syntaxCharacters: ColourPair
     let inlineCode: ColourPair
     let blockCode: ColourPair
     let strikeThrough: ColourPair
@@ -21,12 +22,14 @@ extension Markdown {
 
     public init(
       body: ColourPair,
+      syntaxCharacters: ColourPair,
       inlineCode: ColourPair,
       blockCode: ColourPair,
       strikeThrough: ColourPair,
       highlight: ColourPair
     ) {
       self.body = body
+      self.syntaxCharacters = syntaxCharacters
       self.inlineCode = inlineCode
       self.blockCode = blockCode
       self.strikeThrough = strikeThrough
@@ -53,6 +56,7 @@ extension Markdown.Theme {
     //  private var defaultSet: Self {
     .init(
       body: ColourPair(.system(.primary)),
+      syntaxCharacters: ColourPair(.system(.gray)),
       inlineCode: ColourPair(.system(.mint), background: .system(.black)),
       blockCode: ColourPair(.system(.secondary), background: .system(.black)),
       strikeThrough: ColourPair(.system(.red), background: .system(.secondary)),
@@ -60,32 +64,39 @@ extension Markdown.Theme {
     )
   }
 
-  func colour(
+  /// Returns a fore and background, non-optional
+  func colourPair(
     for syntax: Markdown.Syntax,
     component: Markdown.SyntaxComponent,
     type: ColourPair.PairType = .fg,
-    fallback: NSColor = .textColor
-  ) -> NSColor {
-    let colour: NSColor? =
-      switch syntax {
-        case .body:
-          body.nsColour(type)
+    fallbackFore: NSColor = .textColor,
+    fallbackBG: NSColor = .black
+  ) -> (fg: NSColor, bg: NSColor) {
+    let syntaxDefault = ColourPair(.system(.gray))
+    let colour: ColourPair? =
+      switch (syntax, component) {
+        case (.body, .syntax): syntaxDefault
+        case (.body, .content): body
 
-        case .inlineCode:
-          inlineCode.nsColour(type)
+        case (.inlineCode, .syntax): syntaxDefault
+        case (.inlineCode, .content): inlineCode
 
-        case .codeBlock:
-          blockCode.nsColour(type)
+        case (.codeBlock, .syntax): syntaxDefault
+        case (.codeBlock, .content): blockCode
 
-        case .strikethrough:
-          strikeThrough.nsColour(type)
+        case (.strikethrough, .syntax): syntaxDefault
+        case (.strikethrough, .content): strikeThrough
 
-        case .highlight:
-          highlight.nsColour(type)
+        case (.highlight, .syntax): syntaxDefault
+        case (.highlight, .content): highlight
 
         default: nil
+
+      //        default: nil
       }
-    return colour ?? fallback
+    let result = colour?.nsColourPair
+    //    let result = colour?.nsColour(type)
+    return result ?? (fallbackFore, fallbackBG)
   }
 
   //  func colour<Shape>(
