@@ -18,6 +18,7 @@ public typealias SyntaxOutput<T> = (
 public struct SyntaxRule<T> {
   public let syntax: Markdown.Syntax
   public let pattern: Regex<T>
+  let theme: Markdown.Theme
   public let exposesBlockRange: Bool
 
   /// Called when a match is found
@@ -26,11 +27,13 @@ public struct SyntaxRule<T> {
   public init(
     syntax: Markdown.Syntax,
     pattern: Regex<T>,
+    theme: Markdown.Theme,
     exposesBlockRange: Bool = false,
     apply: @escaping SyntaxOutput<T>
   ) {
     self.syntax = syntax
     self.pattern = pattern
+    self.theme = theme
     self.exposesBlockRange = exposesBlockRange
     self.apply = apply
   }

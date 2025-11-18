@@ -21,7 +21,7 @@ struct EditorExampleView: View {
       AttributedEditorView(
         text: $editorText,
         cursorPosition: $cursorPosition,
-        highlighter: MarkdownHighlighter(config: config)
+        highlighter: MarkdownHighlighter(config: config, theme: .default)
       )
       .frame(maxWidth: .infinity, maxHeight: .infinity)
 

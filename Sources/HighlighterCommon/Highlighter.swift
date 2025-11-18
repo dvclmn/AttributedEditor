@@ -12,10 +12,10 @@ public typealias AttributedRanges = [Range<String.Index>: [NSAttributedString.Ke
 
 /// Protocol defining how text should be analyzed and highlighted
 public protocol Highlighter {
+  
   var editorConfig: Editor.Configuration { get }
-  
   func highlight(text: String) -> AttributedRanges
-  
+
   /// Optional: Return ranges that should have custom background rendering
   func blockRanges(text: String) -> [NSRange]
 }

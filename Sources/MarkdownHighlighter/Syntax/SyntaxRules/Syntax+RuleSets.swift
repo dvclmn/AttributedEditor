@@ -13,24 +13,26 @@ import HighlighterCommon
 /// Block rules first (headings, blockquotes, fenced blocks)
 ///
 /// Inline rules after (bold, italic, code spans, links)
-public enum MarkdownRules {
-//  public static func defaultSet(fontSize: CGFloat) -> [SyntaxRule] {
-//    [
-//      //      .heading(fontSize: fontSize),
-//      //      .blockquote(fontSize: fontSize),
-//      //      .fencedCodeBlock(fontSize: fontSize),
+//public enum MarkdownRules {
+////  public static func defaultSet(fontSize: CGFloat) -> [SyntaxRule] {
+////    [
+////      //      .heading(fontSize: fontSize),
+////      //      .blockquote(fontSize: fontSize),
+////      //      .fencedCodeBlock(fontSize: fontSize),
+////
+////      //      .italic(fontSize: fontSize),
+////      .inlineCode(fontSize: fontSize)
+////      //      .link(fontSize: fontSize),
+////    ]
+////  }
 //
-//      //      .italic(fontSize: fontSize),
-//      .inlineCode(fontSize: fontSize)
-//      //      .link(fontSize: fontSize),
+//  public static func testSet(
+//    fontSize: CGFloat
+//  ) -> [SyntaxRule<RegexShape.Three>] {
+//    [
+//      .inlineCode(fontSize: fontSize),
+////      .bold(fontSize: fontSize),
+////      .italic(fontSize: fontSize),
 //    ]
 //  }
-
-  public static func testSet(fontSize: CGFloat) -> [SyntaxRule<RegexShape.Three>] {
-    [
-      .inlineCode(fontSize: fontSize),
-//      .bold(fontSize: fontSize),
-//      .italic(fontSize: fontSize),
-    ]
-  }
-}
+//}

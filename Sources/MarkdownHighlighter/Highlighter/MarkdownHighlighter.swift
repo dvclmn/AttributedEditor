@@ -10,27 +10,37 @@ import CoreTools
 import HighlighterCommon
 
 public final class MarkdownHighlighter: Highlighter {
-  public var editorConfig: Editor.Configuration
+
+  public let editorConfig: Editor.Configuration
+  public let theme: Markdown.Theme
 
   var rules: [SyntaxRule<RegexShape.Three>] {
-    MarkdownRules.testSet(fontSize: editorConfig.fontSize)
+    let size = editorConfig.fontSize
+    return [
+      SyntaxRule.inlineCode(fontSize: size, theme: theme)
+    ]
+    //    MarkdownRules.testSet(fontSize: editorConfig.fontSize)
   }
 
-  public init(config: Editor.Configuration) {
+  public init(
+    config: Editor.Configuration,
+    theme: Markdown.Theme
+  ) {
     self.editorConfig = config
+    self.theme = theme
   }
 
   public func highlight(text: String) -> AttributedRanges {
     var attributes: AttributedRanges = [:]
-//    DisplayString {
-//      "\n\n//////"
-//      //      Labeled("Text to highlight", value: "\n\"\(text.truncate(to: 90))\"\n\n")
-//      Indented("Rules") {
-//        Labeled("Count", value: rules.count)
-//        Labeled("Name", value: rules.map(\.syntax.name))
-//      }
-//
-//    }.print()
+    //    DisplayString {
+    //      "\n\n//////"
+    //      //      Labeled("Text to highlight", value: "\n\"\(text.truncate(to: 90))\"\n\n")
+    //      Indented("Rules") {
+    //        Labeled("Count", value: rules.count)
+    //        Labeled("Name", value: rules.map(\.syntax.name))
+    //      }
+    //
+    //    }.print()
 
     for rule in rules {
       rule.applyAttributes(to: text, attributes: &attributes)

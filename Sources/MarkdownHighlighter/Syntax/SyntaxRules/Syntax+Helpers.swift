@@ -18,21 +18,8 @@ public enum RegexShape {
     content: Substring,
     trailing: Substring
   )
-  //  public static var three: Three.Type { Three.self }
 }
 
-//extension KeyPath where Root == RegexShape.Three {
-//
-//  public func updating(
-//    _ key: NSAttributedString.Key,
-//    with value: Any,
-//    for match: Regex<Root>.Match,
-//    in text: String,
-//    attr attributes: inout AttributedRanges
-//  ) {
-//
-//  }
-//}
 extension AttributedRanges {
   mutating func updating(
     _ key: NSAttributedString.Key,
@@ -54,42 +41,28 @@ extension Regex where Output == RegexShape.Three {
       
       /// This range is correct because the `Substring` points into the parent string
       let range = substring.startIndex ..< substring.endIndex
-      
       perform(path, range)
     }
   }
-//  public func apply(
-//    match: Match,
-//    in text: String,
-//    for keyPaths: KeyPath<Output, Substring>...,
-//    perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void
-//  ) {
-//
-//    for path in keyPaths {
-//      let substr = match.output[keyPath: path]
-//      guard let range = text.range(of: substr) else { continue }
-//      perform(path, range)
-//    }
-//  }
 }
 
-extension NSRange {
-  public init?<T>(
-    from match: Regex<AnyRegexOutput>.Match,
-    as outputType: T.Type,
-    keyPath: KeyPath<T, Substring>,
-    in text: String
-  ) {
-    guard let output = match.output.extractValues(as: outputType) else {
-      return nil
-    }
-    let substring = output[keyPath: keyPath]
-    guard let range = text.range(of: substring)?.toNSRange(in: text) else {
-      return nil
-    }
-    self = range
-  }
-}
+//extension NSRange {
+//  public init?<T>(
+//    from match: Regex<AnyRegexOutput>.Match,
+//    as outputType: T.Type,
+//    keyPath: KeyPath<T, Substring>,
+//    in text: String
+//  ) {
+//    guard let output = match.output.extractValues(as: outputType) else {
+//      return nil
+//    }
+//    let substring = output[keyPath: keyPath]
+//    guard let range = text.range(of: substring)?.toNSRange(in: text) else {
+//      return nil
+//    }
+//    self = range
+//  }
+//}
 
 //public enum DelimiterShape: Sendable {
 //  case none

@@ -9,14 +9,17 @@ import AppKit
 import CoreTools
 
 extension SyntaxRule where T == RegexShape.Three {
-  static func inlineCode(fontSize: CGFloat) -> SyntaxRule {
+  static func inlineCode(
+    fontSize: CGFloat,
+    theme: Markdown.Theme,
+  ) -> SyntaxRule {
 
     let pattern = /(?<leading>`)(?<content>(?:[^`\n])+?)(?<trailing>`)/
-    //    let pattern = /(?<leading>[`]+?)(?<content>[^`\n]+?)(?<trailing>`)(?!`)/
 
     return SyntaxRule(
       syntax: .inlineCode,
       pattern: pattern,
+      theme: theme,
       exposesBlockRange: true
     ) {
       match,
@@ -25,7 +28,6 @@ extension SyntaxRule where T == RegexShape.Three {
 
       pattern.apply(
         match: match,
-//        in: text,
         for: \.leading, \.content, \.trailing
       ) { path, range in
         let font = NSFont.system(.body, size: fontSize, monospaced: true)
