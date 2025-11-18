@@ -6,7 +6,15 @@
 //
 
 import AppKit
+import CoreTools
 
+extension AttributedRanges {
+  public func withNSRanges(in text: String) -> [NSRange: [NSAttributedString.Key: Any]] {
+    self.reduce(into: [:]) { result, element in
+      result[element.key.toNSRange(in: text)] = element.value
+    }
+  }
+}
 extension Highlighter {
 
   @MainActor
@@ -31,10 +39,11 @@ extension Highlighter {
     /// Get highlighted ranges from the syntax highlighter
     let highlightedRanges = self.highlight(text: currentText)
 
-//    print("Highlighted ranges: \(highlightedRanges)")
-
+    //    print("Highlighted ranges: \(highlightedRanges)")
+    let ranges = highlightedRanges.withNSRanges(in: currentText)
+    
     /// Apply each highlighted range's attributes
-    for (range, attributes) in highlightedRanges {
+    for (range, attributes) in ranges {
       attributedString.addAttributes(attributes, range: range)
     }
 
@@ -48,10 +57,7 @@ extension Highlighter {
     textView.setSelectedRange(selectedRange)
 
     textView.syncTypingAttributes()
-
-    /// Update block background ranges
-    let blockRanges = self.blockRanges(text: currentText)
-
+    
     /// Refresh line numbers
     textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
 

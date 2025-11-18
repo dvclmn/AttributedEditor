@@ -8,7 +8,8 @@
 import AppKit
 import SwiftUI
 
-public typealias AttributedRanges = [NSRange: [NSAttributedString.Key: Any]]
+public typealias AttributedRanges = [Range<String.Index>: [NSAttributedString.Key: Any]]
+//public typealias AttributedRanges = [NSRange: [NSAttributedString.Key: Any]]
 /// Protocol defining how text should be analyzed and highlighted
 public protocol Highlighter {
   var editorConfig: Editor.Configuration { get }

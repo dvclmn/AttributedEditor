@@ -22,11 +22,11 @@ public enum RegexShape {
 }
 
 extension AttributedRanges {
-
   mutating func updating(
     _ key: NSAttributedString.Key,
     with value: Any,
-    in range: NSRange,
+    in range: Range<String.Index>,
+    //    in range: NSRange,
   ) {
     self[range, default: [:]][key] = value
   }
@@ -37,16 +37,17 @@ extension Regex where Output == RegexShape.Three {
     match: Match,
     in text: String,
     for keyPaths: KeyPath<Output, Substring>...,
-    perform: (KeyPath<Output, Substring>, NSRange) -> Void
+    perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void
   ) {
 
     for path in keyPaths {
       let substring = match.output[keyPath: path]
       guard
-        let r = text.range(of: substring)?.toNSRange(in: text)
+        let range = text.range(of: substring)
+        //        let r = text.range(of: substring)?.toNSRange(in: text)
       else { continue }
 
-      perform(path, r)
+      perform(path, range)
       //      perform(typed, r)
       //      perform(Regex<T>.Match(output: typed), r)
     }
@@ -54,7 +55,6 @@ extension Regex where Output == RegexShape.Three {
 }
 
 extension NSRange {
-
   public init?<T>(
     from match: Regex<AnyRegexOutput>.Match,
     as outputType: T.Type,
