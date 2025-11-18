@@ -38,6 +38,7 @@ extension SyntaxRule where T == RegexShape.Three {
             attrs.updating(.foregroundColor, with: NSColor.green, in: range)
 
           case \.content:
+            let thing = theme.
             attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: range)
 
           case \.trailing:

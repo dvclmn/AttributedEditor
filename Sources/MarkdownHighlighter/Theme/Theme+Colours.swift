@@ -39,13 +39,24 @@ extension Markdown {
 extension Markdown.Theme {
   static let defaultCodeBG: NSColor = .systemBackground
 
-  public static var `default`: Markdown.Theme {
+  //  public static var `default`: Markdown.Theme {
+  //    .init(
+  //      body: ColourPair(fromNSColor: .textColor),
+  //      inlineCode: ColourPair(fromNSColor: .orange, background: defaultCodeBG),
+  //      blockCode: ColourPair(fromNSColor: .secondaryLabelColor, background: defaultCodeBG),
+  //      strikeThrough: ColourPair(fromNSColor: .red, background: .tertiaryLabelColor),
+  //      highlight: ColourPair(fromNSColor: .cyan, background: .purple)
+  //    )
+  //  }
+
+  public static var `default`: Self {
+    //  private var defaultSet: Self {
     .init(
-      body: ColourPair(fromNSColor: .textColor),
-      inlineCode: ColourPair(fromNSColor: .orange, background: defaultCodeBG),
-      blockCode: ColourPair(fromNSColor: .secondaryLabelColor, background: defaultCodeBG),
-      strikeThrough: ColourPair(fromNSColor: .red, background: .tertiaryLabelColor),
-      highlight: ColourPair(fromNSColor: .cyan, background: .purple)
+      body: ColourPair(.system(.primary)),
+      inlineCode: ColourPair(.system(.mint), background: .system(.black)),
+      blockCode: ColourPair(.system(.secondary), background: .system(.black)),
+      strikeThrough: ColourPair(.system(.red), background: .system(.secondary)),
+      highlight: ColourPair(.system(.cyan), background: .system(.purple)),
     )
   }
 }

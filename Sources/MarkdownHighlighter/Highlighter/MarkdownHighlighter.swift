@@ -12,7 +12,7 @@ import HighlighterCommon
 public final class MarkdownHighlighter: Highlighter {
 
   public let editorConfig: Editor.Configuration
-  public let theme: Markdown.Theme
+  public var theme: Markdown.Theme
 
   var rules: [SyntaxRule<RegexShape.Three>] {
     let size = editorConfig.fontSize
@@ -24,7 +24,7 @@ public final class MarkdownHighlighter: Highlighter {
 
   public init(
     config: Editor.Configuration,
-    theme: Markdown.Theme
+    theme: Markdown.Theme = .default
   ) {
     self.editorConfig = config
     self.theme = theme
@@ -58,5 +58,10 @@ public final class MarkdownHighlighter: Highlighter {
     }
 
     return output
+  }
+}
+extension MarkdownHighlighter {
+  public func updateTheme(_ theme: Markdown.Theme) {
+    self.theme = theme
   }
 }

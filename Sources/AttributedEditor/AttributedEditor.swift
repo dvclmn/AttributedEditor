@@ -12,7 +12,7 @@ import MarkdownHighlighter
 import SwiftUI
 
 public struct AttributedEditor: View {
-
+  @Environment(\.markdownTheme) private var markdownTheme
   @Binding var text: String
   let markdownHighlighter: MarkdownHighlighter
 
@@ -26,20 +26,23 @@ public struct AttributedEditor: View {
       config: .init(
         isEditable: true,
         options: [],
-//        options: [.lineNumbers],
+        //        options: [.lineNumbers],
         fontSize: fontSize,
         lineSpacing: 1.8,
         insets: CGSize(20, 40),
         overScroll: 80,
         maxWidth: nil,
         colours: .init()
-      )
+      ),
     )
     self.markdownHighlighter = highlighter
   }
 
   public var body: some View {
     AttributedEditorView(text: $text, highlighter: markdownHighlighter)
+      .onAppear {
+        markdownHighlighter.updateTheme(markdownTheme)
+      }
 
   }
 }
@@ -49,3 +52,13 @@ public struct AttributedEditor: View {
   AttributedEditor(text: $text, fontSize: 14)
 }
 #endif
+
+extension EnvironmentValues {
+  @Entry public var markdownTheme: Markdown.Theme = .default
+}
+
+extension View where Self == AttributedEditor {
+  public func setTheme(_ theme: Markdown.Theme) -> some View {
+    self.environment(\.markdownTheme, theme)
+  }
+}
