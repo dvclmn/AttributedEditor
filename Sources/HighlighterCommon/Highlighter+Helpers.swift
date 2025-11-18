@@ -15,7 +15,7 @@ extension Highlighter {
     textView: NSTextView,
     config: Editor.Configuration,
   ) {
-//    print("Did apply highlighter")
+
     let attributedString = NSMutableAttributedString(string: currentText)
 
     /// Apply default attributes to the entire text
@@ -31,8 +31,8 @@ extension Highlighter {
     /// Get highlighted ranges from the syntax highlighter
     let highlightedRanges = self.highlight(text: currentText)
 
-    print("Highlighted ranges: \(highlightedRanges)")
-    
+//    print("Highlighted ranges: \(highlightedRanges)")
+
     /// Apply each highlighted range's attributes
     for (range, attributes) in highlightedRanges {
       attributedString.addAttributes(attributes, range: range)

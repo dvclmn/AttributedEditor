@@ -9,6 +9,20 @@ import AppKit
 import HighlighterCommon
 
 extension AttributedEditorView.Coordinator {
+  
+  func applyHighlighting() {
+    guard let textView else { return }
+    let currentText = textView.string
+    let highlighter = self.parent.highlighter
+
+    highlighter.apply(
+      currentText: currentText,
+      textView: textView,
+      config: self.parent.config
+    )
+    textView.updateBlockRanges(highlighter.blockRanges(text: currentText))
+
+  }
 
   func updateInsertionPointPosition() {
     guard let textView else { return }
@@ -31,17 +45,4 @@ extension AttributedEditorView.Coordinator {
   //
   //  }
 
-  func applyHighlighting() {
-    guard let textView else { return }
-    let currentText = textView.string
-    let highlighter = self.parent.highlighter
-    
-    highlighter.apply(
-      currentText: currentText,
-      textView: textView,
-      config: self.parent.config
-    )
-    textView.updateBlockRanges(highlighter.blockRanges(text: currentText))
-
-  }
 }

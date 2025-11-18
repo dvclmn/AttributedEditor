@@ -31,8 +31,8 @@ extension SyntaxRule where T == RegexShape.Three {
         attrs.updating(.font, with: font, in: range)
 
         switch path {
-//          case \.leading:
-//            attrs.updating(.foregroundColor, with: NSColor.green, in: range)
+          //          case \.leading:
+          //            attrs.updating(.foregroundColor, with: NSColor.green, in: range)
 
           case \.content:
             attrs.updating(.foregroundColor, with: NSColor.systemOrange, in: range)
