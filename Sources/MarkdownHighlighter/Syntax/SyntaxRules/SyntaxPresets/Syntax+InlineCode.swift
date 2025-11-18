@@ -15,12 +15,18 @@ extension SyntaxRule where T == RegexShape.Three {
   ) -> SyntaxRule {
 
     let pattern = /(?<leading>`)(?<content>(?:[^`\n])+?)(?<trailing>`)/
-let syntax: Markdown.Syntax = .inlineCode
+    let syntax: Markdown.Syntax = .inlineCode
+    
+    let syntaxColour: NSColor = theme.colour(for: syntax, type: .fg)
+    
+//    let fg = theme.colour(for: syntax, type: .fg)
+//    let bg = theme.colour(for: syntax, type: .bg)
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
       theme: theme,
-      exposesBlockRange: true
+      exposesBlockRange: false
+//      exposesBlockRange: true
     ) {
       match,
       text,
@@ -35,13 +41,14 @@ let syntax: Markdown.Syntax = .inlineCode
 
         switch path {
           case \.leading:
-            attrs.updating(.foregroundColor, with: theme.colour(for: syntax), in: range)
+
+            attrs.updating(.foregroundColor, with: bg, in: range)
 
           case \.content:
-            attrs.updating(.foregroundColor, with: theme.colour(for: syntax), in: range)
+            attrs.updating(.foregroundColor, with: fg, in: range)
 
           case \.trailing:
-            attrs.updating(.foregroundColor, with: theme.colour(for: syntax), in: range)
+            attrs.updating(.foregroundColor, with: bg, in: range)
 
           default: return
         }

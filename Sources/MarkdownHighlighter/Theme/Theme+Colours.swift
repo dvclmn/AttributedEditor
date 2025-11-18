@@ -60,27 +60,65 @@ extension Markdown.Theme {
     )
   }
 
-  func colour<Shape>(
+  func colour(
     for syntax: Markdown.Syntax,
-    keypath: KeyPath<Regex<Shape>.Match, Substring>,
-//    withShape shape: RegexShape,
-    //    theme: Markdown.Theme,
+    component: Markdown.SyntaxComponent,
+    type: ColourPair.PairType = .fg,
     fallback: NSColor = .textColor
   ) -> NSColor {
     let colour: NSColor? =
-    switch syntax {
-        //      case .body:
-        //        theme.body.nsColour
+      switch syntax {
+        case .body:
+          body.nsColour(type)
 
-      case .body: body.nsColour
-      case .inlineCode: inlineCode.nsColour
-      case .codeBlock: blockCode.nsColour
-      case .strikethrough: strikeThrough.nsColour
-      case .highlight: highlight.nsColour
+        case .inlineCode:
+          inlineCode.nsColour(type)
 
-        default: fallback
+        case .codeBlock:
+          blockCode.nsColour(type)
+
+        case .strikethrough:
+          strikeThrough.nsColour(type)
+
+        case .highlight:
+          highlight.nsColour(type)
+
+        default: nil
       }
     return colour ?? fallback
   }
-}
 
+  //  func colour<Shape>(
+  //    for syntax: Markdown.Syntax,
+  //    keypath: KeyPath<Regex<Shape>.Match, Substring>,
+  ////    withShape shape: RegexShape,
+  //    //    theme: Markdown.Theme,
+  //    fallback: NSColor = .textColor
+  //  ) -> NSColor {
+  //    let colour: NSColor? =
+  //    switch syntax {
+  //        //      case .body:
+  //        //        theme.body.nsColour
+  //
+  //      case .body:
+  //
+  //        body.nsColour
+  //
+  //      case .inlineCode:
+  //        inlineCode.nsColour
+  //
+  //      case .codeBlock:
+  //        blockCode.nsColour
+  //
+  //      case .strikethrough:
+  //        strikeThrough.nsColour
+  //
+  //      case .highlight:
+  //        highlight.nsColour
+  //
+  //
+  //        default: fallback
+  //      }
+  //    return colour ?? fallback
+  //  }
+}

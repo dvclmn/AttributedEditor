@@ -29,6 +29,14 @@ extension AttributedRanges {
   ) {
     self[range, default: [:]][key] = value
   }
+  mutating func updatingIfPresent(
+    _ key: NSAttributedString.Key,
+    with value: Any?,
+    in range: Range<String.Index>,
+  ) {
+    guard let value else { return }
+    self[range, default: [:]][key] = value
+  }
 }
 
 extension Regex where Output == RegexShape.Three {
