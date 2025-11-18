@@ -21,6 +21,18 @@ public enum RegexShape {
   //  public static var three: Three.Type { Three.self }
 }
 
+//extension KeyPath where Root == RegexShape.Three {
+//
+//  public func updating(
+//    _ key: NSAttributedString.Key,
+//    with value: Any,
+//    for match: Regex<Root>.Match,
+//    in text: String,
+//    attr attributes: inout AttributedRanges
+//  ) {
+//
+//  }
+//}
 extension AttributedRanges {
   mutating func updating(
     _ key: NSAttributedString.Key,
@@ -34,18 +46,31 @@ extension AttributedRanges {
 extension Regex where Output == RegexShape.Three {
   public func apply(
     match: Match,
-    in text: String,
     for keyPaths: KeyPath<Output, Substring>...,
-    perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void
+    perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void,
   ) {
-
     for path in keyPaths {
-      let substr = match.output[keyPath: path]
-      guard let range = text.range(of: substr) else { continue }
-
+      let substring = match.output[keyPath: path]
+      
+      /// This range is correct because the `Substring` points into the parent string
+      let range = substring.startIndex ..< substring.endIndex
+      
       perform(path, range)
     }
   }
+//  public func apply(
+//    match: Match,
+//    in text: String,
+//    for keyPaths: KeyPath<Output, Substring>...,
+//    perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void
+//  ) {
+//
+//    for path in keyPaths {
+//      let substr = match.output[keyPath: path]
+//      guard let range = text.range(of: substr) else { continue }
+//      perform(path, range)
+//    }
+//  }
 }
 
 extension NSRange {

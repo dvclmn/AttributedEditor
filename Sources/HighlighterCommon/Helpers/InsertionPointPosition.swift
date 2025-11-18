@@ -7,7 +7,6 @@
 
 import AppKit
 
-
 public struct InsertionPointPosition {
   let line: Int
   let column: Int
