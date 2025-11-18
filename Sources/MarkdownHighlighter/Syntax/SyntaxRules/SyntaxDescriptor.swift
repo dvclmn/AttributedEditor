@@ -9,6 +9,15 @@ import AppKit
 //import CoreTools
 import HighlighterCommon
 
+public protocol MarkdownResolveable {
+  associatedtype CaptureShape
+  
+  var rule: SyntaxRule<CaptureShape> { get }
+  
+  func resolve(theme: Markdown.Theme)
+}
+
+
 public typealias SyntaxOutput<T> = (
   Markdown.SyntaxContext<T>,
   inout AttributedRanges
