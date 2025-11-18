@@ -15,14 +15,14 @@ class LineNumberRulerView: NSRulerView {
   private let backgroundColor = NSColor.clear
   private let textColor = NSColor.tertiaryLabelColor
   private let numberSize: CGFloat = 11.5
-  
+
   private var font: NSFont {
-    
+
     let font = NSFont.monospacedDigitSystemFont(ofSize: numberSize, weight: .regular)
     let desc = font.fontDescriptor.withSymbolicTraits(.traitCondensed)
     return NSFont(descriptor: desc, size: numberSize) ?? font
   }
-//  private let font = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+  //  private let font = NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
   private let padding: CGFloat = 5
 
   init(textView: NSTextView) {
