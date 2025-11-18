@@ -35,29 +35,57 @@ extension AttributedRanges {
   }
 }
 
-public typealias MatchRange = ()
-extension NSRange {
-  
-  public func ranges<T>(
-    match: Regex<AnyRegexOutput>.Match,
-    as outputType: T.Type,
-    for paths: KeyPath<T, Substring>...,
+//extension SyntaxRule {
+extension Regex where Output == RegexShape.Three {
+  public func apply(
+    match: Match,
+    //    match: Regex<AnyRegexOutput>.Match,
+    //    as outputType: T.Type,
     in text: String,
-    perform: (Regex<T>.Match, NSRange) -> Void
+    for keyPaths: KeyPath<Output, Substring>...,
+    perform: (KeyPath<Output, Substring>, NSRange) -> Void
+      //    perform: (T, NSRange) -> Void
+      //    perform: (Regex<T>.Match, NSRange) -> Void
   ) {
-//  ) -> [MatchRange] {
-    let thing = paths.map { path -> (Regex<T>.Match, NSRange) in
-      let range = NSRange(
-        from: match,
-        as: outputType,
-        keyPath: path,
-        in: text
-      )
-      
-      
+    //    guard let typed = match.output.extractValues(as: Output) else { return }
+    let output = match.output
+
+    for path in keyPaths {
+      let substring = output[keyPath: path]
+      guard
+        let r = text.range(of: substring)?.toNSRange(in: text)
+      else { continue }
+
+      perform(path, r)
+      //      perform(typed, r)
+      //      perform(Regex<T>.Match(output: typed), r)
     }
   }
-  
+}
+
+//public typealias MatchRange = ()
+extension NSRange {
+  //
+  //  public func ranges<T>(
+  //    match: Regex<AnyRegexOutput>.Match,
+  //    as outputType: T.Type,
+  //    for paths: KeyPath<T, Substring>...,
+  //    in text: String,
+  //    perform: (Regex<T>.Match, NSRange) -> Void
+  //  ) {
+  ////  ) -> [MatchRange] {
+  //    let thing = paths.map { path -> (Regex<T>.Match, NSRange) in
+  //      let range = NSRange(
+  //        from: match,
+  //        as: outputType,
+  //        keyPath: path,
+  //        in: text
+  //      )
+  //
+  //
+  //    }
+  //  }
+
   public init?<T>(
     from match: Regex<AnyRegexOutput>.Match,
     as outputType: T.Type,

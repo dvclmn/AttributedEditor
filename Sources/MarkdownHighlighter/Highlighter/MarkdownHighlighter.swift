@@ -12,7 +12,7 @@ import HighlighterCommon
 public final class MarkdownHighlighter: Highlighter {
   public var editorConfig: Editor.Configuration
 
-  var rules: [SyntaxRule] {
+  var rules: [SyntaxRule<RegexShape.Three>] {
     MarkdownRules.testSet(fontSize: editorConfig.fontSize)
   }
 

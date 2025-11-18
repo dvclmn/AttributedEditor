@@ -26,11 +26,11 @@ public enum MarkdownRules {
 //    ]
 //  }
 
-  public static func testSet(fontSize: CGFloat) -> [SyntaxRule] {
+  public static func testSet(fontSize: CGFloat) -> [SyntaxRule<RegexShape.Three>] {
     [
       .inlineCode(fontSize: fontSize),
-      .bold(fontSize: fontSize),
-      .italic(fontSize: fontSize),
+//      .bold(fontSize: fontSize),
+//      .italic(fontSize: fontSize),
     ]
   }
 }

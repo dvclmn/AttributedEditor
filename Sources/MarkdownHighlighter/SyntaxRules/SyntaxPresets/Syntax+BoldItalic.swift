@@ -9,70 +9,70 @@ import AppKit
 import CoreTools
 
 extension SyntaxRule {
-  static func bold(fontSize: CGFloat) -> SyntaxRule {
-
-    let pattern = /(?<leading>\*\*)(?<content>[^\*\*\n]+?)(?<trailing>\*\*)(?!\*)/
-
-    return SyntaxRule(
-      syntax: .bold,
-      pattern: Regex(pattern),
-    ) {
-      match,
-      text,
-      attrs in
-
-      //      guard let output = match.output.extractValues(as: RegexShape.threePreset),
-      //        let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
-      //      else { return }
-      guard
-        let range = NSRange(
-          from: match,
-          as: RegexShape.three,
-          keyPath: \.content,
-          in: text
-        )
-      else { return }
-      let font = NSFont.system(.bold, size: fontSize)
-//      let font = NSFont.boldSystemFont(ofSize: fontSize)
-      attrs.updating(.font, with: font, in: range)
-
-    }
-  }
-
-  static func italic(fontSize: CGFloat) -> SyntaxRule {
-
-    let pattern = /(?<leading>\*)(?<content>[^\*\n]+?)(?<trailing>\*)(?!\*)/
-
-    return SyntaxRule(
-      syntax: .italic,
-      pattern: Regex(pattern),
-    ) { match, text, attrs in
-
-      //      guard let output = match.output.extractValues(as: RegexShape.threePreset),
-      //            let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
-      //      else { return }
-      guard
-        let range = NSRange(
-          from: match,
-          as: RegexShape.three,
-          keyPath: \.content,
-          in: text
-        )
-      else { return }
-
-      let font = NSFont.system(.italic, size: fontSize)
-//      let system = NSFont.systemFont(ofSize: fontSize)
-//      let desc = system.fontDescriptor.withSymbolicTraits(.traitItalic)
-//      let font = system.italic()
-//      let font = NSFont(descriptor: desc, size: fontSize) ?? system
-      
-      
-      
-      attrs.updating(.font, with: font, in: range)
-//      attrs.updating(.foregroundColor, with: NSColor.systemPink, in: range)
-
-    }
-  }
+//  static func bold(fontSize: CGFloat) -> SyntaxRule {
+//
+//    let pattern = /(?<leading>\*\*)(?<content>[^\*\*\n]+?)(?<trailing>\*\*)(?!\*)/
+//
+//    return SyntaxRule(
+//      syntax: .bold,
+//      pattern: Regex(pattern),
+//    ) {
+//      match,
+//      text,
+//      attrs in
+//
+//      //      guard let output = match.output.extractValues(as: RegexShape.threePreset),
+//      //        let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
+//      //      else { return }
+//      guard
+//        let range = NSRange(
+//          from: match,
+//          as: RegexShape.three,
+//          keyPath: \.content,
+//          in: text
+//        )
+//      else { return }
+//      let font = NSFont.system(.bold, size: fontSize)
+////      let font = NSFont.boldSystemFont(ofSize: fontSize)
+//      attrs.updating(.font, with: font, in: range)
+//
+//    }
+//  }
+//
+//  static func italic(fontSize: CGFloat) -> SyntaxRule {
+//
+//    let pattern = /(?<leading>\*)(?<content>[^\*\n]+?)(?<trailing>\*)(?!\*)/
+//
+//    return SyntaxRule(
+//      syntax: .italic,
+//      pattern: Regex(pattern),
+//    ) { match, text, attrs in
+//
+//      //      guard let output = match.output.extractValues(as: RegexShape.threePreset),
+//      //            let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
+//      //      else { return }
+//      guard
+//        let range = NSRange(
+//          from: match,
+//          as: RegexShape.three,
+//          keyPath: \.content,
+//          in: text
+//        )
+//      else { return }
+//
+//      let font = NSFont.system(.italic, size: fontSize)
+////      let system = NSFont.systemFont(ofSize: fontSize)
+////      let desc = system.fontDescriptor.withSymbolicTraits(.traitItalic)
+////      let font = system.italic()
+////      let font = NSFont(descriptor: desc, size: fontSize) ?? system
+//      
+//      
+//      
+//      attrs.updating(.font, with: font, in: range)
+////      attrs.updating(.foregroundColor, with: NSColor.systemPink, in: range)
+//
+//    }
+//  }
 }
 
 //@MainActor
