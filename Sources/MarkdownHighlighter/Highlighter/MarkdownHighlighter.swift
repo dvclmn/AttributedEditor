@@ -50,6 +50,8 @@ public final class MarkdownHighlighter: Highlighter {
 
   /// blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`
   public func blockRanges(text: String) -> [NSRange] {
+    
+//    fatalError("Put this back on soon")
     var output: [NSRange] = []
     for rule in rules where rule.exposesBlockRange {
       let matches = text.matches(of: rule.pattern)

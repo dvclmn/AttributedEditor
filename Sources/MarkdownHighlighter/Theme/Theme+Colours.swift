@@ -56,7 +56,7 @@ extension Markdown.Theme {
     //  private var defaultSet: Self {
     .init(
       body: ColourPair(.system(.primary)),
-      syntaxCharacters: ColourPair(.system(.gray)),
+      syntaxCharacters: ColourPair(.system(.brown)),
       inlineCode: ColourPair(.system(.mint), background: .system(.black)),
       blockCode: ColourPair(.system(.secondary), background: .system(.black)),
       strikeThrough: ColourPair(.system(.red), background: .system(.secondary)),
@@ -68,26 +68,26 @@ extension Markdown.Theme {
   func colourPair(
     for syntax: Markdown.Syntax,
     component: Markdown.SyntaxComponent,
-    type: ColourPair.PairType = .fg,
+    //    type: ColourPair.PairType = .fg,
     fallbackFore: NSColor = .textColor,
     fallbackBG: NSColor = .black
   ) -> (fg: NSColor, bg: NSColor) {
-    let syntaxDefault = ColourPair(.system(.gray))
+//    let syntaxDefault = ColourPair(.system(.brown))
     let colour: ColourPair? =
       switch (syntax, component) {
-        case (.body, .syntax): syntaxDefault
+        case (.body, .syntax): syntaxCharacters
         case (.body, .content): body
 
-        case (.inlineCode, .syntax): syntaxDefault
+        case (.inlineCode, .syntax): syntaxCharacters
         case (.inlineCode, .content): inlineCode
 
-        case (.codeBlock, .syntax): syntaxDefault
+        case (.codeBlock, .syntax): syntaxCharacters
         case (.codeBlock, .content): blockCode
 
-        case (.strikethrough, .syntax): syntaxDefault
+        case (.strikethrough, .syntax): syntaxCharacters
         case (.strikethrough, .content): strikeThrough
 
-        case (.highlight, .syntax): syntaxDefault
+        case (.highlight, .syntax): syntaxCharacters
         case (.highlight, .content): highlight
 
         default: nil
@@ -97,6 +97,8 @@ extension Markdown.Theme {
     let result = colour?.nsColourPair
     //    let result = colour?.nsColour(type)
     return result ?? (fallbackFore, fallbackBG)
+    
+//    fatalError("Wait")
   }
 
   //  func colour<Shape>(

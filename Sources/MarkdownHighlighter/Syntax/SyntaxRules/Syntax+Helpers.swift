@@ -12,7 +12,7 @@ import HighlighterCommon
 
 public enum RegexShape {
   case three
-  
+
   public typealias Three = (
     Substring,
     leading: Substring,
@@ -42,15 +42,18 @@ extension AttributedRanges {
 extension Regex where Output == RegexShape.Three {
   public func apply(
     match: Match,
-    for keyPaths: KeyPath<Output, Substring>...,
+//    for keyPaths: KeyPath<Output, Substring>...,
     perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void,
   ) {
-    for path in keyPaths {
+    let paths: [KeyPath<Output, Substring>] = [\.0, \.leading, \.content, \.trailing]
+    
+    for path in paths {
       let substring = match.output[keyPath: path]
-      
+
       /// This range is correct because the `Substring` points into the parent string
-      let range = substring.startIndex ..< substring.endIndex
+      let range = substring.startIndex..<substring.endIndex
       perform(path, range)
+      
     }
   }
 }
