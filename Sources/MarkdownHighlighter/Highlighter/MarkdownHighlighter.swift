@@ -14,13 +14,16 @@ public final class MarkdownHighlighter: Highlighter {
   public let editorConfig: Editor.Configuration
   public var theme: Markdown.Theme
 
-  var rules: [SyntaxRule<RegexShape.Three>] {
-    let size = editorConfig.fontSize
-    return [
-      SyntaxRule.inlineCode(fontSize: size, theme: theme)
-    ]
-    //    MarkdownRules.testSet(fontSize: editorConfig.fontSize)
+  var styles: [Markdown.Descriptor<RegexShape.Three>] {
+    
   }
+//  var rules: [SyntaxRule<RegexShape.Three>] {
+//    let size = editorConfig.fontSize
+//    return [
+//      SyntaxRule.inlineCode(fontSize: size, theme: theme)
+//    ]
+//    //    MarkdownRules.testSet(fontSize: editorConfig.fontSize)
+//  }
 
   public init(
     config: Editor.Configuration,
@@ -43,7 +46,7 @@ public final class MarkdownHighlighter: Highlighter {
     //    }.print()
 
     for rule in rules {
-      rule.applyAttributes(to: text, attributes: &attributes)
+//      rule.apply(to: text, attributes: &attributes)
     }
     return attributes
   }
