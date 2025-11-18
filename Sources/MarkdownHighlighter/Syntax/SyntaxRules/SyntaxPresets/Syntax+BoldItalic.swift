@@ -38,13 +38,13 @@ extension SyntaxRule where T == RegexShape.Three {
 
         switch path {
 
-//          case \.leading,
-//            \.trailing:
-//            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-//            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
-//
-//          case \.content:
-//            attrs.updating(.font, with: font, in: range)
+          case \.leading,
+            \.trailing:
+            attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+            attrs.update(.foregroundColor, with: NSColor.gray, in: range)
+
+          case \.content:
+            attrs.update(.font, with: font, in: range)
 
           default: return
         }
@@ -80,14 +80,14 @@ extension SyntaxRule where T == RegexShape.Three {
         let font = NSFont.system(.italic, size: fontSize)
         
         switch path {
-//            
-//          case \.leading,
-//            \.trailing:
-//            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-//            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
-//            
-//          case \.content:
-//            attrs.updating(.font, with: font, in: range)
+            
+          case \.leading,
+            \.trailing:
+            attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+            attrs.update(.foregroundColor, with: NSColor.gray, in: range)
+            
+          case \.content:
+            attrs.update(.font, with: font, in: range)
             
           default: return
         }
@@ -124,13 +124,13 @@ extension SyntaxRule where T == RegexShape.Three {
         
         switch path {
             
-//          case \.leading,
-//            \.trailing:
-//            attrs.updating(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-//            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
-//            
-//          case \.content:
-//            attrs.updating(.font, with: font, in: range)
+          case \.leading,
+            \.trailing:
+            attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+            attrs.update(.foregroundColor, with: NSColor.gray, in: range)
+            
+          case \.content:
+            attrs.update(.font, with: font, in: range)
             
           default: return
         }
@@ -169,7 +169,7 @@ extension SyntaxRule where T == RegexShape.Three {
 //      else { return }
 //      let font = NSFont.system(.bold, size: fontSize)
 ////      let font = NSFont.boldSystemFont(ofSize: fontSize)
-//      attrs.updating(.font, with: font, in: range)
+//      attrs.update(.font, with: font, in: range)
 //
 //    }
 //  }
@@ -203,8 +203,8 @@ extension SyntaxRule where T == RegexShape.Three {
 //
 //
 //
-//      attrs.updating(.font, with: font, in: range)
-////      attrs.updating(.foregroundColor, with: NSColor.systemPink, in: range)
+//      attrs.update(.font, with: font, in: range)
+////      attrs.update(.foregroundColor, with: NSColor.systemPink, in: range)
 //
 //    }
 //  }

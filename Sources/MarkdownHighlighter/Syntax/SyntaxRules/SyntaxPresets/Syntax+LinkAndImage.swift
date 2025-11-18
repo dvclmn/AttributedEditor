@@ -36,24 +36,24 @@ extension SyntaxRule where T == RegexShape.Three {
         let font = NSFont.system(.body, size: fontSize * 0.97, monospaced: true)
 
         switch path {
-//
-//          case \.0:
-//            attrs.updating(.font, with: font, in: range)
-//            attrs.updating(
-//              .backgroundColor,
-//              with: ThemeColour.olive,
-//              in: range
-//            )
-//
-//          case \.leading,
-//            \.trailing:
-//            attrs.updating(.foregroundColor, with: NSColor.gray, in: range)
-//
-//          case \.content:
-//
-//            attrs.updating(
-//              .foregroundColor,
-//              with: ThemeColour.reddish, in: range)
+
+          case \.0:
+            attrs.update(.font, with: font, in: range)
+            attrs.update(
+              .backgroundColor,
+              with: ThemeColour.olive,
+              in: range
+            )
+
+          case \.leading,
+            \.trailing:
+            attrs.update(.foregroundColor, with: NSColor.gray, in: range)
+
+          case \.content:
+
+            attrs.update(
+              .foregroundColor,
+              with: ThemeColour.reddish, in: range)
 
           default: return
         }

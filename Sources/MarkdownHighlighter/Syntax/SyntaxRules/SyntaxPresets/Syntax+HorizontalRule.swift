@@ -5,20 +5,36 @@
 //  Created by Dave Coleman on 17/11/2025.
 //
 
-//import AppKit
-//
-//extension SyntaxRule {
-//  public static func horizontalRule() -> SyntaxRule {
-//    return SyntaxRule(
-//      syntax: .horizontalRule,
-//      delimiter: .prefix("---"),
-//      role: .inlineText,
-//      captures: .none,
-//      regexOptions: [.anchorsMatchLines],
-//      apply: { match, text, attributes in
-//        let r = match.range(at: 0)
-//        attributes[r] = [.foregroundColor: NSColor.quaternaryLabelColor]
-//      }
-//    )
-//  }
-//}
+import AppKit
+import ColourKit
+import CoreTools
+
+extension SyntaxRule where T == RegexShape.Single {
+  static func horizontalRule(
+    fontSize: CGFloat,
+    theme: Markdown.Theme,
+  ) -> SyntaxRule {
+
+    let pattern = /\n---+?/
+    let syntax: Markdown.Syntax = .horizontalRule
+
+    return SyntaxRule(
+      syntax: syntax,
+      pattern: pattern,
+      theme: theme,
+      exposesBlockRange: false
+    ) {
+      match,
+      text,
+      attrs in
+
+      let range = match.range
+      let font = NSFont.system(.body, size: fontSize * 0.97, monospaced: true)
+
+      attrs.update(
+        .foregroundColor,
+        with: ThemeColour.reddish, in: range)
+      
+    }
+  }
+}

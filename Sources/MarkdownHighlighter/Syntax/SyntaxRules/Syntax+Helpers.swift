@@ -11,6 +11,8 @@ import Foundation
 import HighlighterCommon
 
 public enum RegexShape {
+  public typealias Single = (Substring)
+
   public typealias Three = (
     Substring,
     leading: Substring,
@@ -20,7 +22,7 @@ public enum RegexShape {
 }
 
 extension AttributedRanges {
-  
+
   mutating func update(
     _ key: NSAttributedString.Key,
     with value: Any,
@@ -31,27 +33,46 @@ extension AttributedRanges {
       self[idx].attributes[key] = value
       return
     }
-    
+
     // Otherwise, append a new run.
     self.append(AttributedRun(range: range, attributes: [key: value]))
   }
-  
-//  mutating func updating(
-//    _ key: NSAttributedString.Key,
-//    with value: Any,
-//    in range: Range<String.Index>,
-//  ) {
-//    self[range, default: [:]][key] = value
-//  }
-//  mutating func updatingIfPresent(
-//    _ key: NSAttributedString.Key,
-//    with value: Any?,
-//    in range: Range<String.Index>,
-//  ) {
-//    guard let value else { return }
-//    self[range, default: [:]][key] = value
-//  }
+
+  //  mutating func updating(
+  //    _ key: NSAttributedString.Key,
+  //    with value: Any,
+  //    in range: Range<String.Index>,
+  //  ) {
+  //    self[range, default: [:]][key] = value
+  //  }
+  //  mutating func updatingIfPresent(
+  //    _ key: NSAttributedString.Key,
+  //    with value: Any?,
+  //    in range: Range<String.Index>,
+  //  ) {
+  //    guard let value else { return }
+  //    self[range, default: [:]][key] = value
+  //  }
 }
+
+//extension Regex where Output == RegexShape.Single {
+//  public func apply(
+//    match: Match,
+//    perform: (Range<String.Index>) -> Void,
+//    //    perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void,
+//  ) {
+//    //    let paths: [KeyPath<Output, Substring>] = [\.self]
+//
+//    //    for path in paths {
+////    let substring = match.output
+//
+//    /// This range is correct because the `Substring` points into the parent string
+////    let range = substring.startIndex..<substring.endIndex
+//    perform(match.range)
+//
+//    //    }
+//  }
+//}
 
 extension Regex where Output == RegexShape.Three {
   public func apply(
