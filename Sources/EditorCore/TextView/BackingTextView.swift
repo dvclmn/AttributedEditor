@@ -57,37 +57,47 @@ class BackingTextView: NSTextView {
 
 extension BackingTextView {
   fileprivate func drawCustomReplacements() {
-    guard let layoutManager = layoutManager,
+    guard
+      let layoutManager = layoutManager,
       let textContainer = textContainer,
       let textStorage = textStorage
     else { return }
-
-    // Find all "---" patterns
-    let pattern = /---/
-    let matches = textStorage.string.matches(of: pattern)
-
+    
+    let string = textStorage.string
+    let matches = string.matches(of: /---/)
+    
     for match in matches {
-      let range = match.range.toNSRange(in: textStorage.string)
-
-      // Hide the hyphens
+      let range = match.range.toNSRange(in: string)
+      
+      // Hide the characters
       layoutManager.setTemporaryAttributes(
         [.foregroundColor: NSColor.clear],
         forCharacterRange: range
       )
-
-      // Draw horizontal rule at that position
+      
+      // Convert char → glyph → container rect
       let glyphRange = layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
-      let boundingRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-
+      var rect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+      
+      // Translate container coordinates → view coordinates
+      let origin = self.textContainerOrigin
+      rect = rect.offsetBy(dx: origin.x, dy: origin.y)
+      
+      // Use a consistent vertical alignment (avoids collapsed bounding rect)
+      let lineHeight = layoutManager.defaultLineHeight(for: textStorage.attribute(.font, at: range.location, effectiveRange: nil) as? NSFont ?? NSFont.systemFont(ofSize: 12))
+      
+      let ruleY = rect.minY + (lineHeight * 0.5)
+      
       let ruleRect = NSRect(
-        x: boundingRect.origin.x,
-        y: boundingRect.midY,
-        width: textContainer.size.width - boundingRect.origin.x - 20,
+        x: origin.x + 5,
+        y: ruleY,
+        width: bounds.width - (origin.x + 10),
         height: 2
       )
-
+      
       NSColor.separatorColor.setFill()
       ruleRect.fill()
     }
   }
+
 }
