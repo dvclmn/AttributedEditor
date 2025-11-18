@@ -11,7 +11,6 @@ import HighlighterCommon
 
 public typealias SyntaxOutput<T> = (
   Regex<T>.Match,
-//  Regex<AnyRegexOutput>.Match,
   String,
   inout AttributedRanges
 ) -> Void
@@ -34,5 +33,17 @@ public struct SyntaxRule<T> {
     self.pattern = pattern
     self.exposesBlockRange = exposesBlockRange
     self.apply = apply
+  }
+}
+
+extension SyntaxRule {
+  func applyAttributes(
+    to text: String,
+    attributes: inout AttributedRanges
+  ) {
+    let matches = text.matches(of: pattern)
+    for match in matches {
+      apply(match, text, &attributes)
+    }
   }
 }

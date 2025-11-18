@@ -11,7 +11,6 @@ import Foundation
 import HighlighterCommon
 
 public enum RegexShape {
-  //  case three(Three.Type)
 
   public typealias Three = (
     Substring,
@@ -19,39 +18,30 @@ public enum RegexShape {
     content: Substring,
     trailing: Substring
   )
-  public static var three: Three.Type { Three.self }
+  //  public static var three: Three.Type { Three.self }
 }
 
 extension AttributedRanges {
-  //extension SyntaxRule {
+
   mutating func updating(
     _ key: NSAttributedString.Key,
     with value: Any,
     in range: NSRange,
-    //    attr attributedRanges: inout AttributedRanges
   ) {
     self[range, default: [:]][key] = value
-    //    attributedRanges[range, default: [:]][key] = value
   }
 }
 
-//extension SyntaxRule {
 extension Regex where Output == RegexShape.Three {
   public func apply(
     match: Match,
-    //    match: Regex<AnyRegexOutput>.Match,
-    //    as outputType: T.Type,
     in text: String,
     for keyPaths: KeyPath<Output, Substring>...,
     perform: (KeyPath<Output, Substring>, NSRange) -> Void
-      //    perform: (T, NSRange) -> Void
-      //    perform: (Regex<T>.Match, NSRange) -> Void
   ) {
-    //    guard let typed = match.output.extractValues(as: Output) else { return }
-    let output = match.output
 
     for path in keyPaths {
-      let substring = output[keyPath: path]
+      let substring = match.output[keyPath: path]
       guard
         let r = text.range(of: substring)?.toNSRange(in: text)
       else { continue }
@@ -63,28 +53,7 @@ extension Regex where Output == RegexShape.Three {
   }
 }
 
-//public typealias MatchRange = ()
 extension NSRange {
-  //
-  //  public func ranges<T>(
-  //    match: Regex<AnyRegexOutput>.Match,
-  //    as outputType: T.Type,
-  //    for paths: KeyPath<T, Substring>...,
-  //    in text: String,
-  //    perform: (Regex<T>.Match, NSRange) -> Void
-  //  ) {
-  ////  ) -> [MatchRange] {
-  //    let thing = paths.map { path -> (Regex<T>.Match, NSRange) in
-  //      let range = NSRange(
-  //        from: match,
-  //        as: outputType,
-  //        keyPath: path,
-  //        in: text
-  //      )
-  //
-  //
-  //    }
-  //  }
 
   public init?<T>(
     from match: Regex<AnyRegexOutput>.Match,
