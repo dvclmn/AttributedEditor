@@ -16,8 +16,3 @@ extension Markdown {
     //    let ranges: AttributedRanges
   }
 }
-
-extension Markdown.SyntaxContext {
-
-  
-}
