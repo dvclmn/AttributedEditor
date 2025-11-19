@@ -10,128 +10,128 @@ extension Markdown.Syntax {
   public var components: [Markdown.Component] {
     switch self {
       case .body:
-        [.init(syntax: .body, kind: .content)]
+        [.init(.body, kind: .content)]
 
       case .heading1:
         [
-          .init(syntax: .heading1, kind: .content),
-          .init(syntax: .heading1, kind: .syntax),
+          .init(.heading1, kind: .content),
+          .init(.heading1, kind: .syntax),
         ]
 
       case .heading2:
         [
-          .init(syntax: .heading2, kind: .content),
-          .init(syntax: .heading2, kind: .syntax),
+          .init(.heading2, kind: .content),
+          .init(.heading2, kind: .syntax),
         ]
 
       case .heading3:
         [
-          .init(syntax: .heading3, kind: .content),
-          .init(syntax: .heading3, kind: .syntax),
+          .init(.heading3, kind: .content),
+          .init(.heading3, kind: .syntax),
         ]
 
       case .heading4:
         [
-          .init(syntax: .heading4, kind: .content),
-          .init(syntax: .heading4, kind: .syntax),
+          .init(.heading4, kind: .content),
+          .init(.heading4, kind: .syntax),
         ]
 
       case .heading5:
         [
-          .init(syntax: .heading5, kind: .content),
-          .init(syntax: .heading5, kind: .syntax),
+          .init(.heading5, kind: .content),
+          .init(.heading5, kind: .syntax),
         ]
 
       case .heading6:
         [
-          .init(syntax: .heading6, kind: .content),
-          .init(syntax: .heading6, kind: .syntax),
+          .init(.heading6, kind: .content),
+          .init(.heading6, kind: .syntax),
         ]
 
       case .bold:
         [
-          .init(syntax: .bold, kind: .content),
-          .init(syntax: .bold, kind: .syntax),
+          .init(.bold, kind: .content),
+          .init(.bold, kind: .syntax),
         ]
 
       case .italic:
         [
-          .init(syntax: .italic, kind: .content),
-          .init(syntax: .italic, kind: .syntax),
+          .init(.italic, kind: .content),
+          .init(.italic, kind: .syntax),
         ]
 
       case .boldItalic:
         [
-          .init(syntax: .boldItalic, kind: .content),
-          .init(syntax: .boldItalic, kind: .syntax),
+          .init(.boldItalic, kind: .content),
+          .init(.boldItalic, kind: .syntax),
         ]
 
       case .inlineCode:
         [
-          .init(syntax: .inlineCode, kind: .content),
-          .init(syntax: .inlineCode, kind: .syntax),
-          .init(syntax: .inlineCode, kind: .background),
+          .init(.inlineCode, kind: .content),
+          .init(.inlineCode, kind: .syntax),
+          .init(.inlineCode, kind: .background),
         ]
 
       case .codeBlock:
         [
-          .init(syntax: .codeBlock, kind: .content),
-          .init(syntax: .codeBlock, kind: .syntax),
-          .init(syntax: .codeBlock, kind: .other("languageHint")),
-          .init(syntax: .codeBlock, kind: .background),
+          .init(.codeBlock, kind: .content),
+          .init(.codeBlock, kind: .syntax),
+          .init(.codeBlock, kind: .languageHint),
+          .init(.codeBlock, kind: .background),
         ]
 
       case .list:
         [
-          .init(syntax: .list, kind: .content),
-          .init(syntax: .list, kind: .syntax),
+          .init(.list, kind: .content),
+          .init(.list, kind: .syntax),
         ]
 
       case .quoteBlock:
         [
-          .init(syntax: .quoteBlock, kind: .content),
-          .init(syntax: .quoteBlock, kind: .syntax),
-          .init(syntax: .quoteBlock, kind: .background),
+          .init(.quoteBlock, kind: .content),
+          .init(.quoteBlock, kind: .syntax),
+          .init(.quoteBlock, kind: .background),
         ]
 
       case .callout:
         [
-          .init(syntax: .callout, kind: .content),
-          .init(syntax: .callout, kind: .syntax),
-          .init(syntax: .callout, kind: .other("icon")),
-          .init(syntax: .callout, kind: .background),
+          .init(.callout, kind: .content),
+          .init(.callout, kind: .syntax),
+          .init(.callout, kind: .calloutIcon),
+          .init(.callout, kind: .background),
         ]
 
       case .strikethrough:
         [
-          .init(syntax: .strikethrough, kind: .content),
-          .init(syntax: .strikethrough, kind: .syntax),
-          .init(syntax: .strikethrough, kind: .other("line")),
+          .init(.strikethrough, kind: .strikethroughText),
+          .init(.strikethrough, kind: .syntax),
+          .init(.strikethrough, kind: .strikethroughLine),
         ]
 
       case .highlight:
         [
-          .init(syntax: .highlight, kind: .content),
-          .init(syntax: .highlight, kind: .syntax),
-          .init(syntax: .highlight, kind: .background),
+          .init(.highlight, kind: .content),
+          .init(.highlight, kind: .syntax),
+          .init(.highlight, kind: .background),
         ]
 
       case .link:
         [
-          .init(syntax: .link, kind: .other("title")),
-          .init(syntax: .link, kind: .syntax),
-          .init(syntax: .link, kind: .other("url")),
+          .init(.link, kind: .content),
+          .init(.link, kind: .syntax),
+          .init(.link, kind: .url),
         ]
 
       case .image:
         [
-          .init(syntax: .image, kind: .other("altText")),
-          .init(syntax: .image, kind: .syntax),
-          .init(syntax: .image, kind: .other("url")),
+          .init(.image, kind: .content),
+          .init(.image, kind: .syntax),
+          .init(.image, kind: .url),
         ]
 
       case .horizontalRule:
-        [.init(syntax: .horizontalRule, kind: .content)]
+        [.init(.horizontalRule, kind: .content)]
     }
   }
   //  public var components: [Markdown.SyntaxComponent] {

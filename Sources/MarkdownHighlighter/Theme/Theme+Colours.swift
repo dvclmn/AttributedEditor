@@ -15,6 +15,7 @@ extension Markdown {
   public struct Theme {
 
     let body: CodableColour
+    let url: CodableColour
 
     let syntaxCharacters: CodableColour
 
@@ -46,22 +47,19 @@ extension Markdown.Theme {
     self[keyPath: keypath].nsColor(fallback: fallback)
   }
 
+  /// This returning `nil` is very useful, for allowing syntax
+  /// that should *not* have e.g. a background, to express that
   public func colour(
     for syntax: Markdown.Syntax,
     kind: Markdown.ComponentKind = .content,
-    //    for component: Markdown.Component,
-    fallback: NSColor = .textColor
-  ) -> NSColor {
-
-    //    let syntax = component.syntax
-    //    let kind = component.kind
-
-    let themeColour: CodableColour =
+  ) -> NSColor? {
+    let themeColour: CodableColour? =
       switch (syntax, kind) {
 
         case (_, .strikethroughText): strikethroughText
         case (_, .strikethroughLine): strikethroughLine
         case (_, .languageHint): body
+        case (_, .url): url
         case (_, .calloutIcon): body
 
         /// Overrides for syntax characters?
@@ -88,39 +86,38 @@ extension Markdown.Theme {
         case (.image, .content): body
         case (.horizontalRule, .content): body
 
-        case (.body, .background): body
-        case (.heading1, .background): body
-        case (.heading2, .background): body
-        case (.heading3, .background): body
-        case (.heading4, .background): body
-        case (.heading5, .background): body
-        case (.heading6, .background): body
-        case (.bold, .background): body
-        case (.italic, .background): body
-        case (.boldItalic, .background): body
+        case (.body, .background): nil
+        case (.heading1, .background): nil
+        case (.heading2, .background): nil
+        case (.heading3, .background): nil
+        case (.heading4, .background): nil
+        case (.heading5, .background): nil
+        case (.heading6, .background): nil
+        case (.bold, .background): nil
+        case (.italic, .background): nil
+        case (.boldItalic, .background): nil
         case (.inlineCode, .background): inlineCodeBG
         case (.codeBlock, .background): codeBlockBG
-        case (.list, .background): body
+        case (.list, .background): nil
         case (.quoteBlock, .background): body
         case (.callout, .background): body
-        case (.strikethrough, .background): body
+        case (.strikethrough, .background): nil
         case (.highlight, .background): body
-        case (.link, .background): body
-        case (.image, .background): body
-        case (.horizontalRule, .background): body
+        case (.link, .background): nil
+        case (.image, .background): nil
+        case (.horizontalRule, .background): nil
       }
 
-    return themeColour.nsColor(fallback: fallback)
-    //    self[keyPath: keypath].nsColor(fallback: fallback)
+    return themeColour?.nsColor
   }
 
   static let syntaxColour: Colour = .grey(0.6)
   static let defaultCodeBG: Colour = .grey(0.2)
-  //  static let defaultCodeBG: NSColor = .systemBackground
 
   public static var `default`: Self {
     .init(
       body: Colour.primary,
+      url: Colour.blue,
       syntaxCharacters: Self.syntaxColour,
       inlineCode: Colour.secondary,
       inlineCodeBG: Self.defaultCodeBG,
@@ -132,15 +129,6 @@ extension Markdown.Theme {
       horizontalRule: Colour.secondary,
       placeholder: Colour.pink,
     )
-    //    //  private var defaultSet: Self {
-    //    .init(
-    //      body: CodableColour(.system(.primary)),
-    //      syntaxCharacters: CodableColour(.system(.brown)),
-    //      inlineCode: CodableColour(.system(.mint), background: .system(.black)),
-    //      blockCode: CodableColour(.system(.secondary), background: .system(.black)),
-    //      strikethrough: CodableColour(.system(.red), background: .system(.secondary)),
-    //      highlight: CodableColour(.system(.cyan), background: .system(.purple)),
-    //    )
   }
 
 }

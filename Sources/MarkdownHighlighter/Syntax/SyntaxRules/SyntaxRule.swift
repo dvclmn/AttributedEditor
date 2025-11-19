@@ -64,11 +64,12 @@ extension SyntaxRule where T == RegexShape.Wrap {
           attrs.update(.foreground(ThemeColour.syntaxColour.nsColor()), in: range)
 
         case \.content:
+          let colour = theme.colour(for: syntax, kind: .)
+//          attrs.update(.foreground(ThemeColour.syntaxColour.nsColor()), in: range)
 
 
         default: return
       }
-
     }
   }
 }
