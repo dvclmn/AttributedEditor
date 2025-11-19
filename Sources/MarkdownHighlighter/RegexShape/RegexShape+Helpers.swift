@@ -8,12 +8,43 @@
 import Foundation
 
 public typealias MatchPath<T> = KeyPath<T, Substring>
+public typealias ApplyRegex<T> = (MatchPath<T>, Range<String.Index>) -> Void
+
+extension Regex where Output == RegexShape.Single {
+  public func apply(
+    match: Match,
+    perform: ApplyRegex<Output>
+  ) {
+    let paths: [MatchPath<Output>] = [\.self]
+    apply(paths: paths, match: match, perform: perform)
+  }
+}
+
+extension Regex where Output == RegexShape.Wrap {
+  public func apply(
+    match: Match,
+    perform: ApplyRegex<Output>
+  ) {
+    let paths: [MatchPath<Output>] = [\.0, \.leading, \.content, \.trailing]
+    apply(paths: paths, match: match, perform: perform)
+  }
+}
+
+extension Regex where Output == RegexShape.Prefix {
+  public func apply(
+    match: Match,
+    perform: ApplyRegex<Output>
+  ) {
+    let paths: [MatchPath<Output>] = [\.0, \.prefix, \.content]
+    apply(paths: paths, match: match, perform: perform)
+  }
+}
 
 extension Regex {
   fileprivate func apply<T>(
     paths: [MatchPath<T>],
     match: Match,
-    perform: (MatchPath<T>, Range<String.Index>) -> Void,
+    perform: ApplyRegex<T>
   ) {
     for path in paths {
       guard let output = match.output as? T else {
@@ -27,33 +58,5 @@ extension Regex {
       perform(path, range)
 
     }
-  }
-}
-
-extension Regex where Output == RegexShape.Wrap {
-  public func apply(
-    match: Match,
-    perform: (MatchPath<Output>, Range<String.Index>) -> Void,
-  ) {
-    let paths: [MatchPath<Output>] = [\.0, \.leading, \.content, \.trailing]
-    apply(paths: paths, match: match, perform: perform)
-  }
-}
-
-extension Regex where Output == RegexShape.Prefix {
-  public func apply(
-    match: Match,
-    perform: (MatchPath<Output>, Range<String.Index>) -> Void,
-  ) {
-    let paths: [MatchPath<Output>] = [\.0, \.prefix, \.content]
-    apply(paths: paths, match: match, perform: perform)
-//    for path in paths {
-//      let substring = match.output[keyPath: path]
-//
-//      /// This range is correct because the `Substring` points into the parent string
-//      let range = substring.startIndex..<substring.endIndex
-//      perform(path, range)
-//
-//    }
   }
 }
