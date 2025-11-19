@@ -41,6 +41,13 @@ extension Markdown.Theme {
   ) -> NSColor {
     self[keyPath: keypath].nsColor(fallback: fallback)
   }
+  
+  public func colour(
+    for component: Markdown.Component,
+    fallback: NSColor = .textColor
+  ) -> NSColor {
+    self[keyPath: keypath].nsColor(fallback: fallback)
+  }
 
   static let syntaxColour: Colour = .grey(0.6)
   static let defaultCodeBG: Colour = .grey(0.2)
@@ -69,7 +76,10 @@ extension Markdown.Theme {
     //      highlight: CodableColour(.system(.cyan), background: .system(.purple)),
     //    )
   }
+  
+  
 }
+
 //  /// Returns a fore and background, non-optional
 //  func colourPair(
 //    for syntax: Markdown.Syntax,

@@ -10,6 +10,7 @@ import Foundation
 public enum RegexShape {
   public typealias Single = (Substring)
   
+  
   public typealias Three = (
     Substring,
     leading: Substring,

@@ -47,10 +47,10 @@ extension SyntaxRule where T == RegexShape.Three {
     //    rule: Markdown.SyntaxRule,
     //    syntax: Markdown.Syntax,
     match: Regex<T>.Match,
+    theme: Markdown.Theme,
     attrs: inout AttributedRanges
-  ) where T == RegexShape.Three {
+  ) {
     //    { match, attrs in
-    
     self.pattern.apply(
       match: match,
     ) {
@@ -61,13 +61,18 @@ extension SyntaxRule where T == RegexShape.Three {
       
       switch path {
           
-        case \.leading,
-          \.trailing:
-          attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-          attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
+        case \.leading:
+//          for component in syntax.components {
+//            if component.isSyntax
+//          }
+          attrs.update(.foreground(<#T##NSColor#>), in: <#T##Range<String.Index>#>)
+          
+          case \.trailing:
+//          attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+//          attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
           
         case \.content:
-          attrs.update(.font, with: font, in: range)
+//          attrs.update(.font, with: font, in: range)
           
         default: return
       }

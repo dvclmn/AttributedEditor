@@ -10,9 +10,33 @@ import CoreTools
 import Foundation
 import HighlighterCommon
 
+enum AttributeKind {
+  case foreground(NSColor)
+  case font(NSFont)
+  case background(NSColor)
+}
+
 extension AttributedRanges {
 
+  /// Type-safe version
   mutating func update(
+    _ attribute: AttributeKind,
+    in range: Range<String.Index>
+  ) {
+    switch attribute {
+      case .foreground(let colour):
+        self.update(.foregroundColor, with: colour, in: range)
+
+      case .font(let font):
+        self.update(.font, with: font, in: range)
+
+      case .background(let colour):
+        self.update(.backgroundColor, with: colour, in: range)
+
+    }
+  }
+
+  private mutating func update(
     _ key: NSAttributedString.Key,
     with value: Any,
     in range: Range<String.Index>
