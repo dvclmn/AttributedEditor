@@ -52,23 +52,7 @@ extension AttributedRanges {
   }
 }
 
-extension Regex where Output == RegexShape.Wrap {
-  public func apply(
-    match: Match,
-    perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void,
-  ) {
-    let paths: [KeyPath<Output, Substring>] = [\.0, \.leading, \.content, \.trailing]
 
-    for path in paths {
-      let substring = match.output[keyPath: path]
-
-      /// This range is correct because the `Substring` points into the parent string
-      let range = substring.startIndex..<substring.endIndex
-      perform(path, range)
-
-    }
-  }
-}
 
 //extension NSRange {
 //  public init?<T>(
