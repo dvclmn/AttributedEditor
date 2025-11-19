@@ -29,7 +29,7 @@ extension Markdown.Component {
   }
 
   public var isSyntax: Bool {
-    if case .syntax = kind { return true }
+    if case .syntaxChar = kind { return true }
     return false
   }
 

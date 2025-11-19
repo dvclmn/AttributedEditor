@@ -40,23 +40,28 @@ public final class MarkdownHighlighter: Highlighter {
   }
 
   public func highlight(text: String) -> AttributedRanges {
+    var attributes: AttributedRanges = []
+    styleLibrary.applyAttributes(to: text, attributes: &attributes)
     
-    rules.reduce(into: []) { partialResult, rule in
-      guard rule.syntax.supportsRegexShape else { return }
-      rule.applyAttributes(to: text, attributes: &partialResult)
-    }
+    return attributes
+//    rules.reduce(into: []) { partialResult, rule in
+//      guard rule.syntax.supportsRegexShape else { return }
+//      rule.applyAttributes(to: text, attributes: &partialResult)
+//    }
   }
 
   /// blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`
   public func blockRanges(text: String) -> [NSRange] {
-    var output: [NSRange] = []
-    for rule in rules where rule.exposesBlockRange {
-      let matches = text.matches(of: rule.pattern)
-      let ranges = matches.map { $0.range.toNSRange(in: text) }
-      output.append(contentsOf: ranges)
-    }
-
-    return output
+    print("Turned off for now")
+    return []
+//    var output: [NSRange] = []
+//    for rule in rules where rule.exposesBlockRange {
+//      let matches = text.matches(of: rule.pattern)
+//      let ranges = matches.map { $0.range.toNSRange(in: text) }
+//      output.append(contentsOf: ranges)
+//    }
+//
+//    return output
   }
 }
 extension MarkdownHighlighter {

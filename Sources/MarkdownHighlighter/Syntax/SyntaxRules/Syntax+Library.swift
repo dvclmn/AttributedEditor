@@ -38,56 +38,31 @@ extension Markdown.StyleLibrary {
       SyntaxRule.horizontalRule()
     ]
   }
-  //  static var prefixRules: [SyntaxRule<RegexShape.Wrap>] {
-  //    [
-  //
-  //    ]
-  //  }
 
-  func applyAll(
+  func applyAttributes(
     to text: String,
     attributes: inout AttributedRanges
   ) {
-    //    let allRules = Self.wrapRules + Self.singleRules
+    for rule in Self.wrapRules {
+      let matches = text.matches(of: rule.pattern)
+      for match in matches {
+        rule.apply(
+          match: match,
+          theme: self.theme,
+          attrs: &attributes
+        )
+      }
+    }
 
-  }
-
-  private func applyAttributes<T>(
-    rules: [SyntaxRule<T>],
-    //    rule: SyntaxRule<RegexShape.Wrap>,
-    to text: String,
-    attributes: inout AttributedRanges
-  ) {
-    if let shape = T.self as? RegexShape.Single.Type {
-
-      for rule in rules {
-        let matches = text.matches(of: rule.pattern)
-        for match in matches {
-
-          //          for rule in Self.singleRules {
-          rule.apply(
-            match: match,
-            theme: self.theme,
-            attrs: &attributes
-          )
-          //          }
-
-        }
-        //        if let singleRule = rule as? SyntaxRule<RegexShape.Single>,
-        //           let singleMatch = match as? Regex<RegexShape.Single>
-        //        {
-
-        //        }
+    for rule in Self.singleRules {
+      let matches = text.matches(of: rule.pattern)
+      for match in matches {
+        rule.apply(
+          match: match,
+          theme: self.theme,
+          attrs: &attributes
+        )
       }
     }
   }
 }
-
-//extension Markdown.Descriptor {
-//  public func apply(
-//    syntax: Markdown.Syntax,
-//    attr: inout AttributedRanges
-//  ) {
-//
-//  }
-//}
