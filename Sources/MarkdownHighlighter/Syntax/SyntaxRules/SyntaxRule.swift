@@ -62,23 +62,39 @@ extension SyntaxRule where T == RegexShape.Wrap {
       /// Syntax characters colour/font are mostly the same here, but
       /// there are a few special cases:
 
+      let colours = self.colours(for: syntax, theme: theme)
       switch path {
         case \.leading:
-          attrs.update(.foreground(ThemeColour.syntaxColour.nsColor()), in: range)
+          attrs.update(.foreground(colours.syntax), in: range)
 
         case \.trailing:
-          attrs.update(.foreground(ThemeColour.syntaxColour.nsColor()), in: range)
+          attrs.update(.foreground(colours.syntax), in: range)
 
         case \.content:
-          //          let colour = theme.colour(for: syntax, kind: .)
-          //          attrs.update(.foreground(ThemeColour.syntaxColour.nsColor()), in: range)
+          /// I think striekthrough is the only special case here
+          if syntax == .strikethrough {
+            attrs.update(
+              .strikethroughColor,
+              with: theme.strikeLine.nsColor(fallback: NSColor.red),
+              in: range
+            )
+            attrs.update(
+              .strikethroughStyle,
+              with: NSUnderlineStyle.single.rawValue,
+              in: range
+            )
+          } else {
+            attrs.update(.foreground(colours.content), in: range)
+
+          }
+        //          let colour = theme.colour(for: syntax, kind: .)
 
         default: return
       }
     }
   }
 
-  private func colour(
+  private func colours(
     for syntax: Markdown.Syntax,
     theme: Markdown.Theme
   ) -> (syntax: NSColor, content: NSColor) {
@@ -90,26 +106,33 @@ extension SyntaxRule where T == RegexShape.Wrap {
         fallback: ThemeColour.syntaxColourFallback
       )
 
-    let contentColourIfAvailable: NSColor? = {
-      switch syntax {
-        case .strikethrough:
-          theme.colour(
-            for: self.syntax,
-            kind: .content,
-          )
-          
-        case .highlight:
-          theme.colour(
-            for: self.syntax,
-            kind: .content,
-          )
+    let contentColour = theme.colour(
+      for: syntax,
+      kind: .content,
+      fallback: ThemeColour.contentColourFallback
+    )
 
-        default: nil
+    //    let syntaxKind: Markdown.ComponentKind = {
+    //      switch syntax {
+    //        case .strikethrough:
+    //            .strikeText
+    ////          theme.colour(
+    ////            for: self.syntax,
+    ////            kind: .strikeText,
+    ////          )
+    //
+    ////        case .highlight:
+    ////          theme.colour(
+    ////            for: self.syntax,
+    ////            kind: .content,
+    ////          )
+    //
+    //        default: .content
+    //      }
+    //    }()
+    //    let contentColour =
 
-      }
-    }()
-
-    let contentColour = contentColourIfAvailable ?? ThemeColour.contentColourFallback
+    //    let contentColour = specialContentColour ?? ThemeColour.contentColourFallback
 
     return (syntaxColour, contentColour)
 

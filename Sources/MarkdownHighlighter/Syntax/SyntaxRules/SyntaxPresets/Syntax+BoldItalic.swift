@@ -24,7 +24,6 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
       pattern: pattern,
 //      theme: theme,
       exposesBlockRange: false,
-      apply: apply
     )
   }
 
@@ -41,36 +40,37 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
       pattern: pattern,
 //      theme: theme,
       exposesBlockRange: false
-    ) { match, attrs in
-
-      pattern.apply(
-        match: match,
-      ) {
-        path,
-        range in
-
-        let font = NSFont.system(.italic, size: fontSize)
-
-        switch path {
-
-          case \.leading,
-            \.trailing:
-            attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
-
-          case \.content:
-            attrs.update(.font, with: font, in: range)
-
-          default: return
-        }
-
-      }
-    }
+    )
+//    { match, attrs in
+//
+//      pattern.apply(
+//        match: match,
+//      ) {
+//        path,
+//        range in
+//
+//        let font = NSFont.system(.italic, size: fontSize)
+//
+//        switch path {
+//
+//          case \.leading,
+//            \.trailing:
+//            attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+//            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
+//
+//          case \.content:
+//            attrs.update(.font, with: font, in: range)
+//
+//          default: return
+//        }
+//
+//      }
+//    }
   }
 
   static func boldItalic(
-    fontSize: CGFloat,
-    theme: Markdown.Theme,
+//    fontSize: CGFloat,
+//    theme: Markdown.Theme,
   ) -> Self {
 
     let pattern = /(?<leading>(?:\*{3}|_{3}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
@@ -79,32 +79,32 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
-      theme: theme,
       exposesBlockRange: false
-    ) { match, attrs in
-
-      pattern.apply(
-        match: match,
-      ) {
-        path,
-        range in
-
-        let font = NSFont.system(.boldItalic, size: fontSize)
-
-        switch path {
-
-          case \.leading,
-            \.trailing:
-            attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
-
-          case \.content:
-            attrs.update(.font, with: font, in: range)
-
-          default: return
-        }
-
-      }
-    }
+    )
+//    { match, attrs in
+//
+//      pattern.apply(
+//        match: match,
+//      ) {
+//        path,
+//        range in
+//
+//        let font = NSFont.system(.boldItalic, size: fontSize)
+//
+//        switch path {
+//
+//          case \.leading,
+//            \.trailing:
+//            attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
+//            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
+//
+//          case \.content:
+//            attrs.update(.font, with: font, in: range)
+//
+//          default: return
+//        }
+//
+//      }
+//    }
   }
 }

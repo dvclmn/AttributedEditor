@@ -36,7 +36,7 @@ extension AttributedRanges {
     }
   }
 
-  private mutating func update(
+  mutating func update(
     _ key: NSAttributedString.Key,
     with value: Any,
     in range: Range<String.Index>

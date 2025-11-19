@@ -57,7 +57,7 @@ extension Markdown.Theme {
 
   public func colour(
     for syntax: Markdown.Syntax,
-    kind: Markdown.ComponentKind = .content,
+    kind: Markdown.ComponentKind,
     fallback: NSColor
   ) -> NSColor {
     self.colour(for: syntax, kind: kind) ?? fallback
@@ -67,13 +67,13 @@ extension Markdown.Theme {
   /// that should *not* have e.g. a background, to express that
   public func colour(
     for syntax: Markdown.Syntax,
-    kind: Markdown.ComponentKind = .content,
+    kind: Markdown.ComponentKind,
     //    fallback: NSColor? = nil
   ) -> NSColor? {
     let themeColour: CodableColour? =
       switch (syntax, kind) {
 
-        case (_, .strikeText): strikeText
+//        case (_, .strikeText): strikeText
         case (_, .strikeLine): strikeLine
         case (_, .languageHint): body
         case (_, .url): url
@@ -95,8 +95,8 @@ extension Markdown.Theme {
         case (.list, .content): body
         case (.quoteBlock, .content): body
         case (.callout, .content): body
-        case (.strikethrough, .content): body
-        case (.highlight, .content): body
+        case (.strikethrough, .content): strikeText
+        case (.highlight, .content): highlight.colourContent
         case (.link, .content): body
         case (.image, .content): body
         case (.horizontalRule, .content): body
@@ -118,7 +118,7 @@ extension Markdown.Theme {
         case (.quoteBlock, .syntaxChar): syntaxCharacters
         case (.callout, .syntaxChar): syntaxCharacters
         case (.strikethrough, .syntaxChar): syntaxCharacters
-        case (.highlight, .syntaxChar): syntaxCharacters
+        case (.highlight, .syntaxChar): highlight.colourSyntaxChar
         case (.link, .syntaxChar): syntaxCharacters
         case (.image, .syntaxChar): syntaxCharacters
         case (.horizontalRule, .syntaxChar): syntaxCharacters
@@ -140,7 +140,7 @@ extension Markdown.Theme {
         case (.quoteBlock, .background): body
         case (.callout, .background): body
         case (.strikethrough, .background): nil
-        case (.highlight, .background): body
+        case (.highlight, .background): highlight.colourBG
         case (.link, .background): nil
         case (.image, .background): nil
         case (.horizontalRule, .background): nil
@@ -158,9 +158,9 @@ extension Markdown.Theme {
       url: Colour.blue,
       syntaxCharacters: Self.syntaxColour,
       inlineCode: Colour.secondary,
-      inlineCodeBG: Self.defaultCodeBG,
+      inlineCodeBG: Self.codeBackground,
       codeBlock: Colour.secondary,
-      codeBlockBG: Self.defaultCodeBG,
+      codeBlockBG: Self.codeBackground,
       strikeText: Colour.secondary,
       strikeLine: Colour.red,
       highlight: .blue,
