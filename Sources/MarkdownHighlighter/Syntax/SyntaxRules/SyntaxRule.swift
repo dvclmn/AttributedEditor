@@ -41,7 +41,7 @@ extension Markdown {
   }
 }
 
-extension SyntaxRule where T == RegexShape.Three {
+extension SyntaxRule where T == RegexShape.Wrap {
   
   func apply(
     //    rule: Markdown.SyntaxRule,

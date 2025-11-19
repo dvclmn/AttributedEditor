@@ -28,7 +28,7 @@ import HighlighterCommon
 //
 //  public static func testSet(
 //    fontSize: CGFloat
-//  ) -> [SyntaxRule<RegexShape.Three>] {
+//  ) -> [SyntaxRule<RegexShape.Wrap>] {
 //    [
 //      .inlineCode(fontSize: fontSize),
 ////      .bold(fontSize: fontSize),

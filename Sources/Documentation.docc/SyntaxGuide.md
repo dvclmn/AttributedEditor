@@ -8,6 +8,9 @@ A brief overview of syntax types support by this editor
 # Example heading 1
 ## Example heading 2
 ### Example heading 3
+#### Example heading 4
+##### Example heading 5
+###### Example heading 6
 ```
 > Note: Underline-style headings considered for possible future support:
 >
@@ -24,6 +27,7 @@ A brief overview of syntax types support by this editor
 
 > Note: Single-line Block types may span multiple lines *only* when wrapping. Otherwise, a new line signifies the start of a new markdown element.
 
+---
 ---
 
 ## Bold and italic
@@ -137,6 +141,12 @@ c. List item 3
 > be achieved with multiple
 > greater-than symbols
 ```
+
+Can you have nested Quote Blocks?
+
+> Text with no nesting
+>> I am a nested Quote
+
 
 - term Layout: Block (single line)
 - term Syntax: Leading

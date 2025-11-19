@@ -9,7 +9,7 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension Markdown.SyntaxRule where T == RegexShape.Three {
+extension Markdown.SyntaxRule where T == RegexShape.Wrap {
   static func inlineCode(
     fontSize: CGFloat,
     theme: Markdown.Theme,

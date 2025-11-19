@@ -14,7 +14,7 @@ public final class MarkdownHighlighter: Highlighter {
   public let editorConfig: Editor.Configuration
   public var theme: Markdown.Theme
 
-  var rules: [SyntaxRule<RegexShape.Three>] {
+  var rules: [SyntaxRule<RegexShape.Wrap>] {
     let size = editorConfig.fontSize
     return [
       SyntaxRule.inlineCode(fontSize: size, theme: theme),

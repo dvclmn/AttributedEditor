@@ -52,7 +52,7 @@ extension AttributedRanges {
   }
 }
 
-extension Regex where Output == RegexShape.Three {
+extension Regex where Output == RegexShape.Wrap {
   public func apply(
     match: Match,
     perform: (KeyPath<Output, Substring>, Range<String.Index>) -> Void,
