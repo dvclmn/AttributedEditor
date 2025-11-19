@@ -23,32 +23,32 @@ extension Markdown {
     public let exposesBlockRange: Bool
     
     /// Called when a match is found
-    public let apply: SyntaxOutput<T>
+//    public let apply: SyntaxOutput<T>
     
     public init(
       syntax: Markdown.Syntax,
       pattern: Regex<T>,
 //      theme: Markdown.Theme,
       exposesBlockRange: Bool = false,
-      apply: @escaping SyntaxOutput<T>
+//      apply: @escaping SyntaxOutput<T>
     ) {
       self.syntax = syntax
       self.pattern = pattern
 //      self.theme = theme
       self.exposesBlockRange = exposesBlockRange
-      self.apply = apply
+//      self.apply = apply
     }
   }
 }
 
 extension Markdown.SyntaxRule {
-  func applyAttributes(
-    to text: String,
-    attributes: inout AttributedRanges
-  ) {
-    let matches = text.matches(of: pattern)
-    for match in matches {
-      apply(match, &attributes)
-    }
-  }
+//  func applyAttributes(
+//    to text: String,
+//    attributes: inout AttributedRanges
+//  ) {
+//    let matches = text.matches(of: pattern)
+//    for match in matches {
+//      apply(match, &attributes)
+//    }
+//  }
 }

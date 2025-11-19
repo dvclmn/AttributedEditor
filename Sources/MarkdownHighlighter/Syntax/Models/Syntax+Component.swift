@@ -71,7 +71,7 @@ extension Markdown {
     case linkSyntax
     case linkURL
 
-    case imageTitle
+    case imageAltText
     case imageSyntax
     case imageURL
 
