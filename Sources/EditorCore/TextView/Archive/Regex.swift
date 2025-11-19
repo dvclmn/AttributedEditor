@@ -235,7 +235,7 @@ import AppKit
 //        
 //        
 //#if DEBUG
-//        textStorage?.addAttribute(.underlineColor, value: NSColor.red.withAlphaComponent(0.6), range: elementRangeTotal)
+//        textStorage?.addAttribute(.underlineColor, value: NSColor.red.opacity(0.6), range: elementRangeTotal)
 //        textStorage?.addAttribute(.underlineStyle, value: NSNumber(value: 2), range: elementRangeTotal)
 //#endif
 //        

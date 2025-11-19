@@ -19,6 +19,7 @@ public final class MarkdownHighlighter: Highlighter {
     return [
       SyntaxRule.inlineCode(fontSize: size, theme: theme),
       SyntaxRule.strikethrough(fontSize: size, theme: theme),
+      SyntaxRule.highlight(fontSize: size, theme: theme),
       SyntaxRule.italic(fontSize: size, theme: theme),
       SyntaxRule.bold(fontSize: size, theme: theme),
       SyntaxRule.boldItalic(fontSize: size, theme: theme),

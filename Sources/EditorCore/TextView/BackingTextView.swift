@@ -39,7 +39,7 @@ class BackingTextView: NSTextView {
       let path = NSBezierPath(roundedRect: paddedRect, xRadius: 6, yRadius: 6)
 
       /// Fill with a subtle background color
-      NSColor.controlBackgroundColor.withAlphaComponent(0.5).setFill()
+      NSColor.controlBackgroundColor.opacity(0.5).setFill()
       path.fill()
 
       /// Optional: draw a border

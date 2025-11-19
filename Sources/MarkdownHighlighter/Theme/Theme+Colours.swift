@@ -40,7 +40,9 @@ extension Markdown {
 }
 
 typealias ThemeColour = Markdown.Theme
+
 extension Markdown.Theme {
+  static let syntaxColour: NSColor = .gray.opacity(0.6)
   static let defaultCodeBG: NSColor = .systemBackground
 
   static var olive: NSColor {

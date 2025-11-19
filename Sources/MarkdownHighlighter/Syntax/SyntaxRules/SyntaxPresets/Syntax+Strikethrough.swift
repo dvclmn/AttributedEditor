@@ -14,34 +14,28 @@ extension SyntaxRule where T == RegexShape.Three {
     fontSize: CGFloat,
     theme: Markdown.Theme,
   ) -> SyntaxRule {
-    
+
     let pattern = /(?<leading>(?:\~{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .strikethrough
-    
+
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
       theme: theme,
       exposesBlockRange: false
     ) { match, attrs in
-      pattern.apply(
-        match: match,
-      ) {
-        path,
-        range in
-        
-        let font = NSFont.system(.bold, size: fontSize)
-        
+
+      pattern.apply(match: match) { path, range in
         switch path {
-            
-          case \.leading,
-            \.trailing:
-            attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-            attrs.update(.foregroundColor, with: NSColor.gray, in: range)
-            
+
+          case \.leading, \.trailing:
+            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
+
           case \.content:
-            attrs.update(.font, with: font, in: range)
-            
+            attrs.update(.foregroundColor, with: NSColor.secondaryLabelColor, in: range)
+            attrs.update(.strikethroughColor, with: NSColor.systemRed, in: range)
+            attrs.update(.strikethroughStyle, with: NSUnderlineStyle.single.rawValue, in: range)
+
           default: return
         }
       }

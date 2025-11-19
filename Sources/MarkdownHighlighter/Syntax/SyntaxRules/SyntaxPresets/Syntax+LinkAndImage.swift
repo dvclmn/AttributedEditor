@@ -43,7 +43,7 @@ extension SyntaxRule where T == RegexShape.Three {
 
           case \.leading,
             \.trailing:
-            attrs.update(.foregroundColor, with: NSColor.gray, in: range)
+            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
 
           case \.content:
 

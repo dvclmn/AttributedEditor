@@ -38,7 +38,7 @@ extension SyntaxRule where T == RegexShape.Three {
           case \.leading,
             \.trailing:
             attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-            attrs.update(.foregroundColor, with: NSColor.gray, in: range)
+            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
 
           case \.content:
             attrs.update(.font, with: font, in: range)
@@ -78,7 +78,7 @@ extension SyntaxRule where T == RegexShape.Three {
           case \.leading,
             \.trailing:
             attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-            attrs.update(.foregroundColor, with: NSColor.gray, in: range)
+            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
 
           case \.content:
             attrs.update(.font, with: font, in: range)
@@ -118,7 +118,7 @@ extension SyntaxRule where T == RegexShape.Three {
           case \.leading,
             \.trailing:
             attrs.update(.font, with: NSFont.system(.body, size: fontSize * 0.9, monospaced: true), in: range)
-            attrs.update(.foregroundColor, with: NSColor.gray, in: range)
+            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
 
           case \.content:
             attrs.update(.font, with: font, in: range)
@@ -130,109 +130,3 @@ extension SyntaxRule where T == RegexShape.Three {
     }
   }
 }
-
-//import AppKit
-//import CoreTools
-//
-//extension SyntaxRule {
-//  static func bold(fontSize: CGFloat) -> SyntaxRule {
-//
-//    let pattern = /(?<leading>\*\*)(?<content>[^\*\*\n]+?)(?<trailing>\*\*)(?!\*)/
-//
-//    return SyntaxRule(
-//      syntax: .bold,
-//      pattern: Regex(pattern),
-//    ) {
-//      match,
-//      text,
-//      attrs in
-//
-//      //      guard let output = match.output.extractValues(as: RegexShape.threePreset),
-//      //        let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
-//      //      else { return }
-//      guard
-//        let range = NSRange(
-//          from: match,
-//          as: RegexShape.three,
-//          keyPath: \.content,
-//          in: text
-//        )
-//      else { return }
-//      let font = NSFont.system(.bold, size: fontSize)
-////      let font = NSFont.boldSystemFont(ofSize: fontSize)
-//      attrs.update(.font, with: font, in: range)
-//
-//    }
-//  }
-//
-//  static func italic(fontSize: CGFloat) -> SyntaxRule {
-//
-//    let pattern = /(?<leading>\*)(?<content>[^\*\n]+?)(?<trailing>\*)(?!\*)/
-//
-//    return SyntaxRule(
-//      syntax: .italic,
-//      pattern: Regex(pattern),
-//    ) { match, text, attrs in
-//
-//      //      guard let output = match.output.extractValues(as: RegexShape.threePreset),
-//      //            let rangeContent = text.range(of: output.content)?.toNSRange(in: text)
-//      //      else { return }
-//      guard
-//        let range = NSRange(
-//          from: match,
-//          as: RegexShape.three,
-//          keyPath: \.content,
-//          in: text
-//        )
-//      else { return }
-//
-//      let font = NSFont.system(.italic, size: fontSize)
-////      let system = NSFont.systemFont(ofSize: fontSize)
-////      let desc = system.fontDescriptor.withSymbolicTraits(.traitItalic)
-////      let font = system.italic()
-////      let font = NSFont(descriptor: desc, size: fontSize) ?? system
-//
-//
-//
-//      attrs.update(.font, with: font, in: range)
-////      attrs.update(.foregroundColor, with: NSColor.systemPink, in: range)
-//
-//    }
-//  }
-//}
-
-//@MainActor
-//extension SyntaxRule {
-
-//  static func bold(fontSize: CGFloat) -> SyntaxRule {
-//    SyntaxRule(
-//      syntax: .bold,
-//      pattern: /(?<code>\*\*)/,
-//      delimiter: .wrapper(prefix: "**", suffix: "**"),
-//      role: .inlineText,
-//      captures: .single(name: "body"),
-//    ) { match, attrs in
-//
-////      let thing = match.output.extractValues(as: )
-//
-////      guard let range = match.range(withName: "body").toOptional() else { return }
-////      attrs[range, default: [:]][.font] = NSFont.boldSystemFont(ofSize: fontSize)
-//    }
-//  }
-//
-//  static func italic(fontSize: CGFloat) -> SyntaxRule {
-//    SyntaxRule(
-//      syntax: .italic,
-//      delimiter: .wrapper(prefix: "*", suffix: "*"),
-//      role: .inlineText,
-//      captures: .single(name: "body")
-//    ) { match, attrs in
-//
-//      guard let range = match.range(withName: "body").toOptional() else { return }
-//      let base = NSFont.systemFont(ofSize: fontSize)
-//      attrs[range, default: [:]][.font] =
-//        NSFontManager.shared.convert(base, toHaveTrait: .italicFontMask)
-//    }
-//  }
-
-//}
