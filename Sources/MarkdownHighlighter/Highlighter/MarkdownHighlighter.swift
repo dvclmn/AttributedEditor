@@ -35,7 +35,9 @@ public final class MarkdownHighlighter: Highlighter {
   }
 
   public func highlight(text: String) -> AttributedRanges {
+    
     rules.reduce(into: []) { partialResult, rule in
+      guard rule.syntax.supportsRegexShape else { return }
       rule.applyAttributes(to: text, attributes: &partialResult)
     }
   }

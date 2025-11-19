@@ -19,24 +19,18 @@ extension Markdown {
     case heading4
     case heading5
     case heading6
-
     case bold
     case italic
     case boldItalic
-
     case inlineCode
     case codeBlock
     case list
     case quoteBlock
-    
-    case callout // [!KIND] Content...
-
+    case callout
     case strikethrough
     case highlight
-
-    case link // [Title](https://link.com/)
-    case image // ![Alt text](https://host.com/image.jpg/)
-
+    case link
+    case image
     case horizontalRule
     
     // Colour literal?

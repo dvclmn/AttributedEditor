@@ -10,7 +10,10 @@ extension Markdown {
     public let syntax: Syntax
     public let kind: ComponentKind
 
-    public init(syntax: Syntax, kind: ComponentKind) {
+    public init(
+      _ syntax: Syntax,
+      kind: ComponentKind
+    ) {
       self.syntax = syntax
       self.kind = kind
     }

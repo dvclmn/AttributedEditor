@@ -10,6 +10,14 @@ extension Markdown {
     case content
     case syntax
     case background
-    case other(String)
+    
+    // Known special cases
+    case languageHint
+    case strikethroughText
+    case strikethroughLine
+    case calloutIcon
+    
+    
+//    case other(String)
   }
 }

@@ -58,6 +58,13 @@ enum RegexShapeKind {
 
 extension Markdown.Syntax {
 
+  var supportsRegexShape: Bool {
+    switch self {
+      case .body, .list, .callout: false
+      default: true
+    }
+  }
+
   var shapeKind: RegexShapeKind {
     switch self {
       case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6:
