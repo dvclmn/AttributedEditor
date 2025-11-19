@@ -14,8 +14,8 @@ extension Markdown {
     // Known special cases
     case url
     case languageHint
-    case strikethroughText
-    case strikethroughLine
+    case strikeText
+    case strikeLine
     case calloutIcon
     
     

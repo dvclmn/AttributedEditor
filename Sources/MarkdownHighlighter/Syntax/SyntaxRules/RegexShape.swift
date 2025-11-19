@@ -7,11 +7,25 @@
 
 import Foundation
 
+/// What needs a special case, and how does RegexShape
+/// relate to `Markdown.Component` and fonts/colours too
+///
+/// Worth noting: RegexShape is *only* concerned with text
+/// content, so that helps reduce some coupling, e.g.
+/// `ComponentKind.background` is irrelevant to regex.
 public enum RegexShape {
+  case single
+  case prefix
+  case wrap
+  case codeBlock
+  case linePrefix  // for block quotes
+  case wrapPair
+
   public typealias Single = (Substring)
 
   // E.g. # Header
   // Also Quotes with > Content
+
   public typealias Prefix = (
     Substring,
     prefix: Substring,
@@ -46,49 +60,6 @@ public enum RegexShape {
     url: Substring,
     trailingB: Substring,
   )
-}
-enum RegexShapeKind {
-  case single
-  case prefix
-  case wrap
-  case codeBlock
-  case linePrefix  // for block quotes
-  case wrapPair
-}
-
-extension Markdown.Syntax {
-
-  var supportsRegexShape: Bool {
-    switch self {
-      case .body, .list, .callout: false
-      default: true
-    }
-  }
-
-  var shapeKind: RegexShapeKind {
-    switch self {
-      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6:
-        .prefix
-
-      case .bold, .italic, .boldItalic, .inlineCode, .strikethrough, .highlight:
-        .wrap
-
-      case .codeBlock:
-        .codeBlock
-
-      case .quoteBlock:
-        .linePrefix
-
-      case .link, .image:
-        .wrapPair
-
-      case .horizontalRule:
-        .single
-
-      case .body, .list, .callout:
-        fatalError("\(self.name) not yet supported.")
-    }
-  }
 }
 
 //  var regexShape: Any.Type {

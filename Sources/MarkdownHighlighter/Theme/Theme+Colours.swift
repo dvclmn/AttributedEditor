@@ -25,8 +25,8 @@ extension Markdown {
     let codeBlock: CodableColour
     let codeBlockBG: CodableColour
 
-    let strikethroughText: CodableColour
-    let strikethroughLine: CodableColour
+    let strikeText: CodableColour
+    let strikeLine: CodableColour
 
     let highlight: HighlightColours
 
@@ -56,8 +56,8 @@ extension Markdown.Theme {
     let themeColour: CodableColour? =
       switch (syntax, kind) {
 
-        case (_, .strikethroughText): strikethroughText
-        case (_, .strikethroughLine): strikethroughLine
+        case (_, .strikeText): strikeText
+        case (_, .strikeLine): strikeLine
         case (_, .languageHint): body
         case (_, .url): url
         case (_, .calloutIcon): body
@@ -123,8 +123,8 @@ extension Markdown.Theme {
       inlineCodeBG: Self.defaultCodeBG,
       codeBlock: Colour.secondary,
       codeBlockBG: Self.defaultCodeBG,
-      strikethroughText: Colour.secondary,
-      strikethroughLine: Colour.red,
+      strikeText: Colour.secondary,
+      strikeLine: Colour.red,
       highlight: .blue,
       horizontalRule: Colour.secondary,
       placeholder: Colour.pink,
