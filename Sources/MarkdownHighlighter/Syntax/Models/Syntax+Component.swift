@@ -9,7 +9,7 @@ extension Markdown {
 
   /// Provide defaults where possible, that can be overriden
   /// as needed. To reduce repetitive colour/font definitions
-  public enum SyntaxComponent {
+  public enum SyntaxComponent: String {
     case body
     case heading1Content
     case heading1Syntax
@@ -76,6 +76,5 @@ extension Markdown {
     case imageURL
 
     case horizontalRule
-
   }
 }
