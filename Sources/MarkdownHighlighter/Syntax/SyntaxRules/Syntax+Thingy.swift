@@ -6,12 +6,14 @@
 //
 
 import HighlighterCommon
+import Foundation
 
-//extension Markdown {
-//  public struct StyleLibrary {
-////    let
-//  }
-//}
+extension Markdown {
+  public struct StyleLibrary {
+    let theme: Theme
+    let fontSize: CGFloat
+  }
+}
 
 //extension Markdown.Descriptor {
 //  public func apply(
