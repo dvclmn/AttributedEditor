@@ -15,27 +15,17 @@ extension Markdown {
   public struct Theme {
     let body: CodableColour
     let syntaxCharacters: CodableColour
+    
     let inlineCode: CodableColour
+    let inlineCodeBG: CodableColour
+    
     let blockCode: CodableColour
-    let strikeThrough: CodableColour
-    let highlight: CodableColour
-
-    public init(
-      body: CodableColour,
-      syntaxCharacters: CodableColour,
-      inlineCode: CodableColour,
-      blockCode: CodableColour,
-      strikeThrough: CodableColour,
-      highlight: CodableColour
-    ) {
-      self.body = body
-      self.syntaxCharacters = syntaxCharacters
-      self.inlineCode = inlineCode
-      self.blockCode = blockCode
-      self.strikeThrough = strikeThrough
-      self.highlight = highlight
-    }
-
+    let blockCodeBG: CodableColour
+    
+    let strikethroughText: CodableColour
+    let strikethroughLine: CodableColour
+    
+    let highlight: HighlightColours
   }
 }
 
@@ -66,7 +56,7 @@ extension Markdown.Theme {
   //      body: ColourPair(fromNSColor: .textColor),
   //      inlineCode: ColourPair(fromNSColor: .orange, background: defaultCodeBG),
   //      blockCode: ColourPair(fromNSColor: .secondaryLabelColor, background: defaultCodeBG),
-  //      strikeThrough: ColourPair(fromNSColor: .red, background: .tertiaryLabelColor),
+  //      strikethrough: ColourPair(fromNSColor: .red, background: .tertiaryLabelColor),
   //      highlight: ColourPair(fromNSColor: .cyan, background: .purple)
   //    )
   //  }
@@ -78,7 +68,7 @@ extension Markdown.Theme {
       syntaxCharacters: CodableColour(.system(.brown)),
       inlineCode: CodableColour(.system(.mint), background: .system(.black)),
       blockCode: CodableColour(.system(.secondary), background: .system(.black)),
-      strikeThrough: CodableColour(.system(.red), background: .system(.secondary)),
+      strikethrough: CodableColour(.system(.red), background: .system(.secondary)),
       highlight: CodableColour(.system(.cyan), background: .system(.purple)),
     )
   }
@@ -104,7 +94,7 @@ extension Markdown.Theme {
         case (.codeBlock, .content): blockCode
 
         case (.strikethrough, .syntax): syntaxCharacters
-        case (.strikethrough, .content): strikeThrough
+        case (.strikethrough, .content): strikethrough
 
         case (.highlight, .syntax): syntaxCharacters
         case (.highlight, .content): highlight
@@ -143,7 +133,7 @@ extension Markdown.Theme {
   //        blockCode.nsColour
   //
   //      case .strikethrough:
-  //        strikeThrough.nsColour
+  //        strikethrough.nsColour
   //
   //      case .highlight:
   //        highlight.nsColour
