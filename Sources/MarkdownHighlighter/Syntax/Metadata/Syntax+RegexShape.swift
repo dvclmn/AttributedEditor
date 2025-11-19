@@ -5,36 +5,35 @@
 //  Created by Dave Coleman on 19/11/2025.
 //
 
-
 extension Markdown.Syntax {
-  
+
   var supportsRegexShape: Bool {
     switch self {
       case .body, .list, .callout: false
       default: true
     }
   }
-  
-  var shapeKind: RegexShape {
+
+  var regexShape: RegexShape {
     switch self {
       case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6:
-          .prefix
-        
+        .prefix
+
       case .bold, .italic, .boldItalic, .inlineCode, .strikethrough, .highlight:
-          .wrap
-        
+        .wrap
+
       case .codeBlock:
-          .codeBlock
-        
+        .codeBlock
+
       case .quoteBlock:
-          .linePrefix
-        
+        .linePrefix
+
       case .link, .image:
-          .wrapPair
-        
+        .wrapPair
+
       case .horizontalRule:
-          .single
-        
+        .single
+
       case .body, .list, .callout:
         fatalError("\(self.name) not yet supported.")
     }

@@ -40,11 +40,27 @@ extension Markdown {
 typealias ThemeColour = Markdown.Theme
 
 extension Markdown.Theme {
+  static let contentColour: Colour = .primary
+  static let syntaxColour: Colour = .grey(0.6)
+  static let codeBackground: Colour = .grey(0.2)
+
+  static let contentColourFallback: NSColor = .textColor
+  static let syntaxColourFallback: NSColor = .gray
+  static let codeBackgroundFallback: NSColor = .systemBackground
+
+  //  public func colour(
+  //    for keypath: KeyPath<Self, CodableColour>,
+  //    fallback: NSColor = .textColor
+  //  ) -> NSColor {
+  //    self[keyPath: keypath].nsColor(fallback: fallback)
+  //  }
+
   public func colour(
-    for keypath: KeyPath<Self, CodableColour>,
-    fallback: NSColor = .textColor
+    for syntax: Markdown.Syntax,
+    kind: Markdown.ComponentKind = .content,
+    fallback: NSColor
   ) -> NSColor {
-    self[keyPath: keypath].nsColor(fallback: fallback)
+    self.colour(for: syntax, kind: kind) ?? fallback
   }
 
   /// This returning `nil` is very useful, for allowing syntax
@@ -52,6 +68,7 @@ extension Markdown.Theme {
   public func colour(
     for syntax: Markdown.Syntax,
     kind: Markdown.ComponentKind = .content,
+    //    fallback: NSColor? = nil
   ) -> NSColor? {
     let themeColour: CodableColour? =
       switch (syntax, kind) {
@@ -62,9 +79,7 @@ extension Markdown.Theme {
         case (_, .url): url
         case (_, .calloutIcon): body
 
-        /// Overrides for syntax characters?
-        case (_, .syntax): syntaxCharacters
-
+        /// Body content
         case (.body, .content): body
         case (.heading1, .content): body
         case (.heading2, .content): body
@@ -86,6 +101,29 @@ extension Markdown.Theme {
         case (.image, .content): body
         case (.horizontalRule, .content): body
 
+        /// Syntax characters
+        case (.body, .syntaxChar): syntaxCharacters
+        case (.heading1, .syntaxChar): syntaxCharacters
+        case (.heading2, .syntaxChar): syntaxCharacters
+        case (.heading3, .syntaxChar): syntaxCharacters
+        case (.heading4, .syntaxChar): syntaxCharacters
+        case (.heading5, .syntaxChar): syntaxCharacters
+        case (.heading6, .syntaxChar): syntaxCharacters
+        case (.bold, .syntaxChar): syntaxCharacters
+        case (.italic, .syntaxChar): syntaxCharacters
+        case (.boldItalic, .syntaxChar): syntaxCharacters
+        case (.inlineCode, .syntaxChar): syntaxCharacters
+        case (.codeBlock, .syntaxChar): syntaxCharacters
+        case (.list, .syntaxChar): syntaxCharacters
+        case (.quoteBlock, .syntaxChar): syntaxCharacters
+        case (.callout, .syntaxChar): syntaxCharacters
+        case (.strikethrough, .syntaxChar): syntaxCharacters
+        case (.highlight, .syntaxChar): syntaxCharacters
+        case (.link, .syntaxChar): syntaxCharacters
+        case (.image, .syntaxChar): syntaxCharacters
+        case (.horizontalRule, .syntaxChar): syntaxCharacters
+
+        /// Backgrounds, if needed
         case (.body, .background): nil
         case (.heading1, .background): nil
         case (.heading2, .background): nil
@@ -108,11 +146,11 @@ extension Markdown.Theme {
         case (.horizontalRule, .background): nil
       }
 
+    /// Note: the fallback itself is also optional, to still allow
+    /// falling back to `nil` if needed, to support *no value*
     return themeColour?.nsColor
+    //    return themeColour?.nsColor ?? fallback
   }
-
-  static let syntaxColour: Colour = .grey(0.6)
-  static let defaultCodeBG: Colour = .grey(0.2)
 
   public static var `default`: Self {
     .init(

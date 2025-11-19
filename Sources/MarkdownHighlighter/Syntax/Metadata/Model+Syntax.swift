@@ -8,6 +8,7 @@
 import CoreTools
 import SwiftUI
 
+/// For RegexShape, go to ``Markdown/Syntax/regexShape``
 extension Markdown {
   @CaseDetection
   public enum Syntax: String, Identifiable, Equatable, Hashable, Sendable {

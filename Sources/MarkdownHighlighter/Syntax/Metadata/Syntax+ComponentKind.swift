@@ -8,7 +8,7 @@
 extension Markdown {
   public enum ComponentKind: Equatable, Hashable {
     case content
-    case syntax
+    case syntaxChar
     case background
     
     // Known special cases

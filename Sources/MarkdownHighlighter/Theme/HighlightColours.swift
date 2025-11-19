@@ -5,6 +5,7 @@
 //  Created by Dave Coleman on 19/11/2025.
 //
 
+import AppKit
 import ColourKit
 
 extension Markdown.Theme {
@@ -18,6 +19,24 @@ extension Markdown.Theme {
   }
 }
 extension Markdown.Theme.HighlightColours {
+
+  public var colourSyntaxChar: NSColor {
+    let codable = CodableColour.mix(colourContrast, .gray, 0.3)
+    
+    return codable.nsColor(fallback: ThemeColour.syntaxColourFallback).withAlphaComponent(0.3)
+  }
+
+  public var colourContent: NSColor {
+    let codable = CodableColour.system(colourContrast)
+    return codable.nsColor(fallback: ThemeColour.contentColourFallback)
+  }
+  
+  public var colourBG: NSColor {
+    let codable = CodableColour.system(colourMain)
+    return codable.nsColor(fallback: ThemeColour.contentColourFallback).withAlphaComponent(0.2)
+  }
+
+  
   public var colourMain: SystemColour {
     SystemColour(rawValue: rawValue) ?? .primary
   }

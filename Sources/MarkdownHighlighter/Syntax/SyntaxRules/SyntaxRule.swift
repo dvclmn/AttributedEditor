@@ -51,12 +51,18 @@ extension SyntaxRule where T == RegexShape.Wrap {
     attrs: inout AttributedRanges
   ) {
 
+    precondition(syntax.regexShape == .wrap, "Only syntaxes with RegexShape of .wrap are valid here.")
+
     self.pattern.apply(
       match: match,
-    ) { path, range in
+    ) {
+      path,
+      range in
+
+      /// Syntax characters colour/font are mostly the same here, but
+      /// there are a few special cases:
 
       switch path {
-
         case \.leading:
           attrs.update(.foreground(ThemeColour.syntaxColour.nsColor()), in: range)
 
@@ -64,13 +70,49 @@ extension SyntaxRule where T == RegexShape.Wrap {
           attrs.update(.foreground(ThemeColour.syntaxColour.nsColor()), in: range)
 
         case \.content:
-          let colour = theme.colour(for: syntax, kind: .)
-//          attrs.update(.foreground(ThemeColour.syntaxColour.nsColor()), in: range)
-
+          //          let colour = theme.colour(for: syntax, kind: .)
+          //          attrs.update(.foreground(ThemeColour.syntaxColour.nsColor()), in: range)
 
         default: return
       }
     }
+  }
+
+  private func colour(
+    for syntax: Markdown.Syntax,
+    theme: Markdown.Theme
+  ) -> (syntax: NSColor, content: NSColor) {
+
+    let syntaxColour =
+      theme.colour(
+        for: self.syntax,
+        kind: .syntaxChar,
+        fallback: ThemeColour.syntaxColourFallback
+      )
+
+    let contentColourIfAvailable: NSColor? = {
+      switch syntax {
+        case .strikethrough:
+          theme.colour(
+            for: self.syntax,
+            kind: .content,
+          )
+          
+        case .highlight:
+          theme.colour(
+            for: self.syntax,
+            kind: .content,
+          )
+
+        default: nil
+
+      }
+    }()
+
+    let contentColour = contentColourIfAvailable ?? ThemeColour.contentColourFallback
+
+    return (syntaxColour, contentColour)
+
   }
 }
 
