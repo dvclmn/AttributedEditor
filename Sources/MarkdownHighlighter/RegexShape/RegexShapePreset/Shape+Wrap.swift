@@ -26,11 +26,11 @@ extension SyntaxRule where T == RegexShape.Wrap {
       
       let colours = self.colours(for: syntax, theme: theme)
       switch path {
-        case \.leading:
-          attrs.update(.foreground(colours.syntax), in: range)
-          
-        case \.trailing:
-          attrs.update(.foreground(colours.syntax), in: range)
+//        case \.leading:
+//          attrs.update(.foreground(colours.syntax), in: range)
+//          
+//        case \.trailing:
+//          attrs.update(.foreground(colours.syntax), in: range)
           
         case \.content:
           /// I think striekthrough is the only special case here
@@ -45,10 +45,9 @@ extension SyntaxRule where T == RegexShape.Wrap {
               with: NSUnderlineStyle.single.rawValue,
               in: range
             )
-          } else {
-            attrs.update(.foreground(colours.content), in: range)
-            
           }
+          attrs.update(.font(), in: range)
+          attrs.update(.foreground(colours.content), in: range)
           
         default: return
       }
