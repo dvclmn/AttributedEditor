@@ -28,15 +28,18 @@ extension Markdown {
     case codeBlock
     case list
     case quoteBlock
-    case callout
+    
+    case callout // [!KIND] Content...
 
     case strikethrough
     case highlight
 
-    case link
-    case image
+    case link // [Title](https://link.com/)
+    case image // ![Alt text](https://host.com/image.jpg/)
 
     case horizontalRule
+    
+    // Colour literal?
 
   }
 }

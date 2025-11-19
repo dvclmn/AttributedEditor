@@ -13,21 +13,21 @@ extension Markdown {
   /// This doesn't include source code theme, this is
   /// handled elsewhere
   public struct Theme {
-    
+
     let body: CodableColour
     let syntaxCharacters: CodableColour
-    
+
     let inlineCode: CodableColour
     let inlineCodeBG: CodableColour
-    
+
     let blockCode: CodableColour
     let blockCodeBG: CodableColour
-    
+
     let strikethroughText: CodableColour
     let strikethroughLine: CodableColour
-    
+
     let highlight: HighlightColours
-    
+
     let horizontalRule: CodableColour
   }
 }
@@ -41,11 +41,11 @@ extension Markdown.Theme {
   ) -> NSColor {
     self[keyPath: keypath].nsColor(fallback: fallback)
   }
-  
+
   static let syntaxColour: Colour = .grey(0.6)
   static let defaultCodeBG: Colour = .grey(0.2)
-//  static let defaultCodeBG: NSColor = .systemBackground
-  
+  //  static let defaultCodeBG: NSColor = .systemBackground
+
   public static var `default`: Self {
     .init(
       body: Colour.primary,
@@ -59,15 +59,15 @@ extension Markdown.Theme {
       highlight: .blue,
       horizontalRule: Colour.secondary
     )
-//    //  private var defaultSet: Self {
-//    .init(
-//      body: CodableColour(.system(.primary)),
-//      syntaxCharacters: CodableColour(.system(.brown)),
-//      inlineCode: CodableColour(.system(.mint), background: .system(.black)),
-//      blockCode: CodableColour(.system(.secondary), background: .system(.black)),
-//      strikethrough: CodableColour(.system(.red), background: .system(.secondary)),
-//      highlight: CodableColour(.system(.cyan), background: .system(.purple)),
-//    )
+    //    //  private var defaultSet: Self {
+    //    .init(
+    //      body: CodableColour(.system(.primary)),
+    //      syntaxCharacters: CodableColour(.system(.brown)),
+    //      inlineCode: CodableColour(.system(.mint), background: .system(.black)),
+    //      blockCode: CodableColour(.system(.secondary), background: .system(.black)),
+    //      strikethrough: CodableColour(.system(.red), background: .system(.secondary)),
+    //      highlight: CodableColour(.system(.cyan), background: .system(.purple)),
+    //    )
   }
 }
 //  /// Returns a fore and background, non-optional
@@ -107,37 +107,37 @@ extension Markdown.Theme {
 //    //    fatalError("Wait")
 //  }
 
-  //  func colour<Shape>(
-  //    for syntax: Markdown.Syntax,
-  //    keypath: KeyPath<Regex<Shape>.Match, Substring>,
-  ////    withShape shape: RegexShape,
-  //    //    theme: Markdown.Theme,
-  //    fallback: NSColor = .textColor
-  //  ) -> NSColor {
-  //    let colour: NSColor? =
-  //    switch syntax {
-  //        //      case .body:
-  //        //        theme.body.nsColour
-  //
-  //      case .body:
-  //
-  //        body.nsColour
-  //
-  //      case .inlineCode:
-  //        inlineCode.nsColour
-  //
-  //      case .codeBlock:
-  //        blockCode.nsColour
-  //
-  //      case .strikethrough:
-  //        strikethrough.nsColour
-  //
-  //      case .highlight:
-  //        highlight.nsColour
-  //
-  //
-  //        default: fallback
-  //      }
-  //    return colour ?? fallback
-  //  }
+//  func colour<Shape>(
+//    for syntax: Markdown.Syntax,
+//    keypath: KeyPath<Regex<Shape>.Match, Substring>,
+////    withShape shape: RegexShape,
+//    //    theme: Markdown.Theme,
+//    fallback: NSColor = .textColor
+//  ) -> NSColor {
+//    let colour: NSColor? =
+//    switch syntax {
+//        //      case .body:
+//        //        theme.body.nsColour
+//
+//      case .body:
+//
+//        body.nsColour
+//
+//      case .inlineCode:
+//        inlineCode.nsColour
+//
+//      case .codeBlock:
+//        blockCode.nsColour
+//
+//      case .strikethrough:
+//        strikethrough.nsColour
+//
+//      case .highlight:
+//        highlight.nsColour
+//
+//
+//        default: fallback
+//      }
+//    return colour ?? fallback
+//  }
 //}

@@ -21,7 +21,7 @@ extension Markdown.SyntaxRule where T == RegexShape.Three {
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
-      theme: theme,
+//      theme: theme,
       exposesBlockRange: false
     ) { match, attrs in
 
@@ -51,8 +51,8 @@ extension Markdown.SyntaxRule where T == RegexShape.Three {
   }
 
   static func italic(
-    fontSize: CGFloat,
-    theme: Markdown.Theme,
+//    fontSize: CGFloat,
+//    theme: Markdown.Theme,
   ) -> Self {
 
     let pattern = /(?<leading>[\*_])(?<content>[^\*_ \n][^\n]*?[^\*_ \n])(?<trailing>\k<leading>)/
@@ -61,7 +61,7 @@ extension Markdown.SyntaxRule where T == RegexShape.Three {
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
-      theme: theme,
+//      theme: theme,
       exposesBlockRange: false
     ) { match, attrs in
 
