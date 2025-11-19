@@ -46,7 +46,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
               in: range
             )
           }
-          attrs.update(.font(), in: range)
+          attrs.update(Markdown., in: range)
           attrs.update(.foreground(colours.content), in: range)
           
         default: return

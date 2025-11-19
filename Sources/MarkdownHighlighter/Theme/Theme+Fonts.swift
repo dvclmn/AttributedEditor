@@ -8,14 +8,18 @@
 import AppKit
 import CoreTools
 
-extension NSFont.FontStyle {
-  public func font(
+extension NSFont {
+  //extension Markdown.Theme {
+  //extension NSFont.FontStyle {
+  public static func font(
     ofSize size: CGFloat,
     for syntax: Markdown.Syntax,
     kind: Markdown.ComponentKind,
-    fallback: Self = .body
+    fallback: NSFont.FontStyle = .body
   ) -> NSFont {
-
+    let isMono = Self.isMonospaced(for: syntax, kind: kind)
+    let scaleFactor: CGFloat = isMono ? 0.88 : 1.0
+    let adjustedFontSize = max(9, size * scaleFactor)
     let style: NSFont.FontStyle =
       switch (syntax, kind) {
 
@@ -23,6 +27,8 @@ extension NSFont.FontStyle {
         case (_, .languageHint): .body
         case (_, .url): .body
         case (_, .calloutIcon): .body
+          
+        case (_, .syntaxChar): .body
 
         /// Body content
         case (.body, .content): .body
@@ -32,9 +38,9 @@ extension NSFont.FontStyle {
         case (.heading4, .content): .body
         case (.heading5, .content): .body
         case (.heading6, .content): .body
-        case (.bold, .content): .body
-        case (.italic, .content): .body
-        case (.boldItalic, .content): .body
+        case (.bold, .content): .bold
+        case (.italic, .content): .italic
+        case (.boldItalic, .content): .boldItalic
         case (.inlineCode, .content): .body
         case (.codeBlock, .content): .body
         case (.list, .content): .body
@@ -45,28 +51,6 @@ extension NSFont.FontStyle {
         case (.link, .content): .body
         case (.image, .content): .body
         case (.horizontalRule, .content): .body
-
-        /// Syntax characters
-        case (.body, .syntaxChar): .body
-        case (.heading1, .syntaxChar): .body
-        case (.heading2, .syntaxChar): .body
-        case (.heading3, .syntaxChar): .body
-        case (.heading4, .syntaxChar): .body
-        case (.heading5, .syntaxChar): .body
-        case (.heading6, .syntaxChar): .body
-        case (.bold, .syntaxChar): .body
-        case (.italic, .syntaxChar): .body
-        case (.boldItalic, .syntaxChar): .body
-        case (.inlineCode, .syntaxChar): .body
-        case (.codeBlock, .syntaxChar): .body
-        case (.list, .syntaxChar): .body
-        case (.quoteBlock, .syntaxChar): .body
-        case (.callout, .syntaxChar): .body
-        case (.strikethrough, .syntaxChar): .body
-        case (.highlight, .syntaxChar): .body
-        case (.link, .syntaxChar): .body
-        case (.image, .syntaxChar): .body
-        case (.horizontalRule, .syntaxChar): .body
 
         /// Backgrounds, if needed
         case (.body, .background): .body
@@ -94,20 +78,28 @@ extension NSFont.FontStyle {
     return NSFont.system(
       style,
       size: size,
-      monospaced: self.isMonospaced(for: syntax, kind: kind)
+      monospaced: isMono
     )
   }
 
-  func isMonospaced(
+  static func isMonospaced(
     for syntax: Markdown.Syntax,
     kind: Markdown.ComponentKind,
   ) -> Bool {
-    
+
     switch (syntax, kind) {
+
+      case (_, .syntaxChar): true
+      case (_, .languageHint): true
+      case (_, .url): true
+
+      case (.inlineCode, _): true
+      case (.codeBlock, _): true
+
       case (_, .strikeLine): false
-      case (_, .languageHint): false
-      case (_, .url): false
       case (_, .calloutIcon): false
+
+      case (_, .background): false
 
       /// Body content
       case (.body, .content): false
@@ -120,8 +112,6 @@ extension NSFont.FontStyle {
       case (.bold, .content): false
       case (.italic, .content): false
       case (.boldItalic, .content): false
-      case (.inlineCode, .content): false
-      case (.codeBlock, .content): false
       case (.list, .content): false
       case (.quoteBlock, .content): false
       case (.callout, .content): false
@@ -131,85 +121,42 @@ extension NSFont.FontStyle {
       case (.image, .content): false
       case (.horizontalRule, .content): false
 
-      /// Syntax characters
-      case (.body, .syntaxChar): false
-      case (.heading1, .syntaxChar): false
-      case (.heading2, .syntaxChar): false
-      case (.heading3, .syntaxChar): false
-      case (.heading4, .syntaxChar): false
-      case (.heading5, .syntaxChar): false
-      case (.heading6, .syntaxChar): false
-      case (.bold, .syntaxChar): false
-      case (.italic, .syntaxChar): false
-      case (.boldItalic, .syntaxChar): false
-      case (.inlineCode, .syntaxChar): false
-      case (.codeBlock, .syntaxChar): false
-      case (.list, .syntaxChar): false
-      case (.quoteBlock, .syntaxChar): false
-      case (.callout, .syntaxChar): false
-      case (.strikethrough, .syntaxChar): false
-      case (.highlight, .syntaxChar): false
-      case (.link, .syntaxChar): false
-      case (.image, .syntaxChar): false
-      case (.horizontalRule, .syntaxChar): false
-
-      /// Backgrounds, if needed
-      case (.body, .background): false
-      case (.heading1, .background): false
-      case (.heading2, .background): false
-      case (.heading3, .background): false
-      case (.heading4, .background): false
-      case (.heading5, .background): false
-      case (.heading6, .background): false
-      case (.bold, .background): false
-      case (.italic, .background): false
-      case (.boldItalic, .background): false
-      case (.inlineCode, .background): false
-      case (.codeBlock, .background): false
-      case (.list, .background): false
-      case (.quoteBlock, .background): false
-      case (.callout, .background): false
-      case (.strikethrough, .background): false
-      case (.highlight, .background): false
-      case (.link, .background): false
-      case (.image, .background): false
-      case (.horizontalRule, .background): false
     }
   }
 }
 
 extension Markdown.Component {
 
-  public func font(withSize size: CGFloat) -> NSFont {
-    let adjustedFontSize = max(9, size * fontSizeScaleFactor)
-    return fontStyle.system(size: adjustedFontSize, monospaced: isMonospaced)
-  }
-
-  private var fontStyle: NSFont.FontStyle {
-    switch syntax {
-      case .bold: .bold
-      case .italic: .italic
-      case .boldItalic: .boldItalic
-      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6: .bold
-      default: .body
-    }
-  }
-
-  private var fontSizeScaleFactor: CGFloat {
-    isMonospaced ? 0.88 : 1.0
-  }
-
-  private var isMonospaced: Bool {
-    switch kind {
-      case .syntaxChar, .languageHint, .url: true
-
-      case .content, .background, .calloutIcon, .strikeLine:
-        switch syntax {
-          case .inlineCode, .codeBlock: true
-          default: false
-        }
-    }
-  }
+//  public func font(withSize size: CGFloat) -> NSFont {
+//
+//    return fontStyle.system(size: adjustedFontSize, monospaced: isMonospaced)
+//  }
+//
+//  private var fontStyle: NSFont.FontStyle {
+//    switch syntax {
+//      case .bold: .bold
+//      case .italic: .italic
+//      case .boldItalic: .boldItalic
+//      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6: .bold
+//      default: .body
+//    }
+//  }
+//
+//  private var fontSizeScaleFactor: CGFloat {
+//
+//  }
+//
+//  private var isMonospaced: Bool {
+//    switch kind {
+//      case .syntaxChar, .languageHint, .url: true
+//
+//      case .content, .background, .calloutIcon, .strikeLine:
+//        switch syntax {
+//          case .inlineCode, .codeBlock: true
+//          default: false
+//        }
+//    }
+//  }
 
   /// Let's figure out what each syntax needs,
   /// font description-wise
