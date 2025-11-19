@@ -9,9 +9,6 @@ import AppKit
 import CoreTools
 
 extension Markdown.SyntaxComponent {
-  //  public struct Fonts {
-  //    let syntax:
-  //  }
 
   /// Let's figure out what each syntax needs,
   /// font description-wise
@@ -27,13 +24,13 @@ extension Markdown.SyntaxComponent {
   private var fontStyle: NSFont.FontStyle {
     if rawLowercased.contains("bold") {
       return .bold
-      
+
     } else if rawLowercased.contains("italic") {
       return .italic
-      
+
     } else if rawLowercased.contains("bolditalic") {
       return .boldItalic
-      
+
     } else {
       return .body
     }

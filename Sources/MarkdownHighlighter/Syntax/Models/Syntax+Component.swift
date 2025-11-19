@@ -6,75 +6,39 @@
 //
 
 extension Markdown {
+  public struct Component: Equatable, Hashable {
+    public let syntax: Syntax
+    public let kind: ComponentKind
+    
+    public init(syntax: Syntax, kind: ComponentKind) {
+      self.syntax = syntax
+      self.kind = kind
+    }
+  }
 
   /// Provide defaults where possible, that can be overriden
   /// as needed. To reduce repetitive colour/font definitions
-  public enum SyntaxComponent: String {
-    case body
-    case heading1Content
-    case heading1Syntax
-
-    case heading2Content
-    case heading2Syntax
-
-    case heading3Content
-    case heading3Syntax
-
-    case heading4Content
-    case heading4Syntax
-
-    case heading5Content
-    case heading5Syntax
-
-    case heading6Content
-    case heading6Syntax
-
-    case boldContent
-    case boldSyntax
-
-    case italicContent
-    case italicSyntax
-
-    case boldItalicContent
-    case boldItalicSyntax
-
-    case inlineCodeContent
-    case inlineCodeSyntax
-    case inlineCodeBG
-
-    case codeBlockContent
-    case codeBlockSyntax
-    case codeBlockLanguageHint
-    case codeBlockBG
-
-    case listContent
-    case listSyntax
-
-    case quoteBlockContent
-    case quoteBlockSyntax
-    case quoteBlockBG
-
-    case calloutContent
-    case calloutSyntax
-    case calloutIcon
-    case calloutBG
-
-    case strikethroughContent
-    case strikethroughSyntax
-    case strikethroughLine
-
-    case highlightContent
-    case highlightSyntax
-    case highlightBG
-
-    case linkTitle
-    case linkSyntax
-    case linkURL
-
-    case imageAltText
-    case imageSyntax
-    case imageURL
-
-    case horizontalRule
-  }
+//  public enum SyntaxComponent {
+//    case body
+//    case heading1(ComponentKind)
+//    case heading2(ComponentKind)
+//    case heading3(ComponentKind)
+//    case heading4(ComponentKind)
+//    case heading5(ComponentKind)
+//    case heading6(ComponentKind)
+//    case bold(ComponentKind)
+//    case italic(ComponentKind)
+//    case boldItalic(ComponentKind)
+//    case inlineCode(ComponentKind)
+//    case codeBlock(ComponentKind)
+//    case list(ComponentKind)
+//    case quoteBlock(ComponentKind)
+//    case callout(ComponentKind)
+//    case strikethrough(ComponentKind)
+//    case highlight(ComponentKind)
+//    case link(ComponentKind)
+//    case image(ComponentKind)
+//    case horizontalRule
+//  }
+  
 }
