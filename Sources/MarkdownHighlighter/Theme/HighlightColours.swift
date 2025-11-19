@@ -9,7 +9,7 @@ import AppKit
 import ColourKit
 
 extension Markdown.Theme {
-  public enum HighlightColours: String {
+  public enum HighlightColours: String, Sendable {
     case blue
     case purple
     case orange

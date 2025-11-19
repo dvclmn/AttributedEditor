@@ -14,17 +14,21 @@ public final class MarkdownHighlighter: Highlighter {
   public let editorConfig: Editor.Configuration
   public var theme: Markdown.Theme
 
-  var rules: [SyntaxRule<RegexShape.Wrap>] {
-    let size = editorConfig.fontSize
-    return [
-      SyntaxRule.inlineCode(fontSize: size, theme: theme),
-      SyntaxRule.strikethrough(fontSize: size, theme: theme),
-      SyntaxRule.highlight(fontSize: size, theme: theme),
-      SyntaxRule.italic(fontSize: size, theme: theme),
-      SyntaxRule.bold(fontSize: size, theme: theme),
-      SyntaxRule.boldItalic(fontSize: size, theme: theme),
-    ]
-  }
+  let styleLibrary: Markdown.StyleLibrary
+  
+  
+
+//  var rulesWrap: [SyntaxRule<RegexShape.Wrap>] {
+//    let size = editorConfig.fontSize
+//    return [
+//      SyntaxRule.inlineCode(fontSize: size, theme: theme),
+//      SyntaxRule.strikethrough(fontSize: size, theme: theme),
+//      SyntaxRule.highlight(fontSize: size, theme: theme),
+//      SyntaxRule.italic(fontSize: size, theme: theme),
+//      SyntaxRule.bold(fontSize: size, theme: theme),
+//      SyntaxRule.boldItalic(fontSize: size, theme: theme),
+//    ]
+//  }
 
   public init(
     config: Editor.Configuration,
@@ -32,6 +36,7 @@ public final class MarkdownHighlighter: Highlighter {
   ) {
     self.editorConfig = config
     self.theme = theme
+    self.styleLibrary = Markdown.StyleLibrary(theme: theme)
   }
 
   public func highlight(text: String) -> AttributedRanges {

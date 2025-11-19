@@ -12,7 +12,7 @@ extension Markdown {
 
   /// This doesn't include source code theme, this is
   /// handled elsewhere
-  public struct Theme {
+  public struct Theme: Sendable {
 
     let body: CodableColour
     let url: CodableColour

@@ -36,14 +36,12 @@ extension Markdown.Component {
 
   private var isMonospaced: Bool {
     switch kind {
-      case .syntax:
-        return true
-      case .content, .background, .other:
+      case .syntaxChar, .languageHint, .url: true
+
+      case .content, .background, .calloutIcon, .strikeLine:
         switch syntax {
-          case .inlineCode, .codeBlock:
-            return true
-          default:
-            return false
+          case .inlineCode, .codeBlock: true
+          default: false
         }
     }
   }

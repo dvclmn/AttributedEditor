@@ -9,31 +9,51 @@ import Foundation
 import HighlighterCommon
 
 extension Markdown {
-  public struct StyleLibrary {
+  public struct StyleLibrary: Sendable {
     let theme: Theme
-    let fontSize: CGFloat
+//    let fontSize: CGFloat
+
+    public init(
+      theme: Theme,
+//      fontSize: CGFloat
+    ) {
+      self.theme = theme
+//      self.fontSize = fontSize
+    }
   }
 }
 
 extension Markdown.StyleLibrary {
   
-//  func applyAttributes<T>(
-//    rule: SyntaxRule<T>,
-//    to text: String,
-//    attributes: inout AttributedRanges
-//  ) {
-//    let matches = text.matches(of: rule.pattern)
-//    for match in matches {
-//      apply(
-//        rule: rule,
-//        match: match,
-//        attrs: &attributes
-//      )
-//    }
-//  }
+  static var wrapRules: [SyntaxRule<RegexShape.Wrap>] {
+    [
+      SyntaxRule.bold(),
+      SyntaxRule.italic(),
+      SyntaxRule.boldItalic(),
+    ]
+  }
+    
+  
+  
+
+  func applyAttributesWrap(
+//    rules: [SyntaxRule<RegexShape.Wrap>],
+    //    rule: SyntaxRule<RegexShape.Wrap>,
+    to text: String,
+    attributes: inout AttributedRanges
+  ) {
+    for rule in Self.wrapRules {
+      let matches = text.matches(of: rule.pattern)
+      for match in matches {
+        rule.apply(
+          match: match,
+          theme: self.theme,
+          attrs: &attributes
+        )
+      }
+    }
+  }
 }
-
-
 
 //extension Markdown.Descriptor {
 //  public func apply(
