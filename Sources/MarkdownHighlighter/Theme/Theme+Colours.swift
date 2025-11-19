@@ -13,20 +13,20 @@ extension Markdown {
   /// This doesn't include source code theme, this is
   /// handled elsewhere
   public struct Theme {
-    let body: ColourPair
-    let syntaxCharacters: ColourPair
-    let inlineCode: ColourPair
-    let blockCode: ColourPair
-    let strikeThrough: ColourPair
-    let highlight: ColourPair
+    let body: CodableColour
+    let syntaxCharacters: CodableColour
+    let inlineCode: CodableColour
+    let blockCode: CodableColour
+    let strikeThrough: CodableColour
+    let highlight: CodableColour
 
     public init(
-      body: ColourPair,
-      syntaxCharacters: ColourPair,
-      inlineCode: ColourPair,
-      blockCode: ColourPair,
-      strikeThrough: ColourPair,
-      highlight: ColourPair
+      body: CodableColour,
+      syntaxCharacters: CodableColour,
+      inlineCode: CodableColour,
+      blockCode: CodableColour,
+      strikeThrough: CodableColour,
+      highlight: CodableColour
     ) {
       self.body = body
       self.syntaxCharacters = syntaxCharacters
@@ -74,12 +74,12 @@ extension Markdown.Theme {
   public static var `default`: Self {
     //  private var defaultSet: Self {
     .init(
-      body: ColourPair(.system(.primary)),
-      syntaxCharacters: ColourPair(.system(.brown)),
-      inlineCode: ColourPair(.system(.mint), background: .system(.black)),
-      blockCode: ColourPair(.system(.secondary), background: .system(.black)),
-      strikeThrough: ColourPair(.system(.red), background: .system(.secondary)),
-      highlight: ColourPair(.system(.cyan), background: .system(.purple)),
+      body: CodableColour(.system(.primary)),
+      syntaxCharacters: CodableColour(.system(.brown)),
+      inlineCode: CodableColour(.system(.mint), background: .system(.black)),
+      blockCode: CodableColour(.system(.secondary), background: .system(.black)),
+      strikeThrough: CodableColour(.system(.red), background: .system(.secondary)),
+      highlight: CodableColour(.system(.cyan), background: .system(.purple)),
     )
   }
 
@@ -92,7 +92,7 @@ extension Markdown.Theme {
     fallbackBG: NSColor = .black
   ) -> (fg: NSColor, bg: NSColor) {
     //    let syntaxDefault = ColourPair(.system(.brown))
-    let colour: ColourPair? =
+    let colour: CodableColour? =
       switch (syntax, component) {
         case (.body, .syntax): syntaxCharacters
         case (.body, .content): body
