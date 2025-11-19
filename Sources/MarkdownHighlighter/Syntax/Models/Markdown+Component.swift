@@ -9,15 +9,41 @@ extension Markdown {
   public struct Component: Equatable, Hashable {
     public let syntax: Syntax
     public let kind: ComponentKind
-    
+
     public init(syntax: Syntax, kind: ComponentKind) {
       self.syntax = syntax
       self.kind = kind
     }
   }
+}
 
-  /// Provide defaults where possible, that can be overriden
-  /// as needed. To reduce repetitive colour/font definitions
+// MARK: - Convenience Accessors
+extension Markdown.Component {
+
+  public var isContent: Bool {
+    if case .content = kind { return true }
+    return false
+  }
+
+  public var isSyntax: Bool {
+    if case .syntax = kind { return true }
+    return false
+  }
+
+  public var isBackground: Bool {
+    if case .background = kind { return true }
+    return false
+  }
+
+  public var otherKind: String? {
+    if case .other(let value) = kind { return value }
+    return nil
+  }
+
+}
+
+/// Provide defaults where possible, that can be overriden
+/// as needed. To reduce repetitive colour/font definitions
 //  public enum SyntaxComponent {
 //    case body
 //    case heading1(ComponentKind)
@@ -40,5 +66,5 @@ extension Markdown {
 //    case image(ComponentKind)
 //    case horizontalRule
 //  }
-  
-}
+
+//}
