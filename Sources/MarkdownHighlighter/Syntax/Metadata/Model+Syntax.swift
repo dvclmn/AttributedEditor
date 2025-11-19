@@ -33,7 +33,7 @@ extension Markdown {
     case link
     case image
     case horizontalRule
-    
+
     // Colour literal?
 
   }

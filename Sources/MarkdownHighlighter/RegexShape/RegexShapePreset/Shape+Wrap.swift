@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import HighlighterCommon
 
 extension SyntaxRule where T == RegexShape.Wrap {
   

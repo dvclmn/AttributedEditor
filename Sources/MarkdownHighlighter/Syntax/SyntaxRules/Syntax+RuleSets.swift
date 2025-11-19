@@ -5,8 +5,8 @@
 //  Created by Dave Coleman on 17/11/2025.
 //
 
-import AppKit
-import HighlighterCommon
+//import AppKit
+//import HighlighterCommon
 
 /// Ordering Matters
 /// Regex rules are attempted in sequence:

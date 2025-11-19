@@ -11,20 +11,20 @@ import HighlighterCommon
 extension Markdown {
   public struct StyleLibrary: Sendable {
     let theme: Theme
-//    let fontSize: CGFloat
+    //    let fontSize: CGFloat
 
     public init(
       theme: Theme,
-//      fontSize: CGFloat
+      //      fontSize: CGFloat
     ) {
       self.theme = theme
-//      self.fontSize = fontSize
+      //      self.fontSize = fontSize
     }
   }
 }
 
 extension Markdown.StyleLibrary {
-  
+
   static var wrapRules: [SyntaxRule<RegexShape.Wrap>] {
     [
       SyntaxRule.bold(),
@@ -32,30 +32,52 @@ extension Markdown.StyleLibrary {
       SyntaxRule.boldItalic(),
     ]
   }
-  
-  static var prefixRules: [SyntaxRule<RegexShape.Wrap>] {
+
+  static var singleRules: [SyntaxRule<RegexShape.Single>] {
     [
-      
+      SyntaxRule.horizontalRule()
     ]
   }
-    
-  
-  
+  //  static var prefixRules: [SyntaxRule<RegexShape.Wrap>] {
+  //    [
+  //
+  //    ]
+  //  }
 
-  func applyAttributesWrap(
-//    rules: [SyntaxRule<RegexShape.Wrap>],
+  func applyAll(
+    to text: String,
+    attributes: inout AttributedRanges
+  ) {
+    //    let allRules = Self.wrapRules + Self.singleRules
+
+  }
+
+  private func applyAttributes<T>(
+    rules: [SyntaxRule<T>],
     //    rule: SyntaxRule<RegexShape.Wrap>,
     to text: String,
     attributes: inout AttributedRanges
   ) {
-    for rule in Self.wrapRules {
-      let matches = text.matches(of: rule.pattern)
-      for match in matches {
-        rule.apply(
-          match: match,
-          theme: self.theme,
-          attrs: &attributes
-        )
+    if let shape = T.self as? RegexShape.Single.Type {
+
+      for rule in rules {
+        let matches = text.matches(of: rule.pattern)
+        for match in matches {
+
+          //          for rule in Self.singleRules {
+          rule.apply(
+            match: match,
+            theme: self.theme,
+            attrs: &attributes
+          )
+          //          }
+
+        }
+        //        if let singleRule = rule as? SyntaxRule<RegexShape.Single>,
+        //           let singleMatch = match as? Regex<RegexShape.Single>
+        //        {
+
+        //        }
       }
     }
   }
