@@ -15,6 +15,9 @@ heading5
 heading6
 ```
 /(?<leading>\s*#)(?<content>[^#*]*?)(?<trailing>)/
+
+// Legacy, where p is the prefix string, e.g. "#"
+"^\(p)(?<\(name)>.+)$"
 ```
 
 
@@ -24,9 +27,22 @@ italic
 boldItalic
 
 inlineCode
+
 codeBlock
 ```
 /(?<leading>bbb[a-zA-Z]*)\n(?<content>.*?)(?<trailing>bbb)/
+```
+
+Legacy:
+```
+// Where start and end are e.g. "bbb"
+let s = NSRegularExpression.escapedPattern(for: start)
+let e = NSRegularExpression.escapedPattern(for: end)
+"\(s)(?<\(lang)>[A-Za-z0-9_+-]*)\\n(?<\(body)>[\\s\\S]*?)\(e)"
+
+// Block body?
+"\(s)\\n(?<\(body)>[\\s\\S]*?)\(e)"
+
 ```
 
 

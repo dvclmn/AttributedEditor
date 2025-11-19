@@ -9,11 +9,11 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension SyntaxRule where T == RegexShape.Three {
+extension Markdown.SyntaxRule where T == RegexShape.Three {
   static func bold(
     fontSize: CGFloat,
     theme: Markdown.Theme,
-  ) -> SyntaxRule {
+  ) -> Self {
 
     let pattern = /(?<leading>(?:\*{2}|_{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .bold
@@ -53,7 +53,7 @@ extension SyntaxRule where T == RegexShape.Three {
   static func italic(
     fontSize: CGFloat,
     theme: Markdown.Theme,
-  ) -> SyntaxRule {
+  ) -> Self {
 
     let pattern = /(?<leading>[\*_])(?<content>[^\*_ \n][^\n]*?[^\*_ \n])(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .italic
@@ -93,7 +93,7 @@ extension SyntaxRule where T == RegexShape.Three {
   static func boldItalic(
     fontSize: CGFloat,
     theme: Markdown.Theme,
-  ) -> SyntaxRule {
+  ) -> Self {
 
     let pattern = /(?<leading>(?:\*{3}|_{3}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .boldItalic

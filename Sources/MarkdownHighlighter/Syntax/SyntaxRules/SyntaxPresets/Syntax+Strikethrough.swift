@@ -9,11 +9,11 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension SyntaxRule where T == RegexShape.Three {
+extension Markdown.SyntaxRule where T == RegexShape.Three {
   static func strikethrough(
     fontSize: CGFloat,
     theme: Markdown.Theme,
-  ) -> SyntaxRule {
+  ) -> Self {
 
     let pattern = /(?<leading>(?:\~{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .strikethrough

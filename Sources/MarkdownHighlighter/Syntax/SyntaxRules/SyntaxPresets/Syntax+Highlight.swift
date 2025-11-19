@@ -10,11 +10,11 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension SyntaxRule where T == RegexShape.Three {
+extension Markdown.SyntaxRule where T == RegexShape.Three {
   static func highlight(
     fontSize: CGFloat,
     theme: Markdown.Theme,
-  ) -> SyntaxRule {
+  ) -> Self {
     
     let pattern = /(?<leading>==)(?<content>[^== \n][^\n]*?[^== \n])(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .inlineCode

@@ -7,7 +7,7 @@
 
 import AppKit
 
-extension SyntaxRule {
+//extension SyntaxRule {
 //  static func blockquote(fontSize: CGFloat) -> SyntaxRule {
 //    SyntaxRule(
 //      syntax: .quoteBlock,
@@ -36,5 +36,5 @@ extension SyntaxRule {
 //      }
 //    )
 //  }
-
-}
+//
+//}

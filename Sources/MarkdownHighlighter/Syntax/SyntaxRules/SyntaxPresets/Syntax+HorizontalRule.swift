@@ -9,11 +9,11 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension SyntaxRule where T == RegexShape.Single {
+extension Markdown.SyntaxRule where T == RegexShape.Single {
   static func horizontalRule(
     fontSize: CGFloat,
     theme: Markdown.Theme,
-  ) -> SyntaxRule {
+  ) -> Self {
 
     let pattern = /\n---+?/
     let syntax: Markdown.Syntax = .horizontalRule
@@ -26,7 +26,7 @@ extension SyntaxRule where T == RegexShape.Single {
     ) { match, attrs in
 
       let range = match.range
-      let font = NSFont.system(.body, size: fontSize * 0.97, monospaced: true)
+//      let font = NSFont.system(.body, size: fontSize * 0.97, monospaced: true)
 
       attrs.update(
         .foregroundColor,
