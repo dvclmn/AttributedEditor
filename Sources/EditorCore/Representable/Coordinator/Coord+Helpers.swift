@@ -15,12 +15,12 @@ extension AttributedEditorView.Coordinator {
     let currentText = textView.string
     let highlighter = self.parent.highlighter
 
-    highlighter.apply(
+    let blockRanges = highlighter.apply(
       currentText: currentText,
       textView: textView,
       config: self.parent.config
     )
-    textView.updateBlockRanges(highlighter.blockRanges(text: currentText))
+    textView.updateBlockRanges(blockRanges)
 
   }
 

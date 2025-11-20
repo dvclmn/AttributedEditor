@@ -20,7 +20,6 @@ extension AttributedRanges {
       )
     }
   }
-
 }
 extension Highlighter {
 
@@ -29,7 +28,7 @@ extension Highlighter {
     currentText: String,
     textView: NSTextView,
     config: Editor.Configuration,
-  ) {
+  ) -> [NSRange] {
 
     let attrString = NSMutableAttributedString(string: currentText)
 
@@ -44,10 +43,10 @@ extension Highlighter {
     )
 
     /// Get highlighted ranges from the syntax highlighter
-    let highlightedRanges = self.highlight(text: currentText)
+    let markdownStyles = self.highlight(text: currentText)
 
     /// Convert from `Range<String.Index>` to `NSRange`
-    let runs = highlightedRanges.attributes.withNSRanges(in: currentText)
+    let runs = markdownStyles.attributes.withNSRanges(in: currentText)
 
     /// Apply each highlighted range's attributes
     for run in runs {
@@ -67,6 +66,9 @@ extension Highlighter {
 
     /// Refresh line numbers
     textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
+    
+//    textView.updateBlockRanges(markdownStyles.blocks)
+    return markdownStyles.blocks.map { $0.toNSRange(in: currentText) }
 
   }
 }
