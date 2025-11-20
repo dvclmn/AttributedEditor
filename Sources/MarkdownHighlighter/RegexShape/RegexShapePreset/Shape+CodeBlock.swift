@@ -7,6 +7,7 @@
 
 import AppKit
 import HighlighterCommon
+import CoreTools
 
 extension SyntaxRule where T == RegexShape.CodeBlock {
   func apply(
@@ -24,18 +25,24 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
 
       switch path {
         case \.0:
-          attrs.update(.font(<#T##NSFont#>), in: <#T##Range<String.Index>#>)
+          attrs.update(Attribute(background: syntax.colour(for: .background)), in: range)
+          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .content)), in: range)
           
         case \.start:
+          attrs.update(Attribute(foreground: syntax.colour(for: .syntaxChar)), in: range)
           
+          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .syntaxChar)), in: range)
           
         case \.langHint:
+          attrs.update(Attribute(foreground: syntax.colour(for: .languageHint)), in: range)
           
           
-        case \.content:
+//        case \.content:
           
           
         case \.end:
+          attrs.update(Attribute(foreground: syntax.colour(for: .syntaxChar)), in: range)
+          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .syntaxChar)), in: range)
           
           
         default: break

@@ -8,6 +8,12 @@
 import ColourKit
 import AppKit
 
+extension Markdown.Syntax {
+  func colour(for kind: Markdown.ComponentKind) -> NSColor? {
+    Markdown.Theme.standard(for: self, kind: kind)
+  }
+}
+
 /// Every element should declare either a fallback, or a 'nil' value.
 /// P.s. if pink, this usually means it's placeholder / I'm not sure value
 extension Markdown.Theme {

@@ -8,6 +8,20 @@
 import AppKit
 import CoreTools
 
+extension Markdown.Syntax {
+  func font(
+    ofSize size: CGFloat,
+    for kind: Markdown.ComponentKind
+  ) -> NSFont? {
+    NSFont.font(
+      ofSize: size,
+      for: self,
+      kind: kind,
+      fallback: .body
+    )
+  }
+}
+
 extension NSFont {
   //extension Markdown.Theme {
   //extension NSFont.FontStyle {
@@ -18,6 +32,9 @@ extension NSFont {
     kind: Markdown.ComponentKind,
     fallback: NSFont.FontStyle = .body
   ) -> NSFont? {
+    
+    precondition(!kind.isBackground, "`ComponentKind` .background is not supported for fonts")
+    
     let isMono = Self.isMonospaced(for: syntax, kind: kind)
     let scaleFactor: CGFloat = isMono ? 0.88 : 1.0
     let adjustedFontSize = max(9, size * scaleFactor)

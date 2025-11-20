@@ -14,9 +14,13 @@ extension AttributedRanges {
 
   /// Type-safe version
   mutating func update(
-    _ attribute: Attribute,
+    _ attribute: Attribute?,
     in range: Range<String.Index>
   ) {
+    guard let attribute else {
+      print("No Attribute supplied, exiting early.")
+      return
+    }
     /// If an existing run matches exactly, update it.
     if let index = self.firstIndex(where: { $0.range == range }) {
       attribute.update(&self[index].attributes)
