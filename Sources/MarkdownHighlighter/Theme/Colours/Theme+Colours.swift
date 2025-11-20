@@ -48,13 +48,13 @@ extension Markdown.Theme {
   static let syntaxColourFallback: NSColor = .gray
   static let codeBackgroundFallback: NSColor = .systemBackground
 
-  public func colour(
-    for syntax: Markdown.Syntax,
-    kind: Markdown.ComponentKind,
-    fallback: NSColor
-  ) -> NSColor {
-    self.colour(for: syntax, kind: kind) ?? fallback
-  }
+  //  public func colour(
+  //    for syntax: Markdown.Syntax,
+  //    kind: Markdown.ComponentKind,
+  //    fallback: NSColor
+  //  ) -> NSColor {
+  //    self.colour(for: syntax, kind: kind) ?? fallback
+  //  }
 
   /// This returning `nil` is very useful, for allowing syntax
   /// that should *not* have e.g. a background, to express that
@@ -62,11 +62,11 @@ extension Markdown.Theme {
     for syntax: Markdown.Syntax,
     kind: Markdown.ComponentKind,
     //    fallback: NSColor? = nil
-  ) -> NSColor? {
+  ) -> NSColor {
     let themeColour: CodableColour? =
       switch (syntax, kind) {
 
-//        case (_, .strikeText): strikeText
+        //        case (_, .strikeText): strikeText
         case (_, .strikeLine): strikeLine
         case (_, .languageHint): body
         case (_, .url): url
@@ -139,9 +139,17 @@ extension Markdown.Theme {
         case (.horizontalRule, .background): nil
       }
 
-    /// Note: the fallback itself is also optional, to still allow
-    /// falling back to `nil` if needed, to support *no value*
-    return themeColour?.nsColor
+    let themeNSColour = themeColour?.nsColor
+    
+    let defaults: NSColor? = Self.fallbackColour(
+      for: syntax,
+      kind: kind
+    )
+    let result = themeNSColour ?? defaults ?? NSColor.textColor
+
+    //    let finalCodable = themeColour ??
+    //
+    //    return finalCodable?.nsColor(fallback: .textColor)
     //    return themeColour?.nsColor ?? fallback
   }
 
