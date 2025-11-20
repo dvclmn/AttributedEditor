@@ -11,12 +11,12 @@ import CoreTools
 extension Markdown.Syntax {
   func font(
     ofSize size: CGFloat,
-    for kind: Markdown.ComponentKind
+    for part: Markdown.SyntaxPart
   ) -> NSFont? {
     NSFont.font(
       ofSize: size,
       for: self,
-      kind: kind,
+      part: part,
       fallback: .body
     )
   }
@@ -29,17 +29,17 @@ extension NSFont {
   public static func font(
     ofSize size: CGFloat,
     for syntax: Markdown.Syntax,
-    kind: Markdown.ComponentKind,
+    part: Markdown.SyntaxPart,
     fallback: NSFont.FontStyle = .body
   ) -> NSFont? {
     
-    precondition(!kind.isBackground, "`ComponentKind` .background is not supported for fonts")
+    precondition(!part.isBackground, "`ComponentKind` .background is not supported for fonts")
     
-    let isMono = Self.isMonospaced(for: syntax, kind: kind)
+    let isMono = Self.isMonospaced(for: syntax, part: part)
     let scaleFactor: CGFloat = isMono ? 0.88 : 1.0
     let adjustedFontSize = max(9, size * scaleFactor)
     let style: NSFont.FontStyle =
-      switch (syntax, kind) {
+      switch (syntax, part) {
 
         case (_, .strikeLine): .body
         case (_, .languageHint): .body
@@ -102,10 +102,10 @@ extension NSFont {
 
   static func isMonospaced(
     for syntax: Markdown.Syntax,
-    kind: Markdown.ComponentKind,
+    part: Markdown.SyntaxPart,
   ) -> Bool {
 
-    switch (syntax, kind) {
+    switch (syntax, part) {
 
       case (_, .syntaxChar): true
       case (_, .languageHint): true
@@ -143,7 +143,7 @@ extension NSFont {
   }
 }
 
-extension Markdown.Component {
+//extension Markdown.SyntaxPart {
 
 //  public func font(withSize size: CGFloat) -> NSFont {
 //
@@ -228,4 +228,4 @@ extension Markdown.Component {
   //    rawValue.contains("heading") && rawValue.contains("syntax")
   //  }
 
-}
+//}

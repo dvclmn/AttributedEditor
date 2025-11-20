@@ -12,18 +12,18 @@ import HighlighterCommon
 public final class MarkdownHighlighter: Highlighter {
 
   public let editorConfig: Editor.Configuration
-  public var theme: Markdown.Theme
+//  public var theme: Markdown.Theme
 
   let styleLibrary: Markdown.StyleLibrary
 
   public init(
     config: Editor.Configuration,
-    theme: Markdown.Theme,
+//    theme: Markdown.Theme,
     fontSize: CGFloat
   ) {
     self.editorConfig = config
-    self.theme = theme
-    self.styleLibrary = Markdown.StyleLibrary(theme: theme, fontSize: fontSize)
+//    self.theme = theme
+    self.styleLibrary = Markdown.StyleLibrary(theme: .standard(for: <#T##Markdown.Syntax#>, kind: <#T##Markdown.ComponentKind#>), fontSize: fontSize)
   }
 
   public func highlight(text: String) -> AttributedRanges {
@@ -51,8 +51,8 @@ public final class MarkdownHighlighter: Highlighter {
 //    return output
   }
 }
-extension MarkdownHighlighter {
-  public func updateTheme(_ theme: Markdown.Theme) {
-    self.theme = theme
-  }
-}
+//extension MarkdownHighlighter {
+//  public func updateTheme(_ theme: Markdown.Theme) {
+//    self.theme = theme
+//  }
+//}

@@ -1,5 +1,5 @@
 //
-//  Syntax+ComponentKind.swift
+//  Syntax+SyntaxPart.swift
 //  AttributedEditor
 //
 //  Created by Dave Coleman on 19/11/2025.
@@ -10,7 +10,7 @@ import CoreTools
 extension Markdown {
   
   @CaseDetection
-  public enum ComponentKind: Equatable, Hashable {
+  public enum SyntaxPart: Equatable, Hashable {
     /// This also covers image alt text, and link title
     case content
     case syntaxChar

@@ -9,7 +9,7 @@ import ColourKit
 import AppKit
 
 extension Markdown.Syntax {
-  func colour(for kind: Markdown.ComponentKind) -> NSColor? {
+  func colour(for kind: Markdown.SyntaxPart) -> NSColor? {
     Markdown.Theme.standard(for: self, kind: kind)
   }
 }
@@ -19,7 +19,7 @@ extension Markdown.Syntax {
 extension Markdown.Theme {
   static func standard(
     for syntax: Markdown.Syntax,
-    kind: Markdown.ComponentKind,
+    kind: Markdown.SyntaxPart,
   ) -> NSColor? {
 //  ) -> CodableColour? {
     let codable: CodableColour? = switch (syntax, kind) {
