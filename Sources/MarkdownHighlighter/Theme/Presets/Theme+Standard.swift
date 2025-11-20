@@ -12,34 +12,47 @@ extension Markdown.Theme {
   public static let standard: Self = {
     var theme = Self()
     
-    // 1. Simple case: Bold
-    // Uses `.syntax` to set both leading (**) and trailing (**) at once
+    /// Uses `.syntax` to set both leading (**) and trailing (**) at once
     theme.register(.bold) {
       $0.content = TokenStyle(colour: .primary, font: .bold)
-//      $0.content = TokenStyle(colour: .labelColor, font: .bold)
+      $0.syntax = TokenStyle(colour: .tertiary)
+    }
+    theme.register(.italic) {
+      $0.content = TokenStyle(colour: .primary, font: .italic)
+      $0.leading = TokenStyle(colour: .tertiary)
+//      $0.syntax = TokenStyle(colour: .tertiary)
+    }
+    theme.register(.boldItalic) {
+      $0.content = TokenStyle(colour: .primary, font: [.bold, .italic])
       $0.syntax = TokenStyle(colour: .tertiary)
     }
     
-    // 2. Split case: Header
-    // Headers usually have leading syntax (#) but no trailing syntax
+    // Split case: Header
     theme.register(.heading1) {
       $0.content = TokenStyle(colour: .primary, font: .bold)
       $0.leading = TokenStyle(colour: .orange) // Only setting leading
     }
     
-    // 3. Metadata case: Link
-    // We use the `.url` alias, which saves to `.metadata`
+    // Metadata case: Link
+    /// We use the `.url` alias, which saves to `.metadata`
     theme.register(.link) {
       $0.content = TokenStyle(colour: .link)
       $0.syntax = TokenStyle(colour: .tertiary) // [ and ]
       $0.url = TokenStyle(colour: .gray) // (http://...)
     }
     
-    // 4. Metadata case: Code Block
-    // We use the `.languageHint` alias, which also saves to `.metadata`
+    // Metadata case: Code Block
+    /// We use the `.languageHint` alias, which also saves to `.metadata`
     theme.register(.codeBlock) {
       $0.content = TokenStyle(font: .monoSpace)
       $0.languageHint = TokenStyle(colour: .secondary) // "swift"
+    }
+    
+    theme.register(.inlineCode) {
+      $0.content = TokenStyle(font: .monoSpace)
+      $0.leading = TokenStyle(colour: .orange)
+//      $0.syntax = TokenStyle(colour: .tertiary)
+      $0.background = .gray
     }
     
     return theme
