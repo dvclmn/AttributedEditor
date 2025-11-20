@@ -6,8 +6,8 @@
 //
 
 import AppKit
-import HighlighterCommon
 import CoreTools
+import HighlighterCommon
 
 extension SyntaxRule where T == RegexShape.CodeBlock {
   func apply(
@@ -20,34 +20,58 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
       syntax.regexShape == .codeBlock,
       "Only syntaxes with RegexShape of \(syntax.regexShape) are valid here."
     )
-    
+
+    let syntaxFont = theme.style(for: syntax, part: .syntaxLeading)
+      .nsFont(fontSize)
+    let syntaxColour = theme.style(for: syntax, part: .syntaxLeading)
+      .nsColour
+
+    let contentFont = theme.style(for: syntax, part: .content).nsFont(
+      fontSize
+    )
+    let contentColour = theme.style(for: syntax, part: .content).nsColour
+
+    let bgColour = theme.style(for: syntax, part: .background).nsColour
 
     self.pattern.apply(match: match) { path, range in
 
       switch path {
         case \.0:
-          attrs.update(Attribute(background: theme.style(for: syntax, part: .background).nsColour), in: range)
-//          attrs.update(Attribute(background: syntax.colour(for: .background)), in: range)
-          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .content)), in: range)
-          
+
+          attrs.update(.init(background: bgColour), in: range)
+
+        //          attrs.update(Attribute(background: theme.style(for: syntax, part: .background).nsColour), in: range)
+        //          attrs.update(Attribute(background: syntax.colour(for: .background)), in: range)
+        //          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .content)), in: range)
+
         case \.start:
-          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .syntaxLeading).nsColour), in: range)
-          
-          attrs.update(Attribute(font: theme.style(for: syntax, part: .syntaxLeading).nsFont(fontSize)), in: range)
-          
+
+          attrs.update(.init(foreground: syntaxColour), in: range)
+          attrs.update(.init(font: syntaxFont), in: range)
+
+        //          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .syntaxLeading).nsColour), in: range)
+        //
+        //          attrs.update(Attribute(font: theme.style(for: syntax, part: .syntaxLeading).nsFont(fontSize)), in: range)
+
         case \.langHint:
-//          attrs.update(Attribute(foreground: syntax.colour(for: .languageHint)), in: range)
-          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .metadata).nsColour), in: range)
-          
-//        case \.content:
-          
-          
+          //          attrs.update(Attribute(foreground: syntax.colour(for: .languageHint)), in: range)
+          attrs.update(.init(foreground: theme.style(for: syntax, part: .metadata).nsColour), in: range)
+        //          attrs.update(.init(font: syntaxFont), in: range)
+        //          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .metadata).nsColour), in: range)
+
+        case \.content:
+          //          attrs.update(.init(foreground: syntaxColour), in: range)
+          attrs.update(.init(font: contentFont), in: range)
+          attrs.update(.init(foreground: contentColour), in: range)
+
         case \.end:
-//          attrs.update(Attribute(foreground: syntax.colour(for: .syntaxChar)), in: range)
-          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .syntaxTrailing).nsColour), in: range)
-//          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .syntaxChar)), in: range)
-          attrs.update(Attribute(font: theme.style(for: syntax, part: .syntaxTrailing).nsFont(fontSize)), in: range)
-          
+          attrs.update(.init(foreground: syntaxColour), in: range)
+        //          attrs.update(.init(font: syntaxFont), in: range)
+        //          attrs.update(Attribute(foreground: syntax.colour(for: .syntaxChar)), in: range)
+        //          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .syntaxTrailing).nsColour), in: range)
+        //          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .syntaxChar)), in: range)
+        //          attrs.update(Attribute(font: theme.style(for: syntax, part: .syntaxTrailing).nsFont(fontSize)), in: range)
+
         default: break
       }
       //      let colours = self.colours(for: syntax, theme: theme)

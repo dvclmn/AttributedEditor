@@ -23,31 +23,19 @@ extension SyntaxRule where T == RegexShape.Wrap {
       "Only syntaxes with RegexShape of .wrap are valid here."
     )
 
+    let syntaxFont = theme.style(for: syntax, part: .syntaxLeading).nsFont(fontSize)
+    let syntaxColour = theme.style(for: syntax, part: .syntaxLeading).nsColour
+    
+    let contentFont = theme.style(for: syntax, part: .content).nsFont(fontSize)
+    let contentColour = theme.style(for: syntax, part: .content).nsColour
+    
+    let bgColour = theme.style(for: syntax, part: .background).nsColour
+
     self.pattern.apply(match: match) { path, range in
 
 //      let colours = self.colours(for: syntax, theme: theme)
       
       
-      let syntaxFont = theme.style(for: syntax, part: .syntaxLeading).nsFont(fontSize)
-//      let syntaxFont = syntax.font(ofSize: fontSize, for: .syntaxChar)
-      let syntaxColour = theme.style(for: syntax, part: .syntaxLeading).nsColour
-//      let syntaxColour = syntax.colour(for: .syntaxChar)
-      
-      let contentFont = theme.style(for: syntax, part: .content).nsFont(fontSize)
-      let contentColour = theme.style(for: syntax, part: .content).nsColour
-      
-      let bgColour = theme.style(for: syntax, part: .background).nsColour
- 
-//      let syntaxFont: NSFont? = .font(
-//        ofSize: fontSize,
-//        for: syntax,
-//        kind: .syntaxChar
-//      )
-//      let contentFont: NSFont? = .font(
-//        ofSize: fontSize,
-//        for: syntax,
-//        kind: .content
-//      )
 
       switch path {
           
