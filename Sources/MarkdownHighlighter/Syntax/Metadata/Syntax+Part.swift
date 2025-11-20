@@ -11,8 +11,9 @@ extension Markdown {
   @CaseDetection
   public enum SyntaxPart: Hashable, Sendable {
     case content  // The main text body
-    case syntaxLeading  // The `**` before bold, or `[` before a link
-    case syntaxTrailing  // The `**` after bold, or `)` after a link
+    case syntax  // The `**` before bold, or `[` before a link
+//    case syntaxLeading  // The `**` before bold, or `[` before a link
+//    case syntaxTrailing  // The `**` after bold, or `)` after a link
     case metadata  // The generic bucket (URL, Language string, Callout Icon)
     case background  // Block background
   }

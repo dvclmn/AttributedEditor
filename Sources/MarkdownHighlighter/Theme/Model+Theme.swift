@@ -37,7 +37,8 @@ extension Markdown.Theme {
       case .content:
         return TokenStyle(colour: defaultBodyColor)
 
-      case .syntaxLeading, .syntaxTrailing:
+      case .syntax:
+        //      case .syntaxLeading, .syntaxTrailing:
         return TokenStyle(colour: defaultSyntaxColor)
 
       case .metadata:

@@ -14,22 +14,22 @@ extension Markdown.Theme {
     // We store everything in the generic buckets
     var content: TokenStyle?
     var background: CodableColour?
-//    var background: CodableColour?
 
-    var leading: TokenStyle?
-    var trailing: TokenStyle?
+//    var leading: TokenStyle?
+    var syntax: TokenStyle?
+//    var trailing: TokenStyle?
     var metadata: TokenStyle?
 
     // MARK: - Semantic Aliases
 
     /// Sets both leading and trailing syntax at once.
-    var syntax: TokenStyle? {
-      get { leading }  // Return leading as representative
-      set {
-        leading = newValue
-        trailing = newValue
-      }
-    }
+//    var syntax: TokenStyle? {
+//      get { leading }  // Return leading as representative
+//      set {
+//        leading = newValue
+//        trailing = newValue
+//      }
+//    }
 
     // The "Whack-a-mole" aliases
     // These all just read/write to `metadata`, but make the call site readable.
@@ -63,8 +63,9 @@ extension Markdown.Theme {
     var parts: [Markdown.SyntaxPart: TokenStyle] = [:]
 
     if let c = builder.content { parts[.content] = c }
-    if let l = builder.leading { parts[.syntaxLeading] = l }
-    if let t = builder.trailing { parts[.syntaxTrailing] = t }
+//    if let l = builder.leading { parts[.syntaxLeading] = l }
+    if let t = builder.syntax { parts[.syntax] = t }
+//    if let t = builder.trailing { parts[.syntaxTrailing] = t }
     if let m = builder.metadata { parts[.metadata] = m }
 
     if let bg = builder.background {
