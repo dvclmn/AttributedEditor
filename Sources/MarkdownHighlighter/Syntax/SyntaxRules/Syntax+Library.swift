@@ -8,13 +8,7 @@
 import Foundation
 import HighlighterCommon
 
-enum Rule {
-  case wrap(SyntaxRule<RegexShape.Wrap>)
-  case prefix(SyntaxRule<RegexShape.Prefix>)
-  case single(SyntaxRule<RegexShape.Single>)
-  case codeBlock(SyntaxRule<RegexShape.CodeBlock>)
-  case wrapPair(SyntaxRule<RegexShape.WrapPair>)
-}
+
 
 extension Markdown {
   public struct StyleLibrary: Sendable {
@@ -33,7 +27,7 @@ extension Markdown {
 
 extension Markdown.StyleLibrary {
 
-  static var rules: [Rule] {
+  static var rules: [RegexShape] {
     [
       .prefix(.heading),
       .wrap(.bold),

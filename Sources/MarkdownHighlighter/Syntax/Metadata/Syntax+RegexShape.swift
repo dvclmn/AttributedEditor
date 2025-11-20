@@ -14,9 +14,9 @@ extension Markdown.Syntax {
     }
   }
 
-  var regexShape: RegexShape {
+  var regexShape: RegexShape.Meta {
     switch self {
-      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6:
+      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6, .quoteBlock:
         .prefix
 
       case .bold, .italic, .boldItalic, .inlineCode, .strikethrough, .highlight:
@@ -25,8 +25,8 @@ extension Markdown.Syntax {
       case .codeBlock:
         .codeBlock
 
-      case .quoteBlock:
-        .linePrefix
+//      case .quoteBlock:
+//        .linePrefix
 
       case .link, .image:
         .wrapPair

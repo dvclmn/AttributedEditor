@@ -6,6 +6,16 @@
 //
 
 import Foundation
+import CoreTools
+
+@MetaEnum
+public enum RegexShape {
+  case wrap(SyntaxRule<Wrap>)
+  case prefix(SyntaxRule<Prefix>)
+  case single(SyntaxRule<Single>)
+  case codeBlock(SyntaxRule<CodeBlock>)
+  case wrapPair(SyntaxRule<WrapPair>)
+
 
 /// What needs a special case, and how does RegexShape
 /// relate to `Markdown.Component` and fonts/colours too
@@ -13,13 +23,13 @@ import Foundation
 /// Worth noting: RegexShape is *only* concerned with text
 /// content, so that helps reduce some coupling, e.g.
 /// `ComponentKind.background` is irrelevant to regex.
-public enum RegexShape: String {
-  case single
-  case prefix
-  case wrap
-  case codeBlock
-  case linePrefix  // for block quotes
-  case wrapPair
+//public enum RegexShape: String {
+//  case single
+//  case prefix
+//  case wrap
+//  case codeBlock
+////  case linePrefix  // for block quotes
+//  case wrapPair
 
   public typealias Single = (Substring)
 
