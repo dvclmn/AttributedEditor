@@ -17,13 +17,12 @@ extension SyntaxRule where T == RegexShape.Wrap {
     attrs: inout AttributedRanges
   ) {
 
-    precondition(syntax.regexShape == .wrap, "Only syntaxes with RegexShape of .wrap are valid here.")
+    precondition(
+      syntax.regexShape == .wrap,
+      "Only syntaxes with RegexShape of .wrap are valid here."
+    )
 
-    self.pattern.apply(
-      match: match,
-    ) {
-      path,
-      range in
+    self.pattern.apply(match: match) { path, range in
 
       let colours = self.colours(for: syntax, theme: theme)
       let syntaxFont: NSFont? = .font(

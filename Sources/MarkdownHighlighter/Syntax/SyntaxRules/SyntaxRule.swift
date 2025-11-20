@@ -13,7 +13,7 @@ import HighlighterCommon
 //  Regex<T>.Match,
 //  inout AttributedRanges
 //) -> Void
-typealias SyntaxRule<T> = Markdown.SyntaxRule<T>
+public typealias SyntaxRule<T> = Markdown.SyntaxRule<T>
 
 extension Markdown {
   public struct SyntaxRule<T> {
