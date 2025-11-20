@@ -11,12 +11,13 @@ import CoreTools
 extension NSFont {
   //extension Markdown.Theme {
   //extension NSFont.FontStyle {
+  /// As with colour, `nil` means a font declaration is not needed
   public static func font(
     ofSize size: CGFloat,
     for syntax: Markdown.Syntax,
     kind: Markdown.ComponentKind,
     fallback: NSFont.FontStyle = .body
-  ) -> NSFont {
+  ) -> NSFont? {
     let isMono = Self.isMonospaced(for: syntax, kind: kind)
     let scaleFactor: CGFloat = isMono ? 0.88 : 1.0
     let adjustedFontSize = max(9, size * scaleFactor)
@@ -77,7 +78,7 @@ extension NSFont {
 
     return NSFont.system(
       style,
-      size: size,
+      size: adjustedFontSize,
       monospaced: isMono
     )
   }

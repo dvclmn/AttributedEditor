@@ -15,28 +15,15 @@ public final class MarkdownHighlighter: Highlighter {
   public var theme: Markdown.Theme
 
   let styleLibrary: Markdown.StyleLibrary
-  
-  
-
-//  var rulesWrap: [SyntaxRule<RegexShape.Wrap>] {
-//    let size = editorConfig.fontSize
-//    return [
-//      SyntaxRule.inlineCode(fontSize: size, theme: theme),
-//      SyntaxRule.strikethrough(fontSize: size, theme: theme),
-//      SyntaxRule.highlight(fontSize: size, theme: theme),
-//      SyntaxRule.italic(fontSize: size, theme: theme),
-//      SyntaxRule.bold(fontSize: size, theme: theme),
-//      SyntaxRule.boldItalic(fontSize: size, theme: theme),
-//    ]
-//  }
 
   public init(
     config: Editor.Configuration,
-    theme: Markdown.Theme = .default
+    theme: Markdown.Theme,
+    fontSize: CGFloat
   ) {
     self.editorConfig = config
     self.theme = theme
-    self.styleLibrary = Markdown.StyleLibrary(theme: theme)
+    self.styleLibrary = Markdown.StyleLibrary(theme: theme, fontSize: fontSize)
   }
 
   public func highlight(text: String) -> AttributedRanges {

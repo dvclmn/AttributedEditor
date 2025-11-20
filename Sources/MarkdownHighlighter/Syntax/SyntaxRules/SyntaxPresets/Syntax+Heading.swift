@@ -5,11 +5,20 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-//import AppKit
-//
-//extension SyntaxRule {
-//  
-//  static func heading(fontSize: CGFloat) -> SyntaxRule {
+import AppKit
+
+extension Markdown.SyntaxRule where T == RegexShape.Prefix {
+  static func heading() -> Self {
+    
+    let pattern = /(?<prefix>(?:#{1}))(?<content>[^#]+?)/
+//    let pattern = /(?<prefix>(?:\*{2}|_{2}))(?<content>[^\n]+?)/
+    let syntax: Markdown.Syntax = .bold
+    
+    return SyntaxRule(
+      syntax: syntax,
+      pattern: pattern,
+      exposesBlockRange: false,
+    )
 //    SyntaxRule(
 //      syntax: .heading1,
 //      delimiter: .prefix("# "),
@@ -21,7 +30,12 @@
 //      attrs[range, default: [:]][.font] =
 //      NSFont.systemFont(ofSize: fontSize * 1.4, weight: .bold)
 //    }
-//  }
+  }
+  
+}
+//
+//extension SyntaxRule {
+//
 
 
 //  public static func heading(level: Int, font: NSFont) -> SyntaxRule {

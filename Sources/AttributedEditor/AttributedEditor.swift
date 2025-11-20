@@ -34,6 +34,8 @@ public struct AttributedEditor: View {
         maxWidth: nil,
         colours: .init()
       ),
+      theme: .default,
+      fontSize: fontSize
     )
     self.markdownHighlighter = highlighter
   }
@@ -49,7 +51,8 @@ public struct AttributedEditor: View {
 #if DEBUG
 #Preview {
   @Previewable @State var text: String = DummyContent.Strings.paragraphsWithCode[1]
-  AttributedEditor(text: $text, fontSize: 14)
+  AttributedEditor(text: $text, fontSize: 21)
+    .frame(width: 600, height: 690)
 }
 #endif
 

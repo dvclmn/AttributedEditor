@@ -11,14 +11,14 @@ import HighlighterCommon
 extension Markdown {
   public struct StyleLibrary: Sendable {
     let theme: Theme
-    //    let fontSize: CGFloat
+        let fontSize: CGFloat
 
     public init(
       theme: Theme,
-      //      fontSize: CGFloat
+            fontSize: CGFloat
     ) {
       self.theme = theme
-      //      self.fontSize = fontSize
+            self.fontSize = fontSize
     }
   }
 }
@@ -46,9 +46,10 @@ extension Markdown.StyleLibrary {
     for rule in Self.wrapRules {
       let matches = text.matches(of: rule.pattern)
       for match in matches {
-        rule.apply(
+        rule.applyWrap(
           match: match,
           theme: self.theme,
+          fontSize: fontSize,
           attrs: &attributes
         )
       }
@@ -57,9 +58,10 @@ extension Markdown.StyleLibrary {
     for rule in Self.singleRules {
       let matches = text.matches(of: rule.pattern)
       for match in matches {
-        rule.apply(
+        rule.applySingle(
           match: match,
           theme: self.theme,
+          fontSize: fontSize,
           attrs: &attributes
         )
       }
