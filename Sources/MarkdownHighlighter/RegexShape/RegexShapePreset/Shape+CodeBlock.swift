@@ -25,13 +25,14 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
 
       switch path {
         case \.0:
-          attrs.update(Attribute(background: syntax.colour(for: .background)), in: range)
+          attrs.update(Attribute(background: theme.style(for: syntax, part: .background).nsColour), in: range)
+//          attrs.update(Attribute(background: syntax.colour(for: .background)), in: range)
           attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .content)), in: range)
           
         case \.start:
-          attrs.update(Attribute(foreground: syntax.colour(for: .syntaxChar)), in: range)
+          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .syntaxLeading).nsColour), in: range)
           
-          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .syntaxChar)), in: range)
+          attrs.update(Attribute(font: theme.style(for: syntax, part: .syntaxLeading).font), in: range)
           
         case \.langHint:
           attrs.update(Attribute(foreground: syntax.colour(for: .languageHint)), in: range)

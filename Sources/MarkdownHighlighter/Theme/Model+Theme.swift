@@ -10,41 +10,41 @@ import ColourKit
 
 extension Markdown {
   public struct Theme: Sendable {
-    private var styles:
-    [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
-    
-    // Global Defaults
+    var styles: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
+
+    /// Global Defaults
     var defaultBodyColor: NSColor = .textColor
     var defaultSyntaxColor: NSColor = .tertiaryLabelColor
     var defaultMetadataColor: NSColor = .secondaryLabelColor  // For URLs, etc.
-    
+
   }
 }
 
 extension Markdown.Theme {
-  
+
   func style(
     for syntax: Markdown.Syntax,
     part: Markdown.SyntaxPart
   ) -> TokenStyle {
-    // 1. Check specific definition (e.g., Bold > Content)
+
+    /// 1. Check specific definition (e.g., Bold > Content)
     if let specific = styles[syntax]?[part] {
       return specific
     }
-    
-    // 2. Fallback Logic based on Structure
+
+    /// 2. Fallback Logic based on Structure
     switch part {
       case .content:
         return TokenStyle(color: defaultBodyColor)
-        
+
       case .syntaxLeading, .syntaxTrailing:
         return TokenStyle(color: defaultSyntaxColor)
-        
+
       case .metadata:
         return TokenStyle(color: defaultMetadataColor)
-        
+
       case .background:
-        // Backgrounds usually default to nil/transparent unless specified
+        /// Backgrounds usually default to nil/transparent unless specified
         return TokenStyle(color: nil)
     }
   }

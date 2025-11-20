@@ -51,8 +51,8 @@ public final class MarkdownHighlighter: Highlighter {
 //    return output
   }
 }
-//extension MarkdownHighlighter {
-//  public func updateTheme(_ theme: Markdown.Theme) {
-//    self.theme = theme
-//  }
-//}
+extension MarkdownHighlighter {
+  public func updateTheme(_ theme: Markdown.Theme) {
+    self.theme = theme
+  }
+}
