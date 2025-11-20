@@ -12,15 +12,13 @@ extension Markdown.Theme {
   public static let standard: Self = {
     var theme = Self()
     
-    /// Uses `.syntax` to set both leading (**) and trailing (**) at once
     theme.register(.bold) {
       $0.content = TokenStyle(colour: .primary, font: .bold)
       $0.syntax = TokenStyle(colour: .tertiary)
     }
     theme.register(.italic) {
       $0.content = TokenStyle(colour: .primary, font: .italic)
-      $0.leading = TokenStyle(colour: .tertiary)
-//      $0.syntax = TokenStyle(colour: .tertiary)
+      $0.syntax = TokenStyle(colour: .tertiary)
     }
     theme.register(.boldItalic) {
       $0.content = TokenStyle(colour: .primary, font: [.bold, .italic])
