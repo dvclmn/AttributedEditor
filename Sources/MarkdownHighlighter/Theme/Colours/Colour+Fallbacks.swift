@@ -11,9 +11,9 @@ import AppKit
 /// Every element should declare either a fallback, or a 'nil' value.
 /// P.s. if pink, this usually means it's placeholder / I'm not sure value
 extension Markdown.Theme {
-  static func fallbackColour(
+  static func standard(
     for syntax: Markdown.Syntax,
-    kind: Markdown.ComponentKind
+    kind: Markdown.ComponentKind,
   ) -> NSColor? {
 //  ) -> CodableColour? {
     let codable: CodableColour? = switch (syntax, kind) {

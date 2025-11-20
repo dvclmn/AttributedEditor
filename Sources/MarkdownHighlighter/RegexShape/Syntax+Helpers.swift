@@ -21,40 +21,39 @@ extension AttributedRanges {
     if let index = self.firstIndex(where: { $0.range == range }) {
       attribute.update(&self[index].attributes)
     }
-    
+
     /// Otherwise, append a new run.
     let new = AttributedRun(range: range, attributes: attribute.attribute)
     self.append(new)
-    
 
-//    switch attribute {
-//      case .foreground(let colour):
-//        self.update(.foregroundColor, with: colour, in: range)
-//
-//      case .font(let font):
-//        self.update(.font, with: font, in: range)
-//
-//      case .background(let colour):
-//        self.update(.backgroundColor, with: colour, in: range)
-//
-//    }
+    //    switch attribute {
+    //      case .foreground(let colour):
+    //        self.update(.foregroundColor, with: colour, in: range)
+    //
+    //      case .font(let font):
+    //        self.update(.font, with: font, in: range)
+    //
+    //      case .background(let colour):
+    //        self.update(.backgroundColor, with: colour, in: range)
+    //
+    //    }
   }
 
-//  /// Really only used for exceptions such as
-//  private mutating func update(
-//    _ key: NSAttributedString.Key,
-//    with value: Any,
-//    in range: Range<String.Index>
-//  ) {
-//    /// If an existing run matches exactly, update it.
-//    if let index = self.firstIndex(where: { $0.range == range }) {
-//      self[index].attributes[key] = value
-//      return
-//    }
-//
-//    /// Otherwise, append a new run.
-//    self.append(AttributedRun(range: range, attributes: [key: value]))
-//  }
+  //  /// Really only used for exceptions such as
+  //  private mutating func update(
+  //    _ key: NSAttributedString.Key,
+  //    with value: Any,
+  //    in range: Range<String.Index>
+  //  ) {
+  //    /// If an existing run matches exactly, update it.
+  //    if let index = self.firstIndex(where: { $0.range == range }) {
+  //      self[index].attributes[key] = value
+  //      return
+  //    }
+  //
+  //    /// Otherwise, append a new run.
+  //    self.append(AttributedRun(range: range, attributes: [key: value]))
+  //  }
 }
 
 //extension NSRange {
