@@ -6,12 +6,13 @@
 //
 
 import AppKit
+import CoreTools
 
 public typealias AttributedRanges = [AttributedRun]
 
 public struct AttributedRun {
   public let range: Range<String.Index>
-  public var attributes: [NSAttributedString.Key: Any]
+  public var attributes: TextAttributes
   
   public init(
     range: Range<String.Index>,

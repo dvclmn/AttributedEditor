@@ -48,13 +48,6 @@ extension Markdown.Theme {
   static let syntaxColourFallback: NSColor = .gray
   static let codeBackgroundFallback: NSColor = .systemBackground
 
-  //  public func colour(
-  //    for keypath: KeyPath<Self, CodableColour>,
-  //    fallback: NSColor = .textColor
-  //  ) -> NSColor {
-  //    self[keyPath: keypath].nsColor(fallback: fallback)
-  //  }
-
   public func colour(
     for syntax: Markdown.Syntax,
     kind: Markdown.ComponentKind,

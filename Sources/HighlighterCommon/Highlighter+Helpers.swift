@@ -13,7 +13,7 @@ extension AttributedRanges {
   public func withNSRanges(
     in text: String
   )
-    -> [(range: NSRange, attributes: [NSAttributedString.Key: Any])]
+    -> [(range: NSRange, attributes: TextAttributes)]
   {
     self.map { run in
       (
@@ -41,7 +41,7 @@ extension Highlighter {
     let attrString = NSMutableAttributedString(string: currentText)
 
     /// Apply default attributes to the entire text
-    let defaultAttributes: [NSAttributedString.Key: Any] = [
+    let defaultAttributes: TextAttributes = [
       .font: config.defaultFont,
       .foregroundColor: config.defaultColour,
     ]

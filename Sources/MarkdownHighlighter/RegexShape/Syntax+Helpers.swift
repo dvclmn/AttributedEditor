@@ -10,12 +10,6 @@ import CoreTools
 import Foundation
 import HighlighterCommon
 
-enum AttributeKind {
-  case foreground(NSColor)
-  case font(NSFont)
-  case background(NSColor)
-}
-
 extension AttributedRanges {
 
   /// Type-safe version
@@ -23,20 +17,30 @@ extension AttributedRanges {
     _ attribute: AttributeKind,
     in range: Range<String.Index>
   ) {
-    switch attribute {
-      case .foreground(let colour):
-        self.update(.foregroundColor, with: colour, in: range)
-
-      case .font(let font):
-        self.update(.font, with: font, in: range)
-
-      case .background(let colour):
-        self.update(.backgroundColor, with: colour, in: range)
-
+    /// If an existing run matches exactly, update it.
+    if let index = self.firstIndex(where: { $0.range == range }) {
+      attribute.update(&self[index].attributes)
     }
+    
+    /// Otherwise, append a new run.
+    self.append(AttributedRun(range: range, attributes: [key: value]))
+    
+//    self.update(<#T##key: NSAttributedString.Key##NSAttributedString.Key#>, with: <#T##Any#>, in: <#T##Range<String.Index>#>)
+//    switch attribute {
+//      case .foreground(let colour):
+//        self.update(.foregroundColor, with: colour, in: range)
+//
+//      case .font(let font):
+//        self.update(.font, with: font, in: range)
+//
+//      case .background(let colour):
+//        self.update(.backgroundColor, with: colour, in: range)
+//
+//    }
   }
 
-  mutating func update(
+  /// Really only used for exceptions such as
+  private mutating func update(
     _ key: NSAttributedString.Key,
     with value: Any,
     in range: Range<String.Index>
