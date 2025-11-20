@@ -17,8 +17,6 @@ extension NSTextView {
   }
 
   public func syncTypingAttributes() {
-    //    guard let textView else { return }
-
     let loc = selectedRange().location
     guard loc <= string.count, loc > 0 else { return }
 

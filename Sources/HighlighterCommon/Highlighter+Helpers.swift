@@ -12,9 +12,7 @@ extension AttributedRanges {
 
   public func withNSRanges(
     in text: String
-  )
-    -> [(range: NSRange, attributes: TextAttributes)]
-  {
+  ) -> [(range: NSRange, attributes: TextAttributes)] {
     self.map { run in
       (
         range: run.range.toNSRange(in: text),
@@ -23,11 +21,6 @@ extension AttributedRanges {
     }
   }
 
-  //  public func withNSRanges(in text: String) -> [NSRange: [NSAttributedString.Key: Any]] {
-  //    self.reduce(into: [:]) { result, element in
-  //      result[element.key.toNSRange(in: text)] = element.value
-  //    }
-  //  }
 }
 extension Highlighter {
 
@@ -45,19 +38,18 @@ extension Highlighter {
       .font: config.defaultFont,
       .foregroundColor: config.defaultColour,
     ]
-    attrString.setAttributes(defaultAttributes, range: attrString.fullRange)
+    attrString.setAttributes(
+      defaultAttributes,
+      range: attrString.fullRange
+    )
 
     /// Get highlighted ranges from the syntax highlighter
     let highlightedRanges = self.highlight(text: currentText)
 
     /// Convert from `Range<String.Index>` to `NSRange`
-//    let ranges = highlightedRanges.withNSRanges(in: currentText)
     let runs = highlightedRanges.withNSRanges(in: currentText)
 
     /// Apply each highlighted range's attributes
-//    for (range, attributes) in ranges {
-//      attrString.addAttributes(attributes, range: range)
-//    }
     for run in runs {
       attrString.addAttributes(run.attributes, range: run.range)
     }

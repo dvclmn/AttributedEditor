@@ -10,7 +10,7 @@ import SwiftUI
 
 /// Protocol defining how text should be analyzed and highlighted
 public protocol Highlighter {
-  
+
   var editorConfig: Editor.Configuration { get }
   func highlight(text: String) -> AttributedRanges
 
