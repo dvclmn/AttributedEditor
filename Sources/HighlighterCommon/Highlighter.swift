@@ -12,15 +12,16 @@ import SwiftUI
 public protocol Highlighter {
 
   var editorConfig: Editor.Configuration { get }
-  func highlight(text: String) -> AttributedRanges
+  func highlight(text: String) -> MarkdownStyles
+//  func highlight(text: String) -> AttributedRanges
 
   /// Optional: Return ranges that should have custom background rendering
-  func blockRanges(text: String) -> [NSRange]
+//  func blockRanges(text: String) -> [NSRange]
 }
 
-extension Highlighter {
-  /// Default implementation returns no block ranges
-  public func blockRanges(text: String) -> [NSRange] {
-    return []
-  }
-}
+//extension Highlighter {
+//  /// Default implementation returns no block ranges
+//  public func blockRanges(text: String) -> [NSRange] {
+//    return []
+//  }
+//}

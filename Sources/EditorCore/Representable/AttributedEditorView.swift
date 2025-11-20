@@ -46,8 +46,6 @@ extension AttributedEditorView {
     let textView = BackingTextView()
     textView.delegate = context.coordinator
     textView.setUpTextView(config)
-    
-    
 
     textView.textContainer?.containerSize = NSSize(
       width: scrollView.contentSize.width,

@@ -44,28 +44,6 @@ extension BackingTextView {
     )
     textContainer?.widthTracksTextView = true
 
-    //
-    //
-    //
-    //    minSize = NSSize.zero
-    //    maxSize = NSSize(width: max, height: max)
-    //
-    //    isAutomaticDashSubstitutionEnabled = false
-    //
-    //    autoresizingMask = [.width]
-    //
-    //    textContainer?.widthTracksTextView = true
-    //    textContainer?.heightTracksTextView = false
-    //
-    //    textContainer?.lineFragmentPadding = config.theme.insets
-    //    textContainerInset = NSSize(
-    //      width: 0,
-    //      height: config.theme.insets
-    //    )
-    //    font = NSFont.systemFont(
-    //      ofSize: config.theme.fontSize)
-    //
-
   }
 
 }

@@ -8,8 +8,6 @@
 import Foundation
 import HighlighterCommon
 
-
-
 extension Markdown {
   public struct StyleLibrary: Sendable {
     let theme: Theme
@@ -27,7 +25,11 @@ extension Markdown {
 
 extension Markdown.StyleLibrary {
 
-  static var rules: [RegexShape] {
+  public var blockRangeRules: [RegexShape] {
+    rules.filter { $0.exposesBlockRange }
+  }
+
+  var rules: [RegexShape] {
     [
       .prefix(.heading),
       .wrap(.bold),
@@ -39,11 +41,13 @@ extension Markdown.StyleLibrary {
     ]
   }
 
+//  @discardableResult
   func applyAttributes(
     to text: String,
-    attributes: inout AttributedRanges
+    attributes: inout AttributedRanges,
+    blockRanges: inout [Range<String.Index>]
   ) {
-    for rule in Self.rules {
+    for rule in self.rules {
       switch rule {
         case .wrap(let syntaxRule):
           for match in text.matches(of: syntaxRule.pattern) {
@@ -53,6 +57,9 @@ extension Markdown.StyleLibrary {
               fontSize: fontSize,
               attrs: &attributes
             )
+            if syntaxRule.exposesBlockRange {
+              blockRanges.append(match.range)
+            }
           }
         case .prefix(let syntaxRule):
           for match in text.matches(of: syntaxRule.pattern) {
@@ -62,6 +69,9 @@ extension Markdown.StyleLibrary {
               fontSize: fontSize,
               attrs: &attributes
             )
+            if syntaxRule.exposesBlockRange {
+              blockRanges.append(match.range)
+            }
           }
 
         case .single(let syntaxRule):
@@ -72,6 +82,9 @@ extension Markdown.StyleLibrary {
               fontSize: fontSize,
               attrs: &attributes
             )
+            if syntaxRule.exposesBlockRange {
+              blockRanges.append(match.range)
+            }
           }
 
         case .codeBlock(let syntaxRule):
@@ -82,6 +95,9 @@ extension Markdown.StyleLibrary {
               fontSize: fontSize,
               attrs: &attributes
             )
+            if syntaxRule.exposesBlockRange {
+              blockRanges.append(match.range)
+            }
           }
 
         case .wrapPair(let syntaxRule):
@@ -92,6 +108,9 @@ extension Markdown.StyleLibrary {
               fontSize: fontSize,
               attrs: &attributes
             )
+            if syntaxRule.exposesBlockRange {
+              blockRanges.append(match.range)
+            }
           }
 
       }

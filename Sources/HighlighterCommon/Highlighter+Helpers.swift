@@ -47,7 +47,7 @@ extension Highlighter {
     let highlightedRanges = self.highlight(text: currentText)
 
     /// Convert from `Range<String.Index>` to `NSRange`
-    let runs = highlightedRanges.withNSRanges(in: currentText)
+    let runs = highlightedRanges.attributes.withNSRanges(in: currentText)
 
     /// Apply each highlighted range's attributes
     for run in runs {

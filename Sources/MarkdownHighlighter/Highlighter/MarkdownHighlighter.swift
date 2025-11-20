@@ -26,30 +26,39 @@ public final class MarkdownHighlighter: Highlighter {
     self.styleLibrary = Markdown.StyleLibrary(theme: theme, fontSize: fontSize)
   }
 
-  public func highlight(text: String) -> AttributedRanges {
+  public func highlight(text: String) -> MarkdownStyles {
+    //  public func highlight(text: String) -> AttributedRanges {
     var attributes: AttributedRanges = []
-    styleLibrary.applyAttributes(to: text, attributes: &attributes)
-    
-    return attributes
-//    rules.reduce(into: []) { partialResult, rule in
-//      guard rule.syntax.supportsRegexShape else { return }
-//      rule.applyAttributes(to: text, attributes: &partialResult)
-//    }
+    var blocks: [Range<String.Index>] = []
+
+    styleLibrary.applyAttributes(
+      to: text,
+      attributes: &attributes,
+      blockRanges: &blocks
+    )
+    return MarkdownStyles(attributes: attributes, blocks: blocks)
+    //    return attributes
+
+    //    rules.reduce(into: []) { partialResult, rule in
+    //      guard rule.syntax.supportsRegexShape else { return }
+    //      rule.applyAttributes(to: text, attributes: &partialResult)
+    //    }
   }
 
   /// blockRanges computed from same rule set: any rule that marks `exposesBlockRange == true`
-  public func blockRanges(text: String) -> [NSRange] {
-    print("Turned off for now")
-    return []
-//    var output: [NSRange] = []
-//    for rule in rules where rule.exposesBlockRange {
-//      let matches = text.matches(of: rule.pattern)
-//      let ranges = matches.map { $0.range.toNSRange(in: text) }
-//      output.append(contentsOf: ranges)
-//    }
-//
-//    return output
-  }
+  //  public func blockRanges(text: String) -> [NSRange] {
+  //    print("Turned off for now")
+  //    return []
+  //    var output: [NSRange] = []
+  //
+  //    for rule in styleLibrary.blockRangeRules {
+  ////      let matches = text.matches(of: rule.)
+  //      let ranges = matches.map { $0.range.toNSRange(in: text) }
+  //      output.append(contentsOf: ranges)
+  //    }
+  //
+  //    return output
+  //  }
 }
 extension MarkdownHighlighter {
   public func updateTheme(_ theme: Markdown.Theme) {

@@ -5,9 +5,15 @@
 //  Created by Dave Coleman on 19/11/2025.
 //
 
-import Foundation
 import CoreTools
+import Foundation
 
+/// What needs a special case, and how does RegexShape
+/// relate to `Markdown.Component` and fonts/colours too
+///
+/// Worth noting: RegexShape is *only* concerned with text
+/// content, so that helps reduce some coupling, e.g.
+/// `SyntaxPart.background` is irrelevant to regex.
 @MetaEnum
 public enum RegexShape {
   case wrap(SyntaxRule<Wrap>)
@@ -16,26 +22,10 @@ public enum RegexShape {
   case codeBlock(SyntaxRule<CodeBlock>)
   case wrapPair(SyntaxRule<WrapPair>)
 
-
-/// What needs a special case, and how does RegexShape
-/// relate to `Markdown.Component` and fonts/colours too
-///
-/// Worth noting: RegexShape is *only* concerned with text
-/// content, so that helps reduce some coupling, e.g.
-/// `SyntaxPart.background` is irrelevant to regex.
-//public enum RegexShape: String {
-//  case single
-//  case prefix
-//  case wrap
-//  case codeBlock
-////  case linePrefix  // for block quotes
-//  case wrapPair
-
   public typealias Single = (Substring)
 
   // E.g. # Header
   // Also Quotes with > Content
-
   public typealias Prefix = (
     Substring,
     prefix: Substring,
@@ -72,44 +62,15 @@ public enum RegexShape {
   )
 }
 
-//  var regexShape: Any.Type {
-//    return switch self {
-//      case .body:
-//        fatalError("Body does not express a regex Shape.")
-//
-//      case .heading1,
-//        .heading2,
-//        .heading3,
-//        .heading4,
-//        .heading5,
-//        .heading6:
-//        RegexShape.Prefix.self
-//
-//      case .bold,
-//        .italic,
-//        .boldItalic,
-//        .inlineCode,
-//        .strikethrough,
-//        .highlight:
-//        RegexShape.Wrap.self
-//
-//      case .codeBlock:
-//        RegexShape.CodeBlock.self
-//
-//      case .list:
-//        fatalError("List not yet supported.")
-//
-//      case .quoteBlock:
-//        RegexShape.Prefix.self
-//
-//      case .callout:
-//        fatalError("Callouts not yet supported.")
-//
-//      case .link, .image:
-//        RegexShape.WrapPair.self
-//
-//      case .horizontalRule:
-//        RegexShape.Single.self
-//    }
-//  }
-//}
+extension RegexShape {
+  var exposesBlockRange: Bool {
+    switch self {
+      case .wrap(let syntaxRule): syntaxRule.exposesBlockRange
+      case .prefix(let syntaxRule): syntaxRule.exposesBlockRange
+      case .single(let syntaxRule): syntaxRule.exposesBlockRange
+      case .codeBlock(let syntaxRule): syntaxRule.exposesBlockRange
+      case .wrapPair(let syntaxRule): syntaxRule.exposesBlockRange
+    }
+  }
+  
+}

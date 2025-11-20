@@ -23,7 +23,9 @@ class WrapSelectionBehavior: TextInputBehavior {
     "<": ">",
   ]
 
-  func handleKeyPress(character: String, textView: NSTextView, selectedRange: NSRange) -> Bool {
+  func handleKeyPress(
+    character: String, textView: NSTextView, selectedRange: NSRange
+  ) -> Bool {
     /// Only handle if we have a selection and the character is a wrapping character
     guard selectedRange.length > 0,
       let closingChar = wrappingPairs[character]
@@ -44,7 +46,8 @@ class WrapSelectionBehavior: TextInputBehavior {
 
       /// Position cursor after the opening character, selecting the original text
       /// This allows the user to immediately start typing to replace the wrapped content if desired
-      let newRange = NSRange(location: selectedRange.location + character.count, length: selectedText.count)
+      let newRange = NSRange(
+        location: selectedRange.location + character.count, length: selectedText.count)
       textView.setSelectedRange(newRange)
 
       return true
