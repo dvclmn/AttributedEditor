@@ -38,7 +38,7 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
       switch path {
         case \.0:
 
-          attrs.update(.init(background: bgColour), in: range)
+          attrs.update(.init(background: bgColour), in: range, tag: "Code Block whole")
 
         //          attrs.update(Attribute(background: theme.style(for: syntax, part: .background).nsColour), in: range)
         //          attrs.update(Attribute(background: syntax.colour(for: .background)), in: range)
@@ -46,8 +46,8 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
 
         case \.start:
 
-          attrs.update(.init(foreground: syntaxColour), in: range)
-          attrs.update(.init(font: syntaxFont), in: range)
+          attrs.update(.init(foreground: syntaxColour), in: range, tag: "Code Block Start")
+          attrs.update(.init(font: syntaxFont), in: range, tag: "Code Block Start")
 
         //          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .syntaxLeading).nsColour), in: range)
         //
@@ -55,17 +55,17 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
 
         case \.langHint:
           //          attrs.update(Attribute(foreground: syntax.colour(for: .languageHint)), in: range)
-          attrs.update(.init(foreground: theme.style(for: syntax, part: .metadata).nsColour), in: range)
+          attrs.update(.init(foreground: theme.style(for: syntax, part: .metadata).nsColour), in: range, tag: "Code Block Language hint")
         //          attrs.update(.init(font: syntaxFont), in: range)
         //          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .metadata).nsColour), in: range)
 
         case \.content:
           //          attrs.update(.init(foreground: syntaxColour), in: range)
-          attrs.update(.init(font: contentFont), in: range)
-          attrs.update(.init(foreground: contentColour), in: range)
+          attrs.update(.init(font: contentFont), in: range, tag: "Code Block Content")
+          attrs.update(.init(foreground: contentColour), in: range, tag: "Code Block Content")
 
         case \.end:
-          attrs.update(.init(foreground: syntaxColour), in: range)
+          attrs.update(.init(foreground: syntaxColour), in: range, tag: "Code Block End")
         //          attrs.update(.init(font: syntaxFont), in: range)
         //          attrs.update(Attribute(foreground: syntax.colour(for: .syntaxChar)), in: range)
         //          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .syntaxTrailing).nsColour), in: range)

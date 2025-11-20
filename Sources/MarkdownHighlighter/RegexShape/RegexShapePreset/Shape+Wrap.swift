@@ -40,31 +40,31 @@ extension SyntaxRule where T == RegexShape.Wrap {
       switch path {
           
         case \.0:
-          attrs.update(.init(background: bgColour), in: range)
+          attrs.update(.init(background: bgColour), in: range, tag: "Shape.Wrap whole")
           
 //          if syntax.isInlineCode {
 //            attrs.update(.background(theme.colour(for: .inlineCode, kind: .background, fallback: <#T##NSColor#>)), in: <#T##Range<String.Index>#>)
 //          }
           
         case \.leading:
-          attrs.update(.init(foreground: syntaxColour), in: range)
-          attrs.update(.init(font: syntaxFont), in: range)
+          attrs.update(.init(foreground: syntaxColour), in: range, tag: "Shape.Wrap Leading")
+          attrs.update(.init(font: syntaxFont), in: range, tag: "Shape.Wrap Leading")
 //          if let syntaxFont {
 //            attrs.update(.font(syntaxFont), in: range)
 //          }
 //          attrs.update(.foreground(colours.syntax), in: range)
 
         case \.trailing:
-          attrs.update(.init(foreground: syntaxColour), in: range)
-          attrs.update(.init(font: syntaxFont), in: range)
+          attrs.update(.init(foreground: syntaxColour), in: range, tag: "Shape.Wrap Trailing")
+          attrs.update(.init(font: syntaxFont), in: range, tag: "Shape.Wrap Trailing")
 //          if let syntaxFont {
 //            attrs.update(.font(syntaxFont), in: range)
 //          }
 //          attrs.update(.foreground(colours.syntax), in: range)
 
         case \.content:
-          attrs.update(.init(foreground: contentColour), in: range)
-          attrs.update(.init(font: contentFont), in: range)
+          attrs.update(.init(foreground: contentColour), in: range, tag: "Shape.Wrap Content")
+          attrs.update(.init(font: contentFont), in: range, tag: "Shape.Wrap Content")
 //          if let contentFont {
 //            attrs.update(.font(contentFont), in: range)
 //          }

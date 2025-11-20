@@ -31,17 +31,18 @@ extension Markdown.StyleLibrary {
 
   var rules: [RegexShape] {
     [
-      .prefix(.heading),
-      .wrap(.bold),
-      .wrap(.italic),
-      .wrap(.boldItalic),
-      .single(.horizontalRule),
-      .codeBlock(.codeBlock),
-      .wrapPair(.link),
+//      .prefix(.heading),
+//      .wrap(.bold),
+//      .wrap(.italic),
+//      .wrap(.boldItalic),
+//      .single(.horizontalRule),
+//      .codeBlock(.codeBlock),
+//      .wrapPair(.link),
+      .wrap(.inlineCode)
     ]
   }
 
-//  @discardableResult
+  //  @discardableResult
   func applyAttributes(
     to text: String,
     attributes: inout AttributedRanges,

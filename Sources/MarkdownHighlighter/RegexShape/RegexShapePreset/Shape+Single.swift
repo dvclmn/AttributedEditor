@@ -22,7 +22,7 @@ extension SyntaxRule where T == RegexShape.Single {
     let range = match.range
     //      let font = NSFont.system(.body, size: fontSize * 0.97, monospaced: true)
 
-    attrs.update(.foreground(.systemPink), in: range)
+    attrs.update(.foreground(.systemPink), in: range, tag: "Shape.Single Whole")
 
     //    attrs.update(
     //      .foregroundColor,
