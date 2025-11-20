@@ -32,19 +32,20 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
         case \.start:
           attrs.update(Attribute(foreground: theme.style(for: syntax, part: .syntaxLeading).nsColour), in: range)
           
-          attrs.update(Attribute(font: theme.style(for: syntax, part: .syntaxLeading).font), in: range)
+          attrs.update(Attribute(font: theme.style(for: syntax, part: .syntaxLeading).nsFont(fontSize)), in: range)
           
         case \.langHint:
-          attrs.update(Attribute(foreground: syntax.colour(for: .languageHint)), in: range)
-          
+//          attrs.update(Attribute(foreground: syntax.colour(for: .languageHint)), in: range)
+          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .metadata).nsColour), in: range)
           
 //        case \.content:
           
           
         case \.end:
-          attrs.update(Attribute(foreground: syntax.colour(for: .syntaxChar)), in: range)
-          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .syntaxChar)), in: range)
-          
+//          attrs.update(Attribute(foreground: syntax.colour(for: .syntaxChar)), in: range)
+          attrs.update(Attribute(foreground: theme.style(for: syntax, part: .syntaxTrailing).nsColour), in: range)
+//          attrs.update(Attribute(font: syntax.font(ofSize: fontSize, for: .syntaxChar)), in: range)
+          attrs.update(Attribute(font: theme.style(for: syntax, part: .syntaxTrailing).nsFont(fontSize)), in: range)
           
         default: break
       }

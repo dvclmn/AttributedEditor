@@ -13,9 +13,9 @@ extension Markdown {
     var styles: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
 
     /// Global Defaults
-    var defaultBodyColor: NSColor = .textColor
-    var defaultSyntaxColor: NSColor = .tertiaryLabelColor
-    var defaultMetadataColor: NSColor = .secondaryLabelColor  // For URLs, etc.
+    var defaultBodyColor: CodableColour = .primary
+    var defaultSyntaxColor: CodableColour = .tertiary
+    var defaultMetadataColor: CodableColour = .secondary  // For URLs, etc.
 
   }
 }
@@ -35,17 +35,17 @@ extension Markdown.Theme {
     /// 2. Fallback Logic based on Structure
     switch part {
       case .content:
-        return TokenStyle(color: defaultBodyColor)
+        return TokenStyle(colour: defaultBodyColor)
 
       case .syntaxLeading, .syntaxTrailing:
-        return TokenStyle(color: defaultSyntaxColor)
+        return TokenStyle(colour: defaultSyntaxColor)
 
       case .metadata:
-        return TokenStyle(color: defaultMetadataColor)
+        return TokenStyle(colour: defaultMetadataColor)
 
       case .background:
         /// Backgrounds usually default to nil/transparent unless specified
-        return TokenStyle(color: nil)
+        return TokenStyle(colour: nil)
     }
   }
 

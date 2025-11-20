@@ -15,30 +15,31 @@ extension Markdown.Theme {
     // 1. Simple case: Bold
     // Uses `.syntax` to set both leading (**) and trailing (**) at once
     theme.register(.bold) {
-      $0.content = TokenStyle(color: .labelColor, fontTraits: .bold)
-      $0.syntax = TokenStyle(color: .tertiaryLabelColor)
+      $0.content = TokenStyle(colour: .primary, font: .bold)
+//      $0.content = TokenStyle(colour: .labelColor, font: .bold)
+      $0.syntax = TokenStyle(colour: .tertiary)
     }
     
     // 2. Split case: Header
     // Headers usually have leading syntax (#) but no trailing syntax
     theme.register(.heading1) {
-      $0.content = TokenStyle(color: .labelColor, fontTraits: .bold)
-      $0.leading = TokenStyle(color: .systemOrange) // Only setting leading
+      $0.content = TokenStyle(colour: .primary, font: .bold)
+      $0.leading = TokenStyle(colour: .orange) // Only setting leading
     }
     
     // 3. Metadata case: Link
     // We use the `.url` alias, which saves to `.metadata`
     theme.register(.link) {
-      $0.content = TokenStyle(color: .linkColor)
-      $0.syntax = TokenStyle(color: .tertiaryLabelColor) // [ and ]
-      $0.url = TokenStyle(color: .systemGray) // (http://...)
+      $0.content = TokenStyle(colour: .link)
+      $0.syntax = TokenStyle(colour: .tertiary) // [ and ]
+      $0.url = TokenStyle(colour: .gray) // (http://...)
     }
     
     // 4. Metadata case: Code Block
     // We use the `.languageHint` alias, which also saves to `.metadata`
     theme.register(.codeBlock) {
-      $0.content = TokenStyle(fontTraits: .monoSpace)
-      $0.languageHint = TokenStyle(color: .secondaryLabelColor) // "swift"
+      $0.content = TokenStyle(font: .monoSpace)
+      $0.languageHint = TokenStyle(colour: .secondary) // "swift"
     }
     
     return theme
