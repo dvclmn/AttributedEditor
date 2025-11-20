@@ -10,63 +10,103 @@ import ColourKit
 
 extension Markdown {
   public struct Theme: Sendable {
-    // 1. A dictionary for fast O(1) lookup
-    private var styles: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
+    private var styles:
+    [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
     
-    // 2. Fallbacks for global defaults
+    // Global Defaults
     var defaultBodyColor: NSColor = .textColor
     var defaultSyntaxColor: NSColor = .tertiaryLabelColor
+    var defaultMetadataColor: NSColor = .secondaryLabelColor  // For URLs, etc.
     
-    // 3. The resolver method (replaces your static function)
-    func style(for syntax: Markdown.Syntax, part: Markdown.SyntaxPart) -> TokenStyle {
-      // A. Check specific definition
-      if let specific = styles[syntax]?[part] {
-        return specific
-      }
-      
-      // B. Fallback logic (Cascading)
-      // If we don't have a specific color for this syntax's syntaxChar,
-      // use the global default syntax color.
-      if part == .syntaxLeading || part == .syntaxTrailing {
+  }
+}
+
+extension Markdown.Theme {
+  
+  func style(
+    for syntax: Markdown.Syntax,
+    part: Markdown.SyntaxPart
+  ) -> TokenStyle {
+    // 1. Check specific definition (e.g., Bold > Content)
+    if let specific = styles[syntax]?[part] {
+      return specific
+    }
+    
+    // 2. Fallback Logic based on Structure
+    switch part {
+      case .content:
+        return TokenStyle(color: defaultBodyColor)
+        
+      case .syntaxLeading, .syntaxTrailing:
         return TokenStyle(color: defaultSyntaxColor)
-      }
-      
-      // C. Ultimate fallback
-      return TokenStyle(color: defaultBodyColor)
+        
+      case .metadata:
+        return TokenStyle(color: defaultMetadataColor)
+        
+      case .background:
+        // Backgrounds usually default to nil/transparent unless specified
+        return TokenStyle(color: nil)
     }
   }
 
+  //  public struct Theme: Sendable {
+  //    // 1. A dictionary for fast O(1) lookup
+  //    private var styles: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
+  //
+  //    // 2. Fallbacks for global defaults
+  //    var defaultBodyColor: NSColor = .textColor
+  //    var defaultSyntaxColor: NSColor = .tertiaryLabelColor
+  //
+  //    // 3. The resolver method (replaces your static function)
+  //    func style(for syntax: Markdown.Syntax, part: Markdown.SyntaxPart) -> TokenStyle {
+  //      // A. Check specific definition
+  //      if let specific = styles[syntax]?[part] {
+  //        return specific
+  //      }
+  //
+  //      // B. Fallback logic (Cascading)
+  //      // If we don't have a specific color for this syntax's syntaxChar,
+  //      // use the global default syntax color.
+  //      if part == .syntaxLeading || part == .syntaxTrailing {
+  //        return TokenStyle(color: defaultSyntaxColor)
+  //      }
+  //
+  //      // C. Ultimate fallback
+  //      return TokenStyle(color: defaultBodyColor)
+  //    }
+  //  }
+
   /// This doesn't include source code theme, this is
   /// handled elsewhere
-//  public enum Theme: Sendable {
+  //  public enum Theme: Sendable {
 
-//    let body: CodableColour
-//    let url: CodableColour
-//
-//    let syntaxCharacters: CodableColour
-//
-//    let inlineCode: CodableColour
-//    let inlineCodeBG: CodableColour
-//
-//    let codeBlock: CodableColour
-//    let codeBlockBG: CodableColour
-//
-//    let strikeText: CodableColour
-//    let strikeLine: CodableColour
-//
-//    let highlight: HighlightColours
-//
-//    let horizontalRule: CodableColour
-//
-//    /// For things like link, image, callout etc that need a specific definition
-//    let placeholder: CodableColour
-//  }
+  //    let body: CodableColour
+  //    let url: CodableColour
+  //
+  //    let syntaxCharacters: CodableColour
+  //
+  //    let inlineCode: CodableColour
+  //    let inlineCodeBG: CodableColour
+  //
+  //    let codeBlock: CodableColour
+  //    let codeBlockBG: CodableColour
+  //
+  //    let strikeText: CodableColour
+  //    let strikeLine: CodableColour
+  //
+  //    let highlight: HighlightColours
+  //
+  //    let horizontalRule: CodableColour
+  //
+  //    /// For things like link, image, callout etc that need a specific definition
+  //    let placeholder: CodableColour
+  //  }
 }
 
 //typealias ThemeColour = Markdown.Theme
 
 //extension Markdown.Theme {
-  
+
 //  static let contentColour: Colour = .primary
 //  static let syntaxColour: Colour = .grey(0.6)
 //  static let codeBackground: Colour = .grey(0.2)
@@ -74,9 +114,8 @@ extension Markdown {
 //  static let syntaxColourFallback: NSColor = .gray
 //  static let codeBackgroundFallback: NSColor = .systemBackground
 
-
-  /// This returning `nil` is very useful, for allowing syntax
-  /// that should *not* have e.g. a background, to express that
+/// This returning `nil` is very useful, for allowing syntax
+/// that should *not* have e.g. a background, to express that
 //  public func colour(
 //    for syntax: Markdown.Syntax,
 //    kind: Markdown.ComponentKind,
@@ -159,7 +198,7 @@ extension Markdown {
 //      }
 //
 //    let themeNSColour = themeColour?.nsColor
-//    
+//
 //    let defaults: NSColor? = Self.fallbackColour(
 //      for: syntax,
 //      kind: kind
