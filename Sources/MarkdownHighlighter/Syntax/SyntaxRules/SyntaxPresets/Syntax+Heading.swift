@@ -8,35 +8,34 @@
 import AppKit
 
 extension Markdown.SyntaxRule where T == RegexShape.Prefix {
-  static func heading() -> Self {
-    
+  static var heading: Self {
+
     let pattern = /(?<prefix>(?:#{1}))(?<content>[^#]+?)/
-//    let pattern = /(?<prefix>(?:\*{2}|_{2}))(?<content>[^\n]+?)/
+    //    let pattern = /(?<prefix>(?:\*{2}|_{2}))(?<content>[^\n]+?)/
     let syntax: Markdown.Syntax = .bold
-    
+
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
       exposesBlockRange: false,
     )
-//    SyntaxRule(
-//      syntax: .heading1,
-//      delimiter: .prefix("# "),
-//      role: .blockText,
-//      captures: .single(name: "text"),
-//      regexOptions: [.anchorsMatchLines],
-//    ) { match, attrs in
-//      guard let range = match.range(withName: "text").toOptional() else { return }
-//      attrs[range, default: [:]][.font] =
-//      NSFont.systemFont(ofSize: fontSize * 1.4, weight: .bold)
-//    }
+    //    SyntaxRule(
+    //      syntax: .heading1,
+    //      delimiter: .prefix("# "),
+    //      role: .blockText,
+    //      captures: .single(name: "text"),
+    //      regexOptions: [.anchorsMatchLines],
+    //    ) { match, attrs in
+    //      guard let range = match.range(withName: "text").toOptional() else { return }
+    //      attrs[range, default: [:]][.font] =
+    //      NSFont.systemFont(ofSize: fontSize * 1.4, weight: .bold)
+    //    }
   }
-  
+
 }
 //
 //extension SyntaxRule {
 //
-
 
 //  public static func heading(level: Int, font: NSFont) -> SyntaxRule {
 //    guard level <= 6 else { fatalError("Header levels 7 and above are unsupported") }

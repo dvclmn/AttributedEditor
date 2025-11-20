@@ -10,7 +10,7 @@ import ColourKit
 import CoreTools
 
 extension Markdown.SyntaxRule where T == RegexShape.Wrap {
-  static func bold() -> Self {
+  static var bold: Self {
 
     let pattern = /(?<leading>(?:\*{2}|_{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .bold
@@ -22,7 +22,7 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
     )
   }
 
-  static func italic() -> Self {
+  static var italic: Self {
 
     let pattern = /(?<leading>[\*_])(?<content>[^\*_ \n][^\n]*?[^\*_ \n])(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .italic
@@ -34,7 +34,7 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
     )
   }
 
-  static func boldItalic() -> Self {
+  static var boldItalic: Self {
 
     let pattern = /(?<leading>(?:\*{3}|_{3}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .boldItalic

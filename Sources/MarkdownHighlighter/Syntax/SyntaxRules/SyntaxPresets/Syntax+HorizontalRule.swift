@@ -10,7 +10,8 @@ import ColourKit
 import CoreTools
 
 extension Markdown.SyntaxRule where T == RegexShape.Single {
-  static func horizontalRule() -> Self {
+  
+    static var horizontalRule: Self {
 
     let pattern = /\n---+?/
     let syntax: Markdown.Syntax = .horizontalRule

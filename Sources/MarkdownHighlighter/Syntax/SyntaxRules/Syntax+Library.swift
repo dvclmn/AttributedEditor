@@ -35,12 +35,13 @@ extension Markdown.StyleLibrary {
 
   static var rules: [Rule] {
     [
-      .prefix(.heading()),
-      .wrap(.bold()),
-      .wrap(.italic()),
-      .single(.horizontalRule()),
-      .codeBlock(.codeBlock()),
-      .wrapPair(.link()),
+      .prefix(.heading),
+      .wrap(.bold),
+      .wrap(.italic),
+      .wrap(.boldItalic),
+      .single(.horizontalRule),
+      .codeBlock(.codeBlock),
+      .wrapPair(.link),
     ]
   }
 
@@ -68,7 +69,7 @@ extension Markdown.StyleLibrary {
               attrs: &attributes
             )
           }
-          
+
         case .single(let syntaxRule):
           for match in text.matches(of: syntaxRule.pattern) {
             syntaxRule.apply(
@@ -78,7 +79,7 @@ extension Markdown.StyleLibrary {
               attrs: &attributes
             )
           }
-          
+
         case .codeBlock(let syntaxRule):
           for match in text.matches(of: syntaxRule.pattern) {
             syntaxRule.apply(
@@ -88,7 +89,7 @@ extension Markdown.StyleLibrary {
               attrs: &attributes
             )
           }
-          
+
         case .wrapPair(let syntaxRule):
           for match in text.matches(of: syntaxRule.pattern) {
             syntaxRule.apply(
@@ -98,7 +99,7 @@ extension Markdown.StyleLibrary {
               attrs: &attributes
             )
           }
-          
+
       }
       //    for rule in Self.orderedRules {
       //      for match in rule.matches(in: text) {

@@ -11,10 +11,8 @@ import ColourKit
 import CoreTools
 
 extension Markdown.SyntaxRule where T == RegexShape.Wrap {
-  static func highlight(
-    fontSize: CGFloat,
-    theme: Markdown.Theme,
-  ) -> Self {
+  
+    static var highlight: Self {
     
     let pattern = /(?<leading>==)(?<content>[^== \n][^\n]*?[^== \n])(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .inlineCode

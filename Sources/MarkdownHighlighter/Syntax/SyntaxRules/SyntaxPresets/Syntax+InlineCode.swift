@@ -10,7 +10,8 @@ import ColourKit
 import CoreTools
 
 extension Markdown.SyntaxRule where T == RegexShape.Wrap {
-  static func inlineCode() -> Self {
+  
+    static var inlineCode: Self {
 
     let pattern = /(?<leading>`)(?<content>(?:[^`\n])+?)(?<trailing>`)/
     let syntax: Markdown.Syntax = .inlineCode

@@ -10,33 +10,35 @@ import ColourKit
 import CoreTools
 
 extension Markdown.SyntaxRule where T == RegexShape.Wrap {
-  static func strikethrough() -> Self {
 
-    let pattern = /(?<leading>(?:\~{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
+  static var strikethrough: Self {
+
+    let pattern =
+      /(?<leading>(?:\~{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .strikethrough
 
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
-//      theme: theme,
+      //      theme: theme,
       exposesBlockRange: false
     )
-//    { match, attrs in
-//
-//      pattern.apply(match: match) { path, range in
-//        switch path {
-//
-//          case \.leading, \.trailing:
-//            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
-//
-//          case \.content:
-//            attrs.update(.foregroundColor, with: NSColor.secondaryLabelColor, in: range)
-//            attrs.update(.strikethroughColor, with: NSColor.systemRed, in: range)
-//            attrs.update(.strikethroughStyle, with: NSUnderlineStyle.single.rawValue, in: range)
-//
-//          default: return
-//        }
-//      }
-//    }
+    //    { match, attrs in
+    //
+    //      pattern.apply(match: match) { path, range in
+    //        switch path {
+    //
+    //          case \.leading, \.trailing:
+    //            attrs.update(.foregroundColor, with: ThemeColour.syntaxColour, in: range)
+    //
+    //          case \.content:
+    //            attrs.update(.foregroundColor, with: NSColor.secondaryLabelColor, in: range)
+    //            attrs.update(.strikethroughColor, with: NSColor.systemRed, in: range)
+    //            attrs.update(.strikethroughStyle, with: NSUnderlineStyle.single.rawValue, in: range)
+    //
+    //          default: return
+    //        }
+    //      }
+    //    }
   }
 }
