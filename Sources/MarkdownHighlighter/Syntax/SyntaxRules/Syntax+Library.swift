@@ -25,9 +25,9 @@ extension Markdown {
 
 extension Markdown.StyleLibrary {
 
-  public var blockRangeRules: [RegexShape] {
-    rules.filter { $0.exposesBlockRange }
-  }
+//  public var blockRangeRules: [RegexShape] {
+//    rules.filter { $0.exposesBlockRange }
+//  }
 
   var rules: [RegexShape] {
     [
@@ -36,13 +36,12 @@ extension Markdown.StyleLibrary {
       .wrap(.italic),
       .wrap(.boldItalic),
       //      .single(.horizontalRule),
-      //      .codeBlock(.codeBlock),
+      .codeBlock(.codeBlock),
       //      .wrapPair(.link),
       .wrap(.inlineCode),
     ]
   }
 
-  //  @discardableResult
   func applyAttributes(
     to text: String,
     attributes: inout AttributedRanges,
@@ -115,15 +114,6 @@ extension Markdown.StyleLibrary {
           }
 
       }
-      //    for rule in Self.orderedRules {
-      //      for match in rule.matches(in: text) {
-      //        apply(
-      //          rule: rule,
-      //          match: match,
-      //          text: text,
-      //          attributes: &attributes
-      //        )
-      //      }
     }
   }
 

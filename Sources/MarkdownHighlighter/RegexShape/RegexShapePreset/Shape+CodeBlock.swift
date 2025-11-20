@@ -21,16 +21,17 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
       "Only syntaxes with RegexShape of \(syntax.regexShape) are valid here."
     )
 
-    let syntaxFont = theme.style(for: syntax, part: .syntax)
-      .nsFont(fontSize)
-    let syntaxColour = theme.style(for: syntax, part: .syntax)
-      .nsColour
+    let syntaxToken = theme.style(for: syntax, part: .syntax)
+    
+    let syntaxFont = syntaxToken.nsFont(fontSize)
+    let syntaxColour = syntaxToken.nsColour
 
-    let contentFont = theme.style(for: syntax, part: .content).nsFont(
-      fontSize
-    )
+    let contentFont = theme.style(
+      for: syntax,
+      part: .content
+    ).nsFont(fontSize)
+
     let contentColour = theme.style(for: syntax, part: .content).nsColour
-
     let bgColour = theme.style(for: syntax, part: .bg).nsColour
 
     self.pattern.apply(match: match) {
@@ -46,7 +47,7 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
             tag: "Code Block whole"
           )
 
-        case \.start:
+        case \.start, \.end:
           attrs.update(
             .init(fore: syntaxColour),
             in: range,
@@ -70,13 +71,6 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
             tag: "Code Block Content"
           )
           attrs.update(.init(fore: contentColour), in: range, tag: "Code Block Content")
-
-        case \.end:
-          attrs.update(
-            .init(fore: syntaxColour),
-            in: range,
-            tag: "Code Block End"
-          )
 
         default: break
       }
