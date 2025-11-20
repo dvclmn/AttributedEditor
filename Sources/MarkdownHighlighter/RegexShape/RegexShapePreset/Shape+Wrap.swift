@@ -23,8 +23,8 @@ extension SyntaxRule where T == RegexShape.Wrap {
       "Only syntaxes with RegexShape of .wrap are valid here."
     )
 
-    let syntaxFont = theme.style(for: syntax, part: .syntaxLeading).nsFont(fontSize)
-    let syntaxColour = theme.style(for: syntax, part: .syntaxLeading).nsColour
+    let syntaxFont = theme.style(for: syntax, part: .syntax).nsFont(fontSize)
+    let syntaxColour = theme.style(for: syntax, part: .syntax).nsColour
 
     let contentFont = theme.style(for: syntax, part: .content).nsFont(fontSize)
     let contentColour = theme.style(for: syntax, part: .content).nsColour
@@ -40,10 +40,6 @@ extension SyntaxRule where T == RegexShape.Wrap {
         case \.0:
 //          break
           attrs.update(.init(background: bgColour), in: range, tag: "Shape.Wrap whole")
-
-        //          if syntax.isInlineCode {
-        //            attrs.update(.background(theme.colour(for: .inlineCode, kind: .background, fallback: <#T##NSColor#>)), in: <#T##Range<String.Index>#>)
-        //          }
 
         case \.leading:
           attrs.update(
