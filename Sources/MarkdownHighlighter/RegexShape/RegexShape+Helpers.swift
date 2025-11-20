@@ -8,38 +8,10 @@
 import Foundation
 
 public typealias MatchPath<T> = KeyPath<T, Substring>
-public typealias ApplyRegex<T> = (MatchPath<T>, Range<String.Index>) -> Void
+public typealias ApplyRegex<T> = (MatchPath<T>, Range<String.Index>) ->
+  Void
 
-extension Regex where Output == RegexShape.Single {
-  public func apply(
-    match: Match,
-    perform: ApplyRegex<Output>
-  ) {
-    let paths: [MatchPath<Output>] = [\.self]
-    apply(paths: paths, match: match, perform: perform)
-  }
-}
-
-extension Regex where Output == RegexShape.Wrap {
-  public func apply(
-    match: Match,
-    perform: ApplyRegex<Output>
-  ) {
-    let paths: [MatchPath<Output>] = [\.0, \.leading, \.content, \.trailing]
-    apply(paths: paths, match: match, perform: perform)
-  }
-}
-
-extension Regex where Output == RegexShape.Prefix {
-  public func apply(
-    match: Match,
-    perform: ApplyRegex<Output>
-  ) {
-    let paths: [MatchPath<Output>] = [\.0, \.prefix, \.content]
-    apply(paths: paths, match: match, perform: perform)
-  }
-}
-
+// MARK: - Process Match keypaths
 extension Regex {
   fileprivate func apply<T>(
     paths: [MatchPath<T>],
@@ -61,3 +33,77 @@ extension Regex {
   }
 }
 
+// MARK: - Create Match output Keypaths
+extension Regex where Output == RegexShape.Single {
+  public func apply(
+    match: Match,
+    perform: ApplyRegex<Output>
+  ) {
+    let paths: [MatchPath<Output>] = [\.self]
+    apply(paths: paths, match: match, perform: perform)
+  }
+}
+
+extension Regex where Output == RegexShape.Prefix {
+  public func apply(
+    match: Match,
+    perform: ApplyRegex<Output>
+  ) {
+    let paths: [MatchPath<Output>] = [
+      \.0,
+      \.prefix,
+      \.content,
+    ]
+    apply(paths: paths, match: match, perform: perform)
+  }
+}
+
+extension Regex where Output == RegexShape.Wrap {
+  public func apply(
+    match: Match,
+    perform: ApplyRegex<Output>
+  ) {
+    let paths: [MatchPath<Output>] = [
+      \.0,
+      \.leading,
+      \.content,
+      \.trailing,
+    ]
+    apply(paths: paths, match: match, perform: perform)
+  }
+}
+
+extension Regex where Output == RegexShape.CodeBlock {
+  public func apply(
+    match: Match,
+    perform: ApplyRegex<Output>
+  ) {
+    let paths: [MatchPath<Output>] = [
+      \.0,
+      \.start,
+      \.langHint,
+      \.content,
+      \.end,
+    ]
+    apply(paths: paths, match: match, perform: perform)
+  }
+}
+
+extension Regex where Output == RegexShape.WrapPair {
+  public func apply(
+    match: Match,
+    perform: ApplyRegex<Output>
+  ) {
+    let paths: [MatchPath<Output>] = [
+      \.0,
+      \.prefix,
+      \.leadingA,
+      \.title,
+      \.trailingA,
+      \.leadingB,
+      \.url,
+      \.trailingB,
+    ]
+    apply(paths: paths, match: match, perform: perform)
+  }
+}

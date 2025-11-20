@@ -13,7 +13,7 @@ import Foundation
 /// Worth noting: RegexShape is *only* concerned with text
 /// content, so that helps reduce some coupling, e.g.
 /// `ComponentKind.background` is irrelevant to regex.
-public enum RegexShape {
+public enum RegexShape: String {
   case single
   case prefix
   case wrap

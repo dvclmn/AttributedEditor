@@ -25,6 +25,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
     self.pattern.apply(match: match) { path, range in
 
       let colours = self.colours(for: syntax, theme: theme)
+      
       let syntaxFont: NSFont? = .font(
         ofSize: fontSize,
         for: syntax,
@@ -37,6 +38,12 @@ extension SyntaxRule where T == RegexShape.Wrap {
       )
 
       switch path {
+          
+        case \.0:
+          if syntax.isInlineCode {
+            attrs.update(.background(theme.colour(for: .inlineCode, kind: .background, fallback: <#T##NSColor#>)), in: <#T##Range<String.Index>#>)
+          }
+          
         case \.leading:
           if let syntaxFont {
             attrs.update(.font(syntaxFont), in: range)

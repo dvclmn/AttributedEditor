@@ -20,7 +20,6 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
-      //      theme: theme,
       exposesBlockRange: false
     )
     //    { match, attrs in
