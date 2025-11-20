@@ -5,34 +5,34 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-import AppKit
-
-extension Markdown.SyntaxRule where T == RegexShape.Prefix {
-  static var heading: Self {
-
-    let pattern = /(?<prefix>(?:#{1}))(?<content>[^#]+?)/
-    //    let pattern = /(?<prefix>(?:\*{2}|_{2}))(?<content>[^\n]+?)/
-    let syntax: Markdown.Syntax = .bold
-
-    return SyntaxRule(
-      syntax: syntax,
-      pattern: pattern,
-      exposesBlockRange: false,
-    )
-    //    SyntaxRule(
-    //      syntax: .heading1,
-    //      delimiter: .prefix("# "),
-    //      role: .blockText,
-    //      captures: .single(name: "text"),
-    //      regexOptions: [.anchorsMatchLines],
-    //    ) { match, attrs in
-    //      guard let range = match.range(withName: "text").toOptional() else { return }
-    //      attrs[range, default: [:]][.font] =
-    //      NSFont.systemFont(ofSize: fontSize * 1.4, weight: .bold)
-    //    }
-  }
-
-}
+//import AppKit
+//
+//extension Markdown.SyntaxRule where T == RegexShape.Prefix {
+//  static var heading: Self {
+//
+//    let pattern = /(?<prefix>(?:#{1}))(?<content>[^#]+?)/
+//    //    let pattern = /(?<prefix>(?:\*{2}|_{2}))(?<content>[^\n]+?)/
+//    let syntax: Markdown.Syntax = .bold
+//
+//    return SyntaxRule(
+//      syntax: syntax,
+//      pattern: pattern,
+//      exposesBlockRange: false,
+//    )
+//    //    SyntaxRule(
+//    //      syntax: .heading1,
+//    //      delimiter: .prefix("# "),
+//    //      role: .blockText,
+//    //      captures: .single(name: "text"),
+//    //      regexOptions: [.anchorsMatchLines],
+//    //    ) { match, attrs in
+//    //      guard let range = match.range(withName: "text").toOptional() else { return }
+//    //      attrs[range, default: [:]][.font] =
+//    //      NSFont.systemFont(ofSize: fontSize * 1.4, weight: .bold)
+//    //    }
+//  }
+//
+//}
 //
 //extension SyntaxRule {
 //

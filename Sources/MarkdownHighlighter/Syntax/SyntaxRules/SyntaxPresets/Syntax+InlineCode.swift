@@ -11,16 +11,18 @@ import CoreTools
 
 extension Markdown.SyntaxRule where T == RegexShape.Wrap {
   
-    static var inlineCode: Self {
-
+  static var inlineCode: Self {
+    
     let pattern = /(?<leading>`)(?<content>(?:[^`\n])+?)(?<trailing>`)/
     let syntax: Markdown.Syntax = .inlineCode
-
+    
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
-      exposesBlockRange: false
+      exposesBlockRange: true
     )
+  }
+}
 //    { match, attrs in
 //
 //      pattern.apply(
@@ -57,5 +59,5 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
 //
 //      }
 //    }
-  }
-}
+//  }
+//}

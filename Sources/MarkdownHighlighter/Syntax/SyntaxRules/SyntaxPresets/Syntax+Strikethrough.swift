@@ -9,19 +9,21 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension Markdown.SyntaxRule where T == RegexShape.Wrap {
-
-  static var strikethrough: Self {
-
-    let pattern =
-      /(?<leading>(?:\~{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
-    let syntax: Markdown.Syntax = .strikethrough
-
-    return SyntaxRule(
-      syntax: syntax,
-      pattern: pattern,
-      exposesBlockRange: false
-    )
+//extension Markdown.SyntaxRule where T == RegexShape.Wrap {
+//  
+//  static var strikethrough: Self {
+//    
+//    let pattern =
+//    /(?<leading>(?:\~{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
+//    let syntax: Markdown.Syntax = .strikethrough
+//    
+//    return SyntaxRule(
+//      syntax: syntax,
+//      pattern: pattern,
+//      exposesBlockRange: false
+//    )
+//  }
+//}
     //    { match, attrs in
     //
     //      pattern.apply(match: match) { path, range in
@@ -39,5 +41,5 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
     //        }
     //      }
     //    }
-  }
-}
+//  }
+//}

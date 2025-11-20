@@ -6,22 +6,24 @@
 //
 
 
-import AppKit
-import ColourKit
-import CoreTools
-
-extension Markdown.SyntaxRule where T == RegexShape.Wrap {
-  
-    static var highlight: Self {
-    
-    let pattern = /(?<leading>==)(?<content>[^== \n][^\n]*?[^== \n])(?<trailing>\k<leading>)/
-    let syntax: Markdown.Syntax = .inlineCode
-    
-    return SyntaxRule(
-      syntax: syntax,
-      pattern: pattern,
-      exposesBlockRange: false
-    )
+//import AppKit
+//import ColourKit
+//import CoreTools
+//
+//extension Markdown.SyntaxRule where T == RegexShape.Wrap {
+//  
+//  static var highlight: Self {
+//    
+//    let pattern = /(?<leading>==)(?<content>[^== \n][^\n]*?[^== \n])(?<trailing>\k<leading>)/
+//    let syntax: Markdown.Syntax = .inlineCode
+//    
+//    return SyntaxRule(
+//      syntax: syntax,
+//      pattern: pattern,
+//      exposesBlockRange: false
+//    )
+//  }
+//}
 //    { match, attrs in
 //      
 //      pattern.apply(
@@ -57,5 +59,5 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
 //        
 //      }
 //    }
-  }
-}
+//  }
+//}
