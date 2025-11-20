@@ -9,10 +9,36 @@ import AppKit
 import ColourKit
 
 extension Markdown {
+  public struct Theme: Sendable {
+    // 1. A dictionary for fast O(1) lookup
+    private var styles: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
+    
+    // 2. Fallbacks for global defaults
+    var defaultBodyColor: NSColor = .textColor
+    var defaultSyntaxColor: NSColor = .tertiaryLabelColor
+    
+    // 3. The resolver method (replaces your static function)
+    func style(for syntax: Markdown.Syntax, part: Markdown.SyntaxPart) -> TokenStyle {
+      // A. Check specific definition
+      if let specific = styles[syntax]?[part] {
+        return specific
+      }
+      
+      // B. Fallback logic (Cascading)
+      // If we don't have a specific color for this syntax's syntaxChar,
+      // use the global default syntax color.
+      if part == .syntaxLeading || part == .syntaxTrailing {
+        return TokenStyle(color: defaultSyntaxColor)
+      }
+      
+      // C. Ultimate fallback
+      return TokenStyle(color: defaultBodyColor)
+    }
+  }
 
   /// This doesn't include source code theme, this is
   /// handled elsewhere
-  public enum Theme: Sendable {
+//  public enum Theme: Sendable {
 
 //    let body: CodableColour
 //    let url: CodableColour
@@ -34,10 +60,10 @@ extension Markdown {
 //
 //    /// For things like link, image, callout etc that need a specific definition
 //    let placeholder: CodableColour
-  }
+//  }
 }
 
-typealias ThemeColour = Markdown.Theme
+//typealias ThemeColour = Markdown.Theme
 
 //extension Markdown.Theme {
   

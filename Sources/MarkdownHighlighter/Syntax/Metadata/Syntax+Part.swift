@@ -13,21 +13,32 @@ extension Markdown {
   public enum SyntaxPart: Equatable, Hashable {
     /// This also covers image alt text, and link title
     case content
-    case syntaxChar
-    case background
+    case syntaxLeading
+    case syntaxTrailing
+    
+    /// The URL in a link, the language in a code block.
+    /// If you rename .url, .languageHint, and .calloutIcon to a single
+    /// case called .metadata, your data model becomes much cleaner.
+    ///
+    /// The Syntax enum (Link vs CodeBlock) already tells you what
+    /// that metadata is. You don't need the Part enum to tell you it's a URL;
+    /// the fact that the parent Syntax is .link tells you the .metadata part is a URL.
+    case meta
+//    case syntaxChar
+//    case background
 
     /// Known special cases
     /// `url`is for both image and link
-    case url
+//    case url
     
     /// For code blocks only
-    case languageHint
+//    case languageHint
     
     /// For strikethrough
-    case strikeLine
+//    case strikeLine
     
     /// For callout
-    case calloutIcon
+//    case calloutIcon
   }
 }
 
