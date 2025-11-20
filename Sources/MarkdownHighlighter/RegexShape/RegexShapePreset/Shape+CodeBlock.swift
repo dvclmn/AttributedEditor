@@ -24,7 +24,7 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
 
       switch path {
         case \.0:
-          
+          attrs.update(.font(<#T##NSFont#>), in: <#T##Range<String.Index>#>)
           
         case \.start:
           

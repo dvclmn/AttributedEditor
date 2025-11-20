@@ -62,16 +62,17 @@ extension SyntaxRule where T == RegexShape.Wrap {
           }
           /// I think striekthrough is the only special case here
           if syntax == .strikethrough {
-            attrs.update(
-              .strikethroughColor,
-              with: theme.strikeLine.nsColor(fallback: NSColor.red),
-              in: range
-            )
-            attrs.update(
-              .strikethroughStyle,
-              with: NSUnderlineStyle.single.rawValue,
-              in: range
-            )
+            attrs.update(.strikeColour(<#T##NSColor#>), in: <#T##Range<String.Index>#>)
+//            attrs.update(
+//              .strikethroughColor,
+//              with: theme.strikeLine.nsColor(fallback: NSColor.red),
+//              in: range
+//            )
+//            attrs.update(
+//              .strikethroughStyle,
+//              with: NSUnderlineStyle.single.rawValue,
+//              in: range
+//            )
           }
 
           attrs.update(.foreground(colours.content), in: range)
