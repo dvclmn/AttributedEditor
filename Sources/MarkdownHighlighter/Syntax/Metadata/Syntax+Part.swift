@@ -11,57 +11,8 @@ extension Markdown {
   @CaseDetection
   public enum SyntaxPart: Hashable, Sendable {
     case content  // The main text body
-    case syntax  // The `**` before bold, or `[` before a link
-//    case syntaxLeading  // The `**` before bold, or `[` before a link
-//    case syntaxTrailing  // The `**` after bold, or `)` after a link
-    case metadata  // The generic bucket (URL, Language string, Callout Icon)
-    case background  // Block background
+    case syntax  // The `**` for bold etc
+    case meta  // The generic bucket (URL, Language string, Callout Icon)
+    case bg  // Block background
   }
-  //  @CaseDetection
-  //  public enum SyntaxPart: Equatable, Hashable {
-  //    /// This also covers image alt text, and link title
-  //    case content
-  //    case syntaxLeading
-  //    case syntaxTrailing
-  //
-  //    /// The URL in a link, the language in a code block.
-  //    /// If you rename .url, .languageHint, and .calloutIcon to a single
-  //    /// case called .metadata, your data model becomes much cleaner.
-  //    ///
-  //    /// The Syntax enum (Link vs CodeBlock) already tells you what
-  //    /// that metadata is. You don't need the Part enum to tell you it's a URL;
-  //    /// the fact that the parent Syntax is .link tells you the .metadata part is a URL.
-  //    case meta
-  ////    case syntaxChar
-  ////    case background
-  //
-  //    /// Known special cases
-  //    /// `url`is for both image and link
-  ////    case url
-  //
-  //    /// For code blocks only
-  ////    case languageHint
-  //
-  //    /// For strikethrough
-  ////    case strikeLine
-  //
-  //    /// For callout
-  ////    case calloutIcon
-  //  }
 }
-
-
-
-//extension Markdown.ComponentKind {
-//  var relatedAttribute: Attribute {
-//    switch self {
-//      case .content:
-//      case .syntaxChar:
-//      case .background:
-//      case .url:
-//      case .languageHint:
-//      case .strikeLine:
-//      case .calloutIcon:
-//    }
-//  }
-//}

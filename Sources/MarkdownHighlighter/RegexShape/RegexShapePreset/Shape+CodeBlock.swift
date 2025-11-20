@@ -31,7 +31,7 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
     )
     let contentColour = theme.style(for: syntax, part: .content).nsColour
 
-    let bgColour = theme.style(for: syntax, part: .background).nsColour
+    let bgColour = theme.style(for: syntax, part: .bg).nsColour
 
     self.pattern.apply(match: match) {
       path,
@@ -60,7 +60,7 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
 
         case \.langHint:
           attrs.update(
-            .init(fore: theme.style(for: syntax, part: .metadata).nsColour), in: range,
+            .init(fore: theme.style(for: syntax, part: .meta).nsColour), in: range,
             tag: "Code Block Language hint")
 
         case \.content:

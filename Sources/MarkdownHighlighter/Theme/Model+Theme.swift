@@ -41,10 +41,10 @@ extension Markdown.Theme {
         //      case .syntaxLeading, .syntaxTrailing:
         return TokenStyle(colour: defaultSyntaxColor)
 
-      case .metadata:
+      case .meta:
         return TokenStyle(colour: defaultMetadataColor)
 
-      case .background:
+      case .bg:
         /// Backgrounds usually default to nil/transparent unless specified
         return TokenStyle(colour: nil)
     }

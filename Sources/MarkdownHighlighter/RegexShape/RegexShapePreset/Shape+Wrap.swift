@@ -29,7 +29,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
     let contentFont = theme.style(for: syntax, part: .content).nsFont(fontSize)
     let contentColour = theme.style(for: syntax, part: .content).nsColour
 
-    let bgColour = theme.style(for: syntax, part: .background).nsColour
+    let bgColour = theme.style(for: syntax, part: .bg).nsColour
 
     self.pattern.apply(match: match) { path, range in
 
@@ -39,11 +39,11 @@ extension SyntaxRule where T == RegexShape.Wrap {
 
         case \.0:
 //          break
-          attrs.update(.init(background: bgColour), in: range, tag: "Shape.Wrap whole")
+          attrs.update(.init(bg: bgColour), in: range, tag: "Shape.Wrap whole")
 
         case \.leading:
           attrs.update(
-            .init(foreground: syntaxColour), in: range, tag: "Shape.Wrap Leading")
+            .init(fore: syntaxColour), in: range, tag: "Shape.Wrap Leading")
           attrs.update(.init(font: syntaxFont), in: range, tag: "Shape.Wrap Leading")
         //          if let syntaxFont {
         //            attrs.update(.font(syntaxFont), in: range)
@@ -52,7 +52,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
 
         case \.trailing:
           attrs.update(
-            .init(foreground: syntaxColour), in: range, tag: "Shape.Wrap Trailing")
+            .init(fore: syntaxColour), in: range, tag: "Shape.Wrap Trailing")
           attrs.update(.init(font: syntaxFont), in: range, tag: "Shape.Wrap Trailing")
         //          if let syntaxFont {
         //            attrs.update(.font(syntaxFont), in: range)
@@ -61,7 +61,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
 
         case \.content:
           attrs.update(
-            .init(foreground: contentColour), in: range, tag: "Shape.Wrap Content")
+            .init(fore: contentColour), in: range, tag: "Shape.Wrap Content")
           attrs.update(.init(font: contentFont), in: range, tag: "Shape.Wrap Content")
         //          if let contentFont {
         //            attrs.update(.font(contentFont), in: range)
