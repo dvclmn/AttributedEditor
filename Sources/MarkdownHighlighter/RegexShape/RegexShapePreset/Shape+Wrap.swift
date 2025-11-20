@@ -28,13 +28,15 @@ extension SyntaxRule where T == RegexShape.Wrap {
 //      let colours = self.colours(for: syntax, theme: theme)
       
       
-      let syntaxFont = syntax.font(ofSize: fontSize, for: .syntaxChar)
-      let syntaxColour = syntax.colour(for: .syntaxChar)
+      let syntaxFont = theme.style(for: syntax, part: .syntaxLeading).nsFont(fontSize)
+//      let syntaxFont = syntax.font(ofSize: fontSize, for: .syntaxChar)
+      let syntaxColour = theme.style(for: syntax, part: .syntaxLeading).nsColour
+//      let syntaxColour = syntax.colour(for: .syntaxChar)
       
-      let contentFont = syntax.font(ofSize: fontSize, for: .content)
-      let contentColour = syntax.colour(for: .content)
+      let contentFont = theme.style(for: syntax, part: .content).nsFont(fontSize)
+      let contentColour = theme.style(for: syntax, part: .content).nsColour
       
-      let bgColour = syntax.colour(for: .background)
+      let bgColour = theme.style(for: syntax, part: .background).nsColour
  
 //      let syntaxFont: NSFont? = .font(
 //        ofSize: fontSize,

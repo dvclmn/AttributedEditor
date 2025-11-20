@@ -20,6 +20,7 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
       syntax.regexShape == .codeBlock,
       "Only syntaxes with RegexShape of \(syntax.regexShape) are valid here."
     )
+    
 
     self.pattern.apply(match: match) { path, range in
 

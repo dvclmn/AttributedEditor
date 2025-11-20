@@ -6,13 +6,14 @@
 //
 
 import AppKit
+import ColourKit
 
 extension Markdown.Theme {
   struct SyntaxStyleBuilder {
     // MARK: - Core Storage
     // We store everything in the generic buckets
     var content: TokenStyle?
-    var background: NSColor?
+    var background: CodableColour?
     
     var leading: TokenStyle?
     var trailing: TokenStyle?
@@ -64,7 +65,7 @@ extension Markdown.Theme {
     if let m = builder.metadata { parts[.metadata] = m }
     
     if let bg = builder.background {
-      parts[.background] = TokenStyle(color: bg)
+      parts[.background] = TokenStyle(colour: bg)
     }
     
     self.styles[syntax] = parts
