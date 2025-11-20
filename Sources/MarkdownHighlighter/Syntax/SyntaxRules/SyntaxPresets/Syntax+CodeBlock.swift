@@ -5,26 +5,24 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-//import AppKit
-//
-//extension SyntaxRule {
+import AppKit
 
-//  static func fencedCodeBlock(fontSize: CGFloat) -> SyntaxRule {
-//    SyntaxRule(
-//      syntax: .codeBlock,
-//      delimiter: .fenced(start: "```", end: "```"),
-//      role: .blockText,
-//      captures: .two(name1: "lang", name2: "body"),
-//      exposesBlockRange: true
-//    ) { match, attrs in
-//      
-//      
-////      guard let range = match.range(withName: "body").toOptional() else { return }
-////      attrs[range, default: [:]][.font] =
-////      NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
-////      attrs[range, default: [:]][.foregroundColor] = NSColor.systemBlue
-//    }
-//  }
+extension Markdown.SyntaxRule where T == RegexShape.CodeBlock {
+  
+  static func codeBlock() -> Self {
+    
+    let pattern = /(?<start>```[ \t]*)(?<langHint>[^\n]*)\n(?<content>(?:.|\n)*?)(?<end>^```[ \t]*$)/
+      .dotMatchesNewlines()
+      .anchorsMatchLineEndings()
+    let syntax: Markdown.Syntax = .codeBlock
+    
+    return SyntaxRule(
+      syntax: syntax,
+      pattern: pattern,
+      exposesBlockRange: true,
+    )
+  }
+}
   
 //  public static func fencedCodeBlock(codeFont: NSFont) -> SyntaxRule {
 //    SyntaxRule(

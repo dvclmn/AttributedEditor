@@ -10,7 +10,7 @@ import HighlighterCommon
 
 extension SyntaxRule where T == RegexShape.Single {
 
-  func applySingle(
+  func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
     fontSize: CGFloat,

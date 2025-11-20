@@ -9,8 +9,18 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension Markdown.SyntaxRule where T == RegexShape.Wrap {
-
+extension Markdown.SyntaxRule where T == RegexShape.WrapPair {
+  static func link() -> Self {
+    let pattern = /(?<prefix>!?)(?<leadingA>\[)(?<title>[^\]\n]+)(?<trailingA>\])(?<leadingB>\()(?<url>[^\)\n]+)(?<trailingB>\))/
+    
+    let syntax: Markdown.Syntax = .link
+    
+    return SyntaxRule(
+      syntax: syntax,
+      pattern: pattern,
+      exposesBlockRange: false,
+    )
+  }
 }
 
 //  static func link(fontSize: CGFloat) -> SyntaxRule {

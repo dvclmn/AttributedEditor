@@ -5,11 +5,20 @@
 //  Created by Dave Coleman on 19/11/2025.
 //
 
-//import AppKit
-//import HighlighterCommon
+import AppKit
+import HighlighterCommon
 
-//extension SyntaxRule where T == RegexShape.Prefix {
-//  
+extension SyntaxRule where T == RegexShape.Prefix {
+  func apply(
+    match: Regex<T>.Match,
+    theme: Markdown.Theme,
+    fontSize: CGFloat,
+    attrs: inout AttributedRanges
+  ) {
+    
+  }
+}
+//
 //  func apply(
 //    match: Regex<T>.Match,
 //    theme: Markdown.Theme,
