@@ -81,7 +81,10 @@ extension BackingTextView {
     let matches = string.matches(of: /---/)
 
     for match in matches {
-      let range = match.range.toNSRange(in: string)
+      guard let range = match.range.toNSRange(in: string) else {
+        print("Couldn't get NSrange")
+        return
+      }
 
       // Hide the characters
       layoutManager.setTemporaryAttributes(

@@ -9,12 +9,14 @@ import AppKit
 import SwiftUI
 
 /// Protocol defining how text should be analyzed and highlighted
-public protocol Highlighter {
+public protocol Highlighter: AnyObject {
 
-  var fontSize: CGFloat { get }
+  var fontSize: CGFloat { get set }
   var blockRanges: BlockRanges { get set }
   func buildStyles(in text: String) -> AttributedRanges
   func drawBlockPath(in rect: CGRect) -> NSBezierPath
+  
+  func updateFontSize(_ size: CGFloat)
 }
 
 extension Highlighter {

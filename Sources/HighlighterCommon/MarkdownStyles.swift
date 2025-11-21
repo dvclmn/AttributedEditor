@@ -40,8 +40,11 @@ extension AttributedRanges {
   public func toNSRanges(
     in text: String
   ) -> AttributedNSRanges {
-    self.map { run in
-      let range = run.range.toNSRange(in: text)
+    self.compactMap { run in
+      guard let range = run.range.toNSRange(in: text) else {
+        print("Error getting NSRange?")
+        return nil
+      }
       let attributes = run.attributes
       return (range, attributes)
     }

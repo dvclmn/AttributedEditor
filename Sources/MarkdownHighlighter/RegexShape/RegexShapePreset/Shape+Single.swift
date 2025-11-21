@@ -13,7 +13,7 @@ extension SyntaxRule where T == RegexShape.Single {
   func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
-//    fontSize: CGFloat,
+    fontSize: CGFloat,
     attrs: inout AttributedRanges
   ) {
 

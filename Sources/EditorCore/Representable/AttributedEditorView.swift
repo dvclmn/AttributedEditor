@@ -110,6 +110,10 @@ extension AttributedEditorView {
       /// Apply highlighting immediately for external changes
       context.coordinator.applyHighlighting()
     }
+    
+    if highlighter.fontSize != self.fontSize {
+      highlighter.updateFontSize(self.fontSize)
+    }
   }
 
   public func makeCoordinator() -> Coordinator {
