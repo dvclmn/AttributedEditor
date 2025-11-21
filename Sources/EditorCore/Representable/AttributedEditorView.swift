@@ -43,7 +43,7 @@ extension AttributedEditorView {
     scrollView.drawsBackground = false
 
     /// Create and configure the text view
-    let textView = BackingTextView()
+    let textView = BackingTextView(highlighter: highlighter)
     textView.delegate = context.coordinator
     textView.setUpTextView(config)
 

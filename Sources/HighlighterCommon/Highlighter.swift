@@ -14,15 +14,14 @@ public protocol Highlighter {
   var editorConfig: Editor.Configuration { get }
 
   func highlight(text: String) -> MarkdownStyles
-  //  func highlight(text: String) -> AttributedRanges
 
-  /// Optional: Return ranges that should have custom background rendering
-  func blockRanges(text: String) -> [NSRange]
-func drawBlockPath(in rect: CGRect) -> NSBezierPath
+  /// Return ranges that should have custom background rendering
+  //  func blockRanges(text: String) -> [NSRange]
+  func drawBlockPath(in rect: CGRect) -> NSBezierPath
 }
 
 extension Highlighter {
-  func drawBlockPath(
+  public func drawBlockPath(
     in rect: CGRect,
   ) -> NSBezierPath {
     /// Add padding around the text

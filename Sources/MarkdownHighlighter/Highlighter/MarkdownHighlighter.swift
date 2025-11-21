@@ -22,7 +22,10 @@ public final class MarkdownHighlighter: Highlighter {
   ) {
     self.editorConfig = config
     self.theme = theme
-    self.styleLibrary = Markdown.StyleLibrary(theme: theme, fontSize: config.fontSize)
+    self.styleLibrary = Markdown.StyleLibrary(
+      theme: theme,
+      fontSize: config.fontSize
+    )
   }
 
   public func highlight(text: String) -> MarkdownStyles {

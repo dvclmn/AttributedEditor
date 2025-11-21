@@ -48,7 +48,9 @@ extension Highlighter {
     textView.needsDisplay = true
 
     //    textView.updateBlockRanges(markdownStyles.blocks)
-    return markdownStyles.blocks.map { $0.toNSRange(in: currentText) }
+    return markdownStyles.blocks.map {
+      $0.toNSRange(in: currentText)
+    }
 
   }
 
