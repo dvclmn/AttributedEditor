@@ -26,8 +26,7 @@ public enum Editor {
     public let isEditable: Bool
     public let options: Options
 
-    //    @Shared(.fontSize) var fontSize: CGFloat
-    public let fontSize: CGFloat
+//    public let fontSize: CGFloat
 
     /// A multiplier/factor, not absolute. E.g. `1.4`
     public let lineSpacing: CGFloat
@@ -46,7 +45,7 @@ public enum Editor {
     public init(
       isEditable: Bool = true,
       options: Options = [.lineNumbers],
-      fontSize: CGFloat = 15,
+//      fontSize: CGFloat = 15,
       lineSpacing: CGFloat = 1.4,
       insets: CGSize = CGSize(10, 20),
       overScroll: CGFloat = 40,
@@ -55,7 +54,7 @@ public enum Editor {
     ) {
       self.isEditable = isEditable
       self.options = options
-      self.fontSize = fontSize
+//      self.fontSize = fontSize
       self.lineSpacing = lineSpacing
       self.insets = insets
       self.overScroll = overScroll
@@ -67,18 +66,19 @@ public enum Editor {
 
 extension Editor.Configuration {
   public var minFontSize: CGFloat { 9 }
-  public var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
+//  public var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
   public var defaultColour: NSColor { colours.nsColor(for: \.body) }
-  public var codeFontSize: CGFloat { max(minFontSize, fontSize * 0.88) }
+//  public var codeFontSize: CGFloat { max(minFontSize, fontSize * 0.88) }
 
   public var codeBlockInsets: CGSize { insets.adjustLengths(by: 0.4) }
 
-  public var typingAttributes: TextAttributes {
+  public func typingAttributes(
+    with defaultFont: NSFont
+  ) -> TextAttributes {
     return [
       .font: defaultFont,
       .foregroundColor: colours.nsColor(for: \.body),
       .paragraphStyle: paragraphStyle,
-
     ]
   }
 

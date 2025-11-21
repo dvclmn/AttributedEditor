@@ -11,8 +11,8 @@ import HighlighterCommon
 
 public final class MarkdownHighlighter: Highlighter {
 
-  public let editorConfig: Editor.Configuration
-  public var theme: Markdown.Theme
+//  public let editorConfig: Editor.Configuration
+//  public var theme: Markdown.Theme
 
   let styleLibrary: Markdown.StyleLibrary
 
@@ -20,31 +20,39 @@ public final class MarkdownHighlighter: Highlighter {
     config: Editor.Configuration,
     theme: Markdown.Theme,
   ) {
-    self.editorConfig = config
-    self.theme = theme
+//    self.editorConfig = config
+//    self.theme = theme
     self.styleLibrary = Markdown.StyleLibrary(
       theme: theme,
       fontSize: config.fontSize
     )
   }
 
-  public func highlight(text: String) -> MarkdownStyles {
-    var attributes: AttributedRanges = []
-    var blocks: [Range<String.Index>] = []
+  public func buildStyles(in text: String) -> MarkdownStyles {
+    
+    let rules = styleLibrary.rules
+    
+    
+    for rule in rules {
+      styleLibrary.thing(rule, to: text)
+    }
+    
+//    var attributes: AttributedRanges = []
+//    var blocks: [Range<String.Index>] = []
 
-    styleLibrary.applyAttributes(
-      to: text,
-      attributes: &attributes,
-      blockRanges: &blocks
-    )
-    let styles = MarkdownStyles(attributes: attributes, blocks: blocks)
-    print("Highlighted styles for this run:\n\n\(styles)")
-    return styles
+//    styleLibrary.applyAttributes(
+//      to: text,
+//      attributes: &attributes,
+//      blockRanges: &blocks
+//    )
+//    let styles = MarkdownStyles(attributes: attributes, blocks: blocks)
+//    print("Highlighted styles for this run:\n\n\(styles)")
+//    return styles
   }
 
 }
-extension MarkdownHighlighter {
-  public func updateTheme(_ theme: Markdown.Theme) {
-    self.theme = theme
-  }
-}
+//extension MarkdownHighlighter {
+//  public func updateTheme(_ theme: Markdown.Theme) {
+//    self.theme = theme
+//  }
+//}

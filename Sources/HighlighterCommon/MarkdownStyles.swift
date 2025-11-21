@@ -9,18 +9,30 @@ import CoreTools
 
 public struct MarkdownStyles {
   /// For styling text
-  let attributes: AttributedRanges
+  var attributes: AttributedRanges
 
   /// For drawing backgrounds
-  let blocks: [Range<String.Index>]
+  var blocks: BlockRanges
 
   public init(
     attributes: AttributedRanges,
-    blocks: [Range<String.Index>]
+    blocks: BlockRanges
   ) {
     self.attributes = attributes
     self.blocks = blocks
   }
+}
+extension MarkdownStyles {
+  mutating func add(attributes newAttr: AttributedRanges) {
+    self.attributes += newAttr
+  }
+  
+  mutating func add(blocks newBlocks: BlockRanges) {
+    self.blocks += newBlocks
+  }
+//  mutating func updateAttributes(with new: AttributedRanges) {
+////    new.update(<#T##attribute: Attribute?##Attribute?#>, in: <#T##Range<String.Index>#>, tag: <#T##String?#>)
+//  }
 }
 
 extension AttributedRanges {

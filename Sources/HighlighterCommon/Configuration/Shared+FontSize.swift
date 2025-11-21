@@ -9,7 +9,7 @@ import Foundation
 import Sharing
 
 extension SharedKey where Self == InMemoryKey<CGFloat>.Default {
-  static var fontSize: Self {
+  public static var fontSize: Self {
     Self[.inMemory("fontSize"), default: 14]
   }
 }

@@ -9,6 +9,7 @@ import AppKit
 import CoreTools
 
 public typealias AttributedRanges = [AttributedRun]
+public typealias BlockRanges = [Range<String.Index>]
 public typealias AttributedNSRanges = [(
   range: NSRange,
   attributes: TextAttributes

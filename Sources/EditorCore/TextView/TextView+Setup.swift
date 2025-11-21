@@ -12,7 +12,10 @@ import SwiftUI
 
 extension BackingTextView {
 
-  func setUpTextView(_ config: Editor.Configuration) {
+  func setUpTextView(
+    fontSize: CGFloat,
+    config: Editor.Configuration
+  ) {
 
     isEditable = config.isEditable
     drawsBackground = false
@@ -21,16 +24,17 @@ extension BackingTextView {
     isSelectable = true
 
     isRichText = false
-    textColor = config.colours.nsColor(for: \.body)
+    textColor = NSColor.textColor
+
     isAutomaticQuoteSubstitutionEnabled = false
     isAutomaticDashSubstitutionEnabled = false
     isAutomaticSpellingCorrectionEnabled = false
 
     self.setInsets(config.insets)
 
-    font = config.defaultFont
-
-    typingAttributes = config.typingAttributes
+    let defaultFont = NSFont.systemFont(ofSize: fontSize)
+    font = defaultFont
+    typingAttributes = config.typingAttributes(with: defaultFont)
     defaultParagraphStyle = config.paragraphStyle
 
     isVerticallyResizable = true

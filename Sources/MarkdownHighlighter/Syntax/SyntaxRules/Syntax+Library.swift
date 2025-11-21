@@ -42,22 +42,26 @@ extension Markdown.StyleLibrary {
     ]
   }
 
-  func applyAttributes(
-    to text: String,
-    attributes: inout AttributedRanges,
-    blockRanges: inout [Range<String.Index>]
-  ) {
-    for rule in self.rules {
-      self.thing(rule, to: text, attr: &attributes, blocks: &blockRanges)
-    }
-  }
+  //  func applyAttributes(
+  //    to text: String,
+  ////    attributes: inout AttributedRanges,
+  ////    blockRanges: inout [Range<String.Index>]
+  //  ) {
+  //    for rule in self.rules {
+  //      self.thing(rule, to: text, attr: &attributes, blocks: &blockRanges)
+  //    }
+  //  }
 
-  private func thing(
+  func thing(
     _ rule: RegexShape,
     to text: String,
-    attr: inout AttributedRanges,
-    blocks: inout [Range<String.Index>]
-  ) {
+    //    attr: inout AttributedRanges,
+    //    blocks: inout [Range<String.Index>]
+  ) -> MarkdownStyles {
+
+    var attrs: AttributedRanges = []
+    var blocks: [Range<String.Index>] = []
+
     switch rule {
       case .wrap(let syntaxRule):
         for match in text.matches(of: syntaxRule.pattern) {
@@ -65,7 +69,7 @@ extension Markdown.StyleLibrary {
             match: match,
             theme: theme,
             fontSize: fontSize,
-            attrs: &attr
+            attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
             blocks.append(match.range)
@@ -77,7 +81,7 @@ extension Markdown.StyleLibrary {
             match: match,
             theme: theme,
             fontSize: fontSize,
-            attrs: &attr
+            attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
             blocks.append(match.range)
@@ -90,7 +94,7 @@ extension Markdown.StyleLibrary {
             match: match,
             theme: theme,
             fontSize: fontSize,
-            attrs: &attr
+            attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
             blocks.append(match.range)
@@ -103,7 +107,7 @@ extension Markdown.StyleLibrary {
             match: match,
             theme: theme,
             fontSize: fontSize,
-            attrs: &attr
+            attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
             blocks.append(match.range)
@@ -116,12 +120,16 @@ extension Markdown.StyleLibrary {
             match: match,
             theme: theme,
             fontSize: fontSize,
-            attrs: &attr
+            attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
             blocks.append(match.range)
           }
         }
-    }
+    } // END switch
+    return MarkdownStyles(
+      attributes: attrs,
+      blocks: blocks
+    )
   }
 }

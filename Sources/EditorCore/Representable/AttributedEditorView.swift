@@ -8,22 +8,29 @@
 import AppKit
 import HighlighterCommon
 import SwiftUI
+import Sharing
 
 @MainActor
 public struct AttributedEditorView: NSViewRepresentable {
   @Binding public var text: String
+  @Shared(.fontSize) var fontSize: CGFloat
   @Binding var cursorPosition: InsertionPointPosition?
   var highlighter: any Highlighter
+  let editorConfig: Editor.Configuration
   let debounceInterval: TimeInterval
 
   public init(
     text: Binding<String>,
+    fontSize: CGFloat = 15,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
+    config: Editor.Configuration = .init(),
     highlighter: any Highlighter,
     debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text
+    self._fontSize = Shared(wrappedValue: fontSize, .fontSize)
     self._cursorPosition = cursorPosition
+    self.editorConfig = config
     self.highlighter = highlighter
     self.debounceInterval = debounceInterval
   }
@@ -31,7 +38,7 @@ public struct AttributedEditorView: NSViewRepresentable {
 
 extension AttributedEditorView {
 
-  var config: Editor.Configuration { highlighter.editorConfig }
+//  var config: Editor.Configuration { highlighter.editorConfig }
   public func makeNSView(context: Context) -> NSScrollView {
 
     /// Create the scroll view container
@@ -45,7 +52,7 @@ extension AttributedEditorView {
     /// Create and configure the text view
     let textView = BackingTextView(highlighter: highlighter)
     textView.delegate = context.coordinator
-    textView.setUpTextView(config)
+    textView.setUpTextView(editorConfig)
 
     textView.textContainer?.containerSize = NSSize(
       width: scrollView.contentSize.width,
@@ -53,7 +60,7 @@ extension AttributedEditorView {
     )
 
     /// Add line numbers if enabled
-    if config.options.contains(.lineNumbers) {
+    if editorConfig.options.contains(.lineNumbers) {
       let rulerView = LineNumberRulerView(textView: textView)
       scrollView.verticalRulerView = rulerView
       scrollView.hasVerticalRuler = true
