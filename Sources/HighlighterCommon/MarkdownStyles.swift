@@ -10,10 +10,10 @@ import CoreTools
 public struct MarkdownStyles {
   /// For styling text
   let attributes: AttributedRanges
-  
+
   /// For drawing backgrounds
   let blocks: [Range<String.Index>]
-  
+
   public init(attributes: AttributedRanges, blocks: [Range<String.Index>]) {
     self.attributes = attributes
     self.blocks = blocks
@@ -26,7 +26,7 @@ extension MarkdownStyles: CustomStringConvertible {
       Indented("Text Attributes") {
         Labeled("Count", value: attributes.count)
         Labeled("Count", value: attributes.count)
-        
+
         Indented("Attributes") {
           for attr in attributes {
             let dictString = attr.attributes.map { (key, value) in
@@ -41,5 +41,5 @@ extension MarkdownStyles: CustomStringConvertible {
         }
       }
     }.plainText
-  } // END description
+  }  // END description
 }
