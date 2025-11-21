@@ -19,11 +19,10 @@ public final class MarkdownHighlighter: Highlighter {
   public init(
     config: Editor.Configuration,
     theme: Markdown.Theme,
-    fontSize: CGFloat
   ) {
     self.editorConfig = config
     self.theme = theme
-    self.styleLibrary = Markdown.StyleLibrary(theme: theme, fontSize: fontSize)
+    self.styleLibrary = Markdown.StyleLibrary(theme: theme, fontSize: config.fontSize)
   }
 
   public func highlight(text: String) -> MarkdownStyles {

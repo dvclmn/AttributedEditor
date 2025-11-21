@@ -21,12 +21,10 @@ public struct AttributedEditor: View {
     fontSize: CGFloat = 14,
   ) {
     self._text = text
-
     let highlighter: MarkdownHighlighter = .init(
       config: .init(
         isEditable: true,
         options: [],
-        //        options: [.lineNumbers],
         fontSize: fontSize,
         lineSpacing: 1.8,
         insets: CGSize(20, 40),
@@ -34,8 +32,7 @@ public struct AttributedEditor: View {
         maxWidth: nil,
         colours: .init()
       ),
-      theme: .default,
-      fontSize: fontSize
+      theme: .default
     )
     self.markdownHighlighter = highlighter
   }
@@ -45,7 +42,6 @@ public struct AttributedEditor: View {
       .onAppear {
         markdownHighlighter.updateTheme(markdownTheme)
       }
-
   }
 }
 #if DEBUG

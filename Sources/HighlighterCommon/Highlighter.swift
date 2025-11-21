@@ -12,16 +12,42 @@ import SwiftUI
 public protocol Highlighter {
 
   var editorConfig: Editor.Configuration { get }
+
   func highlight(text: String) -> MarkdownStyles
-//  func highlight(text: String) -> AttributedRanges
+  //  func highlight(text: String) -> AttributedRanges
 
   /// Optional: Return ranges that should have custom background rendering
-//  func blockRanges(text: String) -> [NSRange]
+  func blockRanges(text: String) -> [NSRange]
+func drawBlockPath(in rect: CGRect) -> NSBezierPath
 }
 
-//extension Highlighter {
-//  /// Default implementation returns no block ranges
-//  public func blockRanges(text: String) -> [NSRange] {
-//    return []
-//  }
-//}
+extension Highlighter {
+  func drawBlockPath(
+    in rect: CGRect,
+  ) -> NSBezierPath {
+    /// Add padding around the text
+    let paddedRect = rect.insetBy(dx: -5, dy: -4).offsetBy(dx: 0, dy: -3)
+
+    /// Create a rounded rectangle path
+    let path = NSBezierPath(
+      roundedRect: paddedRect,
+      xRadius: 6,
+      yRadius: 6
+    )
+
+    /// Fill with a subtle background color
+    /// Note: `setFill()` and `setStrok()` set the fill and stroke color
+    /// in the current graphics context. They "prepare" the context for drawing,
+    /// but don't themselves draw anything yet. It's the `path.fill()` and
+    /// `path.stroke()` that actually render the shape onto the view.
+    NSColor.controlBackgroundColor.opacity(0.5).setFill()
+    NSColor.separatorColor.setStroke()
+    path.lineWidth = 1
+    return path
+  }
+
+  //  /// Default implementation returns no block ranges
+  //  public func blockRanges(text: String) -> [NSRange] {
+  //    return []
+  //  }
+}

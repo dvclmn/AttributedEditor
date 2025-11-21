@@ -67,6 +67,8 @@ extension Highlighter {
     /// Refresh line numbers
     textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
     
+    textView.needsDisplay = true
+    
 //    textView.updateBlockRanges(markdownStyles.blocks)
     return markdownStyles.blocks.map { $0.toNSRange(in: currentText) }
 

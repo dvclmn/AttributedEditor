@@ -8,14 +8,13 @@
 import AppKit
 
 extension NSTextView {
-
+  
   public func insertionPointPosition() -> InsertionPointPosition {
     return InsertionPointPosition.from(
       text: self.string,
       range: self.selectedRange()
     )
   }
-
 }
 
 extension NSTextView {
