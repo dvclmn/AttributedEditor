@@ -41,22 +41,32 @@ extension InsertionPointPosition {
 //    }
 
     /// Count how many lines the selection spans
-    var selectionLineCount = 1
-    let selectionEnd = min(range.location + range.length, text.count)
-
-    currentIndex = range.location
-    while currentIndex < selectionEnd {
-      if text[offset: currentIndex] == Character("\n") {
-        selectionLineCount += 1
-      }
-      currentIndex += 1
-    }
-
+    // Selection line counting could also be extracted similarly
+    let selectionLineCount = text.countNewlines(in: range)
+    
     return InsertionPointPosition(
       line: lineNumber,
       column: columnNumber,
       selectionLength: range.length,
       selectionLineCount: selectionLineCount
     )
+    
+//    var selectionLineCount = 1
+//    let selectionEnd = min(range.location + range.length, text.count)
+//
+//    currentIndex = range.location
+//    while currentIndex < selectionEnd {
+//      if text[offset: currentIndex] == Character("\n") {
+//        selectionLineCount += 1
+//      }
+//      currentIndex += 1
+//    }
+//
+//    return InsertionPointPosition(
+//      line: lineNumber,
+//      column: columnNumber,
+//      selectionLength: range.length,
+//      selectionLineCount: selectionLineCount
+//    )
   }
 }
