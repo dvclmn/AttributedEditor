@@ -15,33 +15,27 @@ public struct AttributedEditor: View {
   @Environment(\.markdownTheme) private var markdownTheme
   @Binding var text: String
   let markdownHighlighter: MarkdownHighlighter
+  let fontSize: CGFloat
 
   public init(
     text: Binding<String>,
-    fontSize: CGFloat = 14,
+    fontSize: CGFloat,
   ) {
     self._text = text
-    let highlighter: MarkdownHighlighter = .init(
-      config: .init(
-        isEditable: true,
-        options: [],
-        fontSize: fontSize,
-        lineSpacing: 1.8,
-        insets: CGSize(20, 40),
-        overScroll: 80,
-        maxWidth: nil,
-        colours: .init()
-      ),
-      theme: .default
-    )
+    self.fontSize = fontSize
+    let highlighter: MarkdownHighlighter = .init(theme: .default)
     self.markdownHighlighter = highlighter
   }
 
   public var body: some View {
-    AttributedEditorView(text: $text, highlighter: markdownHighlighter)
-      .onAppear {
-        markdownHighlighter.updateTheme(markdownTheme)
-      }
+    AttributedEditorView(
+      text: $text,
+      fontSize: fontSize,
+      highlighter: markdownHighlighter
+    )
+    .onAppear {
+      markdownHighlighter.updateTheme(markdownTheme)
+    }
   }
 }
 #if DEBUG

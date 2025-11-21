@@ -8,67 +8,26 @@
 import Foundation
 import HighlighterCommon
 
-extension Markdown {
-  public struct StyleLibrary: Sendable {
-    let theme: Theme
-    let fontSize: CGFloat
-
-    public init(
-      theme: Theme,
-      fontSize: CGFloat
-    ) {
-      self.theme = theme
-      self.fontSize = fontSize
-    }
-  }
-}
-
-extension Markdown.StyleLibrary {
-
-  //  public var blockRangeRules: [RegexShape] {
-  //    rules.filter { $0.exposesBlockRange }
-  //  }
-
-  var rules: [RegexShape] {
-    [
-      //      .prefix(.heading),
-      //      .wrap(.bold),
-      //      .wrap(.italic),
-      //      .wrap(.boldItalic),
-      //      .single(.horizontalRule),
-      //      .codeBlock(.codeBlock),
-      //      .wrapPair(.link),
-      .wrap(.inlineCode)
-    ]
-  }
-
-  //  func applyAttributes(
-  //    to text: String,
-  ////    attributes: inout AttributedRanges,
-  ////    blockRanges: inout [Range<String.Index>]
-  //  ) {
-  //    for rule in self.rules {
-  //      self.thing(rule, to: text, attr: &attributes, blocks: &blockRanges)
-  //    }
-  //  }
-
-  func thing(
+extension MarkdownHighlighter {
+  func build(
     _ rule: RegexShape,
-    to text: String,
+    text: String,
+//    theme: Markdown.Theme
     //    attr: inout AttributedRanges,
     //    blocks: inout [Range<String.Index>]
-  ) -> MarkdownStyles {
-
+  ) -> (AttributedRanges, BlockRanges) {
+//  ) -> MarkdownStyles {
+    
     var attrs: AttributedRanges = []
-    var blocks: [Range<String.Index>] = []
-
+    var blocks: BlockRanges = []
+    
     switch rule {
       case .wrap(let syntaxRule):
         for match in text.matches(of: syntaxRule.pattern) {
           syntaxRule.apply(
             match: match,
             theme: theme,
-            fontSize: fontSize,
+//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
@@ -80,46 +39,46 @@ extension Markdown.StyleLibrary {
           syntaxRule.apply(
             match: match,
             theme: theme,
-            fontSize: fontSize,
+//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
             blocks.append(match.range)
           }
         }
-
+        
       case .single(let syntaxRule):
         for match in text.matches(of: syntaxRule.pattern) {
           syntaxRule.apply(
             match: match,
             theme: theme,
-            fontSize: fontSize,
+//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
             blocks.append(match.range)
           }
         }
-
+        
       case .codeBlock(let syntaxRule):
         for match in text.matches(of: syntaxRule.pattern) {
           syntaxRule.apply(
             match: match,
             theme: theme,
-            fontSize: fontSize,
+//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
             blocks.append(match.range)
           }
         }
-
+        
       case .wrapPair(let syntaxRule):
         for match in text.matches(of: syntaxRule.pattern) {
           syntaxRule.apply(
             match: match,
             theme: theme,
-            fontSize: fontSize,
+//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
@@ -127,9 +86,57 @@ extension Markdown.StyleLibrary {
           }
         }
     } // END switch
-    return MarkdownStyles(
-      attributes: attrs,
-      blocks: blocks
-    )
+    return (attrs, blocks)
+//    return MarkdownStyles(
+//      attributes: attrs,
+//      blocks: blocks
+//    )
   }
 }
+
+//extension Markdown {
+//  public struct StyleLibrary: Sendable {
+//    let theme: Theme
+//    let fontSize: CGFloat
+//
+//    public init(
+//      theme: Theme,
+//      fontSize: CGFloat
+//    ) {
+//      self.theme = theme
+//      self.fontSize = fontSize
+//    }
+//  }
+//}
+//
+//extension Markdown.StyleLibrary {
+//
+//  //  public var blockRangeRules: [RegexShape] {
+//  //    rules.filter { $0.exposesBlockRange }
+//  //  }
+//
+//  var rules: [RegexShape] {
+//    [
+//      //      .prefix(.heading),
+//      //      .wrap(.bold),
+//      //      .wrap(.italic),
+//      //      .wrap(.boldItalic),
+//      //      .single(.horizontalRule),
+//      //      .codeBlock(.codeBlock),
+//      //      .wrapPair(.link),
+//      .wrap(.inlineCode)
+//    ]
+//  }
+//
+//  //  func applyAttributes(
+//  //    to text: String,
+//  ////    attributes: inout AttributedRanges,
+//  ////    blockRanges: inout [Range<String.Index>]
+//  //  ) {
+//  //    for rule in self.rules {
+//  //      self.thing(rule, to: text, attr: &attributes, blocks: &blockRanges)
+//  //    }
+//  //  }
+//
+//
+//}

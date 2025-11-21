@@ -13,7 +13,7 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
   func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
-    fontSize: CGFloat,
+//    fontSize: CGFloat,
     attrs: inout AttributedRanges
   ) {
     precondition(
@@ -23,13 +23,13 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
 
     let syntaxToken = theme.style(for: syntax, part: .syntax)
     
-    let syntaxFont = syntaxToken.nsFont(fontSize)
+    let syntaxFont = syntaxToken.nsFont
     let syntaxColour = syntaxToken.nsColour
 
     let contentFont = theme.style(
       for: syntax,
       part: .content
-    ).nsFont(fontSize)
+    ).nsFont
 
     let contentColour = theme.style(for: syntax, part: .content).nsColour
     let bgColour = theme.style(for: syntax, part: .bg).nsColour

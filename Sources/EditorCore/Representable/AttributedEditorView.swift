@@ -50,9 +50,9 @@ extension AttributedEditorView {
     scrollView.drawsBackground = false
 
     /// Create and configure the text view
-    let textView = BackingTextView(highlighter: highlighter)
+    let textView = BackingTextView()
     textView.delegate = context.coordinator
-    textView.setUpTextView(editorConfig)
+    textView.setUpTextView(config: editorConfig)
 
     textView.textContainer?.containerSize = NSSize(
       width: scrollView.contentSize.width,

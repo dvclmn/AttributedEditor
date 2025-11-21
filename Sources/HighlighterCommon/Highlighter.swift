@@ -11,9 +11,10 @@ import SwiftUI
 /// Protocol defining how text should be analyzed and highlighted
 public protocol Highlighter {
 
-//  var editorConfig: Editor.Configuration { get }
-
-  func buildStyles(in text: String) -> MarkdownStyles
+  //  var editorConfig: Editor.Configuration { get }
+  var blockRanges: BlockRanges { get set }
+  func buildStyles(in text: String) -> AttributedRanges
+//  func buildStyles(in text: String) -> MarkdownStyles
 
   /// Return ranges that should have custom background rendering
   //  func blockRanges(text: String) -> [NSRange]

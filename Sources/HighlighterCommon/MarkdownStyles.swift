@@ -23,16 +23,16 @@ public struct MarkdownStyles {
   }
 }
 extension MarkdownStyles {
-  mutating func add(attributes newAttr: AttributedRanges) {
+  public mutating func add(attributes newAttr: AttributedRanges) {
     self.attributes += newAttr
   }
-  
-  mutating func add(blocks newBlocks: BlockRanges) {
+
+  public mutating func add(blocks newBlocks: BlockRanges) {
     self.blocks += newBlocks
   }
-//  mutating func updateAttributes(with new: AttributedRanges) {
-////    new.update(<#T##attribute: Attribute?##Attribute?#>, in: <#T##Range<String.Index>#>, tag: <#T##String?#>)
-//  }
+  //  mutating func updateAttributes(with new: AttributedRanges) {
+  ////    new.update(<#T##attribute: Attribute?##Attribute?#>, in: <#T##Range<String.Index>#>, tag: <#T##String?#>)
+  //  }
 }
 
 extension AttributedRanges {

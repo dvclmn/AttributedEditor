@@ -26,6 +26,7 @@ public enum Editor {
     public let isEditable: Bool
     public let options: Options
 
+    @Shared(.fontSize) var fontSize
 //    public let fontSize: CGFloat
 
     /// A multiplier/factor, not absolute. E.g. `1.4`
@@ -66,15 +67,13 @@ public enum Editor {
 
 extension Editor.Configuration {
   public var minFontSize: CGFloat { 9 }
-//  public var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
+  public var defaultFont: NSFont { .systemFont(ofSize: fontSize) }
   public var defaultColour: NSColor { colours.nsColor(for: \.body) }
 //  public var codeFontSize: CGFloat { max(minFontSize, fontSize * 0.88) }
 
   public var codeBlockInsets: CGSize { insets.adjustLengths(by: 0.4) }
 
-  public func typingAttributes(
-    with defaultFont: NSFont
-  ) -> TextAttributes {
+  public var typingAttributes: TextAttributes {
     return [
       .font: defaultFont,
       .foregroundColor: colours.nsColor(for: \.body),

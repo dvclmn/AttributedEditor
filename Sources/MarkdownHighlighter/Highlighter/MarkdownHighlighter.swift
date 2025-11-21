@@ -11,48 +11,72 @@ import HighlighterCommon
 
 public final class MarkdownHighlighter: Highlighter {
 
-//  public let editorConfig: Editor.Configuration
-//  public var theme: Markdown.Theme
+  var theme: Markdown.Theme
 
-  let styleLibrary: Markdown.StyleLibrary
+  public var blockRanges: BlockRanges = []
 
-  public init(
-    config: Editor.Configuration,
-    theme: Markdown.Theme,
-  ) {
-//    self.editorConfig = config
-//    self.theme = theme
-    self.styleLibrary = Markdown.StyleLibrary(
-      theme: theme,
-      fontSize: config.fontSize
-    )
+  var rules: [RegexShape] {
+    [
+      //      .prefix(.heading),
+      //      .wrap(.bold),
+      //      .wrap(.italic),
+      //      .wrap(.boldItalic),
+      //      .single(.horizontalRule),
+      //      .codeBlock(.codeBlock),
+      //      .wrapPair(.link),
+      .wrap(.inlineCode)
+    ]
   }
 
-  public func buildStyles(in text: String) -> MarkdownStyles {
-    
-    let rules = styleLibrary.rules
-    
-    
-    for rule in rules {
-      styleLibrary.thing(rule, to: text)
-    }
-    
-//    var attributes: AttributedRanges = []
-//    var blocks: [Range<String.Index>] = []
+  //  public let editorConfig: Editor.Configuration
+  //  public var theme: Markdown.Theme
 
-//    styleLibrary.applyAttributes(
-//      to: text,
-//      attributes: &attributes,
-//      blockRanges: &blocks
-//    )
-//    let styles = MarkdownStyles(attributes: attributes, blocks: blocks)
-//    print("Highlighted styles for this run:\n\n\(styles)")
-//    return styles
+  //  let styleLibrary: Markdown.StyleLibrary
+
+  public init(
+    //    config: Editor.Configuration,
+    theme: Markdown.Theme,
+  ) {
+    //    self.editorConfig = config
+    self.theme = theme
+    //    self.styleLibrary = Markdown.StyleLibrary(
+    //      theme: theme,
+    //      fontSize: config.fontSize
+    //    )
+  }
+
+  public func buildStyles(in text: String) -> AttributedRanges {
+    //  public func buildStyles(in text: String) -> MarkdownStyles {
+
+    var attrs: AttributedRanges = []
+    //    let rules = styleLibrary.rules
+    //    var styles = MarkdownStyles(attributes: [], blocks: [])
+    for rule in rules {
+      let (newAttr, newBlocks) = build(rule, text: text)
+      attrs.append(contentsOf: newAttr)
+      self.blockRanges.append(contentsOf: newBlocks)
+      //      styles.add(attributes: newAttr)
+      //      styles.add(blocks: newBlocks)
+    }
+    return attrs
+    //    return styles
+
+    //    var attributes: AttributedRanges = []
+    //    var blocks: [Range<String.Index>] = []
+
+    //    styleLibrary.applyAttributes(
+    //      to: text,
+    //      attributes: &attributes,
+    //      blockRanges: &blocks
+    //    )
+    //    let styles = MarkdownStyles(attributes: attributes, blocks: blocks)
+    //    print("Highlighted styles for this run:\n\n\(styles)")
+    //    return styles
   }
 
 }
-//extension MarkdownHighlighter {
-//  public func updateTheme(_ theme: Markdown.Theme) {
-//    self.theme = theme
-//  }
-//}
+extension MarkdownHighlighter {
+  public func updateTheme(_ theme: Markdown.Theme) {
+    self.theme = theme
+  }
+}

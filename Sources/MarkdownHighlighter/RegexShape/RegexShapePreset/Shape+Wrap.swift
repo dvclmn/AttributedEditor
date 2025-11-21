@@ -14,7 +14,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
   func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
-    fontSize: CGFloat,
+//    fontSize: CGFloat,
     attrs: inout AttributedRanges
   ) {
 
@@ -23,10 +23,10 @@ extension SyntaxRule where T == RegexShape.Wrap {
       "Only syntaxes with RegexShape of .wrap are valid here."
     )
 
-    let syntaxFont = theme.style(for: syntax, part: .syntax).nsFont(fontSize)
+    let syntaxFont = theme.style(for: syntax, part: .syntax).nsFont
     let syntaxColour = theme.style(for: syntax, part: .syntax).nsColour
 
-    let contentFont = theme.style(for: syntax, part: .content).nsFont(fontSize)
+    let contentFont = theme.style(for: syntax, part: .content).nsFont
     let contentColour = theme.style(for: syntax, part: .content).nsColour
 
     let bgColour = theme.style(for: syntax, part: .bg).nsColour

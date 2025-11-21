@@ -18,8 +18,9 @@ extension AttributedEditorView.Coordinator {
     let blockRanges = highlighter.apply(
       currentText: currentText,
       textView: textView,
-      config: self.parent.config
+      config: self.parent.editorConfig
     )
+    textView.updateHighlighter(highlighter)
 //    textView.updateBlockRanges(blockRanges)
 
   }

@@ -9,25 +9,25 @@ import AppKit
 import HighlighterCommon
 
 class BackingTextView: NSTextView {
-  let highlighter: any Highlighter
+  var highlighter: (any Highlighter)? = nil
   //  var blockRanges: [NSRange]
   //  private var hiddenSyntaxRanges: [NSRange] = []  // track what's hidden
   //  internal var selectedRange: NSRange { selectedRanges.first?.rangeValue ?? NSRange(location: 0, length: 0) }
 
-  init(
-    highlighter: any Highlighter
-      //    blockRanges: [NSRange] = [],
-      //    hiddenSyntaxRanges: [NSRange]
-  ) {
-    self.highlighter = highlighter
-    //    self.blockRanges = blockRanges
-    //    self.hiddenSyntaxRanges = hiddenSyntaxRanges
-    super.init(frame: .zero)
-  }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  //  init(
+  //    highlighter: any Highlighter
+  //      //    blockRanges: [NSRange] = [],
+  //      //    hiddenSyntaxRanges: [NSRange]
+  //  ) {
+  //    self.highlighter = highlighter
+  //    //    self.blockRanges = blockRanges
+  //    //    self.hiddenSyntaxRanges = hiddenSyntaxRanges
+  //    super.init(frame: .zero)
+  //  }
+  //
+  //  required init?(coder: NSCoder) {
+  //    fatalError("init(coder:) has not been implemented")
+  //  }
 
   override func draw(_ dirtyRect: NSRect) {
     /// Draw custom backgrounds before text is rendered
@@ -37,11 +37,14 @@ class BackingTextView: NSTextView {
   }
 
   private func drawBlockBackgrounds() {
-    guard let layoutManager, let textContainer
+    guard let layoutManager, let textContainer, let highlighter
     else { return }
 
+    //    let ranges = highlighter?.blockRanges ?? []
+
     /// For each block range, calculate its visual bounds and draw a background
-    for range in highlighter.blockRanges(text: self.text) {
+    //    for range in ranges. {
+    for range in highlighter.blockRanges.toNSRanges(in: text) {
 
       let rect = boundingRect(
         for: range,
@@ -58,10 +61,12 @@ class BackingTextView: NSTextView {
     }
   }
 
-//  func updateBlockRanges(_ ranges: [NSRange]) {
-//    blockRanges = ranges
-//    needsDisplay = true
-//  }
+  func updateHighlighter(_ new: any Highlighter) {
+    //  func updateBlockRanges(_ ranges: [NSRange]) {
+    highlighter = new
+    //    blockRanges = ranges
+    needsDisplay = true
+  }
 }
 
 extension BackingTextView {

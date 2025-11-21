@@ -13,7 +13,7 @@ import SwiftUI
 extension BackingTextView {
 
   func setUpTextView(
-    fontSize: CGFloat,
+//    fontSize: CGFloat,
     config: Editor.Configuration
   ) {
 
@@ -32,9 +32,10 @@ extension BackingTextView {
 
     self.setInsets(config.insets)
 
-    let defaultFont = NSFont.systemFont(ofSize: fontSize)
-    font = defaultFont
-    typingAttributes = config.typingAttributes(with: defaultFont)
+//    let defaultFont = NSFont.systemFont(ofSize: fontSize)
+    font = config.defaultFont
+    typingAttributes = config.typingAttributes
+//    typingAttributes = config.typingAttributes(with: defaultFont)
     defaultParagraphStyle = config.paragraphStyle
 
     isVerticallyResizable = true

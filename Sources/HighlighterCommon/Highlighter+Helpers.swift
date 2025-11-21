@@ -15,16 +15,19 @@ extension Highlighter {
     currentText: String,
     textView: NSTextView,
     config: Editor.Configuration,
-  ) -> [NSRange] {
+  ) {
+//  ) -> [NSRange] {
 
     let attrString = NSMutableAttributedString(string: currentText)
     setDefaultStyles(with: config, attrString: attrString)
 
     /// Get highlighted ranges from the syntax highlighter
-    let markdownStyles = self.highlight(text: currentText)
+    let attrRanges = self.buildStyles(
+      in: currentText
+    )
 
     /// Convert from `Range<String.Index>` to `NSRange`
-    let runs = markdownStyles.attributes.toNSRanges(in: currentText)
+    let runs = attrRanges.toNSRanges(in: currentText)
 
     /// Apply each highlighted range's attributes
     for run in runs {
@@ -47,10 +50,9 @@ extension Highlighter {
 
     textView.needsDisplay = true
 
-    //    textView.updateBlockRanges(markdownStyles.blocks)
-    return markdownStyles.blocks.map {
-      $0.toNSRange(in: currentText)
-    }
+//    return markdownStyles.blocks.map {
+//      $0.toNSRange(in: currentText)
+//    }
 
   }
 
@@ -61,7 +63,6 @@ extension Highlighter {
     with config: Editor.Configuration,
     attrString: NSMutableAttributedString
   ) {
-
     /// Apply default attributes to the entire text
     let defaultAttributes: TextAttributes = [
       .font: config.defaultFont,
