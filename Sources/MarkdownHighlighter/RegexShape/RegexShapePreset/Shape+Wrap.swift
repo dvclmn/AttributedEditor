@@ -23,10 +23,10 @@ extension SyntaxRule where T == RegexShape.Wrap {
       "Only syntaxes with RegexShape of .wrap are valid here."
     )
 
-    let syntaxFont = theme.style(for: syntax, part: .syntax).nsFont
+    let syntaxFont = theme.style(for: syntax, part: .syntax).font
     let syntaxColour = theme.style(for: syntax, part: .syntax).nsColour
 
-    let contentFont = theme.style(for: syntax, part: .content).nsFont
+    let contentFont = theme.style(for: syntax, part: .content).font
     let contentColour = theme.style(for: syntax, part: .content).nsColour
 
     let bgColour = theme.style(for: syntax, part: .bg).nsColour

@@ -23,13 +23,13 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
 
     let syntaxToken = theme.style(for: syntax, part: .syntax)
     
-    let syntaxFont = syntaxToken.nsFont
+    let syntaxFont = syntaxToken.font
     let syntaxColour = syntaxToken.nsColour
 
     let contentFont = theme.style(
       for: syntax,
       part: .content
-    ).nsFont
+    ).font
 
     let contentColour = theme.style(for: syntax, part: .content).nsColour
     let bgColour = theme.style(for: syntax, part: .bg).nsColour

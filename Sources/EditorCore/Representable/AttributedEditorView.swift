@@ -39,7 +39,13 @@ public struct AttributedEditorView: NSViewRepresentable {
 }
 
 extension AttributedEditorView {
-
+  
+  var editorDefaults: Editor.Defaults {
+    .init(
+      font: NSFont.systemFont(ofSize: fontSize),
+      textColour: NSColor.textColor
+    )
+  }
 //  var config: Editor.Configuration { highlighter.editorConfig }
   public func makeNSView(context: Context) -> NSScrollView {
 

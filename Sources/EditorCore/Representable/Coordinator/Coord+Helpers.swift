@@ -17,7 +17,7 @@ extension AttributedEditorView.Coordinator {
     highlighter.apply(
       currentText: textView.string,
       textView: textView,
-      config: self.parent.editorConfig
+      defaults: self.parent.editorDefaults
     )
     textView.updateHighlighter(highlighter)
 

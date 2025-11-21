@@ -10,6 +10,26 @@ import CoreTools
 import Sharing
 import SwiftUI
 
+extension Editor {
+  public struct Defaults {
+    let font: NSFont
+    let textColour: NSColor
+    
+    public init(font: NSFont, textColour: NSColor) {
+      self.font = font
+      self.textColour = textColour
+    }
+    //  var defaultFont() NSFont {
+    //    NSFont.systemFont(ofSize: self.fontSize)
+    //  }
+    //  var defaultColour: NSColor { NSColor.textColor }
+    //  //    NSFont.systemFont(ofSize: self.fontSize)
+    //  //  }
+    
+  }
+}
+
+
 /// Highlighter Common expects the Source Editor to
 /// suppler an instance of this.
 public enum Editor {
