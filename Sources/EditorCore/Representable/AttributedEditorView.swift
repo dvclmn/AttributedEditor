@@ -13,7 +13,8 @@ import Sharing
 @MainActor
 public struct AttributedEditorView: NSViewRepresentable {
   @Binding public var text: String
-  @Shared(.fontSize) var fontSize: CGFloat
+  let fontSize: CGFloat
+//  @Shared(.fontSize) var fontSize: CGFloat
   @Binding var cursorPosition: InsertionPointPosition?
   var highlighter: any Highlighter
   let editorConfig: Editor.Configuration
@@ -28,7 +29,8 @@ public struct AttributedEditorView: NSViewRepresentable {
     debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text
-    self._fontSize = Shared(value: fontSize)
+    self.fontSize = fontSize
+//    self._fontSize = Shared(value: fontSize)
     self._cursorPosition = cursorPosition
     self.editorConfig = config
     self.highlighter = highlighter
@@ -52,7 +54,7 @@ extension AttributedEditorView {
     /// Create and configure the text view
     let textView = BackingTextView()
     textView.delegate = context.coordinator
-    textView.setUpTextView(config: editorConfig)
+    textView.setUpTextView(fontSize: fontSize, config: editorConfig)
 
     textView.textContainer?.containerSize = NSSize(
       width: scrollView.contentSize.width,
