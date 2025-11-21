@@ -21,14 +21,14 @@ public struct AttributedEditorView: NSViewRepresentable {
 
   public init(
     text: Binding<String>,
-    fontSize: CGFloat = 15,
+    fontSize: CGFloat,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     config: Editor.Configuration = .init(),
     highlighter: any Highlighter,
     debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text
-    self._fontSize = Shared(wrappedValue: fontSize, .fontSize)
+    self._fontSize = Shared(value: fontSize)
     self._cursorPosition = cursorPosition
     self.editorConfig = config
     self.highlighter = highlighter
