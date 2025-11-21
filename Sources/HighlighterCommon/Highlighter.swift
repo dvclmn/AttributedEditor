@@ -24,13 +24,14 @@ extension Highlighter {
     in rect: CGRect,
   ) -> NSBezierPath {
     /// Add padding around the text
-    let paddedRect = rect.insetBy(dx: -5, dy: -4).offsetBy(dx: 0, dy: -3)
+//    let paddedRect = rect.offsetBy(dx: 0, dy: 20)
+    let paddedRect = rect.insetBy(dx: -5, dy: -4).offsetBy(dx: 0, dy: 16)
 
     /// Create a rounded rectangle path
     let path = NSBezierPath(
       roundedRect: paddedRect,
-      xRadius: 6,
-      yRadius: 6
+      xRadius: 4,
+      yRadius: 4
     )
 
     /// Fill with a subtle background color

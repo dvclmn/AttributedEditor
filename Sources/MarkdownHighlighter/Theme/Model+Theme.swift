@@ -15,7 +15,7 @@ extension Markdown {
     /// Global Defaults
     var defaultBodyColor: CodableColour = .primary
     var defaultSyntaxColor: CodableColour = .tertiary
-    var defaultMetadataColor: CodableColour = .secondary  // For URLs, etc.
+    var defaultMetadataColor: CodableColour = .secondary
 
   }
 }

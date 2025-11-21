@@ -19,7 +19,7 @@ extension Markdown.SyntaxRule where T == RegexShape.CodeBlock {
     return SyntaxRule(
       syntax: syntax,
       pattern: pattern,
-      exposesBlockRange: true,
+      exposesBlockRange: false,
     )
   }
 }

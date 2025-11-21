@@ -19,22 +19,26 @@ public final class MarkdownHighlighter: Highlighter {
   var rules: [RegexShape] {
     [
       //      .prefix(.heading),
-      //      .wrap(.bold),
-      //      .wrap(.italic),
-      //      .wrap(.boldItalic),
+      /// 📣 Important: The ordering for styles to work is:
+      /// 1: `italic`
+      /// 2: `bold`
+      /// 3: `boldItalic`
+      .wrap(.italic),
+      .wrap(.bold),
+      .wrap(.boldItalic),
       //      .single(.horizontalRule),
-      //      .codeBlock(.codeBlock),
       //      .wrapPair(.link),
-      .wrap(.inlineCode)
+      .wrap(.inlineCode),
+      //      .codeBlock(.codeBlock),
     ]
   }
 
   public init(
-//    fontSize: CGFloat,
+    //    fontSize: CGFloat,
     //    config: Editor.Configuration,
     theme: Markdown.Theme,
   ) {
-//    self.fontSize = fontSize
+    //    self.fontSize = fontSize
     //    self.editorConfig = config
     self.theme = theme
     //    self.styleLibrary = Markdown.StyleLibrary(
@@ -76,9 +80,9 @@ public final class MarkdownHighlighter: Highlighter {
 extension MarkdownHighlighter {
   public func updateFontSize(_ size: CGFloat) {
     self.fontSize = size
-//    self.theme = theme
+    //    self.theme = theme
   }
-  
+
   public func updateTheme(_ theme: Markdown.Theme) {
     self.theme = theme
   }

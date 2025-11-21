@@ -42,13 +42,15 @@ extension Markdown.Theme {
     // Metadata case: Code Block
     /// We use the `.languageHint` alias, which also saves to `.metadata`
     theme.register(.codeBlock) {
-      $0.content = TokenStyle(font: .monoSpace)
-      $0.languageHint = TokenStyle(colour: .secondary)  // "swift"
+      $0.content = TokenStyle(colour: .secondary, font: .monoSpace)
+      $0.languageHint = TokenStyle(colour: .tertiary, font: .monoSpace)
+      $0.syntax = TokenStyle(colour: .gray, font: .monoSpace)
     }
 
     theme.register(.inlineCode) {
-      $0.content = TokenStyle(font: .monoSpace)
-      $0.background = .gray
+      $0.content = TokenStyle(colour: .brown,font: .monoSpace,)
+      $0.syntax = TokenStyle(colour: .gray, font: .monoSpace)
+
     }
 
     return theme

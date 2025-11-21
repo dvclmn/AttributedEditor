@@ -21,10 +21,12 @@ extension TokenStyle {
 
   func nsFont(_ size: CGFloat) -> NSFont? {
 
+    let isMono: Bool = self.font?.contains(.monoSpace) ?? false
     //    let isMono = Self.isMonospaced(for: syntax, part: part)
-    //    let scaleFactor: CGFloat = isMono ? 0.88 : 1.0
+
+    let monoFactor: CGFloat? = isMono ? 0.95 : nil
     //    let adjustedFontSize = max(9, size * scaleFactor)
-    let scaledSize = size * (fontScaleFactor ?? 1)
+    let scaledSize = size * (fontScaleFactor ?? monoFactor ?? 1)
     return self.font?.resolvedFont(
       size: scaledSize,
       baseFont: NSFont.systemFont(ofSize: size)

@@ -54,9 +54,6 @@ class BackingTextView: NSTextView {
       let path = highlighter.drawBlockPath(in: rect)
       //      let path = Highlighter.blockPath(in: rect)
       path.fill()
-
-      /// Optional: draw a border
-
       path.stroke()
     }
   }
