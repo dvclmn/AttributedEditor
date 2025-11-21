@@ -32,6 +32,10 @@ extension Highlighter {
 
     /// Apply each highlighted range's attributes
     for run in runs {
+      /// Convert font descriptors to concrete fonts
+//      if run.attributes.contains(where: {$0.key == .font}) {
+//        
+//      }
       attrString.addAttributes(run.attributes, range: run.range)
     }
 

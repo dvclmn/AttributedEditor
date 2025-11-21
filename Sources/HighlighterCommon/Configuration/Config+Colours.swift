@@ -8,27 +8,27 @@
 import AppKit
 import ColourKit
 
-extension Editor {
-  public struct Colours {
-    public let body: CodableColour
-    public let insertionPoint: CodableColour
-    
-    public init(
-      body: CodableColour = .system(.primary),
-      insertionPoint: CodableColour = .system(.accentColor)
-    ) {
-      self.body = body
-      self.insertionPoint = insertionPoint
-    }
-  }
-}
-
-extension Editor.Colours {
-  
-  /// Falls back to system colour
-  public func nsColor(
-    for keyPath: KeyPath<Self, CodableColour>
-  ) -> NSColor {
-    return self[keyPath: keyPath].nsColor ?? .labelColor
-  }
-}
+//extension Editor {
+//  public struct Colours {
+//    public let body: CodableColour
+//    public let insertionPoint: CodableColour
+//    
+//    public init(
+//      body: CodableColour = .system(.primary),
+//      insertionPoint: CodableColour = .system(.accentColor)
+//    ) {
+//      self.body = body
+//      self.insertionPoint = insertionPoint
+//    }
+//  }
+//}
+//
+//extension Editor.Colours {
+//  
+//  /// Falls back to system colour
+//  public func nsColor(
+//    for keyPath: KeyPath<Self, CodableColour>
+//  ) -> NSColor {
+//    return self[keyPath: keyPath].nsColor ?? .labelColor
+//  }
+//}

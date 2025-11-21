@@ -11,6 +11,7 @@ import HighlighterCommon
 
 public final class MarkdownHighlighter: Highlighter {
 
+  public let fontSize: CGFloat
   var theme: Markdown.Theme
 
   public var blockRanges: BlockRanges = []
@@ -34,9 +35,11 @@ public final class MarkdownHighlighter: Highlighter {
   //  let styleLibrary: Markdown.StyleLibrary
 
   public init(
+    fontSize: CGFloat,
     //    config: Editor.Configuration,
     theme: Markdown.Theme,
   ) {
+    self.fontSize = fontSize
     //    self.editorConfig = config
     self.theme = theme
     //    self.styleLibrary = Markdown.StyleLibrary(

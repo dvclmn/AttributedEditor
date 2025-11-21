@@ -14,7 +14,8 @@ extension BackingTextView {
 
   func setUpTextView(
     fontSize: CGFloat,
-    config: Editor.Configuration
+    config: Editor.Configuration,
+    defaults: Editor.Defaults
   ) {
 
     isEditable = config.isEditable
@@ -32,14 +33,14 @@ extension BackingTextView {
 
     self.setInsets(config.insets)
 
-    let defaultFont = NSFont.systemFont(ofSize: fontSize)
+    let defaultFont = defaults.font
     let paragraphStyle = config.paragraphStyle
 
     font = defaultFont
 
     typingAttributes = [
       .font: defaultFont,
-      .foregroundColor: config.defaultColour,
+      .foregroundColor: defaults.textColour,
       .paragraphStyle: paragraphStyle,
     ]
 

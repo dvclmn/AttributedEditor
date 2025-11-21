@@ -12,8 +12,8 @@ import SwiftUI
 
 extension Editor {
   public struct Defaults {
-    let font: NSFont
-    let textColour: NSColor
+    public let font: NSFont
+    public let textColour: NSColor
     
     public init(font: NSFont, textColour: NSColor) {
       self.font = font
@@ -61,7 +61,7 @@ public enum Editor {
     /// stops growing and remains centered horizontally
     public let maxWidth: CGFloat?
 
-    public let colours: Colours
+//    public let colours: Colours
 
     public init(
       isEditable: Bool = true,
@@ -72,7 +72,7 @@ public enum Editor {
       insets: CGSize = CGSize(10, 20),
       overScroll: CGFloat = 40,
       maxWidth: CGFloat? = nil,
-      colours: Colours = .init()
+//      colours: Colours = .init()
     ) {
       self.isEditable = isEditable
       self.options = options
@@ -81,14 +81,14 @@ public enum Editor {
       self.insets = insets
       self.overScroll = overScroll
       self.maxWidth = maxWidth
-      self.colours = colours
+//      self.colours = colours
     }
   }
 }
 
 extension Editor.Configuration {
 
-  public var defaultColour: NSColor { colours.nsColor(for: \.body) }
+//  public var defaultColour: NSColor { colours.nsColor(for: \.body) }
 
   public var codeBlockInsets: CGSize { insets.adjustLengths(by: 0.4) }
 

@@ -60,7 +60,11 @@ extension AttributedEditorView {
     /// Create and configure the text view
     let textView = BackingTextView()
     textView.delegate = context.coordinator
-    textView.setUpTextView(fontSize: fontSize, config: editorConfig)
+    textView.setUpTextView(
+      fontSize: fontSize,
+      config: editorConfig,
+      defaults: editorDefaults
+    )
 
     textView.textContainer?.containerSize = NSSize(
       width: scrollView.contentSize.width,
