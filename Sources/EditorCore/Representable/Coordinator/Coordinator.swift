@@ -5,12 +5,9 @@
 //  Created by Dave Coleman on 14/8/2024.
 //
 
-//import BaseHelpers
 import SwiftUI
 
 extension AttributedEditorView {
-  // MARK: - Coordinator
-
   @MainActor
   public class Coordinator: NSObject, NSTextViewDelegate {
     let parent: AttributedEditorView
@@ -42,9 +39,10 @@ extension AttributedEditorView {
       highlightWorkItem = workItem
 
       /// Execute after debounce interval on the main queue
-      DispatchQueue.main.asyncAfter(deadline: .now() + parent.debounceInterval, execute: workItem)
+      DispatchQueue.main.asyncAfter(
+        deadline: .now() + parent.debounceInterval, execute: workItem)
     }
-    
+
     // MARK: - Text Did Change Selection
     /// This is for communicating text selection changes from AppKit to SwiftUI
     public func textViewDidChangeSelection(_ notification: Notification) {

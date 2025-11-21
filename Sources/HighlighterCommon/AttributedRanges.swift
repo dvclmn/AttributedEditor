@@ -9,6 +9,10 @@ import AppKit
 import CoreTools
 
 public typealias AttributedRanges = [AttributedRun]
+public typealias AttributedNSRanges = [(
+  range: NSRange,
+  attributes: TextAttributes
+)]
 
 public struct AttributedRun {
   public let tag: String?
@@ -27,7 +31,7 @@ public struct AttributedRun {
 }
 
 extension AttributedRanges {
-
+  
   /// `Attribute` is a small type safe wrapper
   /// around `NSAttributedString.Key`
   public mutating func update(

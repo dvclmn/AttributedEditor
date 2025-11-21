@@ -14,9 +14,25 @@ public struct MarkdownStyles {
   /// For drawing backgrounds
   let blocks: [Range<String.Index>]
 
-  public init(attributes: AttributedRanges, blocks: [Range<String.Index>]) {
+  public init(
+    attributes: AttributedRanges,
+    blocks: [Range<String.Index>]
+  ) {
     self.attributes = attributes
     self.blocks = blocks
+  }
+}
+
+extension AttributedRanges {
+
+  public func toNSRanges(
+    in text: String
+  ) -> AttributedNSRanges {
+    self.map { run in
+      let range = run.range.toNSRange(in: text)
+      let attributes = run.attributes
+      return (range, attributes)
+    }
   }
 }
 

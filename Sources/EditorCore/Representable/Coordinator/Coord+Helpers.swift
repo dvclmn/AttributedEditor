@@ -9,7 +9,7 @@ import AppKit
 import HighlighterCommon
 
 extension AttributedEditorView.Coordinator {
-  
+
   func applyHighlighting() {
     guard let textView else { return }
     let currentText = textView.string
@@ -20,13 +20,12 @@ extension AttributedEditorView.Coordinator {
       textView: textView,
       config: self.parent.config
     )
-    textView.updateBlockRanges(blockRanges)
+//    textView.updateBlockRanges(blockRanges)
 
   }
 
   func updateInsertionPointPosition() {
     guard let textView else { return }
-
     DispatchQueue.main.async {
       self.parent.cursorPosition = textView.insertionPointPosition()
 

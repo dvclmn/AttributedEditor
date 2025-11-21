@@ -8,19 +8,6 @@
 import AppKit
 import CoreTools
 
-extension AttributedRanges {
-
-  public func withNSRanges(
-    in text: String
-  ) -> [(range: NSRange, attributes: TextAttributes)] {
-    self.map { run in
-      (
-        range: run.range.toNSRange(in: text),
-        attributes: run.attributes
-      )
-    }
-  }
-}
 extension Highlighter {
 
   @MainActor
@@ -31,22 +18,13 @@ extension Highlighter {
   ) -> [NSRange] {
 
     let attrString = NSMutableAttributedString(string: currentText)
-
-    /// Apply default attributes to the entire text
-    let defaultAttributes: TextAttributes = [
-      .font: config.defaultFont,
-      .foregroundColor: config.defaultColour,
-    ]
-    attrString.setAttributes(
-      defaultAttributes,
-      range: attrString.fullRange
-    )
+    setDefaultStyles(with: config, attrString: attrString)
 
     /// Get highlighted ranges from the syntax highlighter
     let markdownStyles = self.highlight(text: currentText)
 
     /// Convert from `Range<String.Index>` to `NSRange`
-    let runs = markdownStyles.attributes.withNSRanges(in: currentText)
+    let runs = markdownStyles.attributes.toNSRanges(in: currentText)
 
     /// Apply each highlighted range's attributes
     for run in runs {
@@ -66,11 +44,30 @@ extension Highlighter {
 
     /// Refresh line numbers
     textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
-    
+
     textView.needsDisplay = true
-    
-//    textView.updateBlockRanges(markdownStyles.blocks)
+
+    //    textView.updateBlockRanges(markdownStyles.blocks)
     return markdownStyles.blocks.map { $0.toNSRange(in: currentText) }
 
+  }
+
+  /// Note: even though it feels weird, `attrString` can
+  /// still be mutated, even though it's not being passed
+  /// as an `inout` parameter, because it is a class.
+  private func setDefaultStyles(
+    with config: Editor.Configuration,
+    attrString: NSMutableAttributedString
+  ) {
+
+    /// Apply default attributes to the entire text
+    let defaultAttributes: TextAttributes = [
+      .font: config.defaultFont,
+      .foregroundColor: config.defaultColour,
+    ]
+    attrString.setAttributes(
+      defaultAttributes,
+      range: attrString.fullRange
+    )
   }
 }
