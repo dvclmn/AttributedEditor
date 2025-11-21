@@ -9,10 +9,6 @@ import AppKit
 import Foundation
 import HighlighterCommon
 
-//public typealias SyntaxOutput<T> = (
-//  Regex<T>.Match,
-//  inout AttributedRanges
-//) -> Void
 public typealias SyntaxRule<T> = Markdown.SyntaxRule<T>
 
 extension Markdown {

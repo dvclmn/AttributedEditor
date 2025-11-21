@@ -28,13 +28,15 @@ public struct AttributedRun {
 
 extension AttributedRanges {
 
-  /// Type-safe version
+  /// `Attribute` is a small type safe wrapper
+  /// around `NSAttributedString.Key`
   public mutating func update(
     _ attribute: Attribute?,
     in range: Range<String.Index>,
     tag: String?
   ) {
     guard let attribute else { return }
+    
     /// If an existing run matches exactly, update it.
     if let index = self.firstIndex(where: { $0.range == range }) {
       attribute.update(&self[index].attributes)

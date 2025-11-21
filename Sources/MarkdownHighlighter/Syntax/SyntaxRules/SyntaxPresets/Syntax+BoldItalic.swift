@@ -24,7 +24,8 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
 
   static var italic: Self {
 
-    let pattern = /(?<leading>[\*_])(?<content>[^\*_ \n][^\n]*?[^\*_ \n])(?<trailing>\k<leading>)/
+    let pattern =
+      /(?<leading>[\*_])(?<content>[^\*_ \n][^\n]*?[^\*_ \n])(?<trailing>\k<leading>)/
     let syntax: Markdown.Syntax = .italic
 
     return SyntaxRule(

@@ -9,9 +9,23 @@ import AppKit
 
 class BackingTextView: NSTextView {
   var blockRanges: [NSRange] = []
-  private var hiddenSyntaxRanges: [NSRange] = []  // track what's hidden
+//  private var hiddenSyntaxRanges: [NSRange] = []  // track what's hidden
   //  internal var selectedRange: NSRange { selectedRanges.first?.rangeValue ?? NSRange(location: 0, length: 0) }
-
+  
+  
+  init(
+    blockRanges: [NSRange],
+//    hiddenSyntaxRanges: [NSRange]
+  ) {
+    self.blockRanges = blockRanges
+//    self.hiddenSyntaxRanges = hiddenSyntaxRanges
+    super.init(frame: .zero)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func draw(_ dirtyRect: NSRect) {
     /// Draw custom backgrounds before text is rendered
     drawBlockBackgrounds()
@@ -99,5 +113,4 @@ extension BackingTextView {
       ruleRect.fill()
     }
   }
-
 }

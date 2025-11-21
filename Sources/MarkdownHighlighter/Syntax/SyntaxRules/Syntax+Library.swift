@@ -25,20 +25,20 @@ extension Markdown {
 
 extension Markdown.StyleLibrary {
 
-//  public var blockRangeRules: [RegexShape] {
-//    rules.filter { $0.exposesBlockRange }
-//  }
+  //  public var blockRangeRules: [RegexShape] {
+  //    rules.filter { $0.exposesBlockRange }
+  //  }
 
   var rules: [RegexShape] {
     [
       //      .prefix(.heading),
-      .wrap(.bold),
-      .wrap(.italic),
-      .wrap(.boldItalic),
+      //      .wrap(.bold),
+      //      .wrap(.italic),
+      //      .wrap(.boldItalic),
       //      .single(.horizontalRule),
-      .codeBlock(.codeBlock),
+      //      .codeBlock(.codeBlock),
       //      .wrapPair(.link),
-      .wrap(.inlineCode),
+      .wrap(.inlineCode)
     ]
   }
 
@@ -48,162 +48,80 @@ extension Markdown.StyleLibrary {
     blockRanges: inout [Range<String.Index>]
   ) {
     for rule in self.rules {
-      switch rule {
-        case .wrap(let syntaxRule):
-          for match in text.matches(of: syntaxRule.pattern) {
-            syntaxRule.apply(
-              match: match,
-              theme: theme,
-              fontSize: fontSize,
-              attrs: &attributes
-            )
-            if syntaxRule.exposesBlockRange {
-              blockRanges.append(match.range)
-            }
-          }
-        case .prefix(let syntaxRule):
-          for match in text.matches(of: syntaxRule.pattern) {
-            syntaxRule.apply(
-              match: match,
-              theme: theme,
-              fontSize: fontSize,
-              attrs: &attributes
-            )
-            if syntaxRule.exposesBlockRange {
-              blockRanges.append(match.range)
-            }
-          }
-
-        case .single(let syntaxRule):
-          for match in text.matches(of: syntaxRule.pattern) {
-            syntaxRule.apply(
-              match: match,
-              theme: theme,
-              fontSize: fontSize,
-              attrs: &attributes
-            )
-            if syntaxRule.exposesBlockRange {
-              blockRanges.append(match.range)
-            }
-          }
-
-        case .codeBlock(let syntaxRule):
-          for match in text.matches(of: syntaxRule.pattern) {
-            syntaxRule.apply(
-              match: match,
-              theme: theme,
-              fontSize: fontSize,
-              attrs: &attributes
-            )
-            if syntaxRule.exposesBlockRange {
-              blockRanges.append(match.range)
-            }
-          }
-
-        case .wrapPair(let syntaxRule):
-          for match in text.matches(of: syntaxRule.pattern) {
-            syntaxRule.apply(
-              match: match,
-              theme: theme,
-              fontSize: fontSize,
-              attrs: &attributes
-            )
-            if syntaxRule.exposesBlockRange {
-              blockRanges.append(match.range)
-            }
-          }
-
-      }
+      self.thing(rule, to: text, attr: &attributes, blocks: &blockRanges)
     }
   }
 
-  //  func apply(
-  //    rule: AnyRule,
-  //    match: AnyRuleMatch,
-  //    text: String,
-  //
-  //    attributes: inout AttributedRanges
-  //  ) {
-  //    switch rule.syntax {
-  //      case .bold:
-  //        guard let typed = match.output as? RegexShape.Wrap else {
-  //          //        guard let typedRule = rule as? SyntaxRule<RegexShape.Wrap> else {
-  //          print("Something happened")
-  //          return
-  //        }
-  //
-  //        rule.applyWrap(
-  //          match: match,
-  //          theme: theme,
-  //          fontSize: fontSize,
-  //          attrs: &attributes
-  //        )
-  //      // Your existing applyWrap logic
-  //
-  //      case .heading1:
-  //        let typed = match.output as! RegexShape.Prefix
-  //      // applyPrefix logic
-  //
-  //      case .inlineCode:
-  //        let typed = match.output as! RegexShape.Wrap
-  //      // etc.
-  //
-  //      default: break
-  //    }
-  //  }
-}
-//static var orderedRules: [AnyRule] {
-//  [
-//    AnyRule(SyntaxRule.heading()),
-//    //        AnyRule(SyntaxRule.fencedCodeBlock()),
-//    AnyRule(SyntaxRule.inlineCode()),
-//    AnyRule(SyntaxRule.bold()),
-//    AnyRule(SyntaxRule.italic()),
-//    AnyRule(SyntaxRule.horizontalRule()),
-//
-//  ]
-//}
+  private func thing(
+    _ rule: RegexShape,
+    to text: String,
+    attr: inout AttributedRanges,
+    blocks: inout [Range<String.Index>]
+  ) {
+    switch rule {
+      case .wrap(let syntaxRule):
+        for match in text.matches(of: syntaxRule.pattern) {
+          syntaxRule.apply(
+            match: match,
+            theme: theme,
+            fontSize: fontSize,
+            attrs: &attr
+          )
+          if syntaxRule.exposesBlockRange {
+            blocks.append(match.range)
+          }
+        }
+      case .prefix(let syntaxRule):
+        for match in text.matches(of: syntaxRule.pattern) {
+          syntaxRule.apply(
+            match: match,
+            theme: theme,
+            fontSize: fontSize,
+            attrs: &attr
+          )
+          if syntaxRule.exposesBlockRange {
+            blocks.append(match.range)
+          }
+        }
 
-//  static var wrapRules: [SyntaxRule<RegexShape.Wrap>] {
-//    [
-//      SyntaxRule.bold(),
-//      SyntaxRule.italic(),
-//      SyntaxRule.boldItalic(),
-//    ]
-//  }
-//
-//  static var singleRules: [SyntaxRule<RegexShape.Single>] {
-//    [
-//      SyntaxRule.horizontalRule()
-//    ]
-//  }
-//
-//  func applyAttributes(
-//    to text: String,
-//    attributes: inout AttributedRanges
-//  ) {
-//    for rule in Self.wrapRules {
-//      let matches = text.matches(of: rule.pattern)
-//      for match in matches {
-//        rule.applyWrap(
-//          match: match,
-//          theme: self.theme,
-//          fontSize: fontSize,
-//          attrs: &attributes
-//        )
-//      }
-//    }
-//
-//    for rule in Self.singleRules {
-//      let matches = text.matches(of: rule.pattern)
-//      for match in matches {
-//        rule.applySingle(
-//          match: match,
-//          theme: self.theme,
-//          fontSize: fontSize,
-//          attrs: &attributes
-//        )
-//      }
-//    }
-//  }
-//}
+      case .single(let syntaxRule):
+        for match in text.matches(of: syntaxRule.pattern) {
+          syntaxRule.apply(
+            match: match,
+            theme: theme,
+            fontSize: fontSize,
+            attrs: &attr
+          )
+          if syntaxRule.exposesBlockRange {
+            blocks.append(match.range)
+          }
+        }
+
+      case .codeBlock(let syntaxRule):
+        for match in text.matches(of: syntaxRule.pattern) {
+          syntaxRule.apply(
+            match: match,
+            theme: theme,
+            fontSize: fontSize,
+            attrs: &attr
+          )
+          if syntaxRule.exposesBlockRange {
+            blocks.append(match.range)
+          }
+        }
+
+      case .wrapPair(let syntaxRule):
+        for match in text.matches(of: syntaxRule.pattern) {
+          syntaxRule.apply(
+            match: match,
+            theme: theme,
+            fontSize: fontSize,
+            attrs: &attr
+          )
+          if syntaxRule.exposesBlockRange {
+            blocks.append(match.range)
+          }
+        }
+    }
+  }
+}

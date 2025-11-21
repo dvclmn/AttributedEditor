@@ -37,19 +37,9 @@ extension MarkdownStyles: CustomStringConvertible {
             Labeled("Tag", value: "\(attr.tag, default: "none")")
             Labeled("Desc.", value: "\(dictString)")
             Divider()
-//            Labeled("Range", value: "\(attr.range)")
           }
         }
       }
     }.plainText
-  }
+  } // END description
 }
-
-//extension Range where Bound == String.Index {
-//  var pretty: String {
-//    DisplayString {
-//      Labeled("Lower", value: self.lowerBound.debugDescription)
-//      Labeled("Upper", value: self.upperBound.debugDescription)
-//    }.plainText
-//  }
-//}
