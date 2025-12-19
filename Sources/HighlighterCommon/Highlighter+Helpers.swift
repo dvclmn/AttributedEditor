@@ -8,7 +8,7 @@
 import AppKit
 import CoreTools
 
-extension Highlighter {
+extension Highlighter.Core {
 
   @MainActor
   public func apply(

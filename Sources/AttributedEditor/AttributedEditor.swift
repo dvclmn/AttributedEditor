@@ -25,7 +25,7 @@ public struct AttributedEditor: View {
   let fontSize: CGFloat
 
   public init(
-    text: Binding<String>,
+    _ text: Binding<String>,
     fontSize: CGFloat,
     languageHint: LanguageHint
   ) {
@@ -45,7 +45,7 @@ public struct AttributedEditor: View {
       fontSize: fontSize,
       config: Editor.Configuration(
         isEditable: isEditable,
-        options: [.lineNumbers],
+        options: [],
         lineSpacing: lineSpacing,
         insets: insets,
         overScroll: overScroll,
@@ -54,15 +54,16 @@ public struct AttributedEditor: View {
       highlighter: highlighter,
 
     )
-    .onAppear {
-      highlighter.updateTheme(markdownTheme)
-    }
+    // TODO: Bring this back
+//    .onAppear {
+//      highlighter.updateTheme(markdownTheme)
+//    }
   }
 }
 #if DEBUG
 #Preview {
   @Previewable @State var text: String = DummyContent.Strings.paragraphsWithCode[1]
-  AttributedEditor(text: $text, fontSize: 21)
+  AttributedEditor($text, fontSize: 21, languageHint: .markdown)
     .frame(width: 600, height: 690)
 }
 #endif
