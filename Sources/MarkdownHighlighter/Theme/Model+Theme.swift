@@ -7,9 +7,11 @@
 
 import AppKit
 import ColourKit
+import HighlighterCommon
 
 extension Markdown {
-  public struct Theme: Sendable {
+//  public struct Theme: Sendable {
+  public struct Theme: Sendable, Highlighter.Theme {
     var styles: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
 
     /// Global Defaults

@@ -19,17 +19,24 @@ public struct AttributedEditor: View {
   @Environment(\.lineSpacing) private var lineSpacing
 
   @Binding var text: String
-  let markdownHighlighter: MarkdownHighlighter
+  let languageHint: LanguageHint
+  let highlighter: any Highlighter.Core
+//  let markdownHighlighter: MarkdownHighlighter
   let fontSize: CGFloat
 
   public init(
     text: Binding<String>,
     fontSize: CGFloat,
+    languageHint: LanguageHint
   ) {
     self._text = text
     self.fontSize = fontSize
-    let highlighter: MarkdownHighlighter = .init(theme: .default)
-    self.markdownHighlighter = highlighter
+    self.languageHint = languageHint
+    
+    switch languageHint {
+      /// Support for more to come
+      default: self.highlighter = MarkdownHighlighter()
+    }
   }
 
   public var body: some View {
@@ -44,11 +51,11 @@ public struct AttributedEditor: View {
         overScroll: overScroll,
         maxWidth: nil
       ),
-      highlighter: markdownHighlighter,
+      highlighter: highlighter,
 
     )
     .onAppear {
-      markdownHighlighter.updateTheme(markdownTheme)
+      highlighter.updateTheme(markdownTheme)
     }
   }
 }

@@ -6,9 +6,8 @@
 //
 
 /// Languages with syntax highlighting support
-///
-/// Note:
-public enum LanguageSupport {
+/// I guess these literally correspond to the Highlighters
+public enum LanguageHint {
   case markdown
   case swift
   case python
@@ -19,7 +18,7 @@ public enum LanguageSupport {
   case generic
 }
 
-extension LanguageSupport {
+extension LanguageHint {
   public var validNames: [String] {
     switch self {
       case .markdown: return ["markdown", "md"]

@@ -9,11 +9,10 @@ import AppKit
 import CoreTools
 import HighlighterCommon
 
-public final class MarkdownHighlighter: Highlighter {
+public final class MarkdownHighlighter: Highlighter.Core {
 
   public var fontSize: CGFloat = 15
-  var theme: Markdown.Theme
-
+  public var theme: Markdown.Theme
   public var blockRanges: BlockRanges = []
 
   var rules: [RegexShape] {
@@ -36,7 +35,7 @@ public final class MarkdownHighlighter: Highlighter {
   public init(
     //    fontSize: CGFloat,
     //    config: Editor.Configuration,
-    theme: Markdown.Theme,
+    theme: Markdown.Theme = .default,
   ) {
     //    self.fontSize = fontSize
     //    self.editorConfig = config

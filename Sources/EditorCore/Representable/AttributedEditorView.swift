@@ -16,7 +16,7 @@ public struct AttributedEditorView: NSViewRepresentable {
   let fontSize: CGFloat
 //  @Shared(.fontSize) var fontSize: CGFloat
   @Binding var cursorPosition: InsertionPointPosition?
-  var highlighter: any Highlighter
+  var highlighter: any Highlighter.Core
   let editorConfig: Editor.Configuration
   let debounceInterval: TimeInterval
 
@@ -25,7 +25,7 @@ public struct AttributedEditorView: NSViewRepresentable {
     fontSize: CGFloat,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     config: Editor.Configuration = .init(),
-    highlighter: any Highlighter,
+    highlighter: any Highlighter.Core,
     debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text

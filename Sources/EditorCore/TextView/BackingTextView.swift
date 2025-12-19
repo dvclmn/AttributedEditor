@@ -9,7 +9,7 @@ import AppKit
 import HighlighterCommon
 
 class BackingTextView: NSTextView {
-  var highlighter: (any Highlighter)? = nil
+  var highlighter: (any Highlighter.Core)? = nil
   //  var blockRanges: [NSRange]
   //  private var hiddenSyntaxRanges: [NSRange] = []  // track what's hidden
   //  internal var selectedRange: NSRange { selectedRanges.first?.rangeValue ?? NSRange(location: 0, length: 0) }
@@ -58,7 +58,7 @@ class BackingTextView: NSTextView {
     }
   }
 
-  func updateHighlighter(_ new: any Highlighter) {
+  func updateHighlighter(_ new: any Highlighter.Core) {
     //  func updateBlockRanges(_ ranges: [NSRange]) {
     highlighter = new
     //    blockRanges = ranges

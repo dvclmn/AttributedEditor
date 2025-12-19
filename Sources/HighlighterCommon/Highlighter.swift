@@ -8,23 +8,33 @@
 import AppKit
 import SwiftUI
 
-/// Protocol defining how text should be analyzed and highlighted
-public protocol Highlighter: AnyObject {
-
-  var fontSize: CGFloat { get set }
-  var blockRanges: BlockRanges { get set }
-  func buildStyles(in text: String) -> AttributedRanges
-  func drawBlockPath(in rect: CGRect) -> NSBezierPath
-  
-  func updateFontSize(_ size: CGFloat)
-}
+public enum Highlighter {}
 
 extension Highlighter {
+  /// Protocol defining how text should be analyzed and highlighted
+  public protocol Core: AnyObject {
+    associatedtype HighlighterTheme: Theme
+    var fontSize: CGFloat { get set }
+    var blockRanges: BlockRanges { get set }
+    var theme: HighlighterTheme { get set }
+    func buildStyles(in text: String) -> AttributedRanges
+    func drawBlockPath(in rect: CGRect) -> NSBezierPath
+    
+    func updateFontSize(_ size: CGFloat)
+    func updateTheme(_ theme: HighlighterTheme)
+  }
+}
+
+extension Highlighter.Core {
+  public func updateTheme(_ theme: HighlighterTheme) {
+    self.theme = theme
+  }
+  
   public func drawBlockPath(
     in rect: CGRect,
   ) -> NSBezierPath {
     /// Add padding around the text
-//    let paddedRect = rect.offsetBy(dx: 0, dy: 20)
+    //    let paddedRect = rect.offsetBy(dx: 0, dy: 20)
     let paddedRect = rect.insetBy(dx: -5, dy: -4).offsetBy(dx: 0, dy: 16)
 
     /// Create a rounded rectangle path
