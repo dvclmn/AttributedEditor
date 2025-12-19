@@ -90,7 +90,7 @@ extension Editor.Configuration {
 
 //  public var defaultColour: NSColor { colours.nsColor(for: \.body) }
 
-  public var codeBlockInsets: CGSize { insets.adjustLengths(by: 0.4) }
+  public var codeBlockInsets: CGSize { insets.multiplyBoth(by: 0.4) }
 
   public var paragraphStyle: NSParagraphStyle {
     let paragraphStyle = NSMutableParagraphStyle()
