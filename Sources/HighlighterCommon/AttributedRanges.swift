@@ -16,7 +16,7 @@ public typealias AttributedNSRanges = [(
 )]
 
 public struct AttributedRun {
-  public let tag: String?
+  public let tag: String? // For debugging
   public let range: Range<String.Index>
   public var attributes: TextAttributes
 
@@ -32,7 +32,20 @@ public struct AttributedRun {
 }
 
 extension AttributedRanges {
-  
+
+  public func toNSRanges(
+    in text: String
+  ) -> AttributedNSRanges {
+    self.compactMap { run in
+      guard let range = run.range.toNSRange(in: text) else {
+        print("Error getting NSRange?")
+        return nil
+      }
+      let attributes = run.attributes
+      return (range, attributes)
+    }
+  }
+
   /// `Attribute` is a small type safe wrapper
   /// around `NSAttributedString.Key`
   public mutating func update(
@@ -41,7 +54,7 @@ extension AttributedRanges {
     tag: String?
   ) {
     guard let attribute else { return }
-    
+
     /// If an existing run matches exactly, update it.
     if let index = self.firstIndex(where: { $0.range == range }) {
       attribute.update(&self[index].attributes)

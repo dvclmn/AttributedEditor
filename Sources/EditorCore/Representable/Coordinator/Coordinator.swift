@@ -20,7 +20,7 @@ extension AttributedEditorView {
     /// Debouncing mechanism
     private var highlightWorkItem: DispatchWorkItem?
 
-    // MARK: - Text Did Change
+    // MARK: - Text Changed
     /// This is for communicating changes from within AppKit, back to SwiftUI
     public func textDidChange(_ notification: Notification) {
       guard let textView = notification.object as? NSTextView else { return }
@@ -43,8 +43,8 @@ extension AttributedEditorView {
         deadline: .now() + parent.debounceInterval, execute: workItem)
     }
 
-    // MARK: - Text Did Change Selection
-    /// This is for communicating text selection changes from AppKit to SwiftUI
+    // MARK: - Selection Changed
+    /// This or communicating text selection changes from AppKit to SwiftUI
     public func textViewDidChangeSelection(_ notification: Notification) {
       updateInsertionPointPosition()
     }

@@ -23,7 +23,7 @@ extension MarkdownHighlighter {
           syntaxRule.apply(
             match: match,
             theme: theme,
-            fontSize: fontSize,
+//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {

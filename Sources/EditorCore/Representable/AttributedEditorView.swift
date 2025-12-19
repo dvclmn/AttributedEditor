@@ -7,25 +7,24 @@
 
 import AppKit
 import HighlighterCommon
-import SwiftUI
 import Sharing
+import SwiftUI
 
 @MainActor
 public struct AttributedEditorView: NSViewRepresentable {
   @Binding public var text: String
-//  let fontSize: CGFloat
-//  @Shared(.fontSize) var fontSize: CGFloat
   @Binding var cursorPosition: InsertionPointPosition?
   var highlighter: any Highlighter.Core
   let editorConfig: Editor.Configuration
   let debounceInterval: TimeInterval
+
+  /// The goal is to populate this from the SwiftUI environment
+  /// using Font.Resolved, and some mechanism for fallbacks
+  /// for macOS versions older than macOS 26
   let font: NSFont
-//  let font: Font?
 
   public init(
     text: Binding<String>,
-//    fontSize: CGFloat,
-//    font: Font? = nil,
     font: NSFont = .systemFont(ofSize: 14),
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     config: Editor.Configuration = .init(),
@@ -33,9 +32,7 @@ public struct AttributedEditorView: NSViewRepresentable {
     debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text
-//    self.fontSize = fontSize
     self.font = font
-//    self._fontSize = Shared(value: fontSize)
     self._cursorPosition = cursorPosition
     self.editorConfig = config
     self.highlighter = highlighter
@@ -44,17 +41,8 @@ public struct AttributedEditorView: NSViewRepresentable {
 }
 
 extension AttributedEditorView {
-  
-//  var editorDefaults: Editor.Defaults {
-//    .init(
-//      font: NSFont.systemFont(ofSize: fontSize),
-////      font: NSFont.systemFont(ofSize: fontSize),
-//      textColour: NSColor.textColor
-//    )
-//  }
-//  var config: Editor.Configuration { highlighter.editorConfig }
-  public func makeNSView(context: Context) -> NSScrollView {
 
+  public func makeNSView(context: Context) -> NSScrollView {
     /// Create the scroll view container
     let scrollView = NSScrollView()
     scrollView.hasVerticalScroller = true
@@ -66,12 +54,10 @@ extension AttributedEditorView {
     /// Create and configure the text view
     let textView = BackingTextView()
     textView.delegate = context.coordinator
-    
+
     textView.setUpTextView(
-      font: self.font,
-//      fontSize: fontSize,
+      font: font,
       config: editorConfig,
-//      defaults: editorDefaults
     )
 
     textView.textContainer?.containerSize = NSSize(
@@ -98,7 +84,9 @@ extension AttributedEditorView {
       object: scrollView.contentView,
       queue: .main
     ) { _ in
-      scrollView.verticalRulerView?.needsDisplay = true
+      DispatchQueue.main.async {
+        scrollView.verticalRulerView?.needsDisplay = true
+      }
     }
 
     return scrollView
@@ -118,10 +106,10 @@ extension AttributedEditorView {
       /// Apply highlighting immediately for external changes
       context.coordinator.applyHighlighting()
     }
-    
-//    if highlighter.fontSize != self.fontSize {
-//      highlighter.updateFontSize(self.fontSize)
-//    }
+
+    //    if highlighter.fontSize != self.fontSize {
+    //      highlighter.updateFontSize(self.fontSize)
+    //    }
   }
 
   public func makeCoordinator() -> Coordinator {

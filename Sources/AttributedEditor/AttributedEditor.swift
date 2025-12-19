@@ -23,16 +23,12 @@ public struct AttributedEditor: View {
   @Binding var text: String
   let languageHint: LanguageHint
   let highlighter: any Highlighter.Core
-  //  let markdownHighlighter: MarkdownHighlighter
-  //  let fontSize: CGFloat
 
   public init(
     _ text: Binding<String>,
-    //    fontSize: CGFloat,
     languageHint: LanguageHint
   ) {
     self._text = text
-    //    self.fontSize = fontSize
     self.languageHint = languageHint
 
     switch languageHint {
@@ -45,8 +41,6 @@ public struct AttributedEditor: View {
     AttributedEditorView(
       text: $text,
       font: finalFont,
-      //      font: nsFont,
-      //      fontSize: fontSize,
       config: Editor.Configuration(
         isEditable: isEditable,
         options: [],

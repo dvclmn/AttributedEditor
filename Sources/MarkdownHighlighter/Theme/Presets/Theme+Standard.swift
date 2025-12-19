@@ -15,6 +15,7 @@ extension Markdown.Theme {
     var theme = Self()
 
     theme.register(.bold) {
+//      $0.content = TokenStyle(colour: .primary, fontWeight: .bold)
       $0.content = TokenStyle(colour: .primary, font: .bold)
     }
     theme.register(.italic) {

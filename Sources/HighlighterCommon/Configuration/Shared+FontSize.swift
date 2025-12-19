@@ -8,11 +8,11 @@
 import Foundation
 import Sharing
 
-extension SharedKey where Self == InMemoryKey<CGFloat>.Default {
-  public static var fontSize: Self {
-    Self[.inMemory("fontSize"), default: 14]
-  }
-}
+//extension SharedKey where Self == InMemoryKey<CGFloat>.Default {
+//  public static var fontSize: Self {
+//    Self[.inMemory("fontSize"), default: 14]
+//  }
+//}
 //extension SharedKey where Self == FileStorageKey<Preferences>.Default {
 //
 //  static var preferences: Self {

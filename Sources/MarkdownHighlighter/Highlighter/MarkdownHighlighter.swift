@@ -11,7 +11,7 @@ import HighlighterCommon
 
 public final class MarkdownHighlighter: Highlighter.Core {
 
-  public var fontSize: CGFloat = 15
+//  public var fontSize: CGFloat = 15
   public var theme: Markdown.Theme
   public var blockRanges: BlockRanges = []
 
@@ -24,7 +24,7 @@ public final class MarkdownHighlighter: Highlighter.Core {
       /// 3: `boldItalic`
       .wrap(.italic),
       .wrap(.bold),
-      .wrap(.boldItalic),
+//      .wrap(.boldItalic),
       //      .single(.horizontalRule),
       //      .wrapPair(.link),
       .wrap(.inlineCode),

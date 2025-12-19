@@ -15,14 +15,10 @@ extension Highlighter.Core {
     font: NSFont,
     currentText: String,
     textView: NSTextView,
-//    defaults: Editor.Defaults
-//    config: Editor.Configuration,
   ) {
-//  ) -> [NSRange] {
 
     let attrString = NSMutableAttributedString(string: currentText)
     setDefaultStyles(font: font, attrString: attrString)
-//    setDefaultStyles(with: defaults, attrString: attrString)
 
     /// Get highlighted ranges from the syntax highlighter
     let attrRanges = self.buildStyles(
@@ -34,10 +30,6 @@ extension Highlighter.Core {
 
     /// Apply each highlighted range's attributes
     for run in runs {
-      /// Convert font descriptors to concrete fonts
-//      if run.attributes.contains(where: {$0.key == .font}) {
-//        
-//      }
       attrString.addAttributes(run.attributes, range: run.range)
     }
 
@@ -68,14 +60,11 @@ extension Highlighter.Core {
   /// as an `inout` parameter, because it is a class.
   private func setDefaultStyles(
     font defaultFont: NSFont,
-//    with defaults: Editor.Defaults,
-//    with config: Editor.Configuration,
     attrString: NSMutableAttributedString
   ) {
     /// Apply default attributes to the entire text
     let defaultAttributes: TextAttributes = [
       .font: defaultFont,
-//      .font: defaults.font,
       .foregroundColor: NSColor.textColor,
     ]
     attrString.setAttributes(

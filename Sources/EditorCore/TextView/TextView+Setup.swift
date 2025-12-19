@@ -14,9 +14,7 @@ extension BackingTextView {
 
   func setUpTextView(
     font defaultFont: NSFont,
-//    fontSize: CGFloat,
     config: Editor.Configuration,
-//    defaults: Editor.Defaults
   ) {
 
     isEditable = config.isEditable

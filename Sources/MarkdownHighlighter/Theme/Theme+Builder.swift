@@ -10,6 +10,7 @@ import ColourKit
 
 extension Markdown.Theme {
   struct SyntaxStyleBuilder {
+
     // MARK: - Core Storage
     var content: TokenStyle?
     var background: CodableColour?
@@ -18,16 +19,17 @@ extension Markdown.Theme {
 
     // MARK: - Semantic Aliases
 
-    /// The "Whack-a-mole" aliases
+    /// Re the below `url`, `languageHint` and `icon`:
+    /// Originally these were the problematic "Whack-a-mole" aliases
     /// These all just read/write to `metadata`, but make the call site readable.
 
-    /// Alias for `metadata` when configuring Links or Images
+    /// An alias for `metadata` when configuring Links or Images
     var url: TokenStyle? {
       get { metadata }
       set { metadata = newValue }
     }
 
-    /// Alias for `metadata` when configuring Code Blocks
+    /// An Alias for `metadata` when configuring Code Blocks
     var languageHint: TokenStyle? {
       get { metadata }
       set { metadata = newValue }
@@ -49,13 +51,13 @@ extension Markdown.Theme {
 
     var parts: [Markdown.SyntaxPart: TokenStyle] = [:]
 
-    if let c = builder.content { parts[.content] = c }
-    if let t = builder.syntax { parts[.syntax] = t }
-    if let m = builder.metadata { parts[.meta] = m }
-
-    if let bg = builder.background {
-      parts[.bg] = TokenStyle(colour: bg)
-    }
+    if let content = builder.content { parts[.content] = content }
+    if let syntax = builder.syntax { parts[.syntax] = syntax }
+    if let meta = builder.metadata { parts[.meta] = meta }
+    
+    /// Remember: `background` has a colour only, no full `TokenStyle`,
+    /// so it is created inline here from the colour.
+    if let bg = builder.background { parts[.bg] = TokenStyle(colour: bg) }
 
     self.styles[syntax] = parts
   }

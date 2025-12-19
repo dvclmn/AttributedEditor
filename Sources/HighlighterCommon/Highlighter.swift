@@ -15,14 +15,10 @@ extension Highlighter {
   public protocol Core: AnyObject {
     associatedtype HighlighterTheme: Theme
     
-//    var font: NSFont { get set }
-//    var fontSize: CGFloat { get set }
     var blockRanges: BlockRanges { get set }
     var theme: HighlighterTheme { get set }
     func buildStyles(in text: String) -> AttributedRanges
     func drawBlockPath(in rect: CGRect) -> NSBezierPath
-    
-//    func updateFontSize(_ size: CGFloat)
     func updateTheme(_ theme: HighlighterTheme)
   }
 }
