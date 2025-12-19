@@ -14,7 +14,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
   func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
-    fontSize: CGFloat,
+    //    fontSize: CGFloat,
     attrs: inout AttributedRanges
   ) {
 
@@ -23,28 +23,38 @@ extension SyntaxRule where T == RegexShape.Wrap {
       "Only syntaxes with RegexShape of .wrap are valid here."
     )
 
-    let syntaxFont = theme.style(for: syntax, part: .syntax).nsFont(fontSize)
-    let syntaxColour = theme.style(for: syntax, part: .syntax).nsColour
+    let syntaxToken = theme.style(for: syntax, part: .syntax)
+    let contentToken = theme.style(for: syntax, part: .content)
 
-    let contentFont = theme.style(for: syntax, part: .content).nsFont(fontSize)
-    let contentColour = theme.style(for: syntax, part: .content).nsColour
+    let syntaxTraits = syntaxToken.font
+    let syntaxColour = syntaxToken.nsColour
+
+    let contentTraits = contentToken.font
+    //    let contentFont = theme.style(for: syntax, part: .content).nsFont(fontSize)
+    let contentColour = contentToken.nsColour
 
     let bgColour = theme.style(for: syntax, part: .bg).nsColour
 
-    self.pattern.apply(match: match) { path, range in
+    self.pattern.apply(match: match) {
+      path,
+      range in
 
       //      let colours = self.colours(for: syntax, theme: theme)
 
       switch path {
 
         case \.0:
-//          break
-          attrs.update(.init(bg: bgColour), in: range, tag: "Shape.Wrap whole")
+          //          break
+          attrs.update(
+            .init(bgOptional: bgColour),
+            in: range,
+            tag: "Shape.Wrap whole"
+          )
 
         case \.leading:
           attrs.update(
-            .init(fore: syntaxColour), in: range, tag: "Shape.Wrap Leading")
-          attrs.update(.init(font: syntaxFont), in: range, tag: "Shape.Wrap Leading")
+            .init(foreOptional: syntaxColour), in: range, tag: "Shape.Wrap Leading")
+          attrs.update(.init(fontTraitsOptional: syntaxTraits), in: range, tag: "Shape.Wrap Leading")
         //          if let syntaxFont {
         //            attrs.update(.font(syntaxFont), in: range)
         //          }
@@ -52,8 +62,11 @@ extension SyntaxRule where T == RegexShape.Wrap {
 
         case \.trailing:
           attrs.update(
-            .init(fore: syntaxColour), in: range, tag: "Shape.Wrap Trailing")
-          attrs.update(.init(font: syntaxFont), in: range, tag: "Shape.Wrap Trailing")
+            .init(foreOptional: syntaxColour),
+            in: range,
+            tag: "Shape.Wrap Trailing"
+          )
+          attrs.update(.init(fontTraitsOptional: syntaxTraits), in: range, tag: "Shape.Wrap Trailing")
         //          if let syntaxFont {
         //            attrs.update(.font(syntaxFont), in: range)
         //          }
@@ -61,8 +74,11 @@ extension SyntaxRule where T == RegexShape.Wrap {
 
         case \.content:
           attrs.update(
-            .init(fore: contentColour), in: range, tag: "Shape.Wrap Content")
-          attrs.update(.init(font: contentFont), in: range, tag: "Shape.Wrap Content")
+            .init(foreOptional: contentColour),
+            in: range,
+            tag: "Shape.Wrap Content"
+          )
+          attrs.update(.init(fontTraitsOptional: contentTraits), in: range, tag: "Shape.Wrap Content")
         //          if let contentFont {
         //            attrs.update(.font(contentFont), in: range)
         //          }

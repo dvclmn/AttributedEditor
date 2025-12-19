@@ -8,12 +8,11 @@
 import AppKit
 import HighlighterCommon
 
-
 extension SyntaxRule where T == RegexShape.WrapPair {
   func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
-    fontSize: CGFloat,
+//    fontSize: CGFloat,
     attrs: inout AttributedRanges
   ) {
   }

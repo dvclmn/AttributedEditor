@@ -23,19 +23,18 @@ extension MarkdownHighlighter {
           syntaxRule.apply(
             match: match,
             theme: theme,
-//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
             blocks.append(match.range)
           }
         }
+        
       case .prefix(let syntaxRule):
         for match in text.matches(of: syntaxRule.pattern) {
           syntaxRule.apply(
             match: match,
             theme: theme,
-//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
@@ -48,7 +47,6 @@ extension MarkdownHighlighter {
           syntaxRule.apply(
             match: match,
             theme: theme,
-//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
@@ -61,7 +59,6 @@ extension MarkdownHighlighter {
           syntaxRule.apply(
             match: match,
             theme: theme,
-//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
@@ -74,7 +71,6 @@ extension MarkdownHighlighter {
           syntaxRule.apply(
             match: match,
             theme: theme,
-//            fontSize: fontSize,
             attrs: &attrs
           )
           if syntaxRule.exposesBlockRange {
@@ -83,6 +79,5 @@ extension MarkdownHighlighter {
         }
     }  // END switch
     return (attrs, blocks)
-
   }
 }
