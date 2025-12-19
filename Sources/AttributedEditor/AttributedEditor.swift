@@ -23,18 +23,18 @@ public struct AttributedEditor: View {
   @Binding var text: String
   let languageHint: LanguageHint
   let highlighter: any Highlighter.Core
-//  let markdownHighlighter: MarkdownHighlighter
-//  let fontSize: CGFloat
+  //  let markdownHighlighter: MarkdownHighlighter
+  //  let fontSize: CGFloat
 
   public init(
     _ text: Binding<String>,
-//    fontSize: CGFloat,
+    //    fontSize: CGFloat,
     languageHint: LanguageHint
   ) {
     self._text = text
-//    self.fontSize = fontSize
+    //    self.fontSize = fontSize
     self.languageHint = languageHint
-    
+
     switch languageHint {
       /// Support for more to come
       default: self.highlighter = MarkdownHighlighter()
@@ -44,9 +44,9 @@ public struct AttributedEditor: View {
   public var body: some View {
     AttributedEditorView(
       text: $text,
-      font: NSFont.systemFont(ofSize: 14),
-//      font: nsFont,
-//      fontSize: fontSize,
+      font: finalFont,
+      //      font: nsFont,
+      //      fontSize: fontSize,
       config: Editor.Configuration(
         isEditable: isEditable,
         options: [],
@@ -58,26 +58,60 @@ public struct AttributedEditor: View {
       highlighter: highlighter,
 
     )
+
+    .onAppear {
+      if isPreview {
+        print(digIntoResolvedFont)
+      }
+    }
     // TODO: Bring this back
-//    .onAppear {
-//      highlighter.updateTheme(markdownTheme)
-//    }
+    //    .onAppear {
+    //      highlighter.updateTheme(markdownTheme)
+    //    }
   }
 }
 
 extension AttributedEditor {
-  
-//  private var nsFont: NSFont {
-//    let fallback = NSFont.systemFont(ofSize: 14)
-//    guard let compat = Font.Compatible(font: font, context: fontResolutionContext)
-//    else { return fallback }
-//    
-//    let ctFont = compat.toNSFont(
-//      <#T##style: Font.TextStyle##Font.TextStyle#>,
-//      design: <#T##Font.Design?#>,
-//      weight: <#T##Font.Weight?#>
-//    )
-//  }
+  private var finalFont: NSFont {
+    guard #available(macOS 26, iOS 26, *), let font else {
+      return NSFont.systemFont(ofSize: 14)
+    }
+    let resolved = font.resolveCompatible(in: fontResolutionContext)
+    return resolved.toNSFont
+  }
+
+  private var digIntoResolvedFont: String {
+
+    guard #available(macOS 26, iOS 26, *) else {
+      return "Info only available on macOS 26 and above"
+    }
+    guard let font else { return "No font" }
+
+    let resolved = font.resolveCompatible(in: fontResolutionContext)
+    let nsFont = resolved.toNSFont
+
+    let desc = nsFont.fontDescriptor
+
+    return DisplayString {
+      Labeled("Font from Env.", value: font)
+      Labeled("Resolved", value: resolved)
+      Labeled("Font Size", value: resolved.fontResolved.pointSize)
+      Labeled("Font Descriptor", value: desc)
+      Labeled("Attributes", value: desc.fontAttributes)
+      Divider()
+    }.plainText
+    //  public var style: Font.TextStyle {
+    //    return toNSFont.fontDescriptor.debugDescription
+
+  }
+
+  //    private var resolvedFontInfo: String {
+  //      let resolved =
+  //      let fallback = NSFont.systemFont(ofSize: 14)
+  //      guard let compat = Font.Compatible(font: font, context: fontResolutionContext)
+  //      else { return fallback }
+
+  //    }
 }
 #if DEBUG
 #Preview {
