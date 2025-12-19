@@ -49,7 +49,7 @@ extension AttributedRanges {
   /// `Attribute` is a small type safe wrapper
   /// around `NSAttributedString.Key`
   public mutating func update(
-    _ attribute: Attribute?,
+    _ attribute: AttributeKey?,
     in range: Range<String.Index>,
     tag: String?
   ) {

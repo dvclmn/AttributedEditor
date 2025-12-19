@@ -8,6 +8,10 @@
 import AppKit
 import ColourKit
 
+/// Surely just use this?
+/// https://github.com/swiftlang/swift-markdown
+/// Also:
+/// https://developer.apple.com/documentation/foundation/attributedstring/markdownsourceposition
 extension Markdown.Theme {
   struct SyntaxStyleBuilder {
 
@@ -30,6 +34,7 @@ extension Markdown.Theme {
     }
 
     /// An Alias for `metadata` when configuring Code Blocks
+    /// Consider: https://developer.apple.com/documentation/foundation/attributescopes/foundationattributes/languageidentifier
     var languageHint: TokenStyle? {
       get { metadata }
       set { metadata = newValue }
