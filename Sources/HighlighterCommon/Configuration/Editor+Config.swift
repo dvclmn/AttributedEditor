@@ -10,24 +10,24 @@ import CoreTools
 import Sharing
 import SwiftUI
 
-extension Editor {
-  public struct Defaults {
-    public let font: NSFont
-    public let textColour: NSColor
-    
-    public init(font: NSFont, textColour: NSColor) {
-      self.font = font
-      self.textColour = textColour
-    }
-    //  var defaultFont() NSFont {
-    //    NSFont.systemFont(ofSize: self.fontSize)
-    //  }
-    //  var defaultColour: NSColor { NSColor.textColor }
-    //  //    NSFont.systemFont(ofSize: self.fontSize)
-    //  //  }
-    
-  }
-}
+//extension Editor {
+//  public struct Defaults {
+//    public let font: NSFont
+//    public let textColour: NSColor
+//    
+//    public init(font: NSFont, textColour: NSColor) {
+//      self.font = font
+//      self.textColour = textColour
+//    }
+//    //  var defaultFont() NSFont {
+//    //    NSFont.systemFont(ofSize: self.fontSize)
+//    //  }
+//    //  var defaultColour: NSColor { NSColor.textColor }
+//    //  //    NSFont.systemFont(ofSize: self.fontSize)
+//    //  //  }
+//    
+//  }
+//}
 
 
 /// Highlighter Common expects the Source Editor to

@@ -77,10 +77,10 @@ public final class MarkdownHighlighter: Highlighter.Core {
 
 }
 extension MarkdownHighlighter {
-  public func updateFontSize(_ size: CGFloat) {
-    self.fontSize = size
+//  public func updateFontSize(_ size: CGFloat) {
+//    self.fontSize = size
     //    self.theme = theme
-  }
+//  }
 
   public func updateTheme(_ theme: Markdown.Theme) {
     self.theme = theme

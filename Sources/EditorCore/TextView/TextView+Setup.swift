@@ -13,9 +13,10 @@ import SwiftUI
 extension BackingTextView {
 
   func setUpTextView(
-    fontSize: CGFloat,
+    font defaultFont: NSFont,
+//    fontSize: CGFloat,
     config: Editor.Configuration,
-    defaults: Editor.Defaults
+//    defaults: Editor.Defaults
   ) {
 
     isEditable = config.isEditable
@@ -33,14 +34,13 @@ extension BackingTextView {
 
     self.setInsets(config.insets)
 
-    let defaultFont = defaults.font
     let paragraphStyle = config.paragraphStyle
 
     font = defaultFont
 
     typingAttributes = [
       .font: defaultFont,
-      .foregroundColor: defaults.textColour,
+      .foregroundColor: NSColor.textColor,
       .paragraphStyle: paragraphStyle,
     ]
 

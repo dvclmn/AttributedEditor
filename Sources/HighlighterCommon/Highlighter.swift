@@ -14,13 +14,15 @@ extension Highlighter {
   /// Protocol defining how text should be analyzed and highlighted
   public protocol Core: AnyObject {
     associatedtype HighlighterTheme: Theme
-    var fontSize: CGFloat { get set }
+    
+//    var font: NSFont { get set }
+//    var fontSize: CGFloat { get set }
     var blockRanges: BlockRanges { get set }
     var theme: HighlighterTheme { get set }
     func buildStyles(in text: String) -> AttributedRanges
     func drawBlockPath(in rect: CGRect) -> NSBezierPath
     
-    func updateFontSize(_ size: CGFloat)
+//    func updateFontSize(_ size: CGFloat)
     func updateTheme(_ theme: HighlighterTheme)
   }
 }

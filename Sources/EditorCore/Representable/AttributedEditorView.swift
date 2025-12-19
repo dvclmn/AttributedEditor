@@ -13,23 +13,28 @@ import Sharing
 @MainActor
 public struct AttributedEditorView: NSViewRepresentable {
   @Binding public var text: String
-  let fontSize: CGFloat
+//  let fontSize: CGFloat
 //  @Shared(.fontSize) var fontSize: CGFloat
   @Binding var cursorPosition: InsertionPointPosition?
   var highlighter: any Highlighter.Core
   let editorConfig: Editor.Configuration
   let debounceInterval: TimeInterval
+  let font: NSFont
+//  let font: Font?
 
   public init(
     text: Binding<String>,
-    fontSize: CGFloat,
+//    fontSize: CGFloat,
+//    font: Font? = nil,
+    font: NSFont = .systemFont(ofSize: 14),
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     config: Editor.Configuration = .init(),
     highlighter: any Highlighter.Core,
     debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text
-    self.fontSize = fontSize
+//    self.fontSize = fontSize
+    self.font = font
 //    self._fontSize = Shared(value: fontSize)
     self._cursorPosition = cursorPosition
     self.editorConfig = config
@@ -40,12 +45,13 @@ public struct AttributedEditorView: NSViewRepresentable {
 
 extension AttributedEditorView {
   
-  var editorDefaults: Editor.Defaults {
-    .init(
-      font: NSFont.systemFont(ofSize: fontSize),
-      textColour: NSColor.textColor
-    )
-  }
+//  var editorDefaults: Editor.Defaults {
+//    .init(
+//      font: NSFont.systemFont(ofSize: fontSize),
+////      font: NSFont.systemFont(ofSize: fontSize),
+//      textColour: NSColor.textColor
+//    )
+//  }
 //  var config: Editor.Configuration { highlighter.editorConfig }
   public func makeNSView(context: Context) -> NSScrollView {
 
@@ -60,10 +66,12 @@ extension AttributedEditorView {
     /// Create and configure the text view
     let textView = BackingTextView()
     textView.delegate = context.coordinator
+    
     textView.setUpTextView(
-      fontSize: fontSize,
+      font: self.font,
+//      fontSize: fontSize,
       config: editorConfig,
-      defaults: editorDefaults
+//      defaults: editorDefaults
     )
 
     textView.textContainer?.containerSize = NSSize(
@@ -111,9 +119,9 @@ extension AttributedEditorView {
       context.coordinator.applyHighlighting()
     }
     
-    if highlighter.fontSize != self.fontSize {
-      highlighter.updateFontSize(self.fontSize)
-    }
+//    if highlighter.fontSize != self.fontSize {
+//      highlighter.updateFontSize(self.fontSize)
+//    }
   }
 
   public func makeCoordinator() -> Coordinator {

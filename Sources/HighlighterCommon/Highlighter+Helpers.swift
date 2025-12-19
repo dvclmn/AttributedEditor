@@ -12,15 +12,17 @@ extension Highlighter.Core {
 
   @MainActor
   public func apply(
+    font: NSFont,
     currentText: String,
     textView: NSTextView,
-    defaults: Editor.Defaults
+//    defaults: Editor.Defaults
 //    config: Editor.Configuration,
   ) {
 //  ) -> [NSRange] {
 
     let attrString = NSMutableAttributedString(string: currentText)
-    setDefaultStyles(with: defaults, attrString: attrString)
+    setDefaultStyles(font: font, attrString: attrString)
+//    setDefaultStyles(with: defaults, attrString: attrString)
 
     /// Get highlighted ranges from the syntax highlighter
     let attrRanges = self.buildStyles(
@@ -65,14 +67,16 @@ extension Highlighter.Core {
   /// still be mutated, even though it's not being passed
   /// as an `inout` parameter, because it is a class.
   private func setDefaultStyles(
-    with defaults: Editor.Defaults,
+    font defaultFont: NSFont,
+//    with defaults: Editor.Defaults,
 //    with config: Editor.Configuration,
     attrString: NSMutableAttributedString
   ) {
     /// Apply default attributes to the entire text
     let defaultAttributes: TextAttributes = [
-      .font: defaults.font,
-      .foregroundColor: defaults.textColour,
+      .font: defaultFont,
+//      .font: defaults.font,
+      .foregroundColor: NSColor.textColor,
     ]
     attrString.setAttributes(
       defaultAttributes,

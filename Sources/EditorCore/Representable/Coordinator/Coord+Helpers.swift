@@ -15,9 +15,10 @@ extension AttributedEditorView.Coordinator {
     let highlighter = self.parent.highlighter
 
     highlighter.apply(
+      font: parent.font,
       currentText: textView.string,
       textView: textView,
-      defaults: self.parent.editorDefaults
+//      defaults: self.parent.editorDefaults
     )
     textView.updateHighlighter(highlighter)
 

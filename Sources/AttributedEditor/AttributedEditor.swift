@@ -17,20 +17,22 @@ public struct AttributedEditor: View {
   @Environment(\.overScroll) private var overScroll
   @Environment(\.isEditable) private var isEditable
   @Environment(\.lineSpacing) private var lineSpacing
+  @Environment(\.font) private var font
+  @Environment(\.fontResolutionContext) private var fontResolutionContext
 
   @Binding var text: String
   let languageHint: LanguageHint
   let highlighter: any Highlighter.Core
 //  let markdownHighlighter: MarkdownHighlighter
-  let fontSize: CGFloat
+//  let fontSize: CGFloat
 
   public init(
     _ text: Binding<String>,
-    fontSize: CGFloat,
+//    fontSize: CGFloat,
     languageHint: LanguageHint
   ) {
     self._text = text
-    self.fontSize = fontSize
+//    self.fontSize = fontSize
     self.languageHint = languageHint
     
     switch languageHint {
@@ -42,7 +44,9 @@ public struct AttributedEditor: View {
   public var body: some View {
     AttributedEditorView(
       text: $text,
-      fontSize: fontSize,
+      font: NSFont.systemFont(ofSize: 14),
+//      font: nsFont,
+//      fontSize: fontSize,
       config: Editor.Configuration(
         isEditable: isEditable,
         options: [],
@@ -60,10 +64,25 @@ public struct AttributedEditor: View {
 //    }
   }
 }
+
+extension AttributedEditor {
+  
+//  private var nsFont: NSFont {
+//    let fallback = NSFont.systemFont(ofSize: 14)
+//    guard let compat = Font.Compatible(font: font, context: fontResolutionContext)
+//    else { return fallback }
+//    
+//    let ctFont = compat.toNSFont(
+//      <#T##style: Font.TextStyle##Font.TextStyle#>,
+//      design: <#T##Font.Design?#>,
+//      weight: <#T##Font.Weight?#>
+//    )
+//  }
+}
 #if DEBUG
 #Preview {
   @Previewable @State var text: String = DummyContent.Strings.paragraphsWithCode[1]
-  AttributedEditor($text, fontSize: 21, languageHint: .markdown)
+  AttributedEditor($text, languageHint: .markdown)
     .frame(width: 600, height: 690)
 }
 #endif
