@@ -13,6 +13,11 @@ import SwiftUI
 
 public struct AttributedEditor: View {
   @Environment(\.markdownTheme) private var markdownTheme
+  @Environment(\.insets) private var insets
+  @Environment(\.overScroll) private var overScroll
+  @Environment(\.isEditable) private var isEditable
+  @Environment(\.lineSpacing) private var lineSpacing
+
   @Binding var text: String
   let markdownHighlighter: MarkdownHighlighter
   let fontSize: CGFloat
@@ -31,7 +36,16 @@ public struct AttributedEditor: View {
     AttributedEditorView(
       text: $text,
       fontSize: fontSize,
-      highlighter: markdownHighlighter
+      config: Editor.Configuration(
+        isEditable: isEditable,
+        options: [.lineNumbers],
+        lineSpacing: lineSpacing,
+        insets: insets,
+        overScroll: overScroll,
+        maxWidth: nil
+      ),
+      highlighter: markdownHighlighter,
+
     )
     .onAppear {
       markdownHighlighter.updateTheme(markdownTheme)
@@ -45,13 +59,3 @@ public struct AttributedEditor: View {
     .frame(width: 600, height: 690)
 }
 #endif
-
-extension EnvironmentValues {
-  @Entry public var markdownTheme: Markdown.Theme = .default
-}
-
-extension View where Self == AttributedEditor {
-  public func setTheme(_ theme: Markdown.Theme) -> some View {
-    self.environment(\.markdownTheme, theme)
-  }
-}
