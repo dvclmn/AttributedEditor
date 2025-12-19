@@ -60,25 +60,3 @@ public enum RegexShape {
     trailingB: Substring,
   )
 }
-
-extension RegexShape {
-//  var rule: SyntaxRule {
-//    switch self {
-//      case .wrap(let rule): rule.exposesBlockRange
-//      case .prefix(let rule): rule.exposesBlockRange
-//      case .single(let rule): rule.exposesBlockRange
-//      case .codeBlock(let rule): rule.exposesBlockRange
-//      case .wrapPair(let rule): rule.exposesBlockRange
-//    }
-//  }
-//  
-  var exposesBlockRange: Bool {
-    switch self {
-      case .wrap(let rule): rule.exposesBlockRange
-      case .prefix(let rule): rule.exposesBlockRange
-      case .single(let rule): rule.exposesBlockRange
-      case .codeBlock(let rule): rule.exposesBlockRange
-      case .wrapPair(let rule): rule.exposesBlockRange
-    }
-  }
-}

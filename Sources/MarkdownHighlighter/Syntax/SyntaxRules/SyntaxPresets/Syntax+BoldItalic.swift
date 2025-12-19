@@ -13,37 +13,22 @@ extension Markdown.SyntaxRule where T == RegexShape.Wrap {
   static var bold: Self {
 
     let pattern = /(?<leading>(?:\*{2}|_{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
-    let syntax: Markdown.Syntax = .bold
 
-    return SyntaxRule(
-      syntax: syntax,
-      pattern: pattern,
-      exposesBlockRange: false,
-    )
+    return SyntaxRule(for: .bold, pattern: pattern)
   }
 
   static var italic: Self {
 
     let pattern =
       /(?<leading>[\*_])(?<content>[^\*_ \n][^\n]*?[^\*_ \n])(?<trailing>\k<leading>)/
-    let syntax: Markdown.Syntax = .italic
 
-    return SyntaxRule(
-      syntax: syntax,
-      pattern: pattern,
-      exposesBlockRange: false
-    )
+    return SyntaxRule(for: .italic, pattern: pattern)
   }
 
   static var boldItalic: Self {
 
     let pattern = /(?<leading>(?:\*{3}|_{3}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
-    let syntax: Markdown.Syntax = .boldItalic
 
-    return SyntaxRule(
-      syntax: syntax,
-      pattern: pattern,
-      exposesBlockRange: false
-    )
+    return SyntaxRule(for: .boldItalic, pattern: pattern)
   }
 }

@@ -13,11 +13,13 @@ extension SyntaxRule where T == RegexShape.Single {
   func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
-//    fontSize: CGFloat,
     attrs: inout AttributedRanges
   ) {
 
-    precondition(syntax.regexShape == .single, "Only syntaxes with RegexShape of .wrap are valid here.")
+    precondition(
+      syntax.regexShape == .single,
+      "Only syntaxes with RegexShape of .wrap are valid here."
+    )
 
     let range = match.range
     //      let font = NSFont.system(.body, size: fontSize * 0.97, monospaced: true)

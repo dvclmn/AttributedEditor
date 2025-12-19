@@ -15,16 +15,13 @@ extension Markdown {
   public struct SyntaxRule<T> {
     public let syntax: Markdown.Syntax
     public let pattern: Regex<T>
-    public let exposesBlockRange: Bool
 
     public init(
-      syntax: Markdown.Syntax,
+      for syntax: Markdown.Syntax,
       pattern: Regex<T>,
-      exposesBlockRange: Bool = false,
     ) {
       self.syntax = syntax
       self.pattern = pattern
-      self.exposesBlockRange = exposesBlockRange
     }
   }
 }

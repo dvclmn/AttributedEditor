@@ -36,3 +36,15 @@
 //    ]
 //  }
 //}
+
+// MARK: - Syntax Context
+
+//extension Markdown {
+//  public struct SyntaxContext<T> {
+//    let syntax: Markdown.Syntax
+//    let match: Regex<T>.Match
+//    let text: String
+//    //    let ranges: AttributedRanges
+//  }
+//}
+

@@ -10,14 +10,14 @@ import HighlighterCommon
 
 extension MarkdownHighlighter {
   func build(
-    _ rule: RegexShape,
+    _ shape: RegexShape,
     text: String,
   ) -> (AttributedRanges, BlockRanges) {
 
     var attrs: AttributedRanges = []
     var blocks: BlockRanges = []
 
-    switch rule {
+    switch shape {
       case .wrap(let syntaxRule):
         for match in text.matches(of: syntaxRule.pattern) {
           syntaxRule.apply(
@@ -25,7 +25,7 @@ extension MarkdownHighlighter {
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.exposesBlockRange {
+          if syntaxRule.syntax.drawsBackground {
             blocks.append(match.range)
           }
         }
@@ -37,7 +37,7 @@ extension MarkdownHighlighter {
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.exposesBlockRange {
+          if syntaxRule.syntax.drawsBackground {
             blocks.append(match.range)
           }
         }
@@ -49,7 +49,7 @@ extension MarkdownHighlighter {
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.exposesBlockRange {
+          if syntaxRule.syntax.drawsBackground {
             blocks.append(match.range)
           }
         }
@@ -61,7 +61,7 @@ extension MarkdownHighlighter {
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.exposesBlockRange {
+          if syntaxRule.syntax.drawsBackground {
             blocks.append(match.range)
           }
         }
@@ -73,7 +73,7 @@ extension MarkdownHighlighter {
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.exposesBlockRange {
+          if syntaxRule.syntax.drawsBackground {
             blocks.append(match.range)
           }
         }

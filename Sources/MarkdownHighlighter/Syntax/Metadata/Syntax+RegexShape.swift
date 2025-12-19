@@ -7,14 +7,9 @@
 
 extension Markdown.Syntax {
 
-  var supportsRegexShape: Bool {
-    switch self {
-      case .body, .list, .callout: false
-      default: true
-    }
-  }
+  var supportsRegexShape: Bool { regexShape != nil }
 
-  var regexShape: RegexShape.Meta {
+  var regexShape: RegexShape.Meta? {
     switch self {
       case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6, .quoteBlock:
         .prefix
@@ -25,9 +20,6 @@ extension Markdown.Syntax {
       case .codeBlock:
         .codeBlock
 
-//      case .quoteBlock:
-//        .linePrefix
-
       case .link, .image:
         .wrapPair
 
@@ -35,7 +27,8 @@ extension Markdown.Syntax {
         .single
 
       case .body, .list, .callout:
-        fatalError("\(self.name) not yet supported.")
+        nil
+    //        fatalError("\(self.name) not yet supported.")
     }
   }
 }
