@@ -13,7 +13,6 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
   func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
-    //    fontSize: CGFloat,
     attrs: inout AttributedRanges
   ) {
     precondition(
@@ -25,17 +24,9 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
     let contentToken = theme.style(for: syntax, part: .content)
     let metaToken = theme.style(for: syntax, part: .meta)
 
-    let syntaxTraits = syntaxToken.font ?? []
-    let contentTraits = contentToken.font ?? []
-
-    let syntaxColour = syntaxToken.nsColour
-    let metaColour = metaToken.nsColour
-    //    let contentFont = theme.style(
-    //      for: syntax,
-    //      part: .content
-    //    ).nsFont(fontSize)
-
-    let contentColour = theme.style(for: syntax, part: .content).nsColour
+    let syntaxTraits = syntaxToken.fontTraits ?? []
+    let contentTraits = contentToken.fontTraits ?? []
+    
     let bgColour = theme.style(for: syntax, part: .bg).nsColour
 
     self.pattern.apply(match: match) {
@@ -53,21 +44,19 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
 
         case \.start, \.end:
           attrs.update(
-            .init(foreOptional: syntaxColour),
+            .init(foreOptional: syntaxToken.nsColour),
             in: range,
             tag: "Code Block Start"
           )
           attrs.update(
             .fontTraits(syntaxTraits),
-            //            .init(fontTraits: syntaxTraits),
-            //            .init(font: syntaxFont),
             in: range,
             tag: "Code Block Start"
           )
 
         case \.langHint:
           attrs.update(
-            .init(foreOptional: metaColour),
+            .init(foreOptional: metaToken.nsColour),
             in: range,
             tag: "Code Block Language hint"
           )
@@ -75,12 +64,14 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
         case \.content:
           attrs.update(
             .fontTraits(contentTraits),
-            //            .init(font: contentFont),
             in: range,
             tag: "Code Block Content"
           )
           attrs.update(
-            .init(foreOptional: contentColour), in: range, tag: "Code Block Content")
+            .init(foreOptional: contentToken.nsColour),
+            in: range,
+            tag: "Code Block Content"
+          )
 
         default: break
       }

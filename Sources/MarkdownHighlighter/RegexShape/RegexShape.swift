@@ -24,15 +24,14 @@ public enum RegexShape {
 
   public typealias Single = (Substring)
 
-  // E.g. # Header
-  // Also Quotes with > Content
+  // E.g. # Header, > Quotes
   public typealias Prefix = (
     Substring,
     prefix: Substring,
     content: Substring,
   )
 
-  // E.g. Italic *Content*
+  // E.g. *Italics*, ==Highlight==
   public typealias Wrap = (
     Substring,
     leading: Substring,
@@ -49,7 +48,7 @@ public enum RegexShape {
   )
 
   // Link, image
-  // If link, group prefix will be empty
+  // If link, the 'prefix' group will be empty
   public typealias WrapPair = (
     Substring,
     prefix: Substring,
@@ -63,14 +62,23 @@ public enum RegexShape {
 }
 
 extension RegexShape {
+//  var rule: SyntaxRule {
+//    switch self {
+//      case .wrap(let rule): rule.exposesBlockRange
+//      case .prefix(let rule): rule.exposesBlockRange
+//      case .single(let rule): rule.exposesBlockRange
+//      case .codeBlock(let rule): rule.exposesBlockRange
+//      case .wrapPair(let rule): rule.exposesBlockRange
+//    }
+//  }
+//  
   var exposesBlockRange: Bool {
     switch self {
-      case .wrap(let syntaxRule): syntaxRule.exposesBlockRange
-      case .prefix(let syntaxRule): syntaxRule.exposesBlockRange
-      case .single(let syntaxRule): syntaxRule.exposesBlockRange
-      case .codeBlock(let syntaxRule): syntaxRule.exposesBlockRange
-      case .wrapPair(let syntaxRule): syntaxRule.exposesBlockRange
+      case .wrap(let rule): rule.exposesBlockRange
+      case .prefix(let rule): rule.exposesBlockRange
+      case .single(let rule): rule.exposesBlockRange
+      case .codeBlock(let rule): rule.exposesBlockRange
+      case .wrapPair(let rule): rule.exposesBlockRange
     }
   }
-  
 }

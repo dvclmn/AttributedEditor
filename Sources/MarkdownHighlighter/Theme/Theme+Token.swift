@@ -18,7 +18,7 @@ import CoreTools
 ///   there such as weight and design.
 struct TokenStyle: Sendable {
   var colour: CodableColour?
-  var font: NSFontDescriptor.SymbolicTraits?
+  var fontTraits: NSFontDescriptor.SymbolicTraits?
 //  var fontTraits: NSFontDescriptor.SymbolicTraits?
 //  var fontWeight: NSFont.Weight?
 //  var fontDesign: NSFontDescriptor.SystemDesign?

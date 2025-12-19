@@ -43,31 +43,29 @@ extension Markdown.Syntax {
   nonisolated public var id: String { name }
 
   public var name: String {
-
     switch self {
-      case .heading1: return "Heading 1"
-      case .heading2: return "Heading 2"
-      case .heading3: return "Heading 3"
-      case .heading4: return "Heading 4"
-      case .heading5: return "Heading 5"
-      case .heading6: return "Heading 6"
+      case .heading1: "Heading 1"
+      case .heading2: "Heading 2"
+      case .heading3: "Heading 3"
+      case .heading4: "Heading 4"
+      case .heading5: "Heading 5"
+      case .heading6: "Heading 6"
 
-      case .bold: return "Bold"
-      case .italic: return "Italic"
-      case .boldItalic: return "Bold Italic"
-      case .strikethrough: return "Strikethrough"
-      case .highlight: return "Highlight"
-      case .inlineCode: return "Inline code"
-      case .list: return "List"
-      case .horizontalRule: return "Horizontal rule"
-      case .codeBlock: return "Code block"
-      case .callout: return "Callout"
+      case .bold: "Bold"
+      case .italic: "Italic"
+      case .boldItalic: "Bold Italic"
+      case .strikethrough: "Strikethrough"
+      case .highlight: "Highlight"
+      case .inlineCode: "Inline code"
+      case .list: "List"
+      case .horizontalRule: "Horizontal rule"
+      case .codeBlock: "Code block"
+      case .callout: "Callout"
 
-      case .quoteBlock: return "Quote"
-      case .link: return "Link"
-      case .image: return "Image"
-      case .body: return "Body"
-
+      case .quoteBlock: "Quote"
+      case .link: "Link"
+      case .image: "Image"
+      case .body: "Body"
     }
   }
 

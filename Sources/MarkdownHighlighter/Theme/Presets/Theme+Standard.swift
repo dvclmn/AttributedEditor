@@ -16,20 +16,20 @@ extension Markdown.Theme {
 
     theme.register(.bold) {
 //      $0.content = TokenStyle(colour: .primary, fontWeight: .bold)
-      $0.content = TokenStyle(colour: .primary, font: .bold)
+      $0.content = TokenStyle(colour: .primary, fontTraits: .bold)
     }
     theme.register(.italic) {
-      $0.content = TokenStyle(colour: .primary, font: .italic)
+      $0.content = TokenStyle(colour: .primary, fontTraits: .italic)
       $0.syntax = TokenStyle(colour: .tertiary)
     }
     theme.register(.boldItalic) {
-      $0.content = TokenStyle(colour: .primary, font: [.bold, .italic])
+      $0.content = TokenStyle(colour: .primary, fontTraits: [.bold, .italic])
       $0.syntax = TokenStyle(colour: .tertiary)
     }
 
     /// Split case: Header
     theme.register(.heading1) {
-      $0.content = TokenStyle(colour: .primary, font: .bold)
+      $0.content = TokenStyle(colour: .primary, fontTraits: .bold)
     }
 
     /// Metadata case: Link
@@ -43,14 +43,14 @@ extension Markdown.Theme {
     // Metadata case: Code Block
     /// We use the `.languageHint` alias, which also saves to `.metadata`
     theme.register(.codeBlock) {
-      $0.content = TokenStyle(colour: .secondary, font: .monoSpace)
-      $0.languageHint = TokenStyle(colour: .tertiary, font: .monoSpace)
-      $0.syntax = TokenStyle(colour: .gray, font: .monoSpace)
+      $0.content = TokenStyle(colour: .secondary, fontTraits: .monoSpace)
+      $0.languageHint = TokenStyle(colour: .tertiary, fontTraits: .monoSpace)
+      $0.syntax = TokenStyle(colour: .gray, fontTraits: .monoSpace)
     }
 
     theme.register(.inlineCode) {
-      $0.content = TokenStyle(colour: .brown,font: .monoSpace,)
-      $0.syntax = TokenStyle(colour: .gray, font: .monoSpace)
+      $0.content = TokenStyle(colour: .brown,fontTraits: .monoSpace,)
+      $0.syntax = TokenStyle(colour: .gray, fontTraits: .monoSpace)
 
     }
 
