@@ -7,13 +7,13 @@
 
 extension Markdown.Theme {
 
-  public static var `default`: Self { .standard }
+  public static let `default`: Self = .standard
 
   /// Note: The syntax default colour is `.tertiary`,
   /// which is what I want here, so it is skipped in most cases
   ///
   /// Theme gets built over here
-  public static var standard: Self {
+  public static let standard: Self = {
     var theme = Self()
 
     theme.register(.bold) {

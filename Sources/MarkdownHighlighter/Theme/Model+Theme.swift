@@ -10,8 +10,9 @@ import ColourKit
 import HighlighterCommon
 
 extension Markdown {
-  //  public struct Theme: Sendable {
-  public class Theme: Highlighter.Theme {
+  public struct Theme: Highlighter.Theme, @unchecked Sendable {
+    
+//  public class Theme: Highlighter.Theme {
     public var font: NSFont = NSFont.systemFont(ofSize: 14)
     var styleDefinitions: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
 

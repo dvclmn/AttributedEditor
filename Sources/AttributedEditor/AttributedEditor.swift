@@ -22,7 +22,8 @@ public struct AttributedEditor: View {
 
   @Binding var text: String
   let languageHint: LanguageHint
-  let highlighter: any Highlighter.Core
+
+  @State private var highlighter: any Highlighter.Core
 
   public init(
     _ text: Binding<String>,
@@ -33,7 +34,7 @@ public struct AttributedEditor: View {
 
     switch languageHint {
       /// Support for more to come
-      default: self.highlighter = MarkdownHighlighter()
+      default: self._highlighter = State(initialValue: MarkdownHighlighter())
     }
   }
 
