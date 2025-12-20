@@ -150,3 +150,14 @@ extension NSAttributedRanges {
   //    self.append(new)
   //  }
 }
+
+extension NSBlockRanges {
+  public mutating func append<T>(
+    from match: Regex<T>.Match,
+    in text: String
+  ) {
+
+    guard let range = match.nsRange(in: text) else { return }
+    self.append(range)
+  }
+}

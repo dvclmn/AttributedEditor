@@ -13,7 +13,8 @@ public final class MarkdownHighlighter: Highlighter.Core {
 
   private let isDrawingBlocks: Bool = false
   public var theme: Markdown.Theme
-  public var blockRanges: BlockRanges = []
+  public var blockRanges: NSBlockRanges = []
+//  public var blockRanges: BlockRanges = []
 
   var rules: [RegexShape] {
     [
@@ -38,7 +39,7 @@ public final class MarkdownHighlighter: Highlighter.Core {
 
   public func buildStyles(in text: String) -> NSAttributedRanges {
 
-    var attrs: AttributedRanges = []
+    var attrs: NSAttributedRanges = []
 
     for rule in rules {
       let (newAttr, newBlocks) = buildStyledRanges(rule, text: text)

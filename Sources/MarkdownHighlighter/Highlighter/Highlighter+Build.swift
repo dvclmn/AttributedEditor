@@ -12,69 +12,75 @@ extension MarkdownHighlighter {
   func buildStyledRanges(
     _ shape: RegexShape,
     text: String,
-  ) -> (NSAttributedRanges, BlockRanges) {
+  ) -> (NSAttributedRanges, NSBlockRanges) {
 
     var attrs: NSAttributedRanges = []
-    var blocks: BlockRanges = []
+    var blocks: NSBlockRanges = []
 
     switch shape {
-      case .wrap(let syntaxRule):
-        for match in text.matches(of: syntaxRule.pattern) {
-          syntaxRule.apply(
+      case .wrap(let rule):
+        for match in text.matches(of: rule.pattern) {
+          rule.apply(
             match: match,
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.syntax.drawsBackground {
-            blocks.append(match.range)
+          if rule.syntax.drawsBackground {
+            blocks.append(from: match, in: text)
+//            blocks.appendOptional(match.nsRange(in: text))
+//            blocks.append(match.range.toNSRange(in: text))
           }
         }
         
-      case .prefix(let syntaxRule):
-        for match in text.matches(of: syntaxRule.pattern) {
-          syntaxRule.apply(
+      case .prefix(let rule):
+        for match in text.matches(of: rule.pattern) {
+          rule.apply(
             match: match,
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.syntax.drawsBackground {
-            blocks.append(match.range)
+          if rule.syntax.drawsBackground {
+            blocks.append(from: match, in: text)
+//            blocks.append(match.range)
           }
         }
 
-      case .single(let syntaxRule):
-        for match in text.matches(of: syntaxRule.pattern) {
-          syntaxRule.apply(
+      case .single(let rule):
+        for match in text.matches(of: rule.pattern) {
+          rule.apply(
             match: match,
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.syntax.drawsBackground {
-            blocks.append(match.range)
+          if rule.syntax.drawsBackground {
+            blocks.append(from: match, in: text)
+//            blocks.append(match.range)
           }
         }
 
-      case .codeBlock(let syntaxRule):
-        for match in text.matches(of: syntaxRule.pattern) {
-          syntaxRule.apply(
+      case .codeBlock(let rule):
+        for match in text.matches(of: rule.pattern) {
+          rule.apply(
             match: match,
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.syntax.drawsBackground {
-            blocks.append(match.range)
+          if rule.syntax.drawsBackground {
+            blocks.append(from: match, in: text)
+//            blocks.append(match.range)
           }
         }
 
-      case .wrapPair(let syntaxRule):
-        for match in text.matches(of: syntaxRule.pattern) {
-          syntaxRule.apply(
+      case .wrapPair(let rule):
+        for match in text.matches(of: rule.pattern) {
+          rule.apply(
             match: match,
             theme: theme,
             attrs: &attrs
           )
-          if syntaxRule.syntax.drawsBackground {
-            blocks.append(match.range)
+          if rule.syntax.drawsBackground {
+            blocks.append(from: match, in: text)
+//            blocks.append(match.range)
           }
         }
     }  // END switch

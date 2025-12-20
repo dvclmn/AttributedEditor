@@ -44,7 +44,8 @@ class BackingTextView: NSTextView, @MainActor Highlightable {
 
     /// For each block range, calculate its visual bounds and draw a background
     //    for range in ranges. {
-    for range in highlighter.blockRanges.toNSRanges(in: text) {
+    for range in highlighter.blockRanges {
+//    for range in highlighter.blockRanges.toNSRanges(in: text) {
 
       let rect = boundingRect(
         for: range,

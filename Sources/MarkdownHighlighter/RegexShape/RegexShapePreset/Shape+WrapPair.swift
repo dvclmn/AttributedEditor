@@ -12,7 +12,7 @@ extension SyntaxRule where T == RegexShape.WrapPair {
   func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
-    attrs: inout AttributedRanges
+    attrs: inout NSAttributedRanges
   ) {
   }
 }

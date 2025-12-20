@@ -15,7 +15,8 @@ extension Highlighter {
   public protocol Core: AnyObject {
     associatedtype HighlighterTheme: Theme
 
-    var blockRanges: BlockRanges { get set }
+    var blockRanges: NSBlockRanges { get set }
+//    var blockRanges: BlockRanges { get set }
     var theme: HighlighterTheme { get set }
     var defaultFont: NSFont { get }
     var defaultTextColour: NSColor { get }
