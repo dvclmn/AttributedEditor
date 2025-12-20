@@ -13,7 +13,7 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
   func apply(
     match: Regex<T>.Match,
     theme: Markdown.Theme,
-    attrs: inout AttributedRanges
+    attrs: inout NSAttributedRanges
   ) {
     precondition(
       syntax.regexShape == .codeBlock,

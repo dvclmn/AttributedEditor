@@ -12,7 +12,7 @@ extension Highlighter.Core {
 
   @MainActor
   public func apply(
-    tokens: AttributedRanges,
+    tokens: NSAttributedRanges,
 //    currentText: String,
     textView: NSTextView,
     affectedRange: NSRange,
@@ -44,28 +44,28 @@ extension Highlighter.Core {
 //    )
 
     /// Convert from `Range<String.Index>` to `NSRange`
-    let runs = tokens.toNSRanges(in: currentText)
+//    let runs = tokens.toNSRanges(in: currentText)
 
     /// Apply each highlighted range's attributes
-    for run in runs {
-      textStorage.addAttributes(run.attributes, range: run.range)
+    for token in tokens {
+      textStorage.addAttributes(token.attributes, range: token.range)
     }
 
     textStorage.endEditing()
 
     /// Preserve the current cursor position and selection
-    let selectedRange = textView.selectedRange()
+//    let selectedRange = textView.selectedRange()
 
     
     /// Apply the attributed string to the text storage
-    textView.textStorage?.setAttributedString(attrString)
+//    textView.textStorage?.setAttributedString(attrString)
     
 
     /// Restore the cursor position
-    textView.setSelectedRange(selectedRange)
+//    textView.setSelectedRange(selectedRange)
     
 
-    textView.syncTypingAttributes()
+//    textView.syncTypingAttributes()
 
     /// Refresh line numbers
     if editorConfig.hasLineNumbers {

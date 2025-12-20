@@ -13,7 +13,7 @@ extension SyntaxRule where T == RegexShape.Prefix {
     match: Regex<T>.Match,
     theme: Markdown.Theme,
 //    fontSize: CGFloat,
-    attrs: inout AttributedRanges
+    attrs: inout NSAttributedRanges
   ) {
     
   }

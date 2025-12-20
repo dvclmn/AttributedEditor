@@ -12,9 +12,9 @@ extension MarkdownHighlighter {
   func buildStyledRanges(
     _ shape: RegexShape,
     text: String,
-  ) -> (AttributedRanges, BlockRanges) {
+  ) -> (NSAttributedRanges, BlockRanges) {
 
-    var attrs: AttributedRanges = []
+    var attrs: NSAttributedRanges = []
     var blocks: BlockRanges = []
 
     switch shape {

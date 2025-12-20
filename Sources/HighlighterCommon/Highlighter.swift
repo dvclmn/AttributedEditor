@@ -20,7 +20,7 @@ extension Highlighter {
     var defaultFont: NSFont { get }
     var defaultTextColour: NSColor { get }
 
-    func buildStyles(in text: String) -> AttributedNSRanges
+    func buildStyles(in text: String) -> NSAttributedRanges
 //    func buildStyles(in text: String) -> AttributedRanges
     func drawBlockPath(in rect: CGRect) -> NSBezierPath
     func updateTheme(_ theme: HighlighterTheme)

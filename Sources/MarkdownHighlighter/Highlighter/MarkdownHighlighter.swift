@@ -36,7 +36,7 @@ public final class MarkdownHighlighter: Highlighter.Core {
     self.theme = theme
   }
 
-  public func buildStyles(in text: String) -> AttributedRanges {
+  public func buildStyles(in text: String) -> NSAttributedRanges {
 
     var attrs: AttributedRanges = []
 
@@ -48,7 +48,6 @@ public final class MarkdownHighlighter: Highlighter.Core {
       }
     }
     
-    let nsRanges
     return attrs
   }
 
