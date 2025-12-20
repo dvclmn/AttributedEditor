@@ -16,7 +16,8 @@ extension Highlighter.Core {
 //    currentText: String,
     textView: NSTextView,
     affectedRange: NSRange,
-    editorConfig: Editor.Configuration
+    editorConfig: Editor.Configuration,
+    defaults: TextAttributes
   ) {
 //  public func apply(
 //    currentText: String,
@@ -36,7 +37,7 @@ extension Highlighter.Core {
 //      range: attrString.fullRange
 //    )
     
-    textStorage.setAttributes(defaultAttributes, range: affectedRange)
+    textStorage.setAttributes(defaults, range: affectedRange)
 
     /// Get highlighted ranges from the syntax highlighter
 //    let attrRanges = self.buildStyles(

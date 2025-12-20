@@ -14,11 +14,6 @@ public typealias NSAttributedRanges = [NSAttributedRun]
 public typealias BlockRanges = [Range<String.Index>]
 public typealias NSBlockRanges = [NSRange]
 
-//public typealias AttributedNSRanges = [(
-//  range: NSRange,
-//  attributes: TextAttributes
-//)]
-
 public struct AttributedRun {
   public let tag: String?  // For debugging
   public let range: Range<String.Index>

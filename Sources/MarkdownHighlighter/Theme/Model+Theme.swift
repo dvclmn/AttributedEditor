@@ -13,7 +13,7 @@ extension Markdown {
   public struct Theme: Highlighter.Theme, @unchecked Sendable {
     
 //  public class Theme: Highlighter.Theme {
-    public var font: NSFont = NSFont.systemFont(ofSize: 14)
+//    public var font: NSFont = NSFont.systemFont(ofSize: 14)
     var styleDefinitions: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
 
     /// Global Defaults

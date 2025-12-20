@@ -51,7 +51,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
           attrs.update(
             .init(foreOptional: syntaxColour), in: range, tag: "Shape.Wrap Leading")
           attrs.update(
-            .init(fontTraitsOptional: syntaxTraits), in: range, tag: "Shape.Wrap Leading")
+            .fontTraits(syntaxTraits, current: font), in: range, tag: "Shape.Wrap Leading")
 
         case \.trailing:
           attrs.update(
@@ -60,7 +60,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
             tag: "Shape.Wrap Trailing"
           )
           attrs.update(
-            .init(fontTraitsOptional: syntaxTraits), in: range, tag: "Shape.Wrap Trailing"
+            .fontTraits(syntaxTraits, current: font), in: range, tag: "Shape.Wrap Trailing"
           )
 
         case \.content:
@@ -70,7 +70,8 @@ extension SyntaxRule where T == RegexShape.Wrap {
             tag: "Shape.Wrap Content"
           )
           attrs.update(
-            .init(fontTraitsOptional: contentTraits), in: range, tag: "Shape.Wrap Content"
+            .fontTraits(contentTraits, current: font), in: range, tag: "Shape.Wrap Content"
+//            .init(fontTraitsOptional: contentTraits), in: range, tag: "Shape.Wrap Content"
           )
 
         default: return

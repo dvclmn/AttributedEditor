@@ -12,7 +12,7 @@ import MarkdownHighlighter
 import SwiftUI
 
 public struct AttributedEditor: View {
-  @Environment(\.markdownTheme) private var markdownTheme
+//  @Environment(\.markdownTheme) private var markdownTheme
   @Environment(\.insets) private var insets
   @Environment(\.overScroll) private var overScroll
   @Environment(\.isEditable) private var isEditable
@@ -21,27 +21,29 @@ public struct AttributedEditor: View {
   @Environment(\.fontResolutionContext) private var fontResolutionContext
 
   @Binding var text: String
-  let languageHint: LanguageHint
+//  let languageHint: LanguageHint
 
-  @State private var highlighter: any Highlighter.Core
+   let highlighter: any Highlighter.Core
+//  @State private var highlighter: any Highlighter.Core
 
   public init(
     _ text: Binding<String>,
     languageHint: LanguageHint
   ) {
     self._text = text
-    self.languageHint = languageHint
+//    self.languageHint = languageHint
 
     switch languageHint {
       /// Support for more to come
-      default: self._highlighter = State(initialValue: MarkdownHighlighter())
+      default: self.highlighter = MarkdownHighlighter()
+//      default: self._highlighter = State(initialValue: MarkdownHighlighter())
     }
   }
 
   public var body: some View {
     AttributedEditorView(
       text: $text,
-      //      font: finalFont,
+            font: finalFont,
       config: Editor.Configuration(
         isEditable: isEditable,
         options: [],
@@ -60,9 +62,9 @@ public struct AttributedEditor: View {
       }
     }
 
-    .task(id: font) {
-      highlighter.theme.updateFont(with: finalFont)
-    }
+//    .task(id: font) {
+//      highlighter.theme.updateFont(with: finalFont)
+//    }
     // TODO: Bring this back
     //    .onAppear {
     //      highlighter.updateTheme(markdownTheme)

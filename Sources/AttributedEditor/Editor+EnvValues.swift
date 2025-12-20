@@ -10,7 +10,7 @@ import EditorCore
 import MarkdownHighlighter
 
 extension EnvironmentValues {
-  @Entry public var markdownTheme: Markdown.Theme = .default
+//  @Entry public var markdownTheme: Markdown.Theme = .default
   @Entry public var insets: CGSize = CGSize(10, 20)
   @Entry public var overScroll: Int = 20
   
@@ -19,8 +19,8 @@ extension EnvironmentValues {
   
 }
 
-extension View where Self == AttributedEditor {
-  public func setTheme(_ theme: Markdown.Theme) -> some View {
-    self.environment(\.markdownTheme, theme)
-  }
-}
+//extension View where Self == AttributedEditor {
+//  public func setTheme(_ theme: Markdown.Theme) -> some View {
+//    self.environment(\.markdownTheme, theme)
+//  }
+//}

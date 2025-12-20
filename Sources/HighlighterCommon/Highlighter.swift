@@ -27,12 +27,6 @@ extension Highlighter {
 
 extension Highlighter.Core {
 
-  public var defaultAttributes: [NSAttributedString.Key: Any] {
-    [
-      .font: theme.font,
-      .foregroundColor: theme.textColour,
-    ]
-  }
 
   public func updateTheme(_ theme: HighlighterTheme) {
     self.theme = theme

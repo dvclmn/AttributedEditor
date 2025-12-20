@@ -9,7 +9,9 @@ import AppKit
 
 extension Markdown.SyntaxRule where T == RegexShape.CodeBlock {
   
-  static var codeBlock: Self {
+ 
+  
+  static func codeBlock Self {
     
     let pattern = /(?<start>```[ \t]*)(?<langHint>[^\n]*)\n(?<content>(?:.|\n)*?)(?<end>^```[ \t]*$)/
       .dotMatchesNewlines()

@@ -11,12 +11,13 @@ import HighlighterCommon
 
 public final class MarkdownHighlighter: Highlighter.Core {
 
+  
   private let isDrawingBlocks: Bool = false
   public var theme: Markdown.Theme
   public var blockRanges: NSBlockRanges = []
 //  public var blockRanges: BlockRanges = []
 
-  var rules: [RegexShape] {
+  func rules(with font: NSFont) -> [RegexShape] {
     [
       //      .prefix(.heading),
       /// 📣 Important: The ordering for styles to work is:
@@ -37,11 +38,14 @@ public final class MarkdownHighlighter: Highlighter.Core {
     self.theme = theme
   }
 
-  public func buildStyles(in text: String) -> NSAttributedRanges {
+  public func buildStyles(
+    in text: String,
+    with font: NSFont
+  ) -> NSAttributedRanges {
 
     var attrs: NSAttributedRanges = []
 
-    for rule in rules {
+    for rule in rules(with: font) {
       let (newAttr, newBlocks) = buildStyledRanges(rule, text: text)
       attrs.append(contentsOf: newAttr)
       if isDrawingBlocks {

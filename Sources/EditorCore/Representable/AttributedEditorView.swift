@@ -22,18 +22,18 @@ public struct AttributedEditorView: NSViewRepresentable {
   /// The goal is to populate this from the SwiftUI environment
   /// using Font.Resolved, and some mechanism for fallbacks
   /// for macOS versions older than macOS 26
-//  let font: NSFont
+  let font: NSFont
 
   public init(
     text: Binding<String>,
-//    font: NSFont,
+    font: NSFont,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     config: Editor.Configuration = .init(),
     highlighter: any Highlighter.Core,
     debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text
-//    self.font = font
+    self.font = font
     self._cursorPosition = cursorPosition
     self.editorConfig = config
     self.highlighter = highlighter
@@ -42,6 +42,13 @@ public struct AttributedEditorView: NSViewRepresentable {
 }
 
 extension AttributedEditorView {
+
+  public var defaultAttributes: TextAttributes {
+    [
+      .font: font,
+      .foregroundColor: highlighter.theme.textColour,
+    ]
+  }
 
   public func makeNSView(context: Context) -> NSScrollView {
     /// Create the scroll view container
@@ -58,7 +65,7 @@ extension AttributedEditorView {
     textView.textStorage?.delegate = context.coordinator
 
     textView.setUpTextView(
-      font: highlighter.theme.font,
+      font: font,
       config: editorConfig,
     )
 
@@ -99,8 +106,9 @@ extension AttributedEditorView {
   public func updateNSView(_ scrollView: NSScrollView, context: Context) {
     guard let textView = scrollView.documentView as? Highlightable else { return }
     //    guard !context.coordinator.isApplyingExternalUpdate else { return }
-    print("SwiftUI triggered *general* `updateNSView` at \(Date.now.timeIntervalSince1970)")
-    
+    print(
+      "SwiftUI triggered *general* `updateNSView` at \(Date.now.timeIntervalSince1970)")
+
     if textView.string != text {
       DebugString {
         "SwiftUI triggered `updateNSView` with text change at \(Date.now.timeIntervalSince1970)"

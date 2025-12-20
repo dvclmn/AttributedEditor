@@ -31,4 +31,20 @@ extension Markdown.Syntax {
     //        fatalError("\(self.name) not yet supported.")
     }
   }
+  
+//  public var regexAnyShape: Regex<AnyRegexOutput>? {
+//    switch self {
+//
+//      case .bold:
+//        /(?<leading>(?:\*{2}|_{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
+//        
+//      case .italic:
+//        /(?<leading>[\*_])(?<content>[^\*_ \n][^\n]*?[^\*_ \n])(?<trailing>\k<leading>)/
+//   
+//      case .boldItalic:
+//        /(?<leading>(?:\*{3}|_{3}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
+//        
+//      default: nil
+//    }
+//  }
 }
