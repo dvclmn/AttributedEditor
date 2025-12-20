@@ -11,7 +11,6 @@ extension AttributedEditorView {
   @MainActor
   public class Coordinator: NSObject, NSTextViewDelegate {
     let parent: AttributedEditorView
-//    weak var textView: BackingTextView?
 
     public init(_ view: AttributedEditorView) {
       self.parent = view

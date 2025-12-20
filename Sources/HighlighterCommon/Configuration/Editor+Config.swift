@@ -84,6 +84,7 @@ public enum Editor {
 }
 
 extension Editor.Configuration {
+  public var hasLineNumbers: Bool { options.contains(.lineNumbers) }
   public var codeBlockInsets: CGSize { insets.multiplyBoth(by: 0.4) }
 
   public var paragraphStyle: NSParagraphStyle {

@@ -7,7 +7,6 @@
 
 import HighlighterCommon
 import SharedHelpers
-//import BaseHelpers
 import SwiftUI
 
 extension BackingTextView {

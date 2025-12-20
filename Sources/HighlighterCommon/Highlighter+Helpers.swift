@@ -14,6 +14,7 @@ extension Highlighter.Core {
   public func apply(
     currentText: String,
     textView: NSTextView,
+    editorConfig: Editor.Configuration
   ) {
 
     let attrString = NSMutableAttributedString(string: currentText)
@@ -55,8 +56,10 @@ extension Highlighter.Core {
     textView.syncTypingAttributes()
 
     /// Refresh line numbers
-    textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
-    textView.needsDisplay = true
+    if editorConfig.hasLineNumbers {
+      textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
+      textView.needsDisplay = true
+    }
 
   }
 
