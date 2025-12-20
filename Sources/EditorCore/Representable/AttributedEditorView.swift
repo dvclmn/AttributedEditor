@@ -122,7 +122,7 @@ extension AttributedEditorView {
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
-      context.coordinator.runHighlighting(for: textView)
+//      context.coordinator.runHighlighting(for: textView)
       //      context.coordinator.isApplyingExternalUpdate = false
     }
 

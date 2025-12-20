@@ -37,36 +37,36 @@ extension AttributedEditorView.Coordinator {
     }
   }
 
-  func runHighlighting(for textView: NSTextView) {
-//    highlightTask?.cancel()
-    guard let textStorage = textView.textStorage else { return }
-    let highlighter = self.parent.highlighter
-    let config = self.parent.editorConfig
-    let font = self.parent.font
-    let textSnapshot = textView.string
-    let affectedRange = pendingEditedRange ?? NSRange(location: 0, length: textStorage.length)
-    
-//    highlightTask = Task { @MainActor in
-//      try? await Task.sleep(for: .seconds(0.15))
-      
-//      guard !Task.isCancelled else { return }
-      
-      //      let tokens = await self.parent.highlighter.parse(textSnapshot)
-    let tokens = highlighter.buildStyles(in: textSnapshot, with: font)
-      
-//      await MainActor.run {
-//        guard !Task.isCancelled else { return }
-        highlighter.apply(
-          tokens: tokens,
-          textView: textView,
-          affectedRange: affectedRange,
-          editorConfig: config,
-          defaults: parent.defaultAttributes
-        )
-        //        apply(tokens, to: textView, affectedRange: affectedRange)
-//      }
-//    }
-  }
+//  func runHighlighting(for textView: NSTextView) {
+////    highlightTask?.cancel()
+//    guard let textStorage = textView.textStorage else { return }
+//    let highlighter = self.parent.highlighter
+//    let config = self.parent.editorConfig
+//    let font = self.parent.font
+//    let textSnapshot = textView.string
+//    let affectedRange = pendingEditedRange ?? NSRange(location: 0, length: textStorage.length)
+//    
+////    highlightTask = Task { @MainActor in
+////      try? await Task.sleep(for: .seconds(0.15))
+//      
+////      guard !Task.isCancelled else { return }
+//      
+//      //      let tokens = await self.parent.highlighter.parse(textSnapshot)
+//    let tokens = highlighter.buildStyles(in: textSnapshot, with: font)
+//      
+////      await MainActor.run {
+////        guard !Task.isCancelled else { return }
+//        highlighter.apply(
+//          tokens: tokens,
+//          textView: textView,
+//          affectedRange: affectedRange,
+//          editorConfig: config,
+//          defaults: parent.defaultAttributes
+//        )
+//        //        apply(tokens, to: textView, affectedRange: affectedRange)
+////      }
+////    }
+//  }
   
 //  func scheduleHighlight(for textView: NSTextView) {
 //    highlightTask?.cancel()

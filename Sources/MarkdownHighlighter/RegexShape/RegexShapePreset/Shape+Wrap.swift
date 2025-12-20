@@ -23,53 +23,64 @@ extension Markdown.SyntaxRule {
   //  }
   //extension SyntaxRule where T == RegexShape.Wrap {
 
-  func apply(
-    //    _ shape: RegexShape,
-    text: String,
-    //    match: Regex<T>.Match,
-    //    theme: Markdown.Theme,
-    attrs: inout NSAttributedRanges
-      //    attrs: inout AttributedRanges
-  ) {
-    
-//    let syntaxToken = theme.style(for: syntax, part: .syntax)
-//    let contentToken = theme.style(for: syntax, part: .content)
+//  func apply(
+//    //    _ shape: RegexShape,
+//    text: String,
+//    //    match: Regex<T>.Match,
+//    //    theme: Markdown.Theme,
+//    attrs: inout NSAttributedRanges
+//      //    attrs: inout AttributedRanges
+//  ) {
 //    
-//    let syntaxTraits = syntaxToken.fontTraits
-//    let contentTraits = contentToken.fontTraits
+////    let syntaxToken = theme.style(for: syntax, part: .syntax)
+////    let contentToken = theme.style(for: syntax, part: .content)
+////    
+////    let syntaxTraits = syntaxToken.fontTraits
+////    let contentTraits = contentToken.fontTraits
+////    
+////    let syntaxColour = syntaxToken.nsColour
+////    let contentColour = contentToken.nsColour
 //    
-//    let syntaxColour = syntaxToken.nsColour
-//    let contentColour = contentToken.nsColour
-    
-    
-    switch shape {
-      case .wrap:
-        //    let thing = self.pattern.regex
-        guard let patt = self.pattern.regex as? RegexShape.Wrap else {
-          
-          return
-        }
-        
-        for match in text.matches(of: self.pattern) {
-//          guard let output = match.output as? RegexShape.Wrap else {
-//            return
-//          }
-          
-          
-          
-          //      match.output
-          
-          //      guard let tbb = match.output as? self.shape else {
-          //        print("Hello  hwdwd")
-          //      }
-          
-          //      tbb.extractValues(as: self.shape)
-          
-        }
-      default: return
-    }
-    
-  }
+//    
+//    switch shape {
+//      case .wrap:
+//        //    let thing = self.pattern.regex
+//        guard let patt = self.pattern.regex as? RegexShape.Wrap else {
+//          print("Couodn't do ittt")
+//          return
+//        }
+//        
+//        for match in text.matches(of: self.pattern) {
+////          guard let output = match.output as? RegexShape.Wrap else {
+////            return
+////          }
+//          
+//          
+//          
+//          //      match.output
+//          
+//          //      guard let tbb = match.output as? self.shape else {
+//          //        print("Hello  hwdwd")
+//          //      }
+//          
+//          //      tbb.extractValues(as: self.shape)
+//          
+//        }
+//      default: return
+//    }
+//    
+//  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     //    for match in text.matches(of: )
 
     //    precondition(
