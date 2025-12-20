@@ -10,7 +10,8 @@ import HighlighterCommon
 
 extension MarkdownHighlighter {
   func buildStyledRanges(
-    _ shape: RegexShape,
+    _ rule: Markdown.SyntaxRule,
+//    _ shape: RegexShape,
     text: String,
   ) -> (NSAttributedRanges, NSBlockRanges) {
 
@@ -18,6 +19,7 @@ extension MarkdownHighlighter {
     var blocks: NSBlockRanges = []
     
 
+    return (attrs, blocks)
 //    switch shape {
 //      case .wrap(let rule):
 //        for match in text.matches(of: rule.pattern) {

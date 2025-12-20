@@ -42,6 +42,7 @@ extension AttributedEditorView.Coordinator {
     guard let textStorage = textView.textStorage else { return }
     let highlighter = self.parent.highlighter
     let config = self.parent.editorConfig
+    let font = self.parent.font
     let textSnapshot = textView.string
     let affectedRange = pendingEditedRange ?? NSRange(location: 0, length: textStorage.length)
     
@@ -51,7 +52,7 @@ extension AttributedEditorView.Coordinator {
 //      guard !Task.isCancelled else { return }
       
       //      let tokens = await self.parent.highlighter.parse(textSnapshot)
-      let tokens = highlighter.buildStyles(in: textSnapshot)
+    let tokens = highlighter.buildStyles(in: textSnapshot, with: font)
       
 //      await MainActor.run {
 //        guard !Task.isCancelled else { return }

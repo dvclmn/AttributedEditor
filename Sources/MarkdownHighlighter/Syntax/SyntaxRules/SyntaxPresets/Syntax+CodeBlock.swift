@@ -7,17 +7,17 @@
 
 import AppKit
 
-extension Markdown.SyntaxRule where T == RegexShape.CodeBlock {
-  
- 
-  
-  static func codeBlock Self {
-    
-    let pattern = /(?<start>```[ \t]*)(?<langHint>[^\n]*)\n(?<content>(?:.|\n)*?)(?<end>^```[ \t]*$)/
-      .dotMatchesNewlines()
-      .anchorsMatchLineEndings()
-
-    return SyntaxRule(for: .codeBlock, pattern: pattern)
-  }
-}
-
+//extension Markdown.SyntaxRule where T == RegexShape.CodeBlock {
+//  
+// 
+//  
+//  static func codeBlock Self {
+//    
+//    let pattern = /(?<start>```[ \t]*)(?<langHint>[^\n]*)\n(?<content>(?:.|\n)*?)(?<end>^```[ \t]*$)/
+//      .dotMatchesNewlines()
+//      .anchorsMatchLineEndings()
+//
+//    return SyntaxRule(for: .codeBlock, pattern: pattern)
+//  }
+//}
+//

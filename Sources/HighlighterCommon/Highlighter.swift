@@ -18,7 +18,7 @@ extension Highlighter {
     var blockRanges: NSBlockRanges { get set }
     var theme: HighlighterTheme { get set }
 
-    func buildStyles(in text: String) -> NSAttributedRanges
+    func buildStyles(in text: String, with font: NSFont) -> NSAttributedRanges
 
     func drawBlockPath(in rect: CGRect) -> NSBezierPath
     func updateTheme(_ theme: HighlighterTheme)

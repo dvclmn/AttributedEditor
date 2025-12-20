@@ -17,7 +17,8 @@ public final class MarkdownHighlighter: Highlighter.Core {
   public var blockRanges: NSBlockRanges = []
 //  public var blockRanges: BlockRanges = []
 
-  func rules(with font: NSFont) -> [RegexShape] {
+  func rules(with font: NSFont) -> [Markdown.SyntaxRule] {
+//  func rules(with font: NSFont) -> [RegexShape] {
     [
       //      .prefix(.heading),
       /// 📣 Important: The ordering for styles to work is:
@@ -29,7 +30,7 @@ public final class MarkdownHighlighter: Highlighter.Core {
       //      .wrap(.boldItalic),
       //      .single(.horizontalRule),
       //      .wrapPair(.link),
-      .wrap(.inlineCode),
+//      .wrap(.inlineCode),
 //      .codeBlock(.codeBlock),
     ]
   }

@@ -9,12 +9,12 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension Markdown.SyntaxRule where T == RegexShape.Wrap {
-  
-  static var inlineCode: Self {
-    
-    let pattern = /(?<leading>`)(?<content>(?:[^`\n])+?)(?<trailing>`)/
-
-    return SyntaxRule(for: .inlineCode, pattern: pattern)
-  }
-}
+//extension Markdown.SyntaxRule where T == RegexShape.Wrap {
+//  
+//  static var inlineCode: Self {
+//    
+//    let pattern = /(?<leading>`)(?<content>(?:[^`\n])+?)(?<trailing>`)/
+//
+//    return SyntaxRule(for: .inlineCode, pattern: pattern)
+//  }
+//}

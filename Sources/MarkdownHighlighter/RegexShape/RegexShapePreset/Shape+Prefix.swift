@@ -8,16 +8,16 @@
 import AppKit
 import HighlighterCommon
 
-extension SyntaxRule where T == RegexShape.Prefix {
-  func apply(
-    match: Regex<T>.Match,
-    theme: Markdown.Theme,
-//    fontSize: CGFloat,
-    attrs: inout NSAttributedRanges
-  ) {
-    
-  }
-}
+//extension SyntaxRule where T == RegexShape.Prefix {
+//  func apply(
+//    match: Regex<T>.Match,
+//    theme: Markdown.Theme,
+////    fontSize: CGFloat,
+//    attrs: inout NSAttributedRanges
+//  ) {
+//    
+//  }
+//}
 //
 //  func apply(
 //    match: Regex<T>.Match,
