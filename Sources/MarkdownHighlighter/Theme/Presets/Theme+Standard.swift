@@ -11,11 +11,13 @@ extension Markdown.Theme {
 
   /// Note: The syntax default colour is `.tertiary`,
   /// which is what I want here, so it is skipped in most cases
+  ///
+  /// Theme gets built over here
   public static let standard: Self = {
     var theme = Self()
 
     theme.register(.bold) {
-//      $0.content = TokenStyle(colour: .primary, fontWeight: .bold)
+      //      $0.content = TokenStyle(colour: .primary, fontWeight: .bold)
       $0.content = TokenStyle(colour: .primary, fontTraits: .bold)
     }
     theme.register(.italic) {
@@ -49,7 +51,7 @@ extension Markdown.Theme {
     }
 
     theme.register(.inlineCode) {
-      $0.content = TokenStyle(colour: .brown,fontTraits: .monoSpace,)
+      $0.content = TokenStyle(colour: .brown, fontTraits: .monoSpace, )
       $0.syntax = TokenStyle(colour: .gray, fontTraits: .monoSpace)
 
     }

@@ -28,7 +28,7 @@ extension Highlighter.Core {
 //    let attrString = NSMutableAttributedString(string: currentText)
     
 //    attrString.beginEditing()
-    textStorage.beginEditing()
+//    textStorage.beginEditing()
     
     /// Set defaults
 //    attrString.setAttributes(
@@ -51,7 +51,7 @@ extension Highlighter.Core {
       textStorage.addAttributes(token.attributes, range: token.range)
     }
 
-    textStorage.endEditing()
+//    textStorage.endEditing()
 
     /// Preserve the current cursor position and selection
 //    let selectedRange = textView.selectedRange()

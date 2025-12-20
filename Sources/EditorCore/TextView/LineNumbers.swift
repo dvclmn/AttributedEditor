@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import CoreTools
 
 class LineNumberRulerView: NSRulerView {
   /// This stores a reference to the text view we're displaying line numbers for
@@ -57,8 +58,10 @@ class LineNumberRulerView: NSRulerView {
 
     /// Calculate which lines are visible in the current scroll position
     let visibleRect = textView.visibleRect
-    let visibleGlyphRange = layoutManager.glyphRange(forBoundingRect: visibleRect, in: textContainer)
-    let visibleCharRange = layoutManager.characterRange(forGlyphRange: visibleGlyphRange, actualGlyphRange: nil)
+    let visibleGlyphRange = layoutManager.glyphRange(
+      forBoundingRect: visibleRect, in: textContainer)
+    let visibleCharRange = layoutManager.characterRange(
+      forGlyphRange: visibleGlyphRange, actualGlyphRange: nil)
 
     let text = textView.string as NSString
     var lineNumber = 1
@@ -72,17 +75,19 @@ class LineNumberRulerView: NSRulerView {
       /// Check if this line intersects with the visible range
       if NSIntersectionRange(lineRange, visibleCharRange).length > 0 {
         /// Get the glyph range for this line
-        let glyphRange = layoutManager.glyphRange(forCharacterRange: lineRange, actualCharacterRange: nil)
+        let glyphRange = layoutManager.glyphRange(
+          forCharacterRange: lineRange, actualCharacterRange: nil)
 
         /// Calculate where this line appears vertically
-        let lineRect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+        let lineRect = layoutManager.boundingRect(
+          forGlyphRange: glyphRange, in: textContainer)
 
         /// Convert from text view coordinates to ruler coordinates
         let lineY = lineRect.minY - visibleRect.minY
 
         /// Draw the line number
         let lineNumberString = "\(lineNumber)" as NSString
-        let attributes: [NSAttributedString.Key: Any] = [
+        let attributes: TextAttributes = [
           .font: font,
           .foregroundColor: textColor,
         ]

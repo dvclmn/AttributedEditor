@@ -10,7 +10,7 @@ import ColourKit
 import HighlighterCommon
 
 extension Markdown {
-//  public struct Theme: Sendable {
+  //  public struct Theme: Sendable {
   public struct Theme: Sendable, Highlighter.Theme {
     var styles: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
 
@@ -18,7 +18,6 @@ extension Markdown {
     var defaultBodyColor: CodableColour = .primary
     var defaultSyntaxColor: CodableColour = .tertiary
     var defaultMetadataColor: CodableColour = .secondary
-
   }
 }
 
@@ -44,9 +43,9 @@ extension Markdown.Theme {
     /// 2. Fallback Logic based on Structure
     /// Note: Backgrounds usually default to nil/transparent unless specified
     return switch part {
-      case .content:TokenStyle(colour: defaultBodyColor)
-      case .syntax:TokenStyle(colour: defaultSyntaxColor)
-      case .meta:TokenStyle(colour: defaultMetadataColor)
+      case .content: TokenStyle(colour: defaultBodyColor)
+      case .syntax: TokenStyle(colour: defaultSyntaxColor)
+      case .meta: TokenStyle(colour: defaultMetadataColor)
       case .bg: TokenStyle(colour: nil)
     }
   }

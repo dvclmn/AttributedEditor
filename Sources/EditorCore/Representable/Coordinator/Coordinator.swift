@@ -28,9 +28,10 @@ extension AttributedEditorView {
       guard let textView = notification.object as? Highlightable else { return }
 
       parent.text = textView.string
-//      updateInsertionPointPosition(in: textView)
+      updateInsertionPointPosition(in: textView)
       
-      scheduleHighlight(for: textView)
+      runHighlighting(for: textView)
+//      scheduleHighlight(for: textView)
       
       /// Update the binding immediately so SwiftUI stays in sync
 //      parent.text = textView.string

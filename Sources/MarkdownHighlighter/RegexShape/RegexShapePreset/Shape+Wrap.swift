@@ -15,7 +15,7 @@ extension SyntaxRule where T == RegexShape.Wrap {
     match: Regex<T>.Match,
     theme: Markdown.Theme,
     attrs: inout NSAttributedRanges
-//    attrs: inout AttributedRanges
+      //    attrs: inout AttributedRanges
   ) {
 
     precondition(

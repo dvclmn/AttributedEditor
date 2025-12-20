@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import CoreTools
 import HighlighterCommon
 import Sharing
 import SwiftUI
@@ -65,6 +66,7 @@ extension AttributedEditorView {
       width: scrollView.contentSize.width,
       height: CGFloat.greatestFiniteMagnitude
     )
+    scrollView.documentView = textView
 
     /// Add line numbers if enabled
     if editorConfig.options.contains(.lineNumbers) {
@@ -72,23 +74,22 @@ extension AttributedEditorView {
       scrollView.verticalRulerView = rulerView
       scrollView.hasVerticalRuler = true
       scrollView.rulersVisible = true
-    }
 
-    scrollView.documentView = textView
-
-    /// Store the text view in the coordinator for later access
-//    context.coordinator.textView = textView
-
-    /// Post a notification when text view is scrolled so line numbers update
-    NotificationCenter.default.addObserver(
-      forName: NSView.boundsDidChangeNotification,
-      object: scrollView.contentView,
-      queue: .main
-    ) { _ in
-      DispatchQueue.main.async {
-        scrollView.verticalRulerView?.needsDisplay = true
+      NotificationCenter.default.addObserver(
+        forName: NSView.boundsDidChangeNotification,
+        object: scrollView.contentView,
+        queue: .main
+      ) { _ in
+        DispatchQueue.main.async {
+          scrollView.verticalRulerView?.needsDisplay = true
+        }
       }
     }
+
+    /// Store the text view in the coordinator for later access
+    //    context.coordinator.textView = textView
+
+    /// Post a notification when text view is scrolled so line numbers update
 
     return scrollView
   }
@@ -97,28 +98,36 @@ extension AttributedEditorView {
   /// This is for communicating changes from SwiftUI back to AppKit
   public func updateNSView(_ scrollView: NSScrollView, context: Context) {
     guard let textView = scrollView.documentView as? Highlightable else { return }
-    guard !context.coordinator.isApplyingExternalUpdate else { return }
+    //    guard !context.coordinator.isApplyingExternalUpdate else { return }
+    print("SwiftUI triggered *general* `updateNSView` at \(Date.now.timeIntervalSince1970)")
     
     if textView.string != text {
-      context.coordinator.isApplyingExternalUpdate = true
-      
+      DebugString {
+        "SwiftUI triggered `updateNSView` with text change at \(Date.now.timeIntervalSince1970)"
+        "AppKit character count: \(textView.string.count)"
+        "SwiftUI Binding character count: \(text.count)"
+        Divider()
+      }
+
+      //      context.coordinator.isApplyingExternalUpdate = true
+
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
-      
-      context.coordinator.isApplyingExternalUpdate = false
+      context.coordinator.runHighlighting(for: textView)
+      //      context.coordinator.isApplyingExternalUpdate = false
     }
-    
-//    if textView.string != text {
-//
-//      /// Preserve cursor position
-//      let selectedRange = textView.selectedRange()
-//      textView.string = text
-//      textView.setSelectedRange(selectedRange)
-//
-//      /// Apply highlighting immediately for external changes
-//      context.coordinator.applyHighlighting(in: textView)
-//    }
+
+    //    if textView.string != text {
+    //
+    //      /// Preserve cursor position
+    //      let selectedRange = textView.selectedRange()
+    //      textView.string = text
+    //      textView.setSelectedRange(selectedRange)
+    //
+    //      /// Apply highlighting immediately for external changes
+    //          context.coordinator.applyHighlighting(in: textView)
+    //    }
   }
 
   public func makeCoordinator() -> Coordinator {
