@@ -16,26 +16,21 @@ extension Highlighter {
     associatedtype HighlighterTheme: Theme
 
     var blockRanges: NSBlockRanges { get set }
-//    var blockRanges: BlockRanges { get set }
     var theme: HighlighterTheme { get set }
-    var defaultFont: NSFont { get }
-    var defaultTextColour: NSColor { get }
 
     func buildStyles(in text: String) -> NSAttributedRanges
-//    func buildStyles(in text: String) -> AttributedRanges
+
     func drawBlockPath(in rect: CGRect) -> NSBezierPath
     func updateTheme(_ theme: HighlighterTheme)
   }
 }
 
 extension Highlighter.Core {
-  public var defaultFont: NSFont { NSFont.systemFont(ofSize: 14) }
-  public var defaultTextColour: NSColor { NSColor.textColor }
 
   public var defaultAttributes: [NSAttributedString.Key: Any] {
     [
-      .font: defaultFont,
-      .foregroundColor: defaultTextColour,
+      .font: theme.font,
+      .foregroundColor: theme.textColour,
     ]
   }
 

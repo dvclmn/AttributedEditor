@@ -22,18 +22,18 @@ public struct AttributedEditorView: NSViewRepresentable {
   /// The goal is to populate this from the SwiftUI environment
   /// using Font.Resolved, and some mechanism for fallbacks
   /// for macOS versions older than macOS 26
-  let font: NSFont
+//  let font: NSFont
 
   public init(
     text: Binding<String>,
-    font: NSFont = .systemFont(ofSize: 14),
+//    font: NSFont,
     cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     config: Editor.Configuration = .init(),
     highlighter: any Highlighter.Core,
     debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text
-    self.font = font
+//    self.font = font
     self._cursorPosition = cursorPosition
     self.editorConfig = config
     self.highlighter = highlighter
@@ -58,7 +58,7 @@ extension AttributedEditorView {
     textView.textStorage?.delegate = context.coordinator
 
     textView.setUpTextView(
-      font: font,
+      font: highlighter.theme.font,
       config: editorConfig,
     )
 

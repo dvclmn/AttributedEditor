@@ -11,8 +11,9 @@ import HighlighterCommon
 
 extension Markdown {
   //  public struct Theme: Sendable {
-  public struct Theme: Sendable, Highlighter.Theme {
-    var styles: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
+  public class Theme: Highlighter.Theme {
+    public var font: NSFont = NSFont.systemFont(ofSize: 14)
+    var styleDefinitions: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
 
     /// Global Defaults
     var defaultBodyColor: CodableColour = .primary
@@ -36,7 +37,7 @@ extension Markdown.Theme {
   ) -> TokenStyle {
 
     /// 1. Check specific definition (e.g., Bold > Content)
-    if let specific = styles[syntax]?[part] {
+    if let specific = styleDefinitions[syntax]?[part] {
       return specific
     }
 

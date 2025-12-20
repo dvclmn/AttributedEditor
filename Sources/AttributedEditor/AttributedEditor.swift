@@ -40,7 +40,7 @@ public struct AttributedEditor: View {
   public var body: some View {
     AttributedEditorView(
       text: $text,
-      font: finalFont,
+      //      font: finalFont,
       config: Editor.Configuration(
         isEditable: isEditable,
         options: [],
@@ -58,6 +58,10 @@ public struct AttributedEditor: View {
         print(digIntoResolvedFont)
       }
     }
+
+    .task(id: font) {
+      highlighter.theme.updateFont(with: finalFont)
+    }
     // TODO: Bring this back
     //    .onAppear {
     //      highlighter.updateTheme(markdownTheme)
@@ -66,7 +70,7 @@ public struct AttributedEditor: View {
 }
 
 extension AttributedEditor {
-  
+
   private var finalFont: NSFont {
     guard #available(macOS 26, iOS 26, *), let font else {
       return NSFont.systemFont(ofSize: 14)

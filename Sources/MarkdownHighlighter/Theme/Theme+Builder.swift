@@ -48,7 +48,7 @@ extension Markdown.Theme {
   }
 
   /// The registration method maps the builder back to the generic parts
-  mutating func register(
+  func register(
     _ syntax: Markdown.Syntax, build: (inout SyntaxStyleBuilder) -> Void
   ) {
     var builder = SyntaxStyleBuilder()
@@ -64,6 +64,6 @@ extension Markdown.Theme {
     /// so it is created inline here from the colour.
     if let bg = builder.background { parts[.bg] = TokenStyle(colour: bg) }
 
-    self.styles[syntax] = parts
+    self.styleDefinitions[syntax] = parts
   }
 }

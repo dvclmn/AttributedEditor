@@ -23,8 +23,8 @@ public final class MarkdownHighlighter: Highlighter.Core {
       /// 1: `italic`
       /// 2: `bold`
       /// 3: `boldItalic`
-      .wrap(.italic),
-      .wrap(.bold),
+//      .wrap(.italic),
+//      .wrap(.bold),
       //      .wrap(.boldItalic),
       //      .single(.horizontalRule),
       //      .wrapPair(.link),
