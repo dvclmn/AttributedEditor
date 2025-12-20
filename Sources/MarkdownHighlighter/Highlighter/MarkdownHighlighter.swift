@@ -47,6 +47,8 @@ public final class MarkdownHighlighter: Highlighter.Core {
         self.blockRanges.append(contentsOf: newBlocks)
       }
     }
+    
+    let nsRanges
     return attrs
   }
 

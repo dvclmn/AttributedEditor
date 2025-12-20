@@ -9,37 +9,45 @@ import SwiftUI
 
 extension AttributedEditorView {
   @MainActor
-  public class Coordinator: NSObject, NSTextViewDelegate {
+  public class Coordinator: NSObject, NSTextViewDelegate, @MainActor NSTextStorageDelegate {
     let parent: AttributedEditorView
-
+    var pendingEditedRange: NSRange?
+    var isApplyingExternalUpdate = false
+    
     public init(_ view: AttributedEditorView) {
       self.parent = view
     }
 
     /// Debouncing mechanism
-    private var highlightWorkItem: DispatchWorkItem?
+//    private var highlightWorkItem: DispatchWorkItem?
+    var highlightTask: Task<Void, Never>?
 
     // MARK: - Text Changed
     /// This is for communicating changes from within AppKit, back to SwiftUI
     public func textDidChange(_ notification: Notification) {
       guard let textView = notification.object as? Highlightable else { return }
 
-      /// Update the binding immediately so SwiftUI stays in sync
       parent.text = textView.string
-      updateInsertionPointPosition(in: textView)
-
-      /// Cancel any pending highlight operation
-      highlightWorkItem?.cancel()
-
-      /// Schedule a new highlight operation after the debounce interval
-      let workItem = DispatchWorkItem { [weak self] in
-        self?.applyHighlighting(in: textView)
-      }
-      highlightWorkItem = workItem
-
-      /// Execute after debounce interval on the main queue
-      DispatchQueue.main.asyncAfter(
-        deadline: .now() + parent.debounceInterval, execute: workItem)
+//      updateInsertionPointPosition(in: textView)
+      
+      scheduleHighlight(for: textView)
+      
+      /// Update the binding immediately so SwiftUI stays in sync
+//      parent.text = textView.string
+//      updateInsertionPointPosition(in: textView)
+//
+//      /// Cancel any pending highlight operation
+//      highlightWorkItem?.cancel()
+//
+//      /// Schedule a new highlight operation after the debounce interval
+//      let workItem = DispatchWorkItem { [weak self] in
+//        self?.applyHighlighting(in: textView)
+//      }
+//      highlightWorkItem = workItem
+//
+//      /// Execute after debounce interval on the main queue
+//      DispatchQueue.main.asyncAfter(
+//        deadline: .now() + parent.debounceInterval, execute: workItem)
     }
 
     // MARK: - Selection Changed
@@ -47,6 +55,21 @@ extension AttributedEditorView {
     public func textViewDidChangeSelection(_ notification: Notification) {
       guard let textView = notification.object as? Highlightable else { return }
       updateInsertionPointPosition(in: textView)
+    }
+    
+    public func textStorage(
+      _ textStorage: NSTextStorage,
+      didProcessEditing editedMask: NSTextStorageEditActions,
+      range editedRange: NSRange,
+      changeInLength delta: Int
+    ) {
+      guard editedMask.contains(.editedCharacters) else { return }
+      
+      // Expand to whole lines (cheap + safe)
+      let string = textStorage.string as NSString
+      let lineRange = string.lineRange(for: editedRange)
+      
+      pendingEditedRange = lineRange
     }
   }
 }

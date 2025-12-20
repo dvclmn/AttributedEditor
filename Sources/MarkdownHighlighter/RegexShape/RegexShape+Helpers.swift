@@ -8,8 +8,8 @@
 import Foundation
 
 public typealias MatchPath<T> = KeyPath<T, Substring>
-public typealias ApplyRegex<T> = (MatchPath<T>, Range<String.Index>) ->
-  Void
+public typealias ApplyRegex<T> = (MatchPath<T>, Range<String.Index>) -> Void
+public typealias NSApplyRegex<T> = (MatchPath<T>, NSRange) -> Void
 
 // MARK: - Process Match keypaths
 extension Regex {
@@ -27,8 +27,36 @@ extension Regex {
 
       /// This range is correct because the `Substring` points into the parent string
       let range = substring.startIndex..<substring.endIndex
+
       perform(path, range)
 
+    }
+  }
+  
+  fileprivate func applyWithNSRange<T>(
+    paths: [MatchPath<T>],
+    match: Match,
+    perform: NSApplyRegex<T>
+  ) {
+    for path in paths {
+      guard let output = match.output as? T else {
+        assertionFailure("Unexpected output type")
+        return
+      }
+      
+      /// 1. Get the substring from the keypath
+      let substring = output[keyPath: path]
+      
+      /// 2. Identify the range in Swift indices
+      let range = substring.startIndex..<substring.endIndex
+      
+      /// 3. Convert to NSRange
+      /// Use `substring.base` to calculate the offsets relative
+      /// to the entire original string, not just the match.
+      let nsRange = NSRange(range, in: substring.base)
+      
+      perform(path, nsRange)
+      
     }
   }
 }
@@ -37,31 +65,33 @@ extension Regex {
 extension Regex where Output == RegexShape.Single {
   public func apply(
     match: Match,
-    perform: ApplyRegex<Output>
+    perform: NSApplyRegex<Output>
+//    perform: ApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [\.self]
-    apply(paths: paths, match: match, perform: perform)
+    applyWithNSRange(paths: paths, match: match, perform: perform)
   }
 }
 
 extension Regex where Output == RegexShape.Prefix {
   public func apply(
     match: Match,
-    perform: ApplyRegex<Output>
+    perform: NSApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [
       \.0,
       \.prefix,
       \.content,
     ]
-    apply(paths: paths, match: match, perform: perform)
+    applyWithNSRange(paths: paths, match: match, perform: perform)
+//    apply(paths: paths, match: match, perform: perform)
   }
 }
 
 extension Regex where Output == RegexShape.Wrap {
   public func apply(
     match: Match,
-    perform: ApplyRegex<Output>
+    perform: NSApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [
       \.0,
@@ -69,14 +99,15 @@ extension Regex where Output == RegexShape.Wrap {
       \.content,
       \.trailing,
     ]
-    apply(paths: paths, match: match, perform: perform)
+    applyWithNSRange(paths: paths, match: match, perform: perform)
+//    apply(paths: paths, match: match, perform: perform)
   }
 }
 
 extension Regex where Output == RegexShape.CodeBlock {
   public func apply(
     match: Match,
-    perform: ApplyRegex<Output>
+    perform: NSApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [
       \.0,
@@ -85,14 +116,15 @@ extension Regex where Output == RegexShape.CodeBlock {
       \.content,
       \.end,
     ]
-    apply(paths: paths, match: match, perform: perform)
+    applyWithNSRange(paths: paths, match: match, perform: perform)
+//    apply(paths: paths, match: match, perform: perform)
   }
 }
 
 extension Regex where Output == RegexShape.WrapPair {
   public func apply(
     match: Match,
-    perform: ApplyRegex<Output>
+    perform: NSApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [
       \.0,
@@ -104,6 +136,7 @@ extension Regex where Output == RegexShape.WrapPair {
       \.url,
       \.trailingB,
     ]
-    apply(paths: paths, match: match, perform: perform)
+    applyWithNSRange(paths: paths, match: match, perform: perform)
+//    apply(paths: paths, match: match, perform: perform)
   }
 }

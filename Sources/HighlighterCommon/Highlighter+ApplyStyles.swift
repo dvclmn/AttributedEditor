@@ -12,33 +12,46 @@ extension Highlighter.Core {
 
   @MainActor
   public func apply(
-    currentText: String,
+    tokens: AttributedRanges,
+//    currentText: String,
     textView: NSTextView,
+    affectedRange: NSRange,
     editorConfig: Editor.Configuration
   ) {
+//  public func apply(
+//    currentText: String,
+//    textView: NSTextView,
+//    editorConfig: Editor.Configuration
+//  ) {
 
-    let attrString = NSMutableAttributedString(string: currentText)
+    guard let textStorage = textView.textStorage else { return }
+//    let attrString = NSMutableAttributedString(string: currentText)
     
-    attrString.beginEditing()
+//    attrString.beginEditing()
+    textStorage.beginEditing()
     
     /// Set defaults
-    attrString.setAttributes(
-      defaultAttributes,
-      range: attrString.fullRange
-    )
+//    attrString.setAttributes(
+//      defaultAttributes,
+//      range: attrString.fullRange
+//    )
+    
+    textStorage.setAttributes(defaultAttributes, range: affectedRange)
 
     /// Get highlighted ranges from the syntax highlighter
-    let attrRanges = self.buildStyles(
-      in: currentText
-    )
+//    let attrRanges = self.buildStyles(
+//      in: currentText
+//    )
 
     /// Convert from `Range<String.Index>` to `NSRange`
-    let runs = attrRanges.toNSRanges(in: currentText)
+    let runs = tokens.toNSRanges(in: currentText)
 
     /// Apply each highlighted range's attributes
     for run in runs {
-      attrString.addAttributes(run.attributes, range: run.range)
+      textStorage.addAttributes(run.attributes, range: run.range)
     }
+
+    textStorage.endEditing()
 
     /// Preserve the current cursor position and selection
     let selectedRange = textView.selectedRange()
@@ -51,7 +64,6 @@ extension Highlighter.Core {
     /// Restore the cursor position
     textView.setSelectedRange(selectedRange)
     
-    attrString.endEditing()
 
     textView.syncTypingAttributes()
 

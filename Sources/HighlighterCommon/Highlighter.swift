@@ -12,7 +12,7 @@ public enum Highlighter {}
 
 extension Highlighter {
   /// Protocol defining how text should be analyzed and highlighted
-  public protocol Core: AnyObject, Equatable {
+  public protocol Core: AnyObject {
     associatedtype HighlighterTheme: Theme
 
     var blockRanges: BlockRanges { get set }
@@ -20,7 +20,8 @@ extension Highlighter {
     var defaultFont: NSFont { get }
     var defaultTextColour: NSColor { get }
 
-    func buildStyles(in text: String) -> AttributedRanges
+    func buildStyles(in text: String) -> AttributedNSRanges
+//    func buildStyles(in text: String) -> AttributedRanges
     func drawBlockPath(in rect: CGRect) -> NSBezierPath
     func updateTheme(_ theme: HighlighterTheme)
   }

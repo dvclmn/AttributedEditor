@@ -54,6 +54,7 @@ extension AttributedEditorView {
     /// Create and configure the text view
     let textView = BackingTextView()
     textView.delegate = context.coordinator
+    textView.textStorage?.delegate = context.coordinator
 
     textView.setUpTextView(
       font: font,
@@ -92,21 +93,32 @@ extension AttributedEditorView {
     return scrollView
   }
 
+  // MARK: - SwiftUI Updated
   /// This is for communicating changes from SwiftUI back to AppKit
   public func updateNSView(_ scrollView: NSScrollView, context: Context) {
     guard let textView = scrollView.documentView as? Highlightable else { return }
-
-    /// Only update if the text has changed externally (not from typing)
+    guard !context.coordinator.isApplyingExternalUpdate else { return }
+    
     if textView.string != text {
-
-      /// Preserve cursor position
+      context.coordinator.isApplyingExternalUpdate = true
+      
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
-
-      /// Apply highlighting immediately for external changes
-      context.coordinator.applyHighlighting(in: textView)
+      
+      context.coordinator.isApplyingExternalUpdate = false
     }
+    
+//    if textView.string != text {
+//
+//      /// Preserve cursor position
+//      let selectedRange = textView.selectedRange()
+//      textView.string = text
+//      textView.setSelectedRange(selectedRange)
+//
+//      /// Apply highlighting immediately for external changes
+//      context.coordinator.applyHighlighting(in: textView)
+//    }
   }
 
   public func makeCoordinator() -> Coordinator {
