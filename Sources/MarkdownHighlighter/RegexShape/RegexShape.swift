@@ -14,13 +14,23 @@ import Foundation
 /// Worth noting: RegexShape is *only* concerned with text
 /// content, so that helps reduce some coupling, e.g.
 /// `SyntaxPart.background` is irrelevant to regex.
-@MetaEnum
+//@MetaEnum
 public enum RegexShape {
-  case wrap(SyntaxRule<Wrap>)
-  case prefix(SyntaxRule<Prefix>)
-  case single(SyntaxRule<Single>)
-  case codeBlock(SyntaxRule<CodeBlock>)
-  case wrapPair(SyntaxRule<WrapPair>)
+  case wrap
+  case prefix
+  case single
+  case codeBlock
+  case wrapPair
+//  case wrap(Wrap)
+//  case prefix(Prefix)
+//  case single(Single)
+//  case codeBlock(CodeBlock)
+//  case wrapPair(WrapPair)
+//  case wrap(SyntaxRule<Wrap>)
+//  case prefix(SyntaxRule<Prefix>)
+//  case single(SyntaxRule<Single>)
+//  case codeBlock(SyntaxRule<CodeBlock>)
+//  case wrapPair(SyntaxRule<WrapPair>)
 
   public typealias Single = (Substring)
 

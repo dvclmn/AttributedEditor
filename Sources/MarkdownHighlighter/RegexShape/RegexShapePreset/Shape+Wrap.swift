@@ -9,14 +9,35 @@ import AppKit
 import CoreTools
 import HighlighterCommon
 
-extension SyntaxRule where T == RegexShape.Wrap {
+extension Markdown.SyntaxRule {
+  
+//  var rules: [Self] {
+//    [
+//      Self.init(
+//        for: .bold,
+//        pattern: /(?<leading>(?:\*{2}|_{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/,
+////        theme: <#T##Markdown.Theme#>,
+////        font: <#T##NSFont#>
+//      )
+//    ]
+//  }
+//extension SyntaxRule where T == RegexShape.Wrap {
 
   func apply(
-    match: Regex<T>.Match,
-    theme: Markdown.Theme,
+//    _ shape: RegexShape,
+    text: String,
+//    match: Regex<T>.Match,
+//    theme: Markdown.Theme,
     attrs: inout NSAttributedRanges
       //    attrs: inout AttributedRanges
   ) {
+    
+//    let thing = self.pattern.regex
+    for match in text.matches(of: self.pattern) {
+      let thing = match.output
+      
+    }
+//    for match in text.matches(of: )
 
     precondition(
       syntax.regexShape == .wrap,

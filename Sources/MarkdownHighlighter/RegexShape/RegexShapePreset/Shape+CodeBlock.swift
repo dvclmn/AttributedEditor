@@ -9,10 +9,11 @@ import AppKit
 import CoreTools
 import HighlighterCommon
 
-extension SyntaxRule where T == RegexShape.CodeBlock {
+extension Markdown.SyntaxRule {
+//extension SyntaxRule where T == RegexShape.CodeBlock {
   func apply(
-    match: Regex<T>.Match,
-    theme: Markdown.Theme,
+    match: AnyRegex.Match,
+//    theme: Markdown.Theme,
     attrs: inout NSAttributedRanges
   ) {
     precondition(
@@ -29,6 +30,8 @@ extension SyntaxRule where T == RegexShape.CodeBlock {
     
     let bgColour = theme.style(for: syntax, part: .bg).nsColour
 
+    if let patt = self.
+    
     self.pattern.apply(match: match) {
       path,
       range in
