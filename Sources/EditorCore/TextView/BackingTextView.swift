@@ -8,7 +8,7 @@
 import AppKit
 import HighlighterCommon
 
-class BackingTextView: NSTextView {
+class BackingTextView: NSTextView, @MainActor Highlightable {
   var highlighter: (any Highlighter.Core)? = nil
   //  var blockRanges: [NSRange]
   //  private var hiddenSyntaxRanges: [NSRange] = []  // track what's hidden
@@ -31,12 +31,12 @@ class BackingTextView: NSTextView {
 
   override func draw(_ dirtyRect: NSRect) {
     /// Draw custom backgrounds before text is rendered
-    drawBlockBackgrounds()
-    drawCustomReplacements()  // for horizontal rules, etc.
+    drawBlocks()
+    drawReplacement()  // for horizontal rules, etc.
     super.draw(dirtyRect)
   }
 
-  private func drawBlockBackgrounds() {
+  func drawBlocks() {
     guard let layoutManager, let textContainer, let highlighter
     else { return }
 
@@ -58,16 +58,16 @@ class BackingTextView: NSTextView {
     }
   }
 
-  func updateHighlighter(_ new: any Highlighter.Core) {
+  func updateHighlighter(with updated: any Highlighter.Core) {
     //  func updateBlockRanges(_ ranges: [NSRange]) {
-    highlighter = new
+    highlighter = updated
     //    blockRanges = ranges
     needsDisplay = true
   }
 }
 
 extension BackingTextView {
-  fileprivate func drawCustomReplacements() {
+  func drawReplacement() {
     guard
       let layoutManager = layoutManager,
       let textContainer = textContainer,

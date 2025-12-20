@@ -18,6 +18,8 @@ extension NSTextView {
 }
 
 extension NSTextView {
+//  public func 
+  
   /// Synchronizes the typing attributes with the text attributes at the current cursor position.
   ///
   /// This method examines the text attributes immediately before the current cursor position
@@ -29,6 +31,7 @@ extension NSTextView {
   ///   - Cursor beyond text bounds
   ///   - Missing text storage
   public func syncTypingAttributes() {
+    
     /// Get current insertion point position from selected range
     let location = selectedRange().location
 

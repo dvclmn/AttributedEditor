@@ -10,22 +10,21 @@ import HighlighterCommon
 
 extension AttributedEditorView.Coordinator {
 
-  func applyHighlighting() {
-    guard let textView else { return }
+  func applyHighlighting(in textView: any Highlightable) {
+//    guard let textView else { return }
     let highlighter = self.parent.highlighter
 
     highlighter.apply(
-      font: parent.font,
       currentText: textView.string,
       textView: textView,
-//      defaults: self.parent.editorDefaults
     )
-    textView.updateHighlighter(highlighter)
-
+//    if highlighter != self.parent.highlighter {
+    textView.updateHighlighter(with: highlighter)
+//    }
   }
 
-  func updateInsertionPointPosition() {
-    guard let textView else { return }
+  func updateInsertionPointPosition(in textView: any Highlightable) {
+//    guard let textView else { return }
     DispatchQueue.main.async {
       self.parent.cursorPosition = textView.insertionPointPosition()
 

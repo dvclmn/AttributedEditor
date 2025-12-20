@@ -12,11 +12,14 @@ public enum Highlighter {}
 
 extension Highlighter {
   /// Protocol defining how text should be analyzed and highlighted
-  public protocol Core: AnyObject {
+  public protocol Core: AnyObject, Equatable {
     associatedtype HighlighterTheme: Theme
-    
+
     var blockRanges: BlockRanges { get set }
     var theme: HighlighterTheme { get set }
+    var defaultFont: NSFont { get }
+    var defaultTextColour: NSColor { get }
+
     func buildStyles(in text: String) -> AttributedRanges
     func drawBlockPath(in rect: CGRect) -> NSBezierPath
     func updateTheme(_ theme: HighlighterTheme)
@@ -24,15 +27,24 @@ extension Highlighter {
 }
 
 extension Highlighter.Core {
+  public var defaultFont: NSFont { NSFont.systemFont(ofSize: 14) }
+  public var defaultTextColour: NSColor { NSColor.textColor }
+
+  public var defaultAttributes: [NSAttributedString.Key: Any] {
+    [
+      .font: defaultFont,
+      .foregroundColor: defaultTextColour,
+    ]
+  }
+
   public func updateTheme(_ theme: HighlighterTheme) {
     self.theme = theme
   }
-  
+
   public func drawBlockPath(
     in rect: CGRect,
   ) -> NSBezierPath {
     /// Add padding around the text
-    //    let paddedRect = rect.offsetBy(dx: 0, dy: 20)
     let paddedRect = rect.insetBy(dx: -5, dy: -4).offsetBy(dx: 0, dy: 16)
 
     /// Create a rounded rectangle path

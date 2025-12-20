@@ -66,6 +66,7 @@ public struct AttributedEditor: View {
 }
 
 extension AttributedEditor {
+  
   private var finalFont: NSFont {
     guard #available(macOS 26, iOS 26, *), let font else {
       return NSFont.systemFont(ofSize: 14)
@@ -94,18 +95,7 @@ extension AttributedEditor {
       Labeled("Attributes", value: desc.fontAttributes)
       Divider()
     }.plainText
-    //  public var style: Font.TextStyle {
-    //    return toNSFont.fontDescriptor.debugDescription
-
   }
-
-  //    private var resolvedFontInfo: String {
-  //      let resolved =
-  //      let fallback = NSFont.systemFont(ofSize: 14)
-  //      guard let compat = Font.Compatible(font: font, context: fontResolutionContext)
-  //      else { return fallback }
-
-  //    }
 }
 #if DEBUG
 #Preview {

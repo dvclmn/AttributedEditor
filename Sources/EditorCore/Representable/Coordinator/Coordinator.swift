@@ -11,7 +11,7 @@ extension AttributedEditorView {
   @MainActor
   public class Coordinator: NSObject, NSTextViewDelegate {
     let parent: AttributedEditorView
-    weak var textView: BackingTextView?
+//    weak var textView: BackingTextView?
 
     public init(_ view: AttributedEditorView) {
       self.parent = view
@@ -23,18 +23,18 @@ extension AttributedEditorView {
     // MARK: - Text Changed
     /// This is for communicating changes from within AppKit, back to SwiftUI
     public func textDidChange(_ notification: Notification) {
-      guard let textView = notification.object as? NSTextView else { return }
+      guard let textView = notification.object as? Highlightable else { return }
 
       /// Update the binding immediately so SwiftUI stays in sync
       parent.text = textView.string
-      updateInsertionPointPosition()
+      updateInsertionPointPosition(in: textView)
 
       /// Cancel any pending highlight operation
       highlightWorkItem?.cancel()
 
       /// Schedule a new highlight operation after the debounce interval
       let workItem = DispatchWorkItem { [weak self] in
-        self?.applyHighlighting()
+        self?.applyHighlighting(in: textView)
       }
       highlightWorkItem = workItem
 
@@ -46,7 +46,8 @@ extension AttributedEditorView {
     // MARK: - Selection Changed
     /// This or communicating text selection changes from AppKit to SwiftUI
     public func textViewDidChangeSelection(_ notification: Notification) {
-      updateInsertionPointPosition()
+      guard let textView = notification.object as? Highlightable else { return }
+      updateInsertionPointPosition(in: textView)
     }
   }
 }

@@ -12,13 +12,19 @@ extension Highlighter.Core {
 
   @MainActor
   public func apply(
-    font: NSFont,
     currentText: String,
     textView: NSTextView,
   ) {
 
     let attrString = NSMutableAttributedString(string: currentText)
-    setDefaultStyles(font: font, attrString: attrString)
+    
+    attrString.beginEditing()
+    
+    /// Set defaults
+    attrString.setAttributes(
+      defaultAttributes,
+      range: attrString.fullRange
+    )
 
     /// Get highlighted ranges from the syntax highlighter
     let attrRanges = self.buildStyles(
@@ -36,40 +42,22 @@ extension Highlighter.Core {
     /// Preserve the current cursor position and selection
     let selectedRange = textView.selectedRange()
 
+    
     /// Apply the attributed string to the text storage
     textView.textStorage?.setAttributedString(attrString)
+    
 
     /// Restore the cursor position
     textView.setSelectedRange(selectedRange)
+    
+    attrString.endEditing()
 
     textView.syncTypingAttributes()
 
     /// Refresh line numbers
     textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
-
     textView.needsDisplay = true
 
-//    return markdownStyles.blocks.map {
-//      $0.toNSRange(in: currentText)
-//    }
-
   }
 
-  /// Note: even though it feels weird, `attrString` can
-  /// still be mutated, even though it's not being passed
-  /// as an `inout` parameter, because it is a class.
-  private func setDefaultStyles(
-    font defaultFont: NSFont,
-    attrString: NSMutableAttributedString
-  ) {
-    /// Apply default attributes to the entire text
-    let defaultAttributes: TextAttributes = [
-      .font: defaultFont,
-      .foregroundColor: NSColor.textColor,
-    ]
-    attrString.setAttributes(
-      defaultAttributes,
-      range: attrString.fullRange
-    )
-  }
 }

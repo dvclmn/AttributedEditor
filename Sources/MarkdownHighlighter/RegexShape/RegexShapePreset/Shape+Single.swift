@@ -20,15 +20,8 @@ extension SyntaxRule where T == RegexShape.Single {
       syntax.regexShape == .single,
       "Only syntaxes with RegexShape of .wrap are valid here."
     )
-
     let range = match.range
-    //      let font = NSFont.system(.body, size: fontSize * 0.97, monospaced: true)
-
     attrs.update(.fore(.systemPink), in: range, tag: "Shape.Single Whole")
-
-    //    attrs.update(
-    //      .foregroundColor,
-    //      with: ThemeColour.reddish, in: range)
 
   }
 

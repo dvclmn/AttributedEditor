@@ -9,7 +9,7 @@ import Foundation
 import HighlighterCommon
 
 extension MarkdownHighlighter {
-  func build(
+  func buildStyledRanges(
     _ shape: RegexShape,
     text: String,
   ) -> (AttributedRanges, BlockRanges) {
