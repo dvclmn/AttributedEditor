@@ -12,8 +12,9 @@ import SwiftUI
 extension BackingTextView {
 
   func setUpTextView(
-    font defaultFont: NSFont,
+    with defaultFont: NSFont,
     config: Editor.Configuration,
+    scrollViewWidth: CGFloat
   ) {
 
     isEditable = config.isEditable
@@ -53,6 +54,11 @@ extension BackingTextView {
       height: max
     )
     textContainer?.widthTracksTextView = true
+
+    textContainer?.containerSize = NSSize(
+      width: scrollViewWidth,
+      height: CGFloat.greatestFiniteMagnitude
+    )
 
   }
 

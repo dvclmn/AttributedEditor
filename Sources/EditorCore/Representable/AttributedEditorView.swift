@@ -53,41 +53,19 @@ extension AttributedEditorView {
     let textView = BackingTextView()
     textView.delegate = context.coordinator
     textView.textStorage?.delegate = context.coordinator
-
+    context.coordinator.textView = textView
     textView.setUpTextView(
-      font: font,
+      with: font,
       config: editorConfig,
+      scrollViewWidth: scrollView.contentSize.width
     )
 
-    textView.textContainer?.containerSize = NSSize(
-      width: scrollView.contentSize.width,
-      height: CGFloat.greatestFiniteMagnitude
-    )
     scrollView.documentView = textView
 
     /// Add line numbers if enabled
-    if editorConfig.options.contains(.lineNumbers) {
-      let rulerView = LineNumberRulerView(textView: textView)
-      scrollView.verticalRulerView = rulerView
-      scrollView.hasVerticalRuler = true
-      scrollView.rulersVisible = true
-
-      NotificationCenter.default.addObserver(
-        forName: NSView.boundsDidChangeNotification,
-        object: scrollView.contentView,
-        queue: .main
-      ) { _ in
-        DispatchQueue.main.async {
-          scrollView.verticalRulerView?.needsDisplay = true
-        }
-      }
-    }
-
-    /// Store the text view in the coordinator for later access
-    //    context.coordinator.textView = textView
-
-    /// Post a notification when text view is scrolled so line numbers update
-
+    handleLineNumbers(for: scrollView, textView: textView)
+    observeScroll(for: scrollView)
+    
     return scrollView
   }
 
@@ -100,6 +78,7 @@ extension AttributedEditorView {
       "SwiftUI triggered *general* `updateNSView` at \(Date.now.timeIntervalSince1970)")
 
     if textView.string != text {
+      
       DebugString {
         "SwiftUI triggered `updateNSView` with text change at \(Date.now.timeIntervalSince1970)"
         "AppKit character count: \(textView.string.count)"
@@ -109,6 +88,7 @@ extension AttributedEditorView {
 
       //      context.coordinator.isApplyingExternalUpdate = true
 
+      
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
@@ -131,7 +111,7 @@ extension AttributedEditorView {
   public func makeCoordinator() -> Coordinator {
     Coordinator(self)
   }
-  
+
   private func setUpScrollView(_ scrollView: NSScrollView) {
     scrollView.hasVerticalScroller = true
     scrollView.hasHorizontalScroller = false
@@ -145,6 +125,34 @@ extension AttributedEditorView {
       .font: font,
       .foregroundColor: highlighter.theme.textColour,
     ]
+  }
+
+  private func handleLineNumbers(
+    for scrollView: NSScrollView,
+    textView: any Highlightable
+  ) {
+    if editorConfig.options.contains(.lineNumbers) {
+      let rulerView = LineNumberRulerView(textView: textView)
+      scrollView.verticalRulerView = rulerView
+      scrollView.hasVerticalRuler = true
+      scrollView.rulersVisible = true
+    }
+  }
+
+  private func observeScroll(for scrollView: NSScrollView) {
+    /// Post a notification when text view is scrolled so line numbers update
+    NotificationCenter.default.addObserver(
+      forName: NSView.boundsDidChangeNotification,
+      object: scrollView.contentView,
+      queue: .main
+    ) { _ in
+      Task { @MainActor in
+        print(
+          "AttributedEditor's scroll view did scroll/change. Visible rect:  \(scrollView.contentView.documentVisibleRect.debugDescription)"
+        )
+        scrollView.verticalRulerView?.needsDisplay = true
+      }
+    }
   }
 
 }

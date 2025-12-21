@@ -21,9 +21,10 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/dvclmn/BaseHelpers", branch: "main"),
-//    .package(url: "https://github.com/mattmassicotte/nsui", from: "1.3.0"),
+    //    .package(url: "https://github.com/mattmassicotte/nsui", from: "1.3.0"),
     .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
-    //    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
+    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
+    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
 
   ],
   targets: [
@@ -43,7 +44,7 @@ let package = Package(
         "HighlighterCommon",
         .product(name: "ColourKit", package: "BaseHelpers"),
         .product(name: "CoreTools", package: "BaseHelpers"),
-//        .product(name: "NSUI", package: "nsui"),
+        //        .product(name: "NSUI", package: "nsui"),
         .product(name: "Sharing", package: "swift-sharing"),
       ]
     ),
@@ -60,7 +61,7 @@ let package = Package(
         "HighlighterCommon",
         .product(name: "ColourKit", package: "BaseHelpers"),
         .product(name: "CoreTools", package: "BaseHelpers"),
-//        .product(name: "NSUI", package: "nsui"),
+        //        .product(name: "NSUI", package: "nsui"),
       ]
     ),
     .target(
@@ -69,7 +70,7 @@ let package = Package(
         "HighlighterCommon",
         .product(name: "ColourKit", package: "BaseHelpers"),
         .product(name: "CoreTools", package: "BaseHelpers"),
-//        .product(name: "NSUI", package: "nsui"),
+        //        .product(name: "NSUI", package: "nsui"),
       ]
     ),
   ]

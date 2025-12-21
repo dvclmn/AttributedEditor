@@ -5,20 +5,23 @@
 //  Created by Dave Coleman on 20/12/2025.
 //
 
-import HighlighterCommon
 import AppKit
+import HighlighterCommon
 
 public protocol Highlightable: NSTextView {
   /// Does this need to be updatable? Mutable?
   var highlighter: (any Highlighter.Core)? { get set }
   func drawBlocks()
+
+  /// This updates the highlighter instance on `BackingTextView`,
+  /// which includes any new block ranges
   func updateHighlighter(with updated: any Highlighter.Core)
-  
+
   /// For now, this 'hides' the replacement with `setTemporaryAttributes`,
   /// making the characters `.clear`. May adjust in future?
   ///
   /// Will need to work out how to return something that provides a suitable
   /// glyph range as reference point for drawing over the hidden characters
   func drawReplacement()
-//  func drawReplacement(replace string: String)
+  //  func drawReplacement(replace string: String)
 }

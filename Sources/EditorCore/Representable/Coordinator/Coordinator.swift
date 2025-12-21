@@ -11,7 +11,12 @@ import Playgrounds
 extension AttributedEditorView {
   @MainActor
   public class Coordinator: NSObject, NSTextViewDelegate, @MainActor NSTextStorageDelegate {
+    
+    /// Stable bridge to SwiftUI
     let parent: AttributedEditorView
+    
+    /// Live AppKit object
+    weak var textView: (any Highlightable)?
 //    var pendingEditedRange: NSRange?
 //    var isApplyingExternalUpdate = false
     
@@ -26,7 +31,8 @@ extension AttributedEditorView {
     // MARK: - Text Changed
     /// This is for communicating changes from within AppKit, back to SwiftUI
     public func textDidChange(_ notification: Notification) {
-      guard let textView = notification.object as? Highlightable else { return }
+//      guard let textView = notification.object as? Highlightable else { return }
+      guard let textView = self.textView else { return }
 
 //      parent.text = textView.string
 //      updateInsertionPointPosition(in: textView)
