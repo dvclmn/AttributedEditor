@@ -27,14 +27,15 @@ public struct AttributedEditorView: NSViewRepresentable {
   public init(
     text: Binding<String>,
     font: NSFont,
-    cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
+    /// Retiring this for now, until things are working better
+    //    cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     config: Editor.Configuration = .init(),
     highlighter: any Highlighter.Core,
     debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text
     self.font = font
-    self._cursorPosition = cursorPosition
+    self._cursorPosition = .constant(nil)  // Turn this back on when ready
     self.editorConfig = config
     self.highlighter = highlighter
     self.debounceInterval = debounceInterval
@@ -43,21 +44,10 @@ public struct AttributedEditorView: NSViewRepresentable {
 
 extension AttributedEditorView {
 
-  public var defaultAttributes: TextAttributes {
-    [
-      .font: font,
-      .foregroundColor: highlighter.theme.textColour,
-    ]
-  }
-
   public func makeNSView(context: Context) -> NSScrollView {
     /// Create the scroll view container
     let scrollView = NSScrollView()
-    scrollView.hasVerticalScroller = true
-    scrollView.hasHorizontalScroller = false
-    scrollView.autohidesScrollers = true
-    scrollView.borderType = .noBorder
-    scrollView.drawsBackground = false
+    setUpScrollView(scrollView)
 
     /// Create and configure the text view
     let textView = BackingTextView()
@@ -122,7 +112,7 @@ extension AttributedEditorView {
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
-//      context.coordinator.runHighlighting(for: textView)
+      //      context.coordinator.runHighlighting(for: textView)
       //      context.coordinator.isApplyingExternalUpdate = false
     }
 
@@ -140,6 +130,21 @@ extension AttributedEditorView {
 
   public func makeCoordinator() -> Coordinator {
     Coordinator(self)
+  }
+  
+  private func setUpScrollView(_ scrollView: NSScrollView) {
+    scrollView.hasVerticalScroller = true
+    scrollView.hasHorizontalScroller = false
+    scrollView.autohidesScrollers = true
+    scrollView.borderType = .noBorder
+    scrollView.drawsBackground = false
+  }
+
+  public var defaultAttributes: TextAttributes {
+    [
+      .font: font,
+      .foregroundColor: highlighter.theme.textColour,
+    ]
   }
 
 }

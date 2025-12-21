@@ -10,24 +10,6 @@ import HighlighterCommon
 
 class BackingTextView: NSTextView, @MainActor Highlightable {
   var highlighter: (any Highlighter.Core)? = nil
-  //  var blockRanges: [NSRange]
-  //  private var hiddenSyntaxRanges: [NSRange] = []  // track what's hidden
-  //  internal var selectedRange: NSRange { selectedRanges.first?.rangeValue ?? NSRange(location: 0, length: 0) }
-
-  //  init(
-  //    highlighter: any Highlighter
-  //      //    blockRanges: [NSRange] = [],
-  //      //    hiddenSyntaxRanges: [NSRange]
-  //  ) {
-  //    self.highlighter = highlighter
-  //    //    self.blockRanges = blockRanges
-  //    //    self.hiddenSyntaxRanges = hiddenSyntaxRanges
-  //    super.init(frame: .zero)
-  //  }
-  //
-  //  required init?(coder: NSCoder) {
-  //    fatalError("init(coder:) has not been implemented")
-  //  }
 
   override func draw(_ dirtyRect: NSRect) {
     /// Draw custom backgrounds before text is rendered
@@ -40,12 +22,8 @@ class BackingTextView: NSTextView, @MainActor Highlightable {
     guard let layoutManager, let textContainer, let highlighter
     else { return }
 
-    //    let ranges = highlighter?.blockRanges ?? []
-
     /// For each block range, calculate its visual bounds and draw a background
-    //    for range in ranges. {
     for range in highlighter.blockRanges {
-//    for range in highlighter.blockRanges.toNSRanges(in: text) {
 
       let rect = boundingRect(
         for: range,
@@ -53,7 +31,6 @@ class BackingTextView: NSTextView, @MainActor Highlightable {
         tc: textContainer
       )
       let path = highlighter.drawBlockPath(in: rect)
-      //      let path = Highlighter.blockPath(in: rect)
       path.fill()
       path.stroke()
     }
