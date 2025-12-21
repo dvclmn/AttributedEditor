@@ -7,7 +7,7 @@
 
 /// Languages with syntax highlighting support
 /// I guess these literally correspond to the Highlighters
-public enum LanguageHint {
+public enum LanguageHint: String {
   case markdown
   case swift
   case python

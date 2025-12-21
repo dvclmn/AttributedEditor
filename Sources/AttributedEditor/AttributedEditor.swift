@@ -12,7 +12,6 @@ import MarkdownHighlighter
 import SwiftUI
 
 public struct AttributedEditor: View {
-//  @Environment(\.markdownTheme) private var markdownTheme
   @Environment(\.insets) private var insets
   @Environment(\.overScroll) private var overScroll
   @Environment(\.isEditable) private var isEditable
@@ -21,22 +20,22 @@ public struct AttributedEditor: View {
   @Environment(\.fontResolutionContext) private var fontResolutionContext
 
   @Binding var text: String
-//  let languageHint: LanguageHint
 
    let highlighter: any Highlighter.Core
-//  @State private var highlighter: any Highlighter.Core
 
   public init(
     _ text: Binding<String>,
     languageHint: LanguageHint
   ) {
     self._text = text
-//    self.languageHint = languageHint
 
     switch languageHint {
       /// Support for more to come
-      default: self.highlighter = MarkdownHighlighter()
-//      default: self._highlighter = State(initialValue: MarkdownHighlighter())
+      case .markdown:
+        self.highlighter = MarkdownHighlighter()
+      default:
+        print("Language '\(languageHint.rawValue)' not yet supported, defaulting to Markdown Highlighter for now")
+        self.highlighter = MarkdownHighlighter()
     }
   }
 
