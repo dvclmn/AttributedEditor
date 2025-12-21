@@ -6,8 +6,8 @@
 //
 
 import AppKit
-import Foundation
 import HighlighterCommon
+import CoreTools
 
 //public typealias AnyRegex = Regex<AnyRegexOutput>
 //public typealias SyntaxRule<T> = Markdown.SyntaxRule<T>
@@ -56,3 +56,13 @@ extension Markdown {
 //    }
 //  }
 //}
+
+extension Markdown.SyntaxRule: CustomStringConvertible {
+  public var description: String {
+    DisplayString {
+      Labeled("Syntax", value: syntax.name)
+      Labeled("Pattern", value: pattern)
+      Labeled("Shape", value: shape)
+    }.plainText
+  }
+}

@@ -14,14 +14,11 @@ extension AttributedEditorView.Coordinator {
     guard let textView else { return }
     let highlighter = self.parent.highlighter
 
-    //    highlighter.apply(
-    //      currentText: textView.string,
-    //      textView: textView,
-    //      defaults: self.parent.editorDefaults
-    //    )
     let text = textView.string
     let config = parent.editorConfig
     let tokens = highlighter.buildStyles(in: text, with: parent.font)
+    
+    print("Tokens: \(tokens)")
 
     highlighter.apply(
       tokens: tokens,

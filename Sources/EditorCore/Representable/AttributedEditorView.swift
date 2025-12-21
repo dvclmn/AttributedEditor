@@ -65,7 +65,7 @@ extension AttributedEditorView {
     /// Add line numbers if enabled
     handleLineNumbers(for: scrollView, textView: textView)
     observeScroll(for: scrollView)
-    
+
     return scrollView
   }
 
@@ -74,38 +74,22 @@ extension AttributedEditorView {
   public func updateNSView(_ scrollView: NSScrollView, context: Context) {
     guard let textView = scrollView.documentView as? Highlightable else { return }
     //    guard !context.coordinator.isApplyingExternalUpdate else { return }
-    print(
-      "SwiftUI triggered *general* `updateNSView` at \(Date.now.timeIntervalSince1970)")
+//    print(
+//      "SwiftUI triggered *general* `updateNSView` at \(Date.now.timeIntervalSince1970)")
 
     if textView.string != text {
-      
-      DebugString {
-        "SwiftUI triggered `updateNSView` with text change at \(Date.now.timeIntervalSince1970)"
-        "AppKit character count: \(textView.string.count)"
-        "SwiftUI Binding character count: \(text.count)"
-        Divider()
-      }
+//      DebugString {
+//        "SwiftUI triggered `updateNSView` with text change at \(Date.now.timeIntervalSince1970)"
+//        "AppKit character count: \(textView.string.count)"
+//        "SwiftUI Binding character count: \(text.count)"
+//        Divider()
+//      }
 
-      //      context.coordinator.isApplyingExternalUpdate = true
-
-      
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
-      //      context.coordinator.runHighlighting(for: textView)
-      //      context.coordinator.isApplyingExternalUpdate = false
+      context.coordinator.previousApplyHighlightingApproach()
     }
-
-    //    if textView.string != text {
-    //
-    //      /// Preserve cursor position
-    //      let selectedRange = textView.selectedRange()
-    //      textView.string = text
-    //      textView.setSelectedRange(selectedRange)
-    //
-    //      /// Apply highlighting immediately for external changes
-    //          context.coordinator.applyHighlighting(in: textView)
-    //    }
   }
 
   public func makeCoordinator() -> Coordinator {
@@ -147,9 +131,9 @@ extension AttributedEditorView {
       queue: .main
     ) { _ in
       Task { @MainActor in
-        print(
-          "AttributedEditor's scroll view did scroll/change. Visible rect:  \(scrollView.contentView.documentVisibleRect.debugDescription)"
-        )
+//        print(
+//          "AttributedEditor's scroll view did scroll/change. Visible rect:  \(scrollView.contentView.documentVisibleRect.debugDescription)"
+//        )
         scrollView.verticalRulerView?.needsDisplay = true
       }
     }

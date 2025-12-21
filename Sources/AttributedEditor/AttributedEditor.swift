@@ -56,9 +56,9 @@ public struct AttributedEditor: View {
     )
 
     .onAppear {
-      if isPreview {
-        print(digIntoResolvedFont)
-      }
+//      if isPreview {
+//        print(digIntoResolvedFont)
+//      }
     }
 
 //    .task(id: font) {

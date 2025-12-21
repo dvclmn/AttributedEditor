@@ -34,7 +34,14 @@ extension Markdown.Syntax {
   }
   
   public var regexRule: Markdown.SyntaxRule? {
-    guard let regexShape, let pattern else { return nil }
+    guard let regexShape else {
+      print("No regex shape for \(self.name)")
+      return nil
+    }
+    guard let pattern else {
+      print("No regex pattern for \(self.name)")
+      return nil
+    }
     return Markdown.SyntaxRule(
       for: self,
       pattern: pattern,
@@ -65,7 +72,7 @@ extension Markdown.Syntax {
       case .boldItalic:
         /(?<leading>(?:\*{3}|_{3}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/
       case .inlineCode:
-        nil
+        /(?<leading>`)(?<content>(?:[^`\n])+?)(?<trailing>`)/
       case .codeBlock:
         nil
       case .list:

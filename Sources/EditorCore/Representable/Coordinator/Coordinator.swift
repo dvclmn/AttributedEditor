@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreTools
 
 extension AttributedEditorView {
   @MainActor
@@ -25,8 +26,9 @@ extension AttributedEditorView {
     }
 
     /// Debouncing mechanism
-    private var highlightWorkItem: DispatchWorkItem?
+//    private var highlightWorkItem: DispatchWorkItem?
     //    var highlightTask: Task<Void, Never>?
+    let debouncer = AsyncDebouncer(interval: 0.3)
   }
 }
 
@@ -91,19 +93,25 @@ extension AttributedEditorView.Coordinator {
 
     /// Update the binding immediately so SwiftUI stays in sync
     parent.text = textView.string
-    updateInsertionPointPosition()
+//    updateInsertionPointPosition()
 
     /// Cancel any pending highlight operation
-    highlightWorkItem?.cancel()
+//    highlightWorkItem?.cancel()
 
     /// Schedule a new highlight operation after the debounce interval
-    let workItem = DispatchWorkItem { [weak self] in
-      self?.previousApplyHighlightingApproach()
+//    let workItem = DispatchWorkItem { [weak self] in
+//    }
+//    highlightWorkItem = workItem
+    
+    Task {
+      await self.debouncer.execute { @MainActor in
+        self.previousApplyHighlightingApproach()
+      }
     }
-    highlightWorkItem = workItem
 
     /// Execute after debounce interval on the main queue
-    DispatchQueue.main.asyncAfter(
-      deadline: .now() + parent.debounceInterval, execute: workItem)
+//    DispatchQueue.main.asyncAfter(
+//      deadline: .now() + parent.debounceInterval, execute: workItem
+    // )
   }
 }
