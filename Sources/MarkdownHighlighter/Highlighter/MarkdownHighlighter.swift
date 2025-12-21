@@ -13,7 +13,8 @@ public final class MarkdownHighlighter: Highlighter.Core {
 
   private let isDrawingBlocks: Bool = false
   public var theme: Markdown.Theme
-  public var blockRanges: NSBlockRanges = []
+
+//  public var blockRanges: NSBlockRanges = []
   var library: StyleLibrary = .initial
 
   public init(theme: Markdown.Theme = .default) {
@@ -27,13 +28,15 @@ public final class MarkdownHighlighter: Highlighter.Core {
 
     var attrs: NSAttributedRanges = []
 
-    for rule in rules {
-      let (newAttr, newBlocks) = buildStyledRanges(rule, text: text)
-      attrs.append(contentsOf: newAttr)
-      if isDrawingBlocks {
-        self.blockRanges.append(contentsOf: newBlocks)
-      }
-    }
+    attrs = library.buildForSyntax(.inlineCode)
+//    for rule in library.rules {
+//      let thing = library.
+//      let (newAttr, newBlocks) = buildStyledRanges(rule, text: text)
+//      attrs.append(contentsOf: newAttr)
+//      if isDrawingBlocks {
+//        self.blockRanges.append(contentsOf: newBlocks)
+//      }
+//    }
 
     return attrs
   }

@@ -9,138 +9,144 @@ import AppKit
 import CoreTools
 import HighlighterCommon
 
-extension Markdown.SyntaxRule {
+//extension Markdown.SyntaxRule {
 
-  //  var rules: [Self] {
-  //    [
-  //      Self.init(
-  //        for: .bold,
-  //        pattern: /(?<leading>(?:\*{2}|_{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/,
-  ////        theme: <#T##Markdown.Theme#>,
-  ////        font: <#T##NSFont#>
-  //      )
-  //    ]
-  //  }
-  //extension SyntaxRule where T == RegexShape.Wrap {
-
-//  func apply(
-//    //    _ shape: RegexShape,
-//    text: String,
-//    //    match: Regex<T>.Match,
-//    //    theme: Markdown.Theme,
-//    attrs: inout NSAttributedRanges
-//      //    attrs: inout AttributedRanges
-//  ) {
+//  
+//  
+//  
+//  
+//
+//        self.pattern.processMatch(match: match) {
+//          path,
+//          range in
 //    
-////    let syntaxToken = theme.style(for: syntax, part: .syntax)
-////    let contentToken = theme.style(for: syntax, part: .content)
-////    
-////    let syntaxTraits = syntaxToken.fontTraits
-////    let contentTraits = contentToken.fontTraits
-////    
-////    let syntaxColour = syntaxToken.nsColour
-////    let contentColour = contentToken.nsColour
+//          switch path {
 //    
+//            case \.0:
+//              attrs.update(
+//                .init(bgOptional: bgColour),
+//                in: range,
+//                tag: "Shape.Wrap whole"
+//              )
 //    
-//    switch shape {
-//      case .wrap:
-//        //    let thing = self.pattern.regex
-//        guard let patt = self.pattern.regex as? RegexShape.Wrap else {
-//          print("Couodn't do ittt")
-//          return
+//            case \.leading:
+//              attrs.update(
+//                .init(foreOptional: syntaxColour), in: range, tag: "Shape.Wrap Leading")
+//              attrs.update(
+//                .fontTraits(syntaxTraits, current: font), in: range, tag: "Shape.Wrap Leading")
+//    
+//            case \.trailing:
+//              attrs.update(
+//                .init(foreOptional: syntaxColour),
+//                in: range,
+//                tag: "Shape.Wrap Trailing"
+//              )
+//              attrs.update(
+//                .fontTraits(syntaxTraits, current: font), in: range, tag: "Shape.Wrap Trailing"
+//              )
+//    
+//            case \.content:
+//              attrs.update(
+//                .init(foreOptional: contentColour),
+//                in: range,
+//                tag: "Shape.Wrap Content"
+//              )
+//              attrs.update(
+//                .fontTraits(contentTraits, current: font), in: range, tag: "Shape.Wrap Content"
+//    //            .init(fontTraitsOptional: contentTraits), in: range, tag: "Shape.Wrap Content"
+//              )
+//    
+//            default: return
+//          }
 //        }
-//        
-//        for match in text.matches(of: self.pattern) {
-////          guard let output = match.output as? RegexShape.Wrap else {
-////            return
-////          }
-//          
-//          
-//          
-//          //      match.output
-//          
-//          //      guard let tbb = match.output as? self.shape else {
-//          //        print("Hello  hwdwd")
-//          //      }
-//          
-//          //      tbb.extractValues(as: self.shape)
-//          
+//  
+//}
+//
+//
+//
+
+//        for match in text.matches(of: )
+//
+//        precondition(
+//          syntax.regexShape == .wrap,
+//          "Only syntaxes with RegexShape of .wrap are valid here."
+//        )
+//
+//        let syntaxToken = theme.style(for: syntax, part: .syntax)
+//        let contentToken = theme.style(for: syntax, part: .content)
+//
+//        let syntaxTraits = syntaxToken.fontTraits
+//        let contentTraits = contentToken.fontTraits
+//
+//        let syntaxColour = syntaxToken.nsColour
+//        let contentColour = contentToken.nsColour
+//
+//        let bgColour = theme.style(for: syntax, part: .bg).nsColour
+
+//func apply(
+//  //    _ shape: RegexShape,
+//  text: String,
+//  //    match: Regex<T>.Match,
+//  //    theme: Markdown.Theme,
+//  attrs: inout NSAttributedRanges
+//  //    attrs: inout AttributedRanges
+//) {
+  
+  //    let syntaxToken = theme.style(for: syntax, part: .syntax)
+  //    let contentToken = theme.style(for: syntax, part: .content)
+  //
+  //    let syntaxTraits = syntaxToken.fontTraits
+  //    let contentTraits = contentToken.fontTraits
+  //
+  //    let syntaxColour = syntaxToken.nsColour
+  //    let contentColour = contentToken.nsColour
+  
+  
+//  switch shape {
+//    case .wrap:
+//      //    let thing = self.pattern.regex
+//      guard let patt = self.pattern.regex as? RegexShape.Wrap else {
+//        print("Couodn't do ittt")
+//        return
+//      }
+//      
+//    for match in text.matches(of: self.pattern) {
+
+
+
+//    var rules: [Self] {
+//      [
+//        Self.init(
+//          for: .bold,
+//          pattern: /(?<leading>(?:\*{2}|_{2}))(?<content>[^\n]+?)(?<trailing>\k<leading>)/,
+//  //        theme: <#T##Markdown.Theme#>,
+//  //        font: <#T##NSFont#>
+//        )
+//      ]
+//    }
+//  extension SyntaxRule where T == RegexShape.Wrap {
+
+
+//          guard let output = match.output as? RegexShape.Wrap else {
+//            return
+//          }
+
+
+
+//      match.output
+
+//      guard let tbb = match.output as? self.shape else {
+//        print("Hello  hwdwd")
+//      }
+
+//      tbb.extractValues(as: self.shape)
+//
 //        }
 //      default: return
 //    }
-//    
+//
 //  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    //    for match in text.matches(of: )
+//
+//
 
-    //    precondition(
-    //      syntax.regexShape == .wrap,
-    //      "Only syntaxes with RegexShape of .wrap are valid here."
-    //    )
-    //
-    //    let syntaxToken = theme.style(for: syntax, part: .syntax)
-    //    let contentToken = theme.style(for: syntax, part: .content)
-    //
-    //    let syntaxTraits = syntaxToken.fontTraits
-    //    let contentTraits = contentToken.fontTraits
-    //
-    //    let syntaxColour = syntaxToken.nsColour
-    //    let contentColour = contentToken.nsColour
-    //
-    //    let bgColour = theme.style(for: syntax, part: .bg).nsColour
-    //
-    //    self.pattern.apply(match: match) {
-    //      path,
-    //      range in
-    //
-    //      switch path {
-    //
-    //        case \.0:
-    //          attrs.update(
-    //            .init(bgOptional: bgColour),
-    //            in: range,
-    //            tag: "Shape.Wrap whole"
-    //          )
-    //
-    //        case \.leading:
-    //          attrs.update(
-    //            .init(foreOptional: syntaxColour), in: range, tag: "Shape.Wrap Leading")
-    //          attrs.update(
-    //            .fontTraits(syntaxTraits, current: font), in: range, tag: "Shape.Wrap Leading")
-    //
-    //        case \.trailing:
-    //          attrs.update(
-    //            .init(foreOptional: syntaxColour),
-    //            in: range,
-    //            tag: "Shape.Wrap Trailing"
-    //          )
-    //          attrs.update(
-    //            .fontTraits(syntaxTraits, current: font), in: range, tag: "Shape.Wrap Trailing"
-    //          )
-    //
-    //        case \.content:
-    //          attrs.update(
-    //            .init(foreOptional: contentColour),
-    //            in: range,
-    //            tag: "Shape.Wrap Content"
-    //          )
-    //          attrs.update(
-    //            .fontTraits(contentTraits, current: font), in: range, tag: "Shape.Wrap Content"
-    ////            .init(fontTraitsOptional: contentTraits), in: range, tag: "Shape.Wrap Content"
-    //          )
-    //
-    //        default: return
-    //      }
-    //    }
-  
-}
+

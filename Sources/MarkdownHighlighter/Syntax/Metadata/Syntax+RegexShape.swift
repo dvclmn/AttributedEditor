@@ -7,48 +7,49 @@
 
 extension Markdown.Syntax {
 
-  var supportsRegexShape: Bool { regexShape != nil }
+//  var supportsRegexShape: Bool { regexShape != nil }
 
-  var regexShape: RegexShape? {
-//  var regexShape: RegexShape.Meta? {
-    switch self {
-      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6, .quoteBlock:
-        .prefix
-
-      case .bold, .italic, .boldItalic, .inlineCode, .strikethrough, .highlight:
-        .wrap
-
-      case .codeBlock:
-        .codeBlock
-
-      case .link, .image:
-        .wrapPair
-
-      case .horizontalRule:
-        .single
-
-      case .body, .list, .callout:
-        nil
-    //        fatalError("\(self.name) not yet supported.")
-    }
-  }
+//  var regexShape: RegexShape? {
+////  var regexShape: RegexShape.Meta? {
+//    switch self {
+//      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6, .quoteBlock:
+//        .prefix
+//
+//      case .bold, .italic, .boldItalic, .inlineCode, .strikethrough, .highlight:
+//        .wrap
+//
+//      case .codeBlock:
+//        .codeBlock
+//
+//      case .link, .image:
+//        .wrapPair
+//
+//      case .horizontalRule:
+//        .single
+//
+//      case .body, .list, .callout:
+//        nil
+//    //        fatalError("\(self.name) not yet supported.")
+//    }
+//  }
   
-  public var regexRule: Markdown.SyntaxRule? {
-    guard let regexShape else {
-      print("No regex shape for \(self.name)")
-      return nil
-    }
-    guard let pattern else {
-      print("No regex pattern for \(self.name)")
-      return nil
-    }
-    return Markdown.SyntaxRule(
-      for: self,
-      pattern: pattern,
-      shape: regexShape
-    )
-  }
+//  public var regexRule: Markdown.SyntaxRule? {
+//    guard let regexShape else {
+//      print("No regex shape for \(self.name)")
+//      return nil
+//    }
+//    guard let pattern else {
+//      print("No regex pattern for \(self.name)")
+//      return nil
+//    }
+//    return Markdown.SyntaxRule(
+//      for: self,
+//      pattern: pattern,
+//      shape: regexShape
+//    )
+//  }
   
+//  public var pattern: Regex<AnyRegexOutput>? {
   public var pattern: (any RegexComponent)? {
     switch self {
       case .body:
@@ -93,4 +94,12 @@ extension Markdown.Syntax {
         nil
     }
   }
+  
+//  func toAnyRegex() -> Regex<AnyRegexOutput>? {
+//    guard let thing = self.pattern as? Regex<AnyRegexOutput> else {
+//      print("Unable to cast \(self.pattern, default: "nil") to `Regex<AnyRegexOutput>`")
+//      return nil
+//    }
+//    return thing
+//  }
 }

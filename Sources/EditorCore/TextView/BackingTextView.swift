@@ -10,6 +10,7 @@ import HighlighterCommon
 
 class BackingTextView: NSTextView, @MainActor Highlightable {
   var highlighter: (any Highlighter.Core)? = nil
+  var blockRanges: [NSRange] = []
 
   override func draw(_ dirtyRect: NSRect) {
     /// Draw custom backgrounds before text is rendered
@@ -21,7 +22,9 @@ class BackingTextView: NSTextView, @MainActor Highlightable {
   func drawBlocks() {
     guard let highlighter else { return }
 
-    for range in highlighter.blockRanges {
+    for range in blockRanges {
+//    for range in highlighter {
+//    for range in highlighter.blockRanges {
       // Convert NSRange -> NSTextRange
       guard let textRange = self.textRange(for: range) else { continue }
 
@@ -74,14 +77,14 @@ extension BackingTextView {
     let string = textStorage.textStorage?.string ?? ""
     let matches = string.matches(of: /---/)
     
-    for match in matches {
+//    for match in matches {
       
 //      guard let nsRange = match.range,
 //      guard let nsRange = match.range.toNSRange(in: string),
 //            let textRange = self.textRange(for: nsRange)
 //      else { continue }
       
-      fatalError("Need to fix this")
+//      fatalError("Need to fix this")
       
       // 2. Hide the characters (TextKit 2 way)
       // Note: Ideally, you should set this outside of drawRect (e.g., in textDidChange)
@@ -112,7 +115,7 @@ extension BackingTextView {
 //      
 //      NSColor.separatorColor.setFill()
 //      ruleRect.fill()
-    }
+//    }
   }
   
 //  func drawReplacement() {

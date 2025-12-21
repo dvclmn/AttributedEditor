@@ -13,7 +13,7 @@ public typealias NSApplyRegex<T> = (MatchPath<T>, NSRange) -> Void
 
 // MARK: - Process Match keypaths
 extension Regex {
-  fileprivate func apply<T>(
+  fileprivate func processMatch<T>(
     paths: [MatchPath<T>],
     match: Match,
     perform: ApplyRegex<T>
@@ -29,11 +29,10 @@ extension Regex {
       let range = substring.startIndex..<substring.endIndex
 
       perform(path, range)
-
     }
   }
-  
-  fileprivate func applyWithNSRange<T>(
+
+  fileprivate func processMatchWithNSRange<T>(
     paths: [MatchPath<T>],
     match: Match,
     perform: NSApplyRegex<T>
@@ -43,39 +42,39 @@ extension Regex {
         assertionFailure("Unexpected output type")
         return
       }
-      
+
       /// 1. Get the substring from the keypath
       let substring = output[keyPath: path]
-      
+
       /// 2. Identify the range in Swift indices
       let range = substring.startIndex..<substring.endIndex
-      
+
       /// 3. Convert to NSRange
       /// Use `substring.base` to calculate the offsets relative
       /// to the entire original string, not just the match.
       let nsRange = NSRange(range, in: substring.base)
-      
+
       perform(path, nsRange)
-      
+
     }
   }
 }
 
 // MARK: - Create Match output Keypaths
 extension Regex where Output == RegexShape.Single {
-  public func apply(
+  public func processMatch(
     match: Match,
     perform: NSApplyRegex<Output>
-//    perform: ApplyRegex<Output>
+    //    perform: ApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [\.self]
-    applyWithNSRange(paths: paths, match: match, perform: perform)
+    processMatchWithNSRange(paths: paths, match: match, perform: perform)
   }
 }
 
 extension Regex where Output == RegexShape.Prefix {
-  public func apply(
-    match: Match,
+  public func processMatch(
+    _ match: Match,
     perform: NSApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [
@@ -83,14 +82,14 @@ extension Regex where Output == RegexShape.Prefix {
       \.prefix,
       \.content,
     ]
-    applyWithNSRange(paths: paths, match: match, perform: perform)
-//    apply(paths: paths, match: match, perform: perform)
+    processMatchWithNSRange(paths: paths, match: match, perform: perform)
+    //    apply(paths: paths, match: match, perform: perform)
   }
 }
 
 extension Regex where Output == RegexShape.Wrap {
-  public func apply(
-    match: Match,
+  public func processMatch(
+    _ match: Match,
     perform: NSApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [
@@ -99,14 +98,14 @@ extension Regex where Output == RegexShape.Wrap {
       \.content,
       \.trailing,
     ]
-    applyWithNSRange(paths: paths, match: match, perform: perform)
-//    apply(paths: paths, match: match, perform: perform)
+    processMatchWithNSRange(paths: paths, match: match, perform: perform)
+    //    apply(paths: paths, match: match, perform: perform)
   }
 }
 
 extension Regex where Output == RegexShape.CodeBlock {
-  public func apply(
-    match: Match,
+  public func processMatch(
+    _ match: Match,
     perform: NSApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [
@@ -116,14 +115,14 @@ extension Regex where Output == RegexShape.CodeBlock {
       \.content,
       \.end,
     ]
-    applyWithNSRange(paths: paths, match: match, perform: perform)
-//    apply(paths: paths, match: match, perform: perform)
+    processMatchWithNSRange(paths: paths, match: match, perform: perform)
+    //    apply(paths: paths, match: match, perform: perform)
   }
 }
 
 extension Regex where Output == RegexShape.WrapPair {
-  public func apply(
-    match: Match,
+  public func processMatch(
+    _ match: Match,
     perform: NSApplyRegex<Output>
   ) {
     let paths: [MatchPath<Output>] = [
@@ -136,7 +135,7 @@ extension Regex where Output == RegexShape.WrapPair {
       \.url,
       \.trailingB,
     ]
-    applyWithNSRange(paths: paths, match: match, perform: perform)
-//    apply(paths: paths, match: match, perform: perform)
+    processMatchWithNSRange(paths: paths, match: match, perform: perform)
+    //    apply(paths: paths, match: match, perform: perform)
   }
 }

@@ -15,7 +15,9 @@ extension Highlighter {
   public protocol Core: AnyObject {
     associatedtype HighlighterTheme: Theme
 
-    var blockRanges: NSBlockRanges { get set }
+    /// Thinking that block ranges can be expressed within `NSAttributedRanges`,
+    /// by using the `blockIntent` `AttributeKey`
+//    var blockRanges: NSBlockRanges { get set }
     var theme: HighlighterTheme { get set }
 
     func buildStyles(in text: String, with font: NSFont) -> NSAttributedRanges
