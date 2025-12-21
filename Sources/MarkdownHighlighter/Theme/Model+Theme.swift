@@ -9,17 +9,11 @@ import AppKit
 import ColourKit
 import HighlighterCommon
 
+typealias PartTokens = [Markdown.SyntaxPart: TokenStyle]
+
 extension Markdown {
   public struct Theme: Highlighter.Theme, @unchecked Sendable {
-    
-//  public class Theme: Highlighter.Theme {
-//    public var font: NSFont = NSFont.systemFont(ofSize: 14)
-    var styleDefinitions: [Markdown.Syntax: [Markdown.SyntaxPart: TokenStyle]] = [:]
-
-    /// Global Defaults
-    var defaultBodyColor: CodableColour = .primary
-    var defaultSyntaxColor: CodableColour = .tertiary
-    var defaultMetadataColor: CodableColour = .secondary
+    var styleDefinitions: [Markdown.Syntax: PartTokens] = [:]
   }
 }
 
@@ -31,10 +25,19 @@ extension Markdown {
 /// }
 /// ```
 extension Markdown.Theme {
-
+  /// This simply provides a neater API, to read into the
+  /// contents of the `styleDefinitions` property
+  ///
+  /// ~~There may not always be a specific token for a given
+  /// syntax/part, so this may return nil.~~
+  /// Still figuring out whether to have fallback approach,
+  /// or return nil. Main difference is this method ends up
+  /// being bit more opnionayed, if fallback returned.
+  /// (E.g. this decides that syntax is greyer, etc)
   func style(
     for syntax: Markdown.Syntax,
     part: Markdown.SyntaxPart
+
   ) -> TokenStyle {
 
     /// 1. Check specific definition (e.g., Bold > Content)
@@ -42,12 +45,15 @@ extension Markdown.Theme {
       return specific
     }
 
-    /// 2. Fallback Logic based on Structure
-    /// Note: Backgrounds usually default to nil/transparent unless specified
-    return switch part {
-      case .content: TokenStyle(colour: defaultBodyColor)
-      case .syntax: TokenStyle(colour: defaultSyntaxColor)
-      case .meta: TokenStyle(colour: defaultMetadataColor)
+    /// If the above returns nothing
+    return defaultToken(for: part)
+  }
+
+  func defaultToken(for part: Markdown.SyntaxPart) -> TokenStyle {
+    switch part {
+      case .content: TokenStyle(colour: .primary)
+      case .syntax: TokenStyle(colour: .tertiary)
+      case .meta: TokenStyle(colour: .secondary)
       case .bg: TokenStyle(colour: nil)
     }
   }

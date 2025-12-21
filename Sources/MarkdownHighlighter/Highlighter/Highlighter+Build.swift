@@ -52,7 +52,17 @@ extension StyleLibrary {
 
 //}
   
-  func buildForSyntax(_ syntax: Markdown.Syntax)
+  func buildForSyntax(_ syntax: Markdown.Syntax) -> NSAttributedRanges {
+    
+    /// Not all of these may be needed
+    let syntaxToken = theme.style(for: syntax, part: .syntax)
+    let contentToken = theme.style(for: syntax, part: .content)
+    let metaToken = theme.style(for: syntax, part: .meta)
+    
+    let syntaxTraits = syntaxToken.fontTraits ?? []
+    let contentTraits = contentToken.fontTraits ?? []
+    
+  }
 
 //extension MarkdownHighlighter {
   func buildStyledRanges(
@@ -60,19 +70,18 @@ extension StyleLibrary {
     //    _ shape: RegexShape,
     text: String,
   ) -> NSAttributedRanges {
-//  ) -> (NSAttributedRanges, NSBlockRanges) {
-
+    //  ) -> (NSAttributedRanges, NSBlockRanges) {
+    
     var attrs: NSAttributedRanges = []
     var blocks: NSBlockRanges = []
-
-    let syntaxToken = theme.style(for: syntax, part: .syntax)
-    let contentToken = theme.style(for: syntax, part: .content)
-    let metaToken = theme.style(for: syntax, part: .meta)
-
-    let syntaxTraits = syntaxToken.fontTraits ?? []
-    let contentTraits = contentToken.fontTraits ?? []
-
+    
+    
+    
     return attrs
+  }
+  
+  func token(for syntax: part: )
+  
 //    return (attrs, blocks)
     //    switch shape {
     //      case .wrap(let rule):
@@ -142,5 +151,5 @@ extension StyleLibrary {
     //        }
     //    }  // END switch
     //    return (attrs, blocks)
-  }
+//  }
 }

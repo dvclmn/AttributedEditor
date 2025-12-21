@@ -25,7 +25,7 @@ struct TokenStyle: Sendable {
 //  var fontScaleFactor: CGFloat?
   
   init(
-    colour: CodableColour? = nil,
+    colour: CodableColour?,
     fontTraits: NSFontDescriptor.SymbolicTraits = []
   ) {
     self.colour = colour
