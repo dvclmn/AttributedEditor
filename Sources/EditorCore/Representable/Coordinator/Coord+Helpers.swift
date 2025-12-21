@@ -10,93 +10,116 @@ import HighlighterCommon
 
 extension AttributedEditorView.Coordinator {
 
-//  func applyHighlighting(in textView: any Highlightable) {
-//    let highlighter = self.parent.highlighter
-//    
-//    guard let textStorage = textView.textStorage else { return }
-//    
-//    let affectedRange = pendingEditedRange ?? NSRange(location: 0, length: textStorage.length)
-//    
-//    pendingEditedRange = nil
-//
-//    highlighter.apply(
-//      currentText: textStorage.string,
-//      textView: textView,
-//      affectedRange: affectedRange,
-//      editorConfig: self.parent.editorConfig
-//    )
-//    textView.updateHighlighter(with: highlighter)
-//  }
+  func previousApplyHighlightingApproach() {
+    guard let textView else { return }
+    let highlighter = self.parent.highlighter
 
-  func updateInsertionPointPosition(in textView: any Highlightable) {
+    //    highlighter.apply(
+    //      currentText: textView.string,
+    //      textView: textView,
+    //      defaults: self.parent.editorDefaults
+    //    )
+    let text = textView.string
+    let config = parent.editorConfig
+    let tokens = highlighter.buildStyles(in: text, with: parent.font)
+
+    highlighter.apply(
+      tokens: tokens,
+      textView: textView,
+      affectedRange: textView.documentNSRange,
+      editorConfig: config,
+      defaults: parent.defaultAttributes
+    )
+    textView.updateHighlighter(with: highlighter)
+
+  }
+
+  func updateInsertionPointPosition() {
     DispatchQueue.main.async {
-      self.parent.cursorPosition = textView.insertionPointPosition()
+      self.parent.cursorPosition = self.textView?.insertionPointPosition()
 
       /// Update typing attributes so new text matches existing style
-      textView.syncTypingAttributes()
+      self.textView?.syncTypingAttributes()
     }
   }
 
-//  func runHighlighting(for textView: NSTextView) {
-////    highlightTask?.cancel()
-//    guard let textStorage = textView.textStorage else { return }
-//    let highlighter = self.parent.highlighter
-//    let config = self.parent.editorConfig
-//    let font = self.parent.font
-//    let textSnapshot = textView.string
-//    let affectedRange = pendingEditedRange ?? NSRange(location: 0, length: textStorage.length)
-//    
-////    highlightTask = Task { @MainActor in
-////      try? await Task.sleep(for: .seconds(0.15))
-//      
-////      guard !Task.isCancelled else { return }
-//      
-//      //      let tokens = await self.parent.highlighter.parse(textSnapshot)
-//    let tokens = highlighter.buildStyles(in: textSnapshot, with: font)
-//      
-////      await MainActor.run {
-////        guard !Task.isCancelled else { return }
-//        highlighter.apply(
-//          tokens: tokens,
-//          textView: textView,
-//          affectedRange: affectedRange,
-//          editorConfig: config,
-//          defaults: parent.defaultAttributes
-//        )
-//        //        apply(tokens, to: textView, affectedRange: affectedRange)
-////      }
-////    }
-//  }
-  
-//  func scheduleHighlight(for textView: NSTextView) {
-//    highlightTask?.cancel()
-//    guard let textStorage = textView.textStorage else { return }
-//    let highlighter = self.parent.highlighter
-//    let config = self.parent.editorConfig
-//    let textSnapshot = textView.string
-//    let affectedRange = pendingEditedRange ?? NSRange(location: 0, length: textStorage.length)
-//    
-//    highlightTask = Task { @MainActor in
-//      try? await Task.sleep(for: .seconds(0.15))
-//      
-//      guard !Task.isCancelled else { return }
-//      
-////      let tokens = await self.parent.highlighter.parse(textSnapshot)
-//      let tokens = highlighter.buildStyles(in: textSnapshot)
-//      
-//      await MainActor.run {
-//        guard !Task.isCancelled else { return }
-//        highlighter.apply(
-//          tokens: tokens,
-//          textView: textView,
-//          affectedRange: affectedRange,
-//          editorConfig: config
-//        )
-////        apply(tokens, to: textView, affectedRange: affectedRange)
-//      }
-//    }
-//  }
+  //  func applyHighlighting(in textView: any Highlightable) {
+  //    let highlighter = self.parent.highlighter
+  //
+  //    guard let textStorage = textView.textStorage else { return }
+  //
+  //    let affectedRange = pendingEditedRange ?? NSRange(location: 0, length: textStorage.length)
+  //
+  //    pendingEditedRange = nil
+  //
+  //    highlighter.apply(
+  //      currentText: textStorage.string,
+  //      textView: textView,
+  //      affectedRange: affectedRange,
+  //      editorConfig: self.parent.editorConfig
+  //    )
+  //    textView.updateHighlighter(with: highlighter)
+  //  }
 
+  //  func runHighlighting(for textView: NSTextView) {
+  ////    highlightTask?.cancel()
+  //    guard let textStorage = textView.textStorage else { return }
+  //    let highlighter = self.parent.highlighter
+  //    let config = self.parent.editorConfig
+  //    let font = self.parent.font
+  //    let textSnapshot = textView.string
+  //    let affectedRange = pendingEditedRange ?? NSRange(location: 0, length: textStorage.length)
+  //
+  ////    highlightTask = Task { @MainActor in
+  ////      try? await Task.sleep(for: .seconds(0.15))
+  //
+  ////      guard !Task.isCancelled else { return }
+  //
+  //      //      let tokens = await self.parent.highlighter.parse(textSnapshot)
+  //    let tokens = highlighter.buildStyles(in: textSnapshot, with: font)
+  //
+  ////      await MainActor.run {
+  ////        guard !Task.isCancelled else { return }
+  //        highlighter.apply(
+  //          tokens: tokens,
+  //          textView: textView,
+  //          affectedRange: affectedRange,
+  //          editorConfig: config,
+  //          defaults: parent.defaultAttributes
+  //        )
+  //        //        apply(tokens, to: textView, affectedRange: affectedRange)
+  ////      }
+  ////    }
+  //  }
+
+  //  func scheduleHighlight(for textView: NSTextView) {
+  //    highlightTask?.cancel()
+  //    guard let textStorage = textView.textStorage else { return }
+  //    let highlighter = self.parent.highlighter
+  //    let config = self.parent.editorConfig
+  //    let textSnapshot = textView.string
+  //    let affectedRange = pendingEditedRange ?? NSRange(location: 0, length: textStorage.length)
+  //
+  //    highlightTask = Task { @MainActor in
+  //      try? await Task.sleep(for: .seconds(0.15))
+  //
+  //      guard !Task.isCancelled else { return }
+  //
+  ////      let tokens = await self.parent.highlighter.parse(textSnapshot)
+  //      let tokens = highlighter.buildStyles(in: textSnapshot)
+  //
+  //      await MainActor.run {
+  //        guard !Task.isCancelled else { return }
+  //        highlighter.apply(
+  //          tokens: tokens,
+  //          textView: textView,
+  //          affectedRange: affectedRange,
+  //          editorConfig: config
+  //        )
+  ////        apply(tokens, to: textView, affectedRange: affectedRange)
+  //      }
+  //    }
+  //  }
 
   /// Intercept keypresses to implement custom typing behaviors
   /// Note: This will eventually use `TextInputBehavior/handleTextChange()`
