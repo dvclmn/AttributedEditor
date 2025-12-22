@@ -13,6 +13,11 @@ extension Markdown.Syntax {
 
   //  var supportsRegexShape: Bool { regexShape != nil }
 
+  func hasShape(_ shape: RegexShape) -> Bool {
+    guard let localShape = regexShape else { return false }
+    return localShape == shape
+  }
+  
   var regexShape: RegexShape? {
     //  var regexShape: RegexShape.Meta? {
     switch self {

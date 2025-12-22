@@ -16,7 +16,7 @@ import HighlighterCommon
 /// `RegexShape` could probably *just* be a namespace, not
 /// sure the cases themselves are even needed. Dunno
 //@MetaEnum
-public enum RegexShape {
+public enum RegexShape: Equatable, Hashable {
   //  case wrap(Markdown.Pattern<Wrap>)
   //  case prefix(Markdown.Pattern<Prefix>)
   //  case single(Markdown.Pattern<Single>)

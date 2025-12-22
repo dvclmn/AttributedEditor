@@ -23,52 +23,91 @@ import HighlighterCommon
 /// This currently comes from
 /// ``MarkdownHighlighter/MarkdownHighlighter/buildStyles(in:with:)``
 ///
-/// ## Attributes and Ranges
+/// ## Attributes
+/// For now mainly focused on two sub-components of a given syntax,
+/// and two style attributes. These are:
+/// `SyntaxPart`s: `syntax` (the syntax characters) and `content`, the main text
+/// `AttributeKey`: `foregroundColour` and `fontTraits`
 ///
+/// These attributes are the only two supported currently by `Markdown.Theme`
+///
+/// This keeps it simple (albeit limited) for now
+///
+/// These need to coordinate:
+/// - ``Markdown/SyntaxPart`` enum
+/// - `TokenStyle` / ``Markdown/Theme`` structs
+/// - ``MarkdownHighlighter`` class
+/// - ``RegexShape`` enum and it's nested `Wrap`, `CodeBlock` aliases
+/// -
+
 extension RegexShape {
-  func processMatches(
+  /// Looks for matches for Markdown syntax in the given text, and populates
+  /// `NSAttributedRanges` with attributes based on the current Theme,
+  /// and ranges based on the Regex matches.
+  /// - Parameters:
+  ///   - syntax: The Markdown syntax to process
+  ///   - text: The text being searched
+  ///   - attrs: An `inout` parameter so attributed ranges can be
+  ///     accrued (not overwritten) whilst iterating over syntaxes
+  static func processMatches(
     for syntax: Markdown.Syntax,
     in text: String,
-    attrs: inout NSAttributedRanges
+    _ attributes: inout NSAttributedRanges
   ) {
+    /// No need to process anything if provided Syntax *has* no regex shape
+    guard let shape = syntax.regexShape else { return }
+
+    /// Ensure we have a Regex pattern or this syntax
     guard let pattern = syntax.pattern else {
       print("No pattern for syntax \(syntax.name)")
       return
     }
-    
+
     let matches = text.matches(of: pattern)
-    
+
     guard !matches.isEmpty else {
       print("No matches found for syntax \(syntax.name)")
       return
     }
-    
-    
-    for match in text.matches(of: pattern) {
+
+    for match in matches {
       print("Match: \(match.output)")
-      
-      //      for thing in match. {
-      //
-      //      }
-      
-      switch self {
+
+      // MARK: - Now in Strongly Typed Zone
+      switch shape {
         case .wrap:
-          guard let values = match.output.extractValues(as: Self.Wrap.self) else {
+
+          guard let values = match.output.extractValues(as: Wrap.self) else {
             print("Error getting values \(match.output)")
             return
           }
           
-          print("Values: \(values)")
-          return
-          
+
         case .prefix: return
         case .single: return
         case .codeBlock: return
         case .wrapPair: return
       }
+
     }
   }
-  
+
+  private static func matchWithShape<T>(
+    //    shape: RegexShape,
+    shape: T,
+    match: Regex<AnyRegexOutput>.Match,
+  ) {
+
+    guard let values = match.output.extractValues(as: T.self) else {
+      print("Error getting values \(match.output)")
+      return
+    }
+
+    //    print("Values: \(values)")
+    //    return
+
+  }
+
   private func something<T>(
     text: String,
     match: Regex<T>.Match,
@@ -76,26 +115,26 @@ extension RegexShape {
     theme: Markdown.Theme,
     font: NSFont,
     syntax: Markdown.Syntax,
-    
+
     keyPath: MatchPath<T>,
     //    match:
     attrs: inout NSAttributedRanges
   ) {
-    
+
     let syntaxToken = theme.style(for: syntax, part: .syntax)
     let contentToken = theme.style(for: syntax, part: .content)
-    
+
     let syntaxTraits = syntaxToken.fontTraits
     let contentTraits = contentToken.fontTraits
-    
-    let contentRange
-    
+
+    //    let contentRange
+
     let syntaxColour = syntaxToken.nsColour
     let contentColour = contentToken.nsColour
-    
+
     /// 1. Get the substring from the keypath
     let substring = match.output[keyPath: keyPath]
-    
+
     /// 2. Identify the range in Swift indices
     let range = substring.startIndex..<substring.endIndex
     let nsRange = NSRange(range, in: text)
@@ -103,7 +142,7 @@ extension RegexShape {
     //      print("Unable to get NSRange from match range")
     //      return
     //    }
-    
+
     attrs.update(
       [
         .init(fontTraitsOptional: syntaxTraits, current: font),
@@ -114,7 +153,7 @@ extension RegexShape {
       tag: nil
     )
   }
-  
+
 }
 
 //  func getAnyRegex() -> Regex<AnyRegexOutput> {

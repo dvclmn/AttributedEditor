@@ -38,6 +38,7 @@ extension Markdown.Theme.HighlightColours {
   public var colourMain: SystemColour {
     SystemColour(rawValue: rawValue) ?? .primary
   }
+  
   public var contrastColour: SystemColour {
     switch self {
       case .blue: .cyan
