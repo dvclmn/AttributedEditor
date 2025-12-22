@@ -7,6 +7,8 @@
 
 import AppKit
 import CoreTools
+import ThemePark
+
 
 public typealias AttributedRanges = [AttributedRun]
 public typealias NSAttributedRanges = [NSAttributedRun]
@@ -15,6 +17,8 @@ public typealias BlockRanges = [Range<String.Index>]
 public typealias NSBlockRanges = [NSRange]
 
 public struct AttributedRun {
+//  public let keyword:
+  public let thing: SyntaxSpecifier
   //  public let tag: String?  // For debugging
   public let range: Range<String.Index>
   public var attributes: TextAttributes

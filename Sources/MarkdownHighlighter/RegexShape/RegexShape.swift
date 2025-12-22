@@ -23,19 +23,6 @@ public enum RegexShape: Equatable, Hashable {
   case codeBlock
   case wrapPair
 
-  /// The available possible parts, found within Regex Shapes
-  public enum ShapePart {
-    case content
-    case syntax(Boundary)
-    //    case codeBlock(Boundary)
-    case languageHint  // Of type `SyntaxPart.metadata`
-    case prefix  // Image "!", Quote ">", etc
-  }
-
-  public enum Boundary {
-    case start  // aka leading
-    case end  // aka trailing
-  }
 
   // E.g. *Italics*, ==Highlight==
   public typealias Wrap = (
@@ -78,9 +65,10 @@ public enum RegexShape: Equatable, Hashable {
 }
 extension RegexShape {
   /// Return a range for a given Regex Match and shape part
-  func range(
+  /// `text` is the original main text being searched for matches
+  func nsRange(
     for match: Regex<AnyRegexOutput>.Match,
-    part shapePart: RegexShape.ShapePart,
+    part shapePart: RegexShape.Fragment,
     in text: String,
 
   ) -> NSRange? {
@@ -89,8 +77,8 @@ extension RegexShape {
         guard let values = match.output.extractValues(as: Wrap.self) else { return nil }
         return switch shapePart {
           case .content: values.content.nsRange(in: text)
-          case .syntax(.start): values.leading.nsRange(in: text)
-          case .syntax(.end): values.trailing.nsRange(in: text)
+          case .syntaxStart: values.leading.nsRange(in: text)
+          case .syntaxEnd: values.trailing.nsRange(in: text)
           default: nil
         }
 
@@ -100,8 +88,8 @@ extension RegexShape {
         }
         return switch shapePart {
           case .content: values.content.nsRange(in: text)
-          case .syntax(.start): values.start.nsRange(in: text)
-          case .syntax(.end): values.end.nsRange(in: text)
+          case .syntaxStart: values.start.nsRange(in: text)
+          case .syntaxEnd: values.end.nsRange(in: text)
           case .languageHint: values.langHint.nsRange(in: text)
           default: nil
         }

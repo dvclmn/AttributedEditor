@@ -72,29 +72,32 @@ extension MarkdownHighlighter {
     in text: String,
     attrs: inout NSAttributedRanges
   ) {
+    
+    
+    
     //  ) -> NSAttributedRanges {
 
     /// Not all of these may be needed
-    let syntaxToken = theme.style(for: syntax, part: .syntax)
-    let contentToken = theme.style(for: syntax, part: .content)
+//    let syntaxToken = theme.style(for: syntax, part: .syntax)
+//    let contentToken = theme.style(for: syntax, part: .content)
 
     /// Ignoring these below for ease, for now
     //    let metaToken = theme.style(for: syntax, part: .meta)
     //    let bgToken = theme.style(for: syntax, part: .bg)
-
-    let syntaxTraits = syntaxToken.fontTraits
-    let contentTraits = contentToken.fontTraits
-
-    let syntaxColour = syntaxToken.colour?.nsColor(fallback:)
-    let contentColour = contentToken.colour?.nsColor(fallback:)
-
-    guard let shape = syntax.regexShape else {
-      print("No Regex Shape for \(syntax.name)")
-      return
-      //      return []
-    }
-    print("Going to run `processMatches`")
-    
+//
+//    let syntaxTraits = syntaxToken.fontTraits
+//    let contentTraits = contentToken.fontTraits
+//
+//    let syntaxColour = syntaxToken.colour?.nsColor(fallback:)
+//    let contentColour = contentToken.colour?.nsColor(fallback:)
+//
+//    guard let shape = syntax.regexShape else {
+//      print("No Regex Shape for \(syntax.name)")
+//      return
+//      //      return []
+//    }
+//    print("Going to run `processMatches`")
+//    
     
     //    shape.processMatches(for: syntax, in: text)
     //    attrs

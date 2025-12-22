@@ -25,6 +25,7 @@ let package = Package(
     .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
 //    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
 //    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
+    .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
 
   ],
   targets: [
@@ -51,7 +52,8 @@ let package = Package(
     .target(
       name: "HighlighterCommon",
       dependencies: [
-        .product(name: "CoreTools", package: "BaseHelpers")
+        .product(name: "CoreTools", package: "BaseHelpers"),
+        .product(name: "ThemePark", package: "ThemePark"),
         //        .product(name: "Sharing", package: "swift-sharing"),
       ]
     ),

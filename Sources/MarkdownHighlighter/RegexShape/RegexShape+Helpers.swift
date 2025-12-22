@@ -72,30 +72,35 @@ extension RegexShape {
     }
 
     for match in matches {
-      print("Match: \(match.output)")
-
-      // MARK: - Now in Strongly Typed Zone
-      switch shape {
-        case .wrap:
-
-//          guard let values = match.output.extractValues(as: Wrap.self) else {
-//            print("Error getting values \(match.output)")
-//            return
-//          }
-          
-          matchWithShape(
-            syntax: syntax,
-            shape: shape,
-            match: match,
-            theme: theme
-          )
-          
-
-        case .prefix: return
-        case .single: return
-        case .codeBlock: return
-        case .wrapPair: return
-      }
+//      print("Match: \(match.output)")
+      
+      let rangeContent = shape.nsRange(for: match, part: .content, in: text)
+      let rangeSyntaxStart = shape.nsRange(for: match, part: .syntaxStart, in: text)
+      let rangeSyntaxEnd = shape.nsRange(for: match, part: .syntaxEnd, in: text)
+      
+//      switch shape {
+//        case .wrap:
+//
+////          guard let values = match.output.extractValues(as: Wrap.self) else {
+////            print("Error getting values \(match.output)")
+////            return
+////          }
+//          
+//          
+//          
+////          matchWithShape(
+////            syntax: syntax,
+////            shape: shape,
+////            match: match,
+////            theme: theme
+////          )
+////          
+//
+//        case .prefix: return
+//        case .single: return
+//        case .codeBlock: return
+//        case .wrapPair: return
+//      }
 
     }
   }
@@ -109,19 +114,19 @@ extension RegexShape {
     _ attributes: inout NSAttributedRanges
   ) {
 
-    guard let values = match.output.extractValues(as: T.self) else {
-      print("Error getting values \(match.output)")
-      return
-    }
+//    guard let values = match.output.extractValues(as: T.self) else {
+//      print("Error getting values \(match.output)")
+//      return
+//    }
     
     /// Important: Remember, this could be for content,
     /// could be for syntax, or meta or background.
     /// This isn't known here.
-    var attrs: TextAttributes = [:]
-    theme.applyTokens(for: syntax, part: .syntax, to: &attrs)
-    theme.applyTokens(for: syntax, part: .content, to: &attrs)
-    
-    let range = match.nsRange(for: \., in: <#T##String#>)
+//    var attrs: TextAttributes = [:]
+//    theme.applyTokens(for: syntax, part: .syntax, to: &attrs)
+//    theme.applyTokens(for: syntax, part: .content, to: &attrs)
+//    
+//    let range = match.nsRange(for: \., in: <#T##String#>)
     
 
     //    print("Values: \(values)")

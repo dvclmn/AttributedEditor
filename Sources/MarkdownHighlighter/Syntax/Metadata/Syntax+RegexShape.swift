@@ -114,7 +114,7 @@ extension Markdown.Syntax {
 
 
 /// Something from regex shape
-extension Markdown.Syntax {
-  
-}
+//extension Markdown.Syntax {
+//  
+//}
 
