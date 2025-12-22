@@ -15,32 +15,32 @@ public typealias BlockRanges = [Range<String.Index>]
 public typealias NSBlockRanges = [NSRange]
 
 public struct AttributedRun {
-  public let tag: String?  // For debugging
+  //  public let tag: String?  // For debugging
   public let range: Range<String.Index>
   public var attributes: TextAttributes
 
   public init(
-    tag: String?,
+    //    tag: String?,
     range: Range<String.Index>,
     attributes: TextAttributes
   ) {
-    self.tag = tag
+    //    self.tag = tag
     self.range = range
     self.attributes = attributes
   }
 }
 
 public struct NSAttributedRun {
-  public let tag: String?  // For debugging
+  //  public let tag: String?  // For debugging
   public let range: NSRange
   public var attributes: TextAttributes
 
   public init(
-    tag: String?,
+    //    tag: String?,
     range: NSRange,
     attributes: TextAttributes
   ) {
-    self.tag = tag
+    //    self.tag = tag
     self.range = range
     self.attributes = attributes
   }
@@ -50,7 +50,7 @@ extension AttributedRanges {
 
   public func toNSRanges(
     in text: String,
-    tag: String?
+//    tag: String?
   ) -> NSAttributedRanges {
     self.compactMap { run in
       guard let range = run.range.toNSRange(in: text) else {
@@ -58,7 +58,7 @@ extension AttributedRanges {
         return nil
       }
       let attributes = run.attributes
-      return NSAttributedRun(tag: tag, range: range, attributes: attributes)
+      return NSAttributedRun(range: range, attributes: attributes)
       //      return (range, attributes)
     }
   }
@@ -68,7 +68,7 @@ extension AttributedRanges {
   public mutating func update(
     _ attribute: AttributeKey?,
     in range: Range<String.Index>,
-    tag: String?
+//    tag: String?
   ) {
     guard let attribute else { return }
 
@@ -78,7 +78,7 @@ extension AttributedRanges {
     } else {
       /// Otherwise, append a new run.
       let new = AttributedRun(
-        tag: tag,
+        //        tag: tag,
         range: range,
         attributes: attribute.attribute
       )
@@ -94,7 +94,7 @@ extension NSAttributedRanges {
   public mutating func update(
     _ attribute: AttributeKey?,
     in range: NSRange,
-    tag: String?
+    //    tag: String?
   ) {
     /// Could be wrong, but I *thiiink* this is very ueseful, having this
     /// as optional, so I can freely call this method (whether I know if there'll
@@ -115,7 +115,7 @@ extension NSAttributedRanges {
     } else {
       /// 3. Append New
       let new = NSAttributedRun(
-        tag: tag,
+        //        tag: tag,
         range: range,
         attributes: attribute.attribute
       )
@@ -126,7 +126,7 @@ extension NSAttributedRanges {
   public mutating func update(
     _ attributes: [AttributeKey?],
     in range: NSRange,
-    tag: String?
+    //    tag: String?
   ) {
     /// Could be wrong, but I *thiiink* this is very ueseful, having this
     /// as optional, so I can freely call this method (whether I know if there'll
@@ -135,9 +135,10 @@ extension NSAttributedRanges {
     let foundAttr = attributes.compactMap(\.self)
     guard !foundAttr.isEmpty else { return }
     for attr in foundAttr {
-      self.update(attr, in: range, tag: tag)
+      self.update(attr, in: range)
     }
   }
+
   //  /// `Attribute` is a small type safe wrapper
   //  /// around `NSAttributedString.Key`
   //  public mutating func update(
@@ -170,7 +171,6 @@ extension NSBlockRanges {
     from match: Regex<T>.Match,
     in text: String
   ) {
-
     guard let range = match.nsRange(in: text) else { return }
     self.append(range)
   }

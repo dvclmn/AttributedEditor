@@ -2,144 +2,191 @@
 //  RegexShape+Helpers.swift
 //  AttributedEditor
 //
-//  Created by Dave Coleman on 19/11/2025.
+//  Created by Dave Coleman on 22/12/2025.
 //
 
-import Foundation
+import AppKit
+import CoreTools
+import HighlighterCommon
 
-public typealias MatchPath<T> = KeyPath<T, Substring>
-public typealias ApplyRegex<T> = (MatchPath<T>, Range<String.Index>) -> Void
-public typealias NSApplyRegex<T> = (MatchPath<T>, NSRange) -> Void
-
-// MARK: - Process Match keypaths
-extension Regex {
-  fileprivate func processMatch<T>(
-    paths: [MatchPath<T>],
-    match: Match,
-    perform: ApplyRegex<T>
-  ) {
-    for path in paths {
-      guard let output = match.output as? T else {
-        assertionFailure("Unexpected output type")
-        return
-      }
-      let substring = output[keyPath: path]
-
-      /// This range is correct because the `Substring` points into the parent string
-      let range = substring.startIndex..<substring.endIndex
-
-      perform(path, range)
-    }
-  }
-
-  fileprivate func processMatchWithNSRange<T>(
+/// What am I trying to do
+///
+/// ## Patterns
+/// Declare Regex for all syntaxes. See ``Markdown/Syntax/pattern``
+///
+/// ## Active Syntax
+/// Establish which syntax types are active (usually based on what I'm testing)
+/// Currently done in `StyleLibrary`
+///
+/// ## Source Text
+/// The text to search within needs to be obtained at some juncture.
+/// This currently comes from
+/// ``MarkdownHighlighter/MarkdownHighlighter/buildStyles(in:with:)``
+///
+/// ## Attributes and Ranges
+///
+extension RegexShape {
+  func processMatches(
+    for syntax: Markdown.Syntax,
     in text: String,
-    paths: [MatchPath<T>],
-    match: Match,
-    perform: NSApplyRegex<T>
+    attrs: inout NSAttributedRanges
   ) {
-    for path in paths {
-      guard let output = match.output as? T else {
-        assertionFailure("Unexpected output type")
-        return
+    guard let pattern = syntax.pattern else {
+      print("No pattern for syntax \(syntax.name)")
+      return
+    }
+    
+    let matches = text.matches(of: pattern)
+    
+    guard !matches.isEmpty else {
+      print("No matches found for syntax \(syntax.name)")
+      return
+    }
+    
+    
+    for match in text.matches(of: pattern) {
+      print("Match: \(match.output)")
+      
+      //      for thing in match. {
+      //
+      //      }
+      
+      switch self {
+        case .wrap:
+          guard let values = match.output.extractValues(as: Self.Wrap.self) else {
+            print("Error getting values \(match.output)")
+            return
+          }
+          
+          print("Values: \(values)")
+          return
+          
+        case .prefix: return
+        case .single: return
+        case .codeBlock: return
+        case .wrapPair: return
       }
-
-      /// 1. Get the substring from the keypath
-      let substring = output[keyPath: path]
-
-      /// 2. Identify the range in Swift indices
-      let range = substring.startIndex..<substring.endIndex
-
-      let rangeAlt = match.range
-
-      /// 3. Convert to NSRange
-      /// Use `substring.base` to calculate the offsets relative
-      /// to the entire original string, not just the match.
-      let nsRange = NSRange(rangeAlt, in: text)
-      //      let nsRange = NSRange(rangeAlt, in: substring.base)
-
-      perform(path, nsRange)
-
     }
   }
-}
-
-// MARK: - Create Match output Keypaths
-extension Regex where Output == RegexShape.Single {
-  public func processMatch(
-    match: Match,
-    perform: NSApplyRegex<Output>
-    //    perform: ApplyRegex<Output>
+  
+  private func something<T>(
+    text: String,
+    match: Regex<T>.Match,
+    //    thing: T,
+    theme: Markdown.Theme,
+    font: NSFont,
+    syntax: Markdown.Syntax,
+    
+    keyPath: MatchPath<T>,
+    //    match:
+    attrs: inout NSAttributedRanges
   ) {
-    let paths: [MatchPath<Output>] = [\.self]
-    processMatchWithNSRange(paths: paths, match: match, perform: perform)
+    
+    let syntaxToken = theme.style(for: syntax, part: .syntax)
+    let contentToken = theme.style(for: syntax, part: .content)
+    
+    let syntaxTraits = syntaxToken.fontTraits
+    let contentTraits = contentToken.fontTraits
+    
+    let contentRange
+    
+    let syntaxColour = syntaxToken.nsColour
+    let contentColour = contentToken.nsColour
+    
+    /// 1. Get the substring from the keypath
+    let substring = match.output[keyPath: keyPath]
+    
+    /// 2. Identify the range in Swift indices
+    let range = substring.startIndex..<substring.endIndex
+    let nsRange = NSRange(range, in: text)
+    //    guard let range = match.nsRange(in: text) else {
+    //      print("Unable to get NSRange from match range")
+    //      return
+    //    }
+    
+    attrs.update(
+      [
+        .init(fontTraitsOptional: syntaxTraits, current: font),
+        .init(fontTraitsOptional: contentTraits, current: font),
+        .init(foreOptional: syntaxColour),
+      ],
+      in: range,
+      tag: nil
+    )
   }
+  
 }
 
-//extension Regex where Output == RegexShape.Prefix {
-//  public func processMatch(
-//    _ match: Match,
-//    perform: NSApplyRegex<Output>
-//  ) {
-//    let paths: [MatchPath<Output>] = [
-//      \.0,
-//      \.prefix,
-//      \.content,
-//    ]
-//    processMatchWithNSRange(paths: paths, match: match, perform: perform)
-//    //    apply(paths: paths, match: match, perform: perform)
+//  func getAnyRegex() -> Regex<AnyRegexOutput> {
+//    switch self {
+//      case .wrap(let pattern): Regex(pattern.expression)
+//      case .prefix(let pattern): Regex(pattern.expression)
+//      case .single(let pattern): Regex(pattern.expression)
+//      case .codeBlock(let pattern): Regex(pattern.expression)
+//      case .wrapPair(let pattern): Regex(pattern.expression)
+//    }
 //  }
+
+//  /// Struggling to understand what to call this
+//  func processMatches(
+//    for syntax: Markdown.Syntax,
+//    //    for pattern: any RegexComponent,
+//    in text: String,
+//
+//  ) {
+//
+//    switch self {
+//      case .wrap(let pattern):
+//
+////        guard  else {
+////          print("Couldn't convert strongly-typed pattern to Regex with AnyRegexOutput")
+////        }
+////        guard let anyPattern = syntax.pattern else { return }
+////        guard let thing = Regex(anyPattern.regex) else { return }
+//
+//
+//
+////        guard let patt = syntax.toAnyRegex() else { return }
+//        //        guard let thing = Regex(patt, as: Self.Wrap.self) else { return }
+//
+//        //        guard let patt = syntax.pattern, let thing = patt as? Self.Wrap.Type else { return }
+//
+//        let matches = text.matches(of: patt.regex)
+//
+//        for match in matches {
+//
+//          guard let values = match.output.extractValues(as: Self.Wrap.self) else {
+//            continue
+//          }
+//
+//          print("Values: \(values)")
+//        }
+//
+//      //        for path in matchKeyPaths {
+//      //
+//      //        }
+//      //        let thing = Regex.init(pattern, as: Self.Wrap)
+//
+//      //      case .prefix:
+//      //        <#code#>
+//      //      case .single:
+//      //        <#code#>
+//      //      case .codeBlock:
+//      //        <#code#>
+//      //      case .wrapPair:
+//      //        <#code#>
+//
+//      default: fatalError("Not hooked up yet")
+//    }
+//
+//    //    for match in text.matches(of: pattern) {
+//    //    }
+//  }
+//
+////  private func findPathsOrSomething(
+////    match: Regex<AnyRegexOutput>.Match,
+////    //    match: Regex<T>.Match,
+////  ) {
+////    let thing = match.output.extractValues(as: <#T##Output.Type#>)
+////  }
 //}
-
-extension Regex where Output == RegexShape.Wrap {
-  public func processMatch(
-    _ match: Match,
-    perform: NSApplyRegex<Output>
-  ) {
-    let paths: [MatchPath<Output>] = [
-      \.0,
-      \.leading,
-      \.content,
-      \.trailing,
-    ]
-    processMatchWithNSRange(in: <#String#>, paths: paths, match: match, perform: perform)
-    //    apply(paths: paths, match: match, perform: perform)
-  }
-}
-
-extension Regex where Output == RegexShape.CodeBlock {
-  public func processMatch(
-    _ match: Match,
-    perform: NSApplyRegex<Output>
-  ) {
-    let paths: [MatchPath<Output>] = [
-      \.0,
-      \.start,
-      \.langHint,
-      \.content,
-      \.end,
-    ]
-    processMatchWithNSRange(paths: paths, match: match, perform: perform)
-    //    apply(paths: paths, match: match, perform: perform)
-  }
-}
-
-extension Regex where Output == RegexShape.WrapPair {
-  public func processMatch(
-    _ match: Match,
-    perform: NSApplyRegex<Output>
-  ) {
-    let paths: [MatchPath<Output>] = [
-      \.0,
-      \.prefix,
-      \.leadingA,
-      \.title,
-      \.trailingA,
-      \.leadingB,
-      \.url,
-      \.trailingB,
-    ]
-    processMatchWithNSRange(paths: paths, match: match, perform: perform)
-    //    apply(paths: paths, match: match, perform: perform)
-  }
-}
