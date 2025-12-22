@@ -9,13 +9,13 @@ import AppKit
 import CoreTools
 import HighlighterCommon
 
-/// I think we don't need assoc. values here, because this is attempting
-/// to handle type erasure, but `AnyRegexOutput` should be handling
-/// this for me anyway.
+/// I think we don't need assoc. values here, because would mean I'm
+/// attempting to handle type erasure, and `AnyRegexOutput` should
+/// be handling this entirely.
 ///
-/// `RegexShape` could probably *just* be a namespace, not
-/// sure the cases themselves are even needed. Dunno
-//@MetaEnum
+/// Also, assoc. value would imply it is possible to express some specific
+/// *value*, based on the declared type for a case. However there is no
+/// value to be passed in; the type *is* the value.
 public enum RegexShape: Equatable, Hashable {
   case wrap
   case prefix
@@ -23,8 +23,8 @@ public enum RegexShape: Equatable, Hashable {
   case codeBlock
   case wrapPair
 
-
   // E.g. *Italics*, ==Highlight==
+  
   public typealias Wrap = (
     Substring,
     leading: Substring,

@@ -1,5 +1,5 @@
 # Markdown Syntax
-A brief overview of syntax types support by this editor
+A brief overview of syntax types supported by this editor
 
 ## Headings
 

@@ -7,24 +7,63 @@
 
 extension Markdown.Syntax {
 
-  //  func token(with theme: Markdown.Theme) -> TokenStyle {
-  //    return theme.style(for: <#T##Markdown.Syntax#>, part: <#T##Markdown.SyntaxPart#>)
-  //  }
+  public var shapes: [RegexShape: [RegexShape.Fragment]]? {
 
-  //  var supportsRegexShape: Bool { regexShape != nil }
-
-  func hasShape(_ shape: RegexShape) -> Bool {
-    guard let localShape = regexShape else { return false }
-    return localShape == shape
   }
-  
-  var regexShape: RegexShape? {
-    //  var regexShape: RegexShape.Meta? {
+
+  var fragments: [RegexShape.Fragment]? {
+
     switch self {
-      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6, .quoteBlock:
+      case .body: nil
+
+      /// ``RegexShape/Prefix``
+      case .heading1,
+        .heading2,
+        .heading3,
+        .heading4,
+        .heading5,
+        .heading6,
+        .quoteBlock,
+        .list:
+        [.prefix, .content]
+
+      /// ``RegexShape/Wrap``
+      case .bold,
+        .italic,
+        .boldItalic,
+        .inlineCode:
+        [.syntaxStart, .content, .syntaxEnd]
+
+      case .codeBlock:
+        [
+          .syntaxStart,
+          .languageHint,
+          .content,
+          .syntaxEnd,
+
+        ]
+
+
+    }
+  }
+
+  var regexShape: RegexShape? {
+    switch self {
+      case .heading1,
+        .heading2,
+        .heading3,
+        .heading4,
+        .heading5,
+        .heading6,
+        .quoteBlock:
         .prefix
 
-      case .bold, .italic, .boldItalic, .inlineCode, .strikethrough, .highlight:
+      case .bold,
+        .italic,
+        .boldItalic,
+        .inlineCode,
+        .strikethrough,
+        .highlight:
         .wrap
 
       case .codeBlock:
@@ -111,10 +150,3 @@ extension Markdown.Syntax {
     }
   }
 }
-
-
-/// Something from regex shape
-//extension Markdown.Syntax {
-//  
-//}
-

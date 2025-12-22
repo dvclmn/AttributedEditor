@@ -6,13 +6,12 @@
 //
 
 extension RegexShape {
+  
   /// The available possible parts, found within Regex Shapes
   public enum Fragment {
     case content
-    case syntaxStart
-    case syntaxEnd
-    //    case syntax(Boundary)
-    //    case codeBlock(Boundary)
+    case syntaxStart // Aka leading
+    case syntaxEnd //  Aka trailing
     case languageHint  // Of type `SyntaxPart.metadata`
     case prefix  // Image "!", Quote ">", etc
   }
