@@ -16,3 +16,10 @@ extension Markdown {
     case bg  // Block background
   }
 }
+
+/// Considering whether SyntaxPart and the Match keypaths
+/// are related enough to form a type
+struct MatchPart<T> {
+  let path: KeyPath<T, Substring>
+  let part: Markdown.SyntaxPart
+}

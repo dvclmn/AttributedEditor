@@ -10,21 +10,21 @@ import Foundation
 import HighlighterCommon
 
 struct StyleLibrary {
-  let text: String
+//  let text: String
 
   /// How to go about making Markdown Themes and general source
   /// code themes either work together (shared interface), or not.
-  let theme: Markdown.Theme
-  let attributes: TextAttributes
+//  let theme: Markdown.Theme
+//  let attributes: TextAttributes
 
   init(
-    text: String,
-    theme: Markdown.Theme,
-    attributes: TextAttributes
+//    text: String,
+//    theme: Markdown.Theme,
+//    attributes: TextAttributes
   ) {
-    self.text = text
-    self.theme = theme
-    self.attributes = attributes
+//    self.text = text
+//    self.theme = theme
+//    self.attributes = attributes
   }
 
 }
@@ -40,11 +40,17 @@ extension StyleLibrary {
       .inlineCode
     ]
   }
-  var rules: [Markdown.SyntaxRule] {
-    activeSyntax.compactMap(\.regexRule)
-  }
+//  var rules: [Markdown.SyntaxRule] {
+//    activeSyntax.compactMap(\.regexRule)
+//  }
 
-  func buildForSyntax(_ syntax: Markdown.Syntax) -> NSAttributedRanges {
+  static func buildForSyntax(
+    text: String,
+    theme: Markdown.Theme,
+    _ syntax: Markdown.Syntax,
+    attr: inout NSAttributedRanges
+  ) {
+//  ) -> NSAttributedRanges {
 
     /// Not all of these may be needed
     let syntaxToken = theme.style(for: syntax, part: .syntax)
@@ -60,32 +66,36 @@ extension StyleLibrary {
     let syntaxColour = syntaxToken.colour?.nsColor(fallback:)
     let contentColour = contentToken.colour?.nsColor(fallback:)
 
-    let shape = syntax.regexShape
+    guard let shape = syntax.regexShape else {
+      print("No Regex Shape for \(syntax.name)")
+      return
+//      return []
+    }
+    print("Going to run `processMatches`")
+    shape.processMatches(for: syntax, in: text)
 
-    shape?.processMatches(for: syntax, in: text)
-
-    return []
+//    return []
   }
 
   //extension MarkdownHighlighter {
-  func buildStyledRanges(
-    _ rule: Markdown.SyntaxRule,
-    //    _ shape: RegexShape,
-    text: String,
-  ) -> NSAttributedRanges {
-    //  ) -> (NSAttributedRanges, NSBlockRanges) {
+//  func buildStyledRanges(
+//    _ rule: Markdown.SyntaxRule,
+//    //    _ shape: RegexShape,
+//    text: String,
+//  ) -> NSAttributedRanges {
+//    //  ) -> (NSAttributedRanges, NSBlockRanges) {
+//
+//    var attrs: NSAttributedRanges = []
+//    var blocks: NSBlockRanges = []
+//
+//    return attrs
+//  }
 
-    var attrs: NSAttributedRanges = []
-    var blocks: NSBlockRanges = []
-
-    return attrs
-  }
-
-  static var initial: StyleLibrary {
-    .init(
-      text: "",
-      theme: .default,
-      attributes: [:]
-    )
-  }
+//  static var initial: StyleLibrary {
+//    .init(
+//      text: "",
+//      theme: .default,
+//      attributes: [:]
+//    )
+//  }
 }

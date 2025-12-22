@@ -96,6 +96,9 @@ extension NSAttributedRanges {
     in range: NSRange,
     tag: String?
   ) {
+    /// Could be wrong, but I *thiiink* this is very ueseful, having this
+    /// as optional, so I can freely call this method (whether I know if there'll
+    /// be a value or not), for more generalised code over in Regex shape.
     guard let attribute else { return }
 
     /// 1. Ensure the range is valid.
@@ -117,6 +120,22 @@ extension NSAttributedRanges {
         attributes: attribute.attribute
       )
       self.append(new)
+    }
+  }
+
+  public mutating func update(
+    _ attributes: [AttributeKey?],
+    in range: NSRange,
+    tag: String?
+  ) {
+    /// Could be wrong, but I *thiiink* this is very ueseful, having this
+    /// as optional, so I can freely call this method (whether I know if there'll
+    /// be a value or not), for more generalised code over in Regex shape.
+    //    guard let attribute else { return }
+    let foundAttr = attributes.compactMap(\.self)
+    guard !foundAttr.isEmpty else { return }
+    for attr in foundAttr {
+      self.update(attr, in: range, tag: tag)
     }
   }
   //  /// `Attribute` is a small type safe wrapper

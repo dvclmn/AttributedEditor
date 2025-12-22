@@ -33,6 +33,7 @@ extension Regex {
   }
 
   fileprivate func processMatchWithNSRange<T>(
+    in text: String,
     paths: [MatchPath<T>],
     match: Match,
     perform: NSApplyRegex<T>
@@ -49,10 +50,13 @@ extension Regex {
       /// 2. Identify the range in Swift indices
       let range = substring.startIndex..<substring.endIndex
 
+      let rangeAlt = match.range
+
       /// 3. Convert to NSRange
       /// Use `substring.base` to calculate the offsets relative
       /// to the entire original string, not just the match.
-      let nsRange = NSRange(range, in: substring.base)
+      let nsRange = NSRange(rangeAlt, in: text)
+      //      let nsRange = NSRange(rangeAlt, in: substring.base)
 
       perform(path, nsRange)
 
@@ -72,20 +76,20 @@ extension Regex where Output == RegexShape.Single {
   }
 }
 
-extension Regex where Output == RegexShape.Prefix {
-  public func processMatch(
-    _ match: Match,
-    perform: NSApplyRegex<Output>
-  ) {
-    let paths: [MatchPath<Output>] = [
-      \.0,
-      \.prefix,
-      \.content,
-    ]
-    processMatchWithNSRange(paths: paths, match: match, perform: perform)
-    //    apply(paths: paths, match: match, perform: perform)
-  }
-}
+//extension Regex where Output == RegexShape.Prefix {
+//  public func processMatch(
+//    _ match: Match,
+//    perform: NSApplyRegex<Output>
+//  ) {
+//    let paths: [MatchPath<Output>] = [
+//      \.0,
+//      \.prefix,
+//      \.content,
+//    ]
+//    processMatchWithNSRange(paths: paths, match: match, perform: perform)
+//    //    apply(paths: paths, match: match, perform: perform)
+//  }
+//}
 
 extension Regex where Output == RegexShape.Wrap {
   public func processMatch(
@@ -98,7 +102,7 @@ extension Regex where Output == RegexShape.Wrap {
       \.content,
       \.trailing,
     ]
-    processMatchWithNSRange(paths: paths, match: match, perform: perform)
+    processMatchWithNSRange(in: <#String#>, paths: paths, match: match, perform: perform)
     //    apply(paths: paths, match: match, perform: perform)
   }
 }

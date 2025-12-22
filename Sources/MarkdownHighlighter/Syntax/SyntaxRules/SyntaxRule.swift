@@ -12,30 +12,30 @@ import CoreTools
 //public typealias AnyRegex = Regex<AnyRegexOutput>
 //public typealias SyntaxRule<T> = Markdown.SyntaxRule<T>
 
-extension Markdown {
-  public struct SyntaxRule {
-    public let syntax: Markdown.Syntax
-    public let pattern: any RegexComponent
-    public let shape: RegexShape
-//    public let theme: Theme
-//    public let font: NSFont
-
-    public init(
-      for syntax: Markdown.Syntax,
-      pattern: any RegexComponent,
-      shape: RegexShape
-//      pattern: AnyRegex.RegexOutput,
-//      theme: Theme,
-//      font: NSFont
-    ) {
-      self.syntax = syntax
-      self.pattern = pattern
-      self.shape = shape
-//      self.theme = theme
-//      self.font = font
-    }
-  }
-}
+//extension Markdown {
+//  public struct SyntaxRule {
+//    public let syntax: Markdown.Syntax
+//    public let pattern: any RegexComponent
+//    public let shape: RegexShape
+////    public let theme: Theme
+////    public let font: NSFont
+//
+//    public init(
+//      for syntax: Markdown.Syntax,
+//      pattern: any RegexComponent,
+//      shape: RegexShape
+////      pattern: AnyRegex.RegexOutput,
+////      theme: Theme,
+////      font: NSFont
+//    ) {
+//      self.syntax = syntax
+//      self.pattern = pattern
+//      self.shape = shape
+////      self.theme = theme
+////      self.font = font
+//    }
+//  }
+//}
 
 //extension Markdown.SyntaxRule {
 //  func buildRule(
@@ -57,12 +57,12 @@ extension Markdown {
 //  }
 //}
 
-extension Markdown.SyntaxRule: CustomStringConvertible {
-  public var description: String {
-    DisplayString {
-      Labeled("Syntax", value: syntax.name)
-      Labeled("Pattern", value: pattern)
-      Labeled("Shape", value: shape)
-    }.plainText
-  }
-}
+//extension Markdown.SyntaxRule: CustomStringConvertible {
+//  public var description: String {
+//    DisplayString {
+//      Labeled("Syntax", value: syntax.name)
+//      Labeled("Pattern", value: pattern)
+//      Labeled("Shape", value: shape)
+//    }.plainText
+//  }
+//}

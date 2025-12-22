@@ -15,7 +15,7 @@ public final class MarkdownHighlighter: Highlighter.Core {
   public var theme: Markdown.Theme
 
 //  public var blockRanges: NSBlockRanges = []
-  var library: StyleLibrary = .initial
+//  var library: StyleLibrary = .initial
 
   public init(theme: Markdown.Theme = .default) {
     self.theme = theme
@@ -28,7 +28,13 @@ public final class MarkdownHighlighter: Highlighter.Core {
 
     var attrs: NSAttributedRanges = []
 
-    attrs = library.buildForSyntax(.inlineCode)
+    StyleLibrary.buildForSyntax(
+      text: text,
+      theme: theme,
+      .inlineCode,
+      attr: &attrs
+    )
+//    attrs = library.buildForSyntax(.inlineCode)
 //    for rule in library.rules {
 //      let thing = library.
 //      let (newAttr, newBlocks) = buildStyledRanges(rule, text: text)
