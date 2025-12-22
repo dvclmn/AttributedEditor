@@ -11,46 +11,50 @@ import ThemePark
 
 
 public typealias AttributedRanges = [AttributedRun]
-public typealias NSAttributedRanges = [NSAttributedRun]
+//public typealias NSAttributedRanges = [NSAttributedRun]
 
 public typealias BlockRanges = [Range<String.Index>]
 public typealias NSBlockRanges = [NSRange]
 
 public struct AttributedRun {
 //  public let keyword:
-  public let thing: SyntaxSpecifier
+  public let keyword: SyntaxSpecifier
   //  public let tag: String?  // For debugging
   public let range: Range<String.Index>
   public var attributes: TextAttributes
 
   public init(
     //    tag: String?,
+    keyword: SyntaxSpecifier,
     range: Range<String.Index>,
     attributes: TextAttributes
   ) {
+    self.keyword = keyword
     //    self.tag = tag
     self.range = range
     self.attributes = attributes
   }
 }
 
-public struct NSAttributedRun {
-  //  public let tag: String?  // For debugging
-  public let range: NSRange
-  public var attributes: TextAttributes
-
-  public init(
-    //    tag: String?,
-    range: NSRange,
-    attributes: TextAttributes
-  ) {
-    //    self.tag = tag
-    self.range = range
-    self.attributes = attributes
-  }
-}
+//public struct NSAttributedRun {
+//  //  public let tag: String?  // For debugging
+//  public let range: NSRange
+//  public var attributes: TextAttributes
+//
+//  public init(
+//    //    tag: String?,
+//    range: NSRange,
+//    attributes: TextAttributes
+//  ) {
+//    //    self.tag = tag
+//    self.range = range
+//    self.attributes = attributes
+//  }
+//}
 
 extension AttributedRanges {
+  
+  
 
   public func toNSRanges(
     in text: String,
@@ -82,6 +86,7 @@ extension AttributedRanges {
     } else {
       /// Otherwise, append a new run.
       let new = AttributedRun(
+        keyword:
         //        tag: tag,
         range: range,
         attributes: attribute.attribute

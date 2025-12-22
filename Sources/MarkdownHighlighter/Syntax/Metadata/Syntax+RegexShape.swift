@@ -7,9 +7,9 @@
 
 extension Markdown.Syntax {
 
-  public var shapes: [RegexShape: [RegexShape.Fragment]]? {
-
-  }
+  //  public var shapes: [RegexShape: [RegexShape.Fragment]]? {
+  //
+  //  }
 
   var fragments: [RegexShape.Fragment]? {
 
@@ -31,7 +31,9 @@ extension Markdown.Syntax {
       case .bold,
         .italic,
         .boldItalic,
-        .inlineCode:
+        .inlineCode,
+        .strikethrough,
+        .highlight:
         [.syntaxStart, .content, .syntaxEnd]
 
       case .codeBlock:
@@ -40,10 +42,13 @@ extension Markdown.Syntax {
           .languageHint,
           .content,
           .syntaxEnd,
-
         ]
 
+      case .callout: nil  // Haven't thought this through yet
 
+      case .link: nil  // [ .syntaxStart, .content, .syntaxEnd, .syntaxStart, .url, .syntaxEnd]
+      case .image: nil  // [ .prefix .syntaxStart, .content, .syntaxEnd, .syntaxStart, .url, .syntaxEnd]
+      case .horizontalRule: [.single]
     }
   }
 

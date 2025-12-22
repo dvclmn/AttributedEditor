@@ -169,15 +169,15 @@ extension RegexShape {
     //      return
     //    }
 
-    attrs.update(
-      [
-        .init(fontTraitsOptional: syntaxTraits, current: font),
-        .init(fontTraitsOptional: contentTraits, current: font),
-        .init(foreOptional: syntaxColour),
-      ],
-      in: range,
-      tag: nil
-    )
+//    attrs.update(
+//      [
+//        .init(fontTraitsOptional: syntaxTraits, current: font),
+//        .init(fontTraitsOptional: contentTraits, current: font),
+//        .init(foreOptional: syntaxColour),
+//      ],
+//      in: range,
+//      tag: nil
+//    )
   }
 
 }
