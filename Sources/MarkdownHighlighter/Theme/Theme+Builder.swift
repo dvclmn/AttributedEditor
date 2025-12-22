@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import CoreTools
 import ColourKit
 
 /// Surely just use this?
@@ -23,6 +24,7 @@ extension Markdown.Theme {
 }
 
 extension Markdown.Theme.SyntaxStyleBuilder {
+ 
 
   /// Re the below `url`, `languageHint` and `icon`:
   /// Originally these were the problematic "Whack-a-mole" aliases
@@ -66,4 +68,5 @@ extension Markdown.Theme {
 
     self.styleDefinitions[syntax] = parts
   }
+  
 }

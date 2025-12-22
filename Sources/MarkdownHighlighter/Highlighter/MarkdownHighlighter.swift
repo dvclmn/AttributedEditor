@@ -94,6 +94,8 @@ extension MarkdownHighlighter {
       //      return []
     }
     print("Going to run `processMatches`")
+    
+    
     //    shape.processMatches(for: syntax, in: text)
     //    attrs
 

@@ -52,6 +52,7 @@ extension RegexShape {
   static func processMatches(
     for syntax: Markdown.Syntax,
     in text: String,
+    theme: Markdown.Theme,
     _ attributes: inout NSAttributedRanges
   ) {
     /// No need to process anything if provided Syntax *has* no regex shape
@@ -77,10 +78,17 @@ extension RegexShape {
       switch shape {
         case .wrap:
 
-          guard let values = match.output.extractValues(as: Wrap.self) else {
-            print("Error getting values \(match.output)")
-            return
-          }
+//          guard let values = match.output.extractValues(as: Wrap.self) else {
+//            print("Error getting values \(match.output)")
+//            return
+//          }
+          
+          matchWithShape(
+            syntax: syntax,
+            shape: shape,
+            match: match,
+            theme: theme
+          )
           
 
         case .prefix: return
@@ -93,15 +101,28 @@ extension RegexShape {
   }
 
   private static func matchWithShape<T>(
+    syntax: Markdown.Syntax,
     //    shape: RegexShape,
     shape: T,
     match: Regex<AnyRegexOutput>.Match,
+    theme: Markdown.Theme,
+    _ attributes: inout NSAttributedRanges
   ) {
 
     guard let values = match.output.extractValues(as: T.self) else {
       print("Error getting values \(match.output)")
       return
     }
+    
+    /// Important: Remember, this could be for content,
+    /// could be for syntax, or meta or background.
+    /// This isn't known here.
+    var attrs: TextAttributes = [:]
+    theme.applyTokens(for: syntax, part: .syntax, to: &attrs)
+    theme.applyTokens(for: syntax, part: .content, to: &attrs)
+    
+    let range = match.nsRange(for: \., in: <#T##String#>)
+    
 
     //    print("Values: \(values)")
     //    return

@@ -8,6 +8,7 @@
 import AppKit
 import ColourKit
 import HighlighterCommon
+import CoreTools
 
 typealias PartTokens = [Markdown.SyntaxPart: TokenStyle]
 
@@ -25,6 +26,22 @@ extension Markdown {
 /// }
 /// ```
 extension Markdown.Theme {
+  
+  func applyTokens(
+    for syntax: Markdown.Syntax,
+    parts: [Markdown.SyntaxPart],
+//    part: Markdown.SyntaxPart,
+    //    to attributes: inout [NSAttributedString.Key: Any]
+    to attributes: inout TextAttributes
+  ) {
+    /// Start with 2x parts, just syntax and content?
+    let token = style(for: syntax, part: part)
+    //    let contentToken = style(for: syntax, part: .content)
+    
+    attributes[.foregroundColor] = token.nsColour
+    attributes[.fontTraits] = token.fontTraits
+  }
+  
   /// This simply provides a neater API, to read into the
   /// contents of the `styleDefinitions` property
   ///

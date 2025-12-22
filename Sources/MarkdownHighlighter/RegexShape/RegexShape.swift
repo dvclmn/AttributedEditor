@@ -17,35 +17,25 @@ import HighlighterCommon
 /// sure the cases themselves are even needed. Dunno
 //@MetaEnum
 public enum RegexShape: Equatable, Hashable {
-  //  case wrap(Markdown.Pattern<Wrap>)
-  //  case prefix(Markdown.Pattern<Prefix>)
-  //  case single(Markdown.Pattern<Single>)
-  //  case codeBlock(Markdown.Pattern<CodeBlock>)
-  //  case wrapPair(Markdown.Pattern<WrapPair>)
   case wrap
   case prefix
   case single
   case codeBlock
   case wrapPair
-  //  case wrap(Wrap)
-  //  case prefix(Prefix)
-  //  case single(Single)
-  //  case codeBlock(CodeBlock)
-  //  case wrapPair(WrapPair)
-  //  case wrap(SyntaxRule<Wrap>)
-  //  case prefix(SyntaxRule<Prefix>)
-  //  case single(SyntaxRule<Single>)
-  //  case codeBlock(SyntaxRule<CodeBlock>)
-  //  case wrapPair(SyntaxRule<WrapPair>)
 
-  public typealias Single = (Substring)
+  /// The available possible parts, found within Regex Shapes
+  public enum ShapePart {
+    case content
+    case syntax(Boundary)
+    //    case codeBlock(Boundary)
+    case languageHint  // Of type `SyntaxPart.metadata`
+    case prefix  // Image "!", Quote ">", etc
+  }
 
-  // E.g. # Header, > Quotes
-  public typealias Prefix = (
-    Substring,
-    prefix: Substring,
-    content: Substring,
-  )
+  public enum Boundary {
+    case start  // aka leading
+    case end  // aka trailing
+  }
 
   // E.g. *Italics*, ==Highlight==
   public typealias Wrap = (
@@ -63,8 +53,18 @@ public enum RegexShape: Equatable, Hashable {
     end: Substring
   )
 
+  public typealias Single = (Substring)
+
+  // E.g. # Header, > Quotes
+  public typealias Prefix = (
+    Substring,
+    prefix: Substring,
+    content: Substring,
+  )
+
   // Link, image
   // If link, the 'prefix' group will be empty
+  // E.g. prefix = "!"
   public typealias WrapPair = (
     Substring,
     prefix: Substring,
@@ -76,3 +76,55 @@ public enum RegexShape: Equatable, Hashable {
     trailingB: Substring,
   )
 }
+extension RegexShape {
+  /// Return a range for a given Regex Match and shape part
+  func range(
+    for match: Regex<AnyRegexOutput>.Match,
+    part shapePart: RegexShape.ShapePart,
+    in text: String,
+
+  ) -> NSRange? {
+    switch self {
+      case .wrap:
+        guard let values = match.output.extractValues(as: Wrap.self) else { return nil }
+        return switch shapePart {
+          case .content: values.content.nsRange(in: text)
+          case .syntax(.start): values.leading.nsRange(in: text)
+          case .syntax(.end): values.trailing.nsRange(in: text)
+          default: nil
+        }
+
+      case .codeBlock:
+        guard let values = match.output.extractValues(as: CodeBlock.self) else {
+          return nil
+        }
+        return switch shapePart {
+          case .content: values.content.nsRange(in: text)
+          case .syntax(.start): values.start.nsRange(in: text)
+          case .syntax(.end): values.end.nsRange(in: text)
+          case .languageHint: values.langHint.nsRange(in: text)
+          default: nil
+        }
+
+      // TODO: Complete these
+      case .prefix, .single, .wrapPair: return nil
+
+    }
+  }
+}
+
+//  case wrap(Markdown.Pattern<Wrap>)
+//  case prefix(Markdown.Pattern<Prefix>)
+//  case single(Markdown.Pattern<Single>)
+//  case codeBlock(Markdown.Pattern<CodeBlock>)
+//  case wrapPair(Markdown.Pattern<WrapPair>)
+//  case wrap(Wrap)
+//  case prefix(Prefix)
+//  case single(Single)
+//  case codeBlock(CodeBlock)
+//  case wrapPair(WrapPair)
+//  case wrap(SyntaxRule<Wrap>)
+//  case prefix(SyntaxRule<Prefix>)
+//  case single(SyntaxRule<Single>)
+//  case codeBlock(SyntaxRule<CodeBlock>)
+//  case wrapPair(SyntaxRule<WrapPair>)

@@ -9,11 +9,11 @@ import CoreTools
 import Foundation
 import HighlighterCommon
 
-extension StyleLibrary {
+//extension StyleLibrary {
   /// Need to define very clear boundaries around the start and end
   /// of getting concrete Regex types
   ///
-}
+//}
   //    return (attrs, blocks)
   //    switch shape {
   //      case .wrap(let rule):
