@@ -9,6 +9,7 @@ import AppKit
 import ColourKit
 import CoreTools
 
+/// I'm trying out using ThemePark's `Style` instead of `TokenStyle`
 /// I think the below is true:
 /// - By default, a 'full' resolved SwiftUI font from the environment
 ///   is passed in right at the top in the `NSViewRepresentable`

@@ -12,7 +12,6 @@ extension Markdown.Syntax {
   //  }
 
   var fragments: [RegexShape.Fragment]? {
-
     switch self {
       case .body: nil
 
@@ -48,7 +47,7 @@ extension Markdown.Syntax {
 
       case .link: nil  // [ .syntaxStart, .content, .syntaxEnd, .syntaxStart, .url, .syntaxEnd]
       case .image: nil  // [ .prefix .syntaxStart, .content, .syntaxEnd, .syntaxStart, .url, .syntaxEnd]
-      case .horizontalRule: [.single]
+      case .horizontalRule: [.horizontalRule]
     }
   }
 

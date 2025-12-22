@@ -15,6 +15,7 @@ extension RegexShape {
     case languageHint  // Of type `SyntaxPart.metadata`
     case url
     case prefix  // Image "!", Quote ">", etc
+    case horizontalRule
   }
 }
 extension RegexShape.Fragment {

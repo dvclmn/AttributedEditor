@@ -18,16 +18,21 @@ public typealias NSBlockRanges = [NSRange]
 public struct AttributedRun {
 
   /// The lexeme/syntax/operator/keyword etc that this run is attached to
-  public let keyword: SyntaxSpecifier
+  /// This is a String for now, until I set up Theming
+  /// that works for *any* Highlighter, not just markdown
+  public let fragment: String?
+  //  public let keyword: SyntaxSpecifier
   public let range: Range<String.Index>
   public var attributes: TextAttributes
 
   public init(
-    keyword: SyntaxSpecifier,
+    _ fragment: String? = nil,
+    //    _ keyword: SyntaxSpecifier,
     range: Range<String.Index>,
     attributes: TextAttributes
   ) {
-    self.keyword = keyword
+    self.fragment = fragment
+    //    self.keyword = keyword
     self.range = range
     self.attributes = attributes
   }
@@ -38,16 +43,37 @@ extension AttributedRun {
   /// like keyword and range are equal, but the style attributes may
   /// not be. So there'd be a choice about overwriting, preserving, etc.
   func isSemanticallyEqual(to other: AttributedRun) -> Bool {
-    keyword == other.keyword && range == other.range
+    fragment == other.fragment && range == other.range
+  }
+
+  func hasSameRange(as other: AttributedRun) -> Bool {
+    range == other.range
   }
 }
-
 
 extension AttributedRun {
   public func nsRange(in text: String) -> NSRange? { range.toNSRange(in: text) }
 }
 
 extension AttributedRanges {
+
+  func run(
+    matching range: Range<String.Index>,
+    _ fragment: String
+      //    _ keyword: SyntaxSpecifier
+  ) -> AttributedRun? {
+    first(where: { $0.range == range && $0.fragment == fragment })
+    //    first(where: { $0.range == range && $0.keyword == keyword })
+  }
+
+  func runIndex(
+    matching range: Range<String.Index>,
+    _ fragment: String
+      //    _ keyword: SyntaxSpecifier
+  ) -> Int? {
+    firstIndex(where: { $0.range == range && $0.fragment == fragment })
+    //    first(where: { $0.range == range && $0.keyword == keyword })
+  }
 
   //  public func toNSRanges(
   //    in text: String,
@@ -67,28 +93,28 @@ extension AttributedRanges {
   /// `Attribute` is a small type safe wrapper
   /// around `NSAttributedString.Key`
   public mutating func update(
-    with attributes: [AttributeKey?],
-    for keyword: SyntaxSpecifier,
+    with attribute: AttributeKey?,
+    //    with attributes: [AttributeKey?],
+    for fragment: String,
+    //    for keyword: SyntaxSpecifier,
     in range: Range<String.Index>,
     //    tag: String?
   ) {
-//    guard let attributes else { return }
+    guard let attr = attribute else { return }
 
-    /// Find any runs with same range, if any present
-    let existingRun = self.first(where: { $0.range == range })
-    
-    
+    /// Find any runs with same range, if present
     /// If an existing run matches exactly, update it.
-    if let index = self.firstIndex(where: { $0.range == range }) {
+    if let existingIndex = runIndex(matching: range, fragment) {
       
-//      attributes[key] = self.value
-//      attribute.update(&self[index].attributes)
+      ///Note: Will need to determine a system for `keyword` conflicts
+      self[safe: existingIndex]?.attributes[attr.key] = attr.value
+      
     } else {
       /// Otherwise, append a new run.
       let new = AttributedRun(
-        keyword: keyword,
+        fragment,
         range: range,
-        attributes: attribute.attribute
+        attributes: attr.toTextAttributes
       )
       self.append(new)
     }

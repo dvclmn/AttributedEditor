@@ -53,7 +53,7 @@ extension RegexShape {
     for syntax: Markdown.Syntax,
     in text: String,
     theme: Markdown.Theme,
-    _ attributes: inout NSAttributedRanges
+    _ attributes: inout AttributedRanges
   ) {
     /// No need to process anything if provided Syntax *has* no regex shape
     guard let shape = syntax.regexShape else { return }
@@ -111,7 +111,7 @@ extension RegexShape {
     shape: T,
     match: Regex<AnyRegexOutput>.Match,
     theme: Markdown.Theme,
-    _ attributes: inout NSAttributedRanges
+    _ attributes: inout AttributedRanges
   ) {
 
 //    guard let values = match.output.extractValues(as: T.self) else {
@@ -144,7 +144,7 @@ extension RegexShape {
 
     keyPath: MatchPath<T>,
     //    match:
-    attrs: inout NSAttributedRanges
+    attrs: inout AttributedRanges
   ) {
 
     let syntaxToken = theme.style(for: syntax, part: .syntax)

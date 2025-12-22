@@ -9,6 +9,7 @@ import AppKit
 import ColourKit
 import CoreTools
 import HighlighterCommon
+import ThemePark
 
 typealias PartTokens = [Markdown.SyntaxPart: TokenStyle]
 

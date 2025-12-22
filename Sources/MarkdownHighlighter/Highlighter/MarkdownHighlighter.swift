@@ -31,9 +31,10 @@ public final class MarkdownHighlighter: Highlighter.Core {
   public func buildStyles(
     in text: String,
     with font: NSFont
-  ) -> NSAttributedRanges {
+  ) -> AttributedRanges {
+//  ) -> NSAttributedRanges {
 
-    var attrs: NSAttributedRanges = []
+    var attrs: AttributedRanges = []
 
     for syntax in activeSyntax {
       buildForSyntax(
@@ -70,7 +71,7 @@ extension MarkdownHighlighter {
   func buildForSyntax(
     _ syntax: Markdown.Syntax,
     in text: String,
-    attrs: inout NSAttributedRanges
+    attrs: inout AttributedRanges
   ) {
     
     
