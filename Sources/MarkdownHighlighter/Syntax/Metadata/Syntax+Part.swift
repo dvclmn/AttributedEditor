@@ -8,18 +8,21 @@
 import CoreTools
 
 extension Markdown {
+  
+  /// Helps to describe/address more of Markdowns anatomy,
+  /// at a more granular level — at the individual grammar level.
   @CaseDetection
   public enum SyntaxPart: Hashable, Sendable {
-    case content  // The main text body
+    case content  // The main text content, excl. syntax chars
     case syntax  // The `**` for bold etc
-    case meta  // The generic bucket (URL, Language string, Callout Icon)
+    case meta  // E.g. Link/image URL, Language hint, Callout Icon
     case bg  // Block background
   }
 }
 
 /// Considering whether SyntaxPart and the Match keypaths
 /// are related enough to form a type
-struct MatchPart<T> {
-  let path: KeyPath<T, Substring>
-  let part: Markdown.SyntaxPart
-}
+//struct MatchPart<T> {
+//  let path: KeyPath<T, Substring>
+//  let part: Markdown.SyntaxPart
+//}
