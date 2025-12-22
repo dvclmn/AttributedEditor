@@ -34,5 +34,6 @@ struct TokenStyle: Sendable {
 }
 
 extension TokenStyle {
+  static var blank: TokenStyle { .init(colour: nil) }
   var nsColour: NSColor? { colour?.nsColor }
 }

@@ -15,8 +15,8 @@ extension Markdown {
   public enum SyntaxPart: Hashable, Sendable {
     case content  // The main text content, excl. syntax chars
     case syntax  // The `**` for bold etc
-    case meta  // E.g. Link/image URL, Language hint, Callout Icon
-    case bg  // Block background
+    case metadata  // E.g. Link/image URL, Language hint, Callout Icon
+    case background  // Block background
   }
 }
 

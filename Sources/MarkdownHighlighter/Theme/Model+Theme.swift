@@ -53,8 +53,9 @@ extension Markdown.Theme {
     switch part {
       case .content: TokenStyle(colour: .primary)
       case .syntax: TokenStyle(colour: .tertiary)
-      case .meta: TokenStyle(colour: .secondary)
-      case .bg: TokenStyle(colour: nil)
+      case .metadata: TokenStyle(colour: .secondary)
+      case .background: .blank
     }
   }
+
 }

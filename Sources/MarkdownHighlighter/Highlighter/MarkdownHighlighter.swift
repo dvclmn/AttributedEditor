@@ -11,6 +11,8 @@ import HighlighterCommon
 
 public final class MarkdownHighlighter: Highlighter.Core {
 
+  private let isDrawingBlocks: Bool = false
+  public var theme: Markdown.Theme
   /// 📣 Important: This ordering matters:
   /// 1: `italic`
   /// 2: `bold`
@@ -21,16 +23,11 @@ public final class MarkdownHighlighter: Highlighter.Core {
     ]
   }
 
-  private let isDrawingBlocks: Bool = false
-  public var theme: Markdown.Theme
-
-  //  public var blockRanges: NSBlockRanges = []
-  //  var library: StyleLibrary = .initial
-
   public init(theme: Markdown.Theme = .default) {
     self.theme = theme
   }
 
+  /// Build attributed ranges for applying in the Editor
   public func buildStyles(
     in text: String,
     with font: NSFont
@@ -45,12 +42,12 @@ public final class MarkdownHighlighter: Highlighter.Core {
         attrs: &attrs
       )
     }
-//    StyleLibrary.buildForSyntax(
-//      text: text,
-//      theme: theme,
-//      .inlineCode,
-//      attr: &attrs
-//    )
+    //    StyleLibrary.buildForSyntax(
+    //      text: text,
+    //      theme: theme,
+    //      .inlineCode,
+    //      attr: &attrs
+    //    )
     //    attrs = library.buildForSyntax(.inlineCode)
     //    for rule in library.rules {
     //      let thing = library.
@@ -69,37 +66,37 @@ extension MarkdownHighlighter {
   public func updateTheme(_ theme: Markdown.Theme) {
     self.theme = theme
   }
-  
+
   func buildForSyntax(
     _ syntax: Markdown.Syntax,
     in text: String,
     attrs: inout NSAttributedRanges
   ) {
     //  ) -> NSAttributedRanges {
-    
+
     /// Not all of these may be needed
     let syntaxToken = theme.style(for: syntax, part: .syntax)
     let contentToken = theme.style(for: syntax, part: .content)
-    
+
     /// Ignoring these below for ease, for now
     //    let metaToken = theme.style(for: syntax, part: .meta)
     //    let bgToken = theme.style(for: syntax, part: .bg)
-    
+
     let syntaxTraits = syntaxToken.fontTraits
     let contentTraits = contentToken.fontTraits
-    
+
     let syntaxColour = syntaxToken.colour?.nsColor(fallback:)
     let contentColour = contentToken.colour?.nsColor(fallback:)
-    
+
     guard let shape = syntax.regexShape else {
       print("No Regex Shape for \(syntax.name)")
       return
       //      return []
     }
     print("Going to run `processMatches`")
-//    shape.processMatches(for: syntax, in: text)
-//    attrs
-    
+    //    shape.processMatches(for: syntax, in: text)
+    //    attrs
+
     //    return []
   }
 
