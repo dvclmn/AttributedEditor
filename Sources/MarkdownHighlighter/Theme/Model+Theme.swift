@@ -15,7 +15,7 @@ typealias StyleTokens = [Markdown.StyleRole: StyleToken]
 
 extension Markdown {
   public struct Theme: Highlighter.Theme, @unchecked Sendable {
-    var styleDefinitions: [Markdown.Syntax: StyleTokens] = [:]
+    var styleDefinitions: [Markdown.Syntax.ID: StyleTokens] = [:]
   }
 }
 
@@ -53,11 +53,11 @@ extension Markdown.Theme {
   /// So this can only handle one 'piece', like a syntax
   /// part/fragment, at once.
   func textAttributes(
-    for syntax: Markdown.Syntax,
+    for syntaxID: Markdown.Syntax.ID,
     role styleRole: Markdown.StyleRole,
   ) -> TextAttributes {
 
-    let token = style(for: syntax, styleRole: styleRole)
+    let token = style(for: syntaxID, styleRole: styleRole)
     var attributes: TextAttributes = [:]
     attributes[.foregroundColor] = token.nsColour
     attributes[.fontTraits] = token.fontTraits
@@ -75,13 +75,13 @@ extension Markdown.Theme {
   /// being bit more opinionated, if fallback returned.
   /// (E.g. this decides that syntax is grey, etc)
   private func style(
-    for syntax: Markdown.Syntax,
+    for syntaxID: Markdown.Syntax.ID,
     styleRole: Markdown.StyleRole
 
   ) -> StyleToken {
 
     /// Check specific definition
-    if let specific = styleDefinitions[syntax]?[styleRole] {
+    if let specific = styleDefinitions[syntaxID]?[styleRole] {
       return specific
     }
     return defaultToken(for: styleRole)

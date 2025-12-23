@@ -17,8 +17,7 @@ extension NSTextView {
   }
 }
 
-extension NSTextView {
-//  public func 
+extension NSTextView { 
   
   /// Synchronizes the typing attributes with the text attributes at the current cursor position.
   ///

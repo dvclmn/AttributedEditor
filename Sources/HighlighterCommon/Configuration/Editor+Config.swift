@@ -10,26 +10,6 @@ import CoreTools
 import Sharing
 import SwiftUI
 
-//extension Editor {
-//  public struct Defaults {
-//    public let font: NSFont
-//    public let textColour: NSColor
-//    
-//    public init(font: NSFont, textColour: NSColor) {
-//      self.font = font
-//      self.textColour = textColour
-//    }
-//    //  var defaultFont() NSFont {
-//    //    NSFont.systemFont(ofSize: self.fontSize)
-//    //  }
-//    //  var defaultColour: NSColor { NSColor.textColor }
-//    //  //    NSFont.systemFont(ofSize: self.fontSize)
-//    //  //  }
-//    
-//  }
-//}
-
-
 /// Highlighter Common expects the Source Editor to
 /// supply an instance of this.
 public enum Editor {
@@ -45,9 +25,6 @@ public enum Editor {
 
     public let isEditable: Bool
     public let options: Options
-
-    //    @Shared(.fontSize) var fontSize
-    //    public let fontSize: CGFloat
 
     /// A multiplier/factor, not absolute.
     /// E.g. `1.4`
@@ -70,7 +47,6 @@ public enum Editor {
       lineSpacing: CGFloat = 1.4,
       insets: CGSize = CGSize(10, 20),
       overScroll: Int = 20,
-//      overScroll: CGFloat = 40,
       maxWidth: CGFloat? = nil,
     ) {
       self.isEditable = isEditable

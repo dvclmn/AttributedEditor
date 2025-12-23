@@ -56,6 +56,7 @@ extension Markdown.Theme {
   /// See usage: ``Markdown/Theme/standard``
   mutating func register(
     _ syntax: Markdown.Syntax,
+//    _ syntaxID: Markdown.Syntax.ID,
     build: (inout StyleBuilder) -> Void
   ) {
     var builder = StyleBuilder()
@@ -68,7 +69,7 @@ extension Markdown.Theme {
     tokens[.metadata] = builder.metadata
     tokens[.background] = builder.background
 
-    self.styleDefinitions[syntax] = tokens
+    self.styleDefinitions[syntax.id] = tokens
   }
 
 }

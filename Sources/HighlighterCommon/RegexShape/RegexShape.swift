@@ -62,7 +62,6 @@ extension RegexShape {
   public func range(
     for match: Regex<AnyRegexOutput>.Match,
     fragment: RegexShape.Fragment,
-    //    in text: String,
   ) -> Range<String.Index>? {
     switch self {
       case .wrap:
