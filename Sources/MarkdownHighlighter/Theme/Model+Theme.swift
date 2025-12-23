@@ -19,13 +19,6 @@ extension Markdown {
   }
 }
 
-/// Consider trying TaskLocal (like for Wrecktangle)
-/// to avoid needing to always provide syntax?
-/// ```
-/// enum Context {
-///   @TaskLocal static var currentRole: Box.PartRole?
-/// }
-/// ```
 extension Markdown.Theme {
 
   /// Extracts font/colour data from theme tokens,

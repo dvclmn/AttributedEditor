@@ -24,7 +24,6 @@ public enum RegexShape: Equatable, Hashable {
   case wrapPair
 
   // E.g. *Italics*, ==Highlight==
-  
   public typealias Wrap = (
     Substring,
     leading: Substring,

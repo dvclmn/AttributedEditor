@@ -6,8 +6,8 @@
 //
 
 import AppKit
-import CoreTools
 import ColourKit
+import CoreTools
 import ThemePark
 
 /// Surely just use this?
@@ -68,5 +68,5 @@ extension Markdown.Theme {
 
     self.styleDefinitions[syntax] = parts
   }
-  
+
 }

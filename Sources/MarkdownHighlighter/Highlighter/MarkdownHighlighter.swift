@@ -37,23 +37,17 @@ public final class MarkdownHighlighter: Highlighter.Core {
     var attrs: AttributedRanges = []
 
     for syntax in activeSyntax {
-      buildForSyntax(
-        syntax,
+      processMatches(
+        for: syntax,
         in: text,
-        attrs: &attrs
+        &attrs
       )
+//      buildForSyntax(
+//        syntax,
+//        in: text,
+//        attrs: &attrs
+//      )
     }
-    //    StyleLibrary.buildForSyntax(
-    //      text: text,
-    //      theme: theme,
-    //      .inlineCode,
-    //      attr: &attrs
-    //    )
-    //    attrs = library.buildForSyntax(.inlineCode)
-    //    for rule in library.rules {
-    //      let thing = library.
-    //      let (newAttr, newBlocks) = buildStyledRanges(rule, text: text)
-    //      attrs.append(contentsOf: newAttr)
     //      if isDrawingBlocks {
     //        self.blockRanges.append(contentsOf: newBlocks)
     //      }
@@ -67,14 +61,79 @@ extension MarkdownHighlighter {
   public func updateTheme(_ theme: Markdown.Theme) {
     self.theme = theme
   }
-
-  func buildForSyntax(
-    _ syntax: Markdown.Syntax,
+  
+  
+  /// Looks for matches for Markdown syntax in the given text, and populates
+  /// `NSAttributedRanges` with attributes based on the current Theme,
+  /// and ranges based on the Regex matches.
+  /// - Parameters:
+  ///   - syntax: The Markdown syntax to process
+  ///   - text: The text being searched
+  ///   - attrs: An `inout` parameter so attributed ranges can be
+  ///     accrued (not overwritten) whilst iterating over syntaxes
+  func processMatches(
+    for syntax: Markdown.Syntax,
     in text: String,
-    attrs: inout AttributedRanges
+//    theme: Markdown.Theme,
+    _ attributes: inout AttributedRanges
   ) {
+    /// No need to process anything if provided Syntax *has* no regex shape
+    guard let shape = syntax.regexShape else { return }
     
+    /// Ensure we have a Regex pattern or this syntax
+    guard let pattern = syntax.pattern else {
+      print("No pattern for syntax \(syntax.name)")
+      return
+    }
     
+    let matches = text.matches(of: pattern)
+    
+    guard !matches.isEmpty else {
+      print("No matches found for syntax \(syntax.name)")
+      return
+    }
+    
+    for match in matches {
+      //      print("Match: \(match.output)")
+      
+      let rangeContent = shape.nsRange(for: match, part: .content, in: text)
+      let rangeSyntaxStart = shape.nsRange(for: match, part: .syntaxStart, in: text)
+      let rangeSyntaxEnd = shape.nsRange(for: match, part: .syntaxEnd, in: text)
+      
+      //      switch shape {
+      //        case .wrap:
+      //
+      ////          guard let values = match.output.extractValues(as: Wrap.self) else {
+      ////            print("Error getting values \(match.output)")
+      ////            return
+      ////          }
+      //
+      //
+      //
+      ////          matchWithShape(
+      ////            syntax: syntax,
+      ////            shape: shape,
+      ////            match: match,
+      ////            theme: theme
+      ////          )
+      ////
+      //
+      //        case .prefix: return
+      //        case .single: return
+      //        case .codeBlock: return
+      //        case .wrapPair: return
+      //      }
+      
+    }
+  }
+
+//  func buildForSyntax(
+//    _ syntax: Markdown.Syntax,
+//    in text: String,
+//    attrs: inout AttributedRanges
+//  ) {
+//    
+//    
     
     //  ) -> NSAttributedRanges {
 
@@ -104,6 +163,6 @@ extension MarkdownHighlighter {
     //    attrs
 
     //    return []
-  }
+//  }
 
 }

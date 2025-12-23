@@ -5,8 +5,8 @@
 //  Created by Dave Coleman on 20/11/2025.
 //
 
-import Foundation
-
+//import Foundation
+//
 //protocol AnySyntaxRule {
 //  var syntax: Markdown.Syntax { get }
 //  var exposesBlockRange: Bool { get }
