@@ -20,7 +20,7 @@ extension RegexShape {
 }
 
 extension RegexShape.Fragment {
-
+  
   public static let prefixShape: [Self] = [.prefix, .content]
   public static let wrapShape: [Self] = [.syntaxStart, .content, .syntaxEnd]
   public static let singleShape: [Self] = [.single]

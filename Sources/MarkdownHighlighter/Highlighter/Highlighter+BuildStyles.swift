@@ -41,6 +41,9 @@ extension MarkdownHighlighter {
       return
     }
 
+    /// Again, no fragments means no need to process
+    guard let fragments = syntax.fragments else { return }
+
     let matches = text.matches(of: pattern)
 
     guard !matches.isEmpty else {
@@ -61,34 +64,21 @@ extension MarkdownHighlighter {
       ///   needed to store which fragment/syntax it was referring to.
       ///   But then I thought; I guess the Range is enough to say
       ///   where it is, in the text
-      
-      let rangeContent = shape.nsRange(for: match, part: .content, in: text)
-      let rangeSyntaxStart = shape.nsRange(for: match, part: .syntaxStart, in: text)
-      let rangeSyntaxEnd = shape.nsRange(for: match, part: .syntaxEnd, in: text)
 
-      //      switch shape {
-      //        case .wrap:
-      //
-      ////          guard let values = match.output.extractValues(as: Wrap.self) else {
-      ////            print("Error getting values \(match.output)")
-      ////            return
-      ////          }
-      //
-      //
-      //
-      ////          matchWithShape(
-      ////            syntax: syntax,
-      ////            shape: shape,
-      ////            match: match,
-      ////            theme: theme
-      ////          )
-      ////
-      //
-      //        case .prefix: return
-      //        case .single: return
-      //        case .codeBlock: return
-      //        case .wrapPair: return
-      //      }
+      for fragment in fragments {
+        guard
+          let range = shape.range(
+            for: match,
+            fragment: fragment,
+          )
+        else {
+          print("No range for fragment: \(fragment)")
+          continue
+        }
+        let role = fragment.styleRole
+        let attributes = theme.textAttributes(for: syntax, role: role)
+        let attributedRun = AttributedRun(range: range, attributes: attributes)
+      }
 
     }
   }

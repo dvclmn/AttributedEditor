@@ -60,19 +60,18 @@ public enum RegexShape: Equatable, Hashable {
 extension RegexShape {
   /// Return a range for a given Regex Match and shape part
   /// `text` is the original main text being searched for matches
-  func nsRange(
+  public func range(
     for match: Regex<AnyRegexOutput>.Match,
     fragment: RegexShape.Fragment,
-    in text: String,
-
-  ) -> NSRange? {
+    //    in text: String,
+  ) -> Range<String.Index>? {
     switch self {
       case .wrap:
         guard let values = match.output.extractValues(as: Wrap.self) else { return nil }
         return switch fragment {
-          case .content: values.content.nsRange(in: text)
-          case .syntaxStart: values.leading.nsRange(in: text)
-          case .syntaxEnd: values.trailing.nsRange(in: text)
+          case .content: values.content.indexRange
+          case .syntaxStart: values.leading.indexRange
+          case .syntaxEnd: values.trailing.indexRange
           default: nil
         }
 
@@ -81,10 +80,10 @@ extension RegexShape {
           return nil
         }
         return switch fragment {
-          case .content: values.content.nsRange(in: text)
-          case .syntaxStart: values.start.nsRange(in: text)
-          case .syntaxEnd: values.end.nsRange(in: text)
-          case .languageHint: values.langHint.nsRange(in: text)
+          case .content: values.content.indexRange
+          case .syntaxStart: values.start.indexRange
+          case .syntaxEnd: values.end.indexRange
+          case .languageHint: values.langHint.indexRange
           default: nil
         }
 
@@ -92,6 +91,44 @@ extension RegexShape {
       case .prefix, .single, .wrapPair: return nil
 
     }
+  }
+
+  /// Return a range for a given Regex Match and shape part
+  /// `text` is the original main text being searched for matches
+  public func nsRange(
+    for match: Regex<AnyRegexOutput>.Match,
+    fragment: RegexShape.Fragment,
+    in text: String,
+
+  ) -> NSRange? {
+    let stringRange = self.range(for: match, fragment: fragment)
+    return stringRange?.toNSRange(in: text)
+    //    switch self {
+    //      case .wrap:
+    //        guard let values = match.output.extractValues(as: Wrap.self) else { return nil }
+    //        return switch fragment {
+    //          case .content: values.content.nsRange(in: text)
+    //          case .syntaxStart: values.leading.nsRange(in: text)
+    //          case .syntaxEnd: values.trailing.nsRange(in: text)
+    //          default: nil
+    //        }
+    //
+    //      case .codeBlock:
+    //        guard let values = match.output.extractValues(as: CodeBlock.self) else {
+    //          return nil
+    //        }
+    //        return switch fragment {
+    //          case .content: values.content.nsRange(in: text)
+    //          case .syntaxStart: values.start.nsRange(in: text)
+    //          case .syntaxEnd: values.end.nsRange(in: text)
+    //          case .languageHint: values.langHint.nsRange(in: text)
+    //          default: nil
+    //        }
+    //
+    //      // TODO: Complete these
+    //      case .prefix, .single, .wrapPair: return nil
+    //
+    //    }
   }
 }
 

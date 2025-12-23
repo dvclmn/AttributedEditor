@@ -31,10 +31,10 @@ extension Markdown.Theme {
   /// part/fragment, at once.
   func textAttributes(
     for syntax: Markdown.Syntax,
-    part: Markdown.StyleRole,
+    role styleRole: Markdown.StyleRole,
   ) -> TextAttributes {
 
-    let token = style(for: syntax, part: part)
+    let token = style(for: syntax, styleRole: styleRole)
     var attributes: TextAttributes = [:]
     attributes[.foregroundColor] = token.nsColour
     attributes[.fontTraits] = token.fontTraits
@@ -52,17 +52,17 @@ extension Markdown.Theme {
   /// or return nil. Main difference is this method ends up
   /// being bit more opinionated, if fallback returned.
   /// (E.g. this decides that syntax is grey, etc)
-  func style(
+  private func style(
     for syntax: Markdown.Syntax,
-    part: Markdown.StyleRole
+    styleRole: Markdown.StyleRole
 
   ) -> StyleToken {
 
     /// Check specific definition
-    if let specific = styleDefinitions[syntax]?[part] {
+    if let specific = styleDefinitions[syntax]?[styleRole] {
       return specific
     }
-    return defaultToken(for: part)
+    return defaultToken(for: styleRole)
   }
 
   func defaultToken(for part: Markdown.StyleRole) -> StyleToken {
@@ -70,7 +70,7 @@ extension Markdown.Theme {
       case .content: StyleToken(colour: .primary)
       case .syntax: StyleToken(colour: .tertiary)
       case .metadata: StyleToken(colour: .secondary)
-      case .background: .blank
+      case .background: .default
     }
   }
 

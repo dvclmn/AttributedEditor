@@ -7,6 +7,18 @@
 
 import HighlighterCommon
 
+extension RegexShape.Fragment {
+  
+  var styleRole: Markdown.StyleRole {
+    switch self {
+      case .content, .single: .content
+      case .syntaxStart, .syntaxEnd: .syntax
+      case .languageHint, .url, .prefix: .metadata
+    }
+  }
+  
+}
+
 extension Markdown {
   public typealias Components = [Syntax: [RegexShape.Fragment]?]
   public struct Component {
