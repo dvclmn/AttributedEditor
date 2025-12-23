@@ -52,7 +52,7 @@ extension Highlighter.Core {
     /// in the current graphics context. They "prepare" the context for drawing,
     /// but don't themselves draw anything yet. It's the `path.fill()` and
     /// `path.stroke()` that actually render the shape onto the view.
-    NSColor.controlBackgroundColor.opacity(0.5).setFill()
+    NSColor.controlBackgroundColor.withAlphaComponent(0.5).setFill()
     NSColor.separatorColor.setStroke()
     path.lineWidth = 1
     return path

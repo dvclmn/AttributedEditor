@@ -28,7 +28,7 @@ extension AttributedEditorView {
     /// Debouncing mechanism
 //    private var highlightWorkItem: DispatchWorkItem?
     //    var highlightTask: Task<Void, Never>?
-    let debouncer = AsyncDebouncer(interval: 0.3)
+    let debouncer = AsyncDebouncer(interval: 0.2)
   }
 }
 

@@ -5,8 +5,8 @@
 //  Created by Dave Coleman on 16/11/2025.
 //
 
-import AppKit
-import ColourKit
+//import AppKit
+//import ColourKit
 
 //extension Editor {
 //  public struct Colours {

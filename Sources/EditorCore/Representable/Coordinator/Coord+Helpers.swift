@@ -18,7 +18,7 @@ extension AttributedEditorView.Coordinator {
     let config = parent.editorConfig
     let tokens = highlighter.buildStyles(in: text, with: parent.font)
     
-    print("Tokens: \(tokens)")
+//    print("Tokens: \(tokens)")
 
     highlighter.apply(
       tokens: tokens,
