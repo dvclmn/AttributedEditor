@@ -13,49 +13,33 @@ extension Highlighter.Core {
   @MainActor
   public func apply(
     tokens: AttributedRanges,
-    //    tokens: NSAttributedRanges,
-    //    currentText: String,
     textView: NSTextView,
     affectedRange: NSRange,
     editorConfig: Editor.Configuration,
     defaults: TextAttributes
   ) {
-    //  public func apply(
-    //    currentText: String,
-    //    textView: NSTextView,
-    //    editorConfig: Editor.Configuration
-    //  ) {
 
     guard let textStorage = textView.textStorage else { return }
     let text = textStorage.string
-    //    let attrString = NSMutableAttributedString(string: currentText)
 
-    //    attrString.beginEditing()
-    //    textStorage.beginEditing()
+    textStorage.beginEditing()
 
-    /// Set defaults
-    //    attrString.setAttributes(
-    //      defaultAttributes,
-    //      range: attrString.fullRange
-    //    )
-
-    textStorage.setAttributes(defaults, range: affectedRange)
-
-    /// Get highlighted ranges from the syntax highlighter
-    //    let attrRanges = self.buildStyles(
-    //      in: currentText
-    //    )
-
-    /// Convert from `Range<String.Index>` to `NSRange`
-    //    let runs = tokens.toNSRanges(in: currentText)
+    var finalAttributes = defaults
+    finalAttributes.updateValue(
+      NSColor.blue.withAlphaComponent(0.18), forKey: .backgroundColor
+    )
+    textStorage.setAttributes(finalAttributes, range: affectedRange)
 
     /// Apply each highlighted range's attributes
     for token in tokens {
-      guard let range = token.nsRange(in: text) else { continue }
+      guard let range = token.nsRange(in: text)?.intersection(affectedRange) else {
+        continue
+      }
+
       textStorage.addAttributes(token.attributes, range: range)
     }
 
-    //    textStorage.endEditing()
+    textStorage.endEditing()
 
     /// Preserve the current cursor position and selection
     //    let selectedRange = textView.selectedRange()

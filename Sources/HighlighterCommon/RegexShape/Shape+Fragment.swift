@@ -8,7 +8,7 @@
 extension RegexShape {
 
   /// The available possible parts, found within Regex Shapes
-  public enum Fragment: Sendable {
+  public enum Fragment: String, Sendable {
     case content
     case syntaxStart  // Aka leading
     case syntaxEnd  //  Aka trailing
@@ -20,6 +20,15 @@ extension RegexShape {
 }
 
 extension RegexShape.Fragment {
+  public var name: String {
+    switch self {
+      case .content, .prefix, .single: rawValue.capitalized
+      case .syntaxStart: "Syntax Start"
+      case .syntaxEnd: "Syntax End"
+      case .languageHint: "Language Hint"
+      case .url: "URL"
+    }
+  }
   
   public static let prefixShape: [Self] = [.prefix, .content]
   public static let wrapShape: [Self] = [.syntaxStart, .content, .syntaxEnd]

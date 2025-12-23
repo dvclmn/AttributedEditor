@@ -18,12 +18,14 @@ extension AttributedEditorView.Coordinator {
     let config = parent.editorConfig
     let tokens = highlighter.buildStyles(in: text, with: parent.font)
     
+    let affectedRange = pendingEditedRange ?? textView.documentNSRange
+//    print("Range to apply styling to: \(affectedRange). `pendingEditedRange` is \(String(describing: pendingEditedRange)) and `textView.documentNSRange` is \(textView.documentNSRange)")
 //    print("Tokens: \(tokens)")
 
     highlighter.apply(
       tokens: tokens,
       textView: textView,
-      affectedRange: textView.documentNSRange,
+      affectedRange: affectedRange,
       editorConfig: config,
       defaults: parent.defaultAttributes
     )

@@ -47,13 +47,16 @@ extension MarkdownHighlighter {
     let matches = text.matches(of: pattern)
 
     guard !matches.isEmpty else {
-      print("No matches found for syntax \(syntax.name)")
+      DebugString {
+        "No matches for \(syntax.name)"
+        Labeled("Fragments", value: fragments.map(\.name))
+        Labeled("Attributes", value: attributes)
+        Labeled("Text", value: text)
+      }
       return
     }
 
     for match in matches {
-      //      print("Match: \(match.output)")
-
       /// So, we have a match. What do we want to do with it?
       ///
       /// - This method is operating on a per-syntax level. So we are
@@ -77,12 +80,11 @@ extension MarkdownHighlighter {
         }
         let runAlreadyExists = attributes.contains(where: { $0.range == range })
         guard !runAlreadyExists else { continue }
-        
+
         let role = fragment.styleRole
         let textAttrs = theme.textAttributes(for: syntax, role: role)
         let attributedRun = AttributedRun(range: range, attributes: textAttrs)
-        
-        
+
         attributes.append(attributedRun)
       }
 

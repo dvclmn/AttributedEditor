@@ -20,7 +20,7 @@ public struct AttributedRun {
   /// The lexeme/syntax/operator/keyword etc that this run is attached to
   /// This is a String for now, until I set up Theming
   /// that works for *any* Highlighter, not just markdown
-//  public let fragment: RegexShape.Fragment
+  //  public let fragment: RegexShape.Fragment
   public let fragment: String?
   //  public let keyword: SyntaxSpecifier
   public let range: Range<String.Index>
@@ -93,39 +93,49 @@ extension AttributedRanges {
 
   /// `Attribute` is a small type safe wrapper
   /// around `NSAttributedString.Key`
-//  public mutating func update(
-//    with attributes: TextAttributes?,
-////    with attribute: TextAttributes.Key?,
-////    with attribute: AttributeKey?,
-//    //    with attributes: [AttributeKey?],
-//    for fragment: String,
-//    //    for keyword: SyntaxSpecifier,
-//    in range: Range<String.Index>,
-//    //    tag: String?
-//  ) {
-//    guard let attrs = attributes else { return }
-//
-//    /// Find any runs with same range, if present
-//    /// If an existing run matches exactly, update it.
-//    if let existingIndex = runIndex(matching: range, fragment) {
-//      
-//      ///Note: Will need to determine a system for `keyword` conflicts
-////      self[safe: existingIndex]?.attributes
-//      self[safe: existingIndex]?.attributes.
-////      self[safe: existingIndex]?.attributes[attr.key] = attr.value
-//      
-//    } else {
-//      /// Otherwise, append a new run.
-//      let new = AttributedRun(
-//        fragment,
-//        range: range,
-//        attributes: attr.toTextAttributes
-//      )
-//      self.append(new)
-//    }
-//
-//  }
+  //  public mutating func update(
+  //    with attributes: TextAttributes?,
+  ////    with attribute: TextAttributes.Key?,
+  ////    with attribute: AttributeKey?,
+  //    //    with attributes: [AttributeKey?],
+  //    for fragment: String,
+  //    //    for keyword: SyntaxSpecifier,
+  //    in range: Range<String.Index>,
+  //    //    tag: String?
+  //  ) {
+  //    guard let attrs = attributes else { return }
+  //
+  //    /// Find any runs with same range, if present
+  //    /// If an existing run matches exactly, update it.
+  //    if let existingIndex = runIndex(matching: range, fragment) {
+  //
+  //      ///Note: Will need to determine a system for `keyword` conflicts
+  ////      self[safe: existingIndex]?.attributes
+  //      self[safe: existingIndex]?.attributes.
+  ////      self[safe: existingIndex]?.attributes[attr.key] = attr.value
+  //
+  //    } else {
+  //      /// Otherwise, append a new run.
+  //      let new = AttributedRun(
+  //        fragment,
+  //        range: range,
+  //        attributes: attr.toTextAttributes
+  //      )
+  //      self.append(new)
+  //    }
+  //
+  //  }
 
+}
+
+extension AttributedRun: CustomStringConvertible {
+  public var description: String {
+    DisplayString {
+      Labeled("Fragment", value: fragment)
+      Labeled("Range", value: range)
+      Labeled("Attributes", value: attributes)
+    }.plainText
+  }
 }
 
 extension NSBlockRanges {
