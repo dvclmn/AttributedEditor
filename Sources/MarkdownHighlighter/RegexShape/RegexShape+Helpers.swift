@@ -26,7 +26,7 @@ import HighlighterCommon
 /// ## Attributes
 /// For now mainly focused on two sub-components of a given syntax,
 /// and two style attributes. These are:
-/// `SyntaxPart`s: `syntax` (the syntax characters) and `content`, the main text
+/// `StyleRole`s: `syntax` (the syntax characters) and `content`, the main text
 /// `AttributeKey`: `foregroundColour` and `fontTraits`
 ///
 /// These attributes are the only two supported currently by `Markdown.Theme`
@@ -34,8 +34,8 @@ import HighlighterCommon
 /// This keeps it simple (albeit limited) for now
 ///
 /// These need to coordinate:
-/// - ``Markdown/SyntaxPart`` enum
-/// - `TokenStyle` / ``Markdown/Theme`` structs
+/// - ``Markdown/StyleRole`` enum
+/// - `StyleToken` / ``Markdown/Theme`` structs
 /// - ``MarkdownHighlighter`` class
 /// - ``RegexShape`` enum and it's nested `Wrap`, `CodeBlock` aliases
 /// - ``Markdown/Theme/textAttributes``

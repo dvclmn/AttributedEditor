@@ -15,36 +15,37 @@ import ThemePark
 /// Also:
 /// https://developer.apple.com/documentation/foundation/attributedstring/markdownsourceposition
 extension Markdown.Theme {
-  struct SyntaxStyleBuilder {
-    /// These correspond directly to ``Markdown/SyntaxPart``
-    var content: TokenStyle?
-    var syntax: TokenStyle?
-    var metadata: TokenStyle?
-    var background: TokenStyle?
+  
+  struct StyleBuilder {
+    /// These correspond directly to ``Markdown/StyleRole``
+    var content: StyleToken?
+    var syntax: StyleToken?
+    var metadata: StyleToken?
+    var background: StyleToken?
   }
 }
 
-extension Markdown.Theme.SyntaxStyleBuilder {
+extension Markdown.Theme.StyleBuilder {
 
   /// Re the below `url`, `languageHint` and `icon`:
   /// Originally these were the problematic "Whack-a-mole" aliases
   /// These all just read/write to `metadata`, but make the call site readable.
 
   /// An alias for `metadata` when configuring Links or Images
-  var url: TokenStyle? {
+  var url: StyleToken? {
     get { metadata }
     set { metadata = newValue }
   }
 
   /// An Alias for `metadata` when configuring Code Blocks
   /// Consider: https://developer.apple.com/documentation/foundation/attributescopes/foundationattributes/languageidentifier
-  var languageHint: TokenStyle? {
+  var languageHint: StyleToken? {
     get { metadata }
     set { metadata = newValue }
   }
 
   /// Alias for `metadata` when configuring Callouts
-  var icon: TokenStyle? {
+  var icon: StyleToken? {
     get { metadata }
     set { metadata = newValue }
   }
@@ -55,19 +56,19 @@ extension Markdown.Theme {
   /// See usage: ``Markdown/Theme/standard``
   mutating func register(
     _ syntax: Markdown.Syntax,
-    build: (inout SyntaxStyleBuilder) -> Void
+    build: (inout StyleBuilder) -> Void
   ) {
-    var builder = SyntaxStyleBuilder()
+    var builder = StyleBuilder()
     build(&builder)
 
-    var parts: PartTokens = [:]
+    var tokens: StyleTokens = [:]
 
-    parts[.content] = builder.content
-    parts[.syntax] = builder.syntax
-    parts[.metadata] = builder.metadata
-    parts[.background] = builder.background
+    tokens[.content] = builder.content
+    tokens[.syntax] = builder.syntax
+    tokens[.metadata] = builder.metadata
+    tokens[.background] = builder.background
 
-    self.styleDefinitions[syntax] = parts
+    self.styleDefinitions[syntax] = tokens
   }
 
 }

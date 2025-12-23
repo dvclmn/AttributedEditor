@@ -12,7 +12,7 @@ extension RegexShape {
     case content
     case syntaxStart // Aka leading
     case syntaxEnd //  Aka trailing
-    case languageHint  // Of type `SyntaxPart.metadata`
+    case languageHint  // Of type `StyleRole.metadata`
     case url
     case prefix  // Image "!", Quote ">", etc
     case horizontalRule // ---

@@ -1,5 +1,5 @@
 //
-//  Syntax+SyntaxPart.swift
+//  Syntax+StyleRole.swift
 //  AttributedEditor
 //
 //  Created by Dave Coleman on 19/11/2025.
@@ -9,10 +9,12 @@ import CoreTools
 
 extension Markdown {
   
-  /// Helps to describe/address more of Markdowns anatomy,
-  /// at a more granular level — at the individual grammar level.
+  /// This is less about Markdown anatomiy, and more about
+  /// expressing rendering intent. E.g. this doesn't list out
+  /// leading and trailing syntax; because as far as visual styles
+  /// go, both should be styled the same.
   @CaseDetection
-  public enum SyntaxPart: Hashable, Sendable {
+  public enum StyleRole: Hashable, Sendable {
     case content  // The main text content, excl. syntax chars
     case syntax  // The `**` for bold etc
     case metadata  // E.g. Link/image URL, Language hint, Callout Icon
@@ -20,18 +22,18 @@ extension Markdown {
   }
 }
 
-/// Considering whether SyntaxPart and the Match keypaths
+/// Considering whether StyleRole and the Match keypaths
 /// are related enough to form a type
 //struct MatchPart<T> {
 //  let path: KeyPath<T, Substring>
-//  let part: Markdown.SyntaxPart
+//  let part: Markdown.StyleRole
 //}
 
 //extension Markdown.Syntax {
 //  /// Declares addressable parts, if any, for this syntax type.
 //  /// E.g. a Link has a metadata (URL). A bold just has syntax and content.
 //  /// Code block has a language hint, etc.
-//  var parts: [Markdown.SyntaxPart]? {
+//  var parts: [Markdown.StyleRole]? {
 //    switch self {
 //      case .body: nil
 //      case .heading1: [.syntax]

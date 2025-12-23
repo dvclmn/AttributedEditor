@@ -11,11 +11,11 @@ import CoreTools
 import HighlighterCommon
 import ThemePark
 
-typealias PartTokens = [Markdown.SyntaxPart: TokenStyle]
+typealias StyleTokens = [Markdown.StyleRole: StyleToken]
 
 extension Markdown {
   public struct Theme: Highlighter.Theme, @unchecked Sendable {
-    var styleDefinitions: [Markdown.Syntax: PartTokens] = [:]
+    var styleDefinitions: [Markdown.Syntax: StyleTokens] = [:]
   }
 }
 
@@ -31,7 +31,7 @@ extension Markdown.Theme {
   /// part/fragment, at once.
   func textAttributes(
     for syntax: Markdown.Syntax,
-    part: Markdown.SyntaxPart,
+    part: Markdown.StyleRole,
   ) -> TextAttributes {
     /// Start with 2x parts, just syntax and content?
     /// Or whatever is provided here I guess
@@ -56,9 +56,9 @@ extension Markdown.Theme {
   /// (E.g. this decides that syntax is grey, etc)
   func style(
     for syntax: Markdown.Syntax,
-    part: Markdown.SyntaxPart
+    part: Markdown.StyleRole
 
-  ) -> TokenStyle {
+  ) -> StyleToken {
 
     /// Check specific definition
     if let specific = styleDefinitions[syntax]?[part] {
@@ -67,11 +67,11 @@ extension Markdown.Theme {
     return defaultToken(for: part)
   }
 
-  func defaultToken(for part: Markdown.SyntaxPart) -> TokenStyle {
+  func defaultToken(for part: Markdown.StyleRole) -> StyleToken {
     switch part {
-      case .content: TokenStyle(colour: .primary)
-      case .syntax: TokenStyle(colour: .tertiary)
-      case .metadata: TokenStyle(colour: .secondary)
+      case .content: StyleToken(colour: .primary)
+      case .syntax: StyleToken(colour: .tertiary)
+      case .metadata: StyleToken(colour: .secondary)
       case .background: .blank
     }
   }
