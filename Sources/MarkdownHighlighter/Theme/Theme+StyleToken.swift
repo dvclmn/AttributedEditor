@@ -24,6 +24,8 @@ struct StyleToken: Sendable, Hashable {
   let colour: CodableColour
   let fontTraits: NSFontDescriptor.SymbolicTraits
   
+  /// Consider that I will need properties for strike throughs, highlights?
+  
   init(
     colour: CodableColour,
     fontTraits: NSFontDescriptor.SymbolicTraits = []
