@@ -19,7 +19,7 @@ class LineNumberRulerView: NSRulerView {
 
   private var font: NSFont {
     let font = NSFont.monospacedDigitSystemFont(ofSize: numberSize, weight: .regular)
-    let desc = font.fontDescriptor.withSymbolicTraits(.traitCondensed)
+    let desc = font.fontDescriptor.withSymbolicTraits(.condensed)
     return NSFont(descriptor: desc, size: numberSize) ?? font
   }
 

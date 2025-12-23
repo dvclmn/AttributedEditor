@@ -52,6 +52,7 @@ extension Markdown.Theme.SyntaxStyleBuilder {
 
 extension Markdown.Theme {
   /// The registration method maps the builder back to the generic parts
+  /// See usage: ``Markdown/Theme/standard``
   mutating func register(
     _ syntax: Markdown.Syntax,
     build: (inout SyntaxStyleBuilder) -> Void

@@ -23,7 +23,6 @@ public enum RegexShape: Equatable, Hashable {
   case codeBlock
   case wrapPair
 
-  // E.g. *Italics*, ==Highlight==
   public typealias Wrap = (
     Substring,
     leading: Substring,
@@ -41,16 +40,12 @@ public enum RegexShape: Equatable, Hashable {
 
   public typealias Single = (Substring)
 
-  // E.g. # Header, > Quotes
   public typealias Prefix = (
     Substring,
     prefix: Substring,
     content: Substring,
   )
 
-  // Link, image
-  // If link, the 'prefix' group will be empty
-  // E.g. prefix = "!"
   public typealias WrapPair = (
     Substring,
     prefix: Substring,

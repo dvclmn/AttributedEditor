@@ -1,5 +1,6 @@
 // swift-tools-version: 6.2
 
+import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
@@ -15,7 +16,7 @@ let package = Package(
         "AttributedEditor",
         "HighlighterCommon",
         "MarkdownHighlighter",
-        "BasicHighlighter",
+//        "BasicHighlighter",
       ]
     )
   ],
@@ -67,14 +68,14 @@ let package = Package(
         //        .product(name: "NSUI", package: "nsui"),
       ]
     ),
-    .target(
-      name: "BasicHighlighter",
-      dependencies: [
-        "HighlighterCommon",
-        .product(name: "ColourKit", package: "BaseHelpers"),
-        .product(name: "CoreTools", package: "BaseHelpers"),
-        //        .product(name: "NSUI", package: "nsui"),
-      ]
-    ),
+//    .target(
+//      name: "BasicHighlighter",
+//      dependencies: [
+//        "HighlighterCommon",
+//        .product(name: "ColourKit", package: "BaseHelpers"),
+//        .product(name: "CoreTools", package: "BaseHelpers"),
+//        //        .product(name: "NSUI", package: "nsui"),
+//      ]
+//    ),
   ]
 )
