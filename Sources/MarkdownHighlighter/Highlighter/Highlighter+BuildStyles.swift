@@ -51,6 +51,14 @@ extension MarkdownHighlighter {
     for match in matches {
       //      print("Match: \(match.output)")
 
+      /// So, we have a match. What do we want to do with it?
+      ///
+      /// - This method is operating on a per-syntax level. So we are
+      ///   working with a single Syntax right now.
+      /// - The ultimate goal here is constructing Attributed Ranges, which
+      /// 	are a pairing of TextAttributes, with their Ranges
+      /// -
+      
       let rangeContent = shape.nsRange(for: match, part: .content, in: text)
       let rangeSyntaxStart = shape.nsRange(for: match, part: .syntaxStart, in: text)
       let rangeSyntaxEnd = shape.nsRange(for: match, part: .syntaxEnd, in: text)

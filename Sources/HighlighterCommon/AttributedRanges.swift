@@ -20,7 +20,8 @@ public struct AttributedRun {
   /// The lexeme/syntax/operator/keyword etc that this run is attached to
   /// This is a String for now, until I set up Theming
   /// that works for *any* Highlighter, not just markdown
-  public let fragment: String?
+  public let fragment: RegexShape.
+//  public let fragment: String?
   //  public let keyword: SyntaxSpecifier
   public let range: Range<String.Index>
   public var attributes: TextAttributes
