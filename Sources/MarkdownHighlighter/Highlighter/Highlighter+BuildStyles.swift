@@ -57,7 +57,10 @@ extension MarkdownHighlighter {
       ///   working with a single Syntax right now.
       /// - The ultimate goal here is constructing Attributed Ranges, which
       /// 	are a pairing of TextAttributes, with their Ranges
-      /// -
+      /// - I got confused for a sec, as I thought `AttributedRun`
+      ///   needed to store which fragment/syntax it was referring to.
+      ///   But then I thought; I guess the Range is enough to say
+      ///   where it is, in the text
       
       let rangeContent = shape.nsRange(for: match, part: .content, in: text)
       let rangeSyntaxStart = shape.nsRange(for: match, part: .syntaxStart, in: text)

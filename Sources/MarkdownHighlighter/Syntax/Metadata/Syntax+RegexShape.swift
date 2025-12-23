@@ -5,15 +5,38 @@
 //  Created by Dave Coleman on 19/11/2025.
 //
 
+import HighlighterCommon
+
+extension Markdown {
+  public typealias Components = [Syntax: [RegexShape.Fragment]?]
+  public struct Component {
+    let syntax: Syntax
+    let fragments: [RegexShape.Fragment]
+
+    public init(_ syntax: Syntax, fragments: [RegexShape.Fragment]) {
+      self.syntax = syntax
+      self.fragments = fragments
+    }
+  }
+
+}
+
 extension Markdown.Syntax {
+  //extension Markdown.Component {
 
-  //  public var shapes: [RegexShape: [RegexShape.Fragment]]? {
+  //  static let components: Markdown.Components = [
+  //    .
+  //  ]
+  //  static let bold: Self = .init(.body, fragments: .)
+
+  //  static var components: [Component] {
+  ////  static var components: Components {
+  //    [
   //
-  //  }
-
+  //    ]
   var fragments: [RegexShape.Fragment]? {
+
     switch self {
-      case .body: nil
 
       /// ``RegexShape/Prefix``
       case .heading1,
@@ -24,7 +47,7 @@ extension Markdown.Syntax {
         .heading6,
         .quoteBlock,
         .list:
-        [.prefix, .content]
+        RegexShape.Fragment.prefixShape
 
       /// ``RegexShape/Wrap``
       case .bold,
@@ -33,23 +56,24 @@ extension Markdown.Syntax {
         .inlineCode,
         .strikethrough,
         .highlight:
-        [.syntaxStart, .content, .syntaxEnd]
+        RegexShape.Fragment.wrapShape
 
       case .codeBlock:
-        [
-          .syntaxStart,
-          .languageHint,
-          .content,
-          .syntaxEnd,
-        ]
+        RegexShape.Fragment.codeBlockShape
 
-      case .callout: nil  // Haven't thought this through yet
+      case .horizontalRule:
+        RegexShape.Fragment.singleShape
 
-      case .link: nil  // [ .syntaxStart, .content, .syntaxEnd, .syntaxStart, .url, .syntaxEnd]
-      case .image: nil  // [ .prefix .syntaxStart, .content, .syntaxEnd, .syntaxStart, .url, .syntaxEnd]
-      case .horizontalRule: [.horizontalRule]
+      case .callout, .body, .link, .image: nil  // Haven't thought this through yet
     }
   }
+}
+
+extension Markdown.Syntax {
+
+  //  public var shapes: [RegexShape: [RegexShape.Fragment]]? {
+  //
+  //  }
 
   var regexShape: RegexShape? {
     switch self {

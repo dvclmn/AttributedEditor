@@ -6,23 +6,28 @@
 //
 
 extension RegexShape {
-  
+
   /// The available possible parts, found within Regex Shapes
-  public enum Fragment {
+  public enum Fragment: Sendable {
     case content
-    case syntaxStart // Aka leading
-    case syntaxEnd //  Aka trailing
+    case syntaxStart  // Aka leading
+    case syntaxEnd  //  Aka trailing
     case languageHint  // Of type `StyleRole.metadata`
     case url
     case prefix  // Image "!", Quote ">", etc
-    case horizontalRule // ---
+    case single  // ---
   }
 }
 
 extension RegexShape.Fragment {
-//  func fragments(for syntax: Markdown.Syntax) -> [Self] {
-//    syntax.fragments ?? []
-//  }
-//  
-//  func nsRange<T>(for )
+
+  public static let prefixShape: [Self] = [.prefix, .content]
+  public static let wrapShape: [Self] = [.syntaxStart, .content, .syntaxEnd]
+  public static let singleShape: [Self] = [.single]
+  public static let codeBlockShape: [Self] = [
+    .syntaxStart,
+    .languageHint,
+    .content,
+    .syntaxEnd,
+  ]
 }
