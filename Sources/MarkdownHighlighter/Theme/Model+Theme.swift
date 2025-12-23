@@ -33,9 +33,7 @@ extension Markdown.Theme {
     for syntax: Markdown.Syntax,
     part: Markdown.StyleRole,
   ) -> TextAttributes {
-    /// Start with 2x parts, just syntax and content?
-    /// Or whatever is provided here I guess
-    //    for part in parts {
+
     let token = style(for: syntax, part: part)
     var attributes: TextAttributes = [:]
     attributes[.foregroundColor] = token.nsColour

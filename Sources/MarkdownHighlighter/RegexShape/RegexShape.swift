@@ -62,14 +62,14 @@ extension RegexShape {
   /// `text` is the original main text being searched for matches
   func nsRange(
     for match: Regex<AnyRegexOutput>.Match,
-    part shapePart: RegexShape.Fragment,
+    fragment: RegexShape.Fragment,
     in text: String,
 
   ) -> NSRange? {
     switch self {
       case .wrap:
         guard let values = match.output.extractValues(as: Wrap.self) else { return nil }
-        return switch shapePart {
+        return switch fragment {
           case .content: values.content.nsRange(in: text)
           case .syntaxStart: values.leading.nsRange(in: text)
           case .syntaxEnd: values.trailing.nsRange(in: text)
@@ -80,7 +80,7 @@ extension RegexShape {
         guard let values = match.output.extractValues(as: CodeBlock.self) else {
           return nil
         }
-        return switch shapePart {
+        return switch fragment {
           case .content: values.content.nsRange(in: text)
           case .syntaxStart: values.start.nsRange(in: text)
           case .syntaxEnd: values.end.nsRange(in: text)

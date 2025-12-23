@@ -21,11 +21,11 @@ struct StyleToken: Sendable, Hashable {
   
   /// Important: Considering taking a cue from ThemePark and looking into
   /// making this non-optional, or at least having a good reason why or why not
-  let colour: CodableColour?
+  let colour: CodableColour
   let fontTraits: NSFontDescriptor.SymbolicTraits
   
   init(
-    colour: CodableColour?,
+    colour: CodableColour,
     fontTraits: NSFontDescriptor.SymbolicTraits = []
   ) {
     self.colour = colour
@@ -34,6 +34,6 @@ struct StyleToken: Sendable, Hashable {
 }
 
 extension StyleToken {
-  static var blank: StyleToken { .init(colour: nil) }
-  var nsColour: NSColor? { colour?.nsColor }
+  static var `default`: StyleToken { .init(colour: .primary) }
+  var nsColour: NSColor? { colour.nsColor }
 }

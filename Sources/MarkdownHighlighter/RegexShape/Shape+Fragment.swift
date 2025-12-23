@@ -18,3 +18,11 @@ extension RegexShape {
     case horizontalRule // ---
   }
 }
+
+extension RegexShape.Fragment {
+//  func fragments(for syntax: Markdown.Syntax) -> [Self] {
+//    syntax.fragments ?? []
+//  }
+//  
+//  func nsRange<T>(for )
+}
