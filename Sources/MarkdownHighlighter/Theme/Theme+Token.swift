@@ -34,6 +34,14 @@ struct StyleToken: Sendable, Hashable {
 }
 
 extension StyleToken {
+  
+  func attributeKeys(font: NSFont) -> [AttributeKey?] {
+    [
+      .init(foreOptional: colour.nsColor),
+      .init(fontTraitsOptional: FontTraits(fontTraits, current: font)),
+    ]
+  }
+  
   static var `default`: StyleToken { .init(colour: .primary) }
   var nsColour: NSColor? { colour.nsColor }
 }

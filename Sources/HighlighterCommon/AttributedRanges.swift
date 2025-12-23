@@ -47,7 +47,7 @@ extension AttributedRun {
     fragment == other.fragment && range == other.range
   }
 
-  func hasSameRange(as other: AttributedRun) -> Bool {
+  public func hasSameRange(as other: AttributedRun) -> Bool {
     range == other.range
   }
 }
@@ -93,34 +93,38 @@ extension AttributedRanges {
 
   /// `Attribute` is a small type safe wrapper
   /// around `NSAttributedString.Key`
-  public mutating func update(
-    with attribute: AttributeKey?,
-    //    with attributes: [AttributeKey?],
-    for fragment: String,
-    //    for keyword: SyntaxSpecifier,
-    in range: Range<String.Index>,
-    //    tag: String?
-  ) {
-    guard let attr = attribute else { return }
-
-    /// Find any runs with same range, if present
-    /// If an existing run matches exactly, update it.
-    if let existingIndex = runIndex(matching: range, fragment) {
-      
-      ///Note: Will need to determine a system for `keyword` conflicts
-      self[safe: existingIndex]?.attributes[attr.key] = attr.value
-      
-    } else {
-      /// Otherwise, append a new run.
-      let new = AttributedRun(
-        fragment,
-        range: range,
-        attributes: attr.toTextAttributes
-      )
-      self.append(new)
-    }
-
-  }
+//  public mutating func update(
+//    with attributes: TextAttributes?,
+////    with attribute: TextAttributes.Key?,
+////    with attribute: AttributeKey?,
+//    //    with attributes: [AttributeKey?],
+//    for fragment: String,
+//    //    for keyword: SyntaxSpecifier,
+//    in range: Range<String.Index>,
+//    //    tag: String?
+//  ) {
+//    guard let attrs = attributes else { return }
+//
+//    /// Find any runs with same range, if present
+//    /// If an existing run matches exactly, update it.
+//    if let existingIndex = runIndex(matching: range, fragment) {
+//      
+//      ///Note: Will need to determine a system for `keyword` conflicts
+////      self[safe: existingIndex]?.attributes
+//      self[safe: existingIndex]?.attributes.
+////      self[safe: existingIndex]?.attributes[attr.key] = attr.value
+//      
+//    } else {
+//      /// Otherwise, append a new run.
+//      let new = AttributedRun(
+//        fragment,
+//        range: range,
+//        attributes: attr.toTextAttributes
+//      )
+//      self.append(new)
+//    }
+//
+//  }
 
 }
 

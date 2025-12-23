@@ -29,6 +29,29 @@ extension Markdown.Theme {
   ///
   /// So this can only handle one 'piece', like a syntax
   /// part/fragment, at once.
+//  func attributeKeys(
+//    for syntax: Markdown.Syntax,
+//    role styleRole: Markdown.StyleRole,
+//  ) -> [AttributeKey] {
+////  ) -> TextAttributes {
+//    
+//    let token = style(for: syntax, styleRole: styleRole)
+////    var attributes: TextAttributes = [:]
+////    attributes[.foregroundColor] = token.nsColour
+////    attributes[.fontTraits] = token.fontTraits
+//    
+//    
+//    return token.attributeKeys(font: <#T##NSFont#>)
+//  }
+  
+  /// Extracts font/colour data from theme tokens,
+  /// and populates attributes for this syntax part
+  ///
+  /// Note: `TextAttributes` can only carry *one*
+  /// entry at a time, for a key. E.g. foreground, font, etc.
+  ///
+  /// So this can only handle one 'piece', like a syntax
+  /// part/fragment, at once.
   func textAttributes(
     for syntax: Markdown.Syntax,
     role styleRole: Markdown.StyleRole,
@@ -40,7 +63,6 @@ extension Markdown.Theme {
     attributes[.fontTraits] = token.fontTraits
 
     return attributes
-
   }
 
   /// This simply provides a neater API, to read into the

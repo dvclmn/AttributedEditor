@@ -75,9 +75,15 @@ extension MarkdownHighlighter {
           print("No range for fragment: \(fragment)")
           continue
         }
+        let runAlreadyExists = attributes.contains(where: { $0.range == range })
+        guard !runAlreadyExists else { continue }
+        
         let role = fragment.styleRole
-        let attributes = theme.textAttributes(for: syntax, role: role)
-        let attributedRun = AttributedRun(range: range, attributes: attributes)
+        let textAttrs = theme.textAttributes(for: syntax, role: role)
+        let attributedRun = AttributedRun(range: range, attributes: textAttrs)
+        
+        
+        attributes.append(attributedRun)
       }
 
     }
