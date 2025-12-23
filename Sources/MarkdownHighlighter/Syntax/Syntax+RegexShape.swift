@@ -113,6 +113,8 @@ extension Markdown.Syntax {
     switch self {
       case .body:
         nil
+        // /(?<prefix>(?:#{1}))(?<content>[^#]+?)/
+        // .anchorsMatchNewLines
       case .heading1:
         nil
       case .heading2:
@@ -139,8 +141,7 @@ extension Markdown.Syntax {
           (?<leading>[\*_])
           (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
           (?<trailing>\k<leading>)
-          /#
-        )
+          /#)
       case .boldItalic:
         Regex(
           #/
@@ -159,23 +160,64 @@ extension Markdown.Syntax {
           /#
         )
       case .codeBlock:
-        nil
+        Regex(
+          #/
+          (?<start>```[ \t]*)
+          (?<langHint>[^\n]*)\n
+          (?<content>(?:.|\n)*?)
+          (?<end>^```[ \t]*$)
+          /#
+        )
+        .dotMatchesNewlines()
+        .anchorsMatchLineEndings()
+
       case .list:
         nil
-      case .quoteBlock:
+      case .quoteBlock: // anchorsMatchLines
         nil
       case .callout:
         nil
       case .strikethrough:
-        nil
+        Regex(
+          #/
+          (?<leading>(?:\~{2}))
+          (?<content>[^\n]+?)
+          (?<trailing>\k<leading>)
+          /#
+        )
       case .highlight:
-        nil
+        Regex(
+          #/
+          (?<leading>==)
+          (?<content>[^== \n][^\n]*?[^== \n])
+          (?<trailing>\k<leading>)
+          /#
+        )
       case .link:
-        nil
+        Regex(
+          #/
+          (?<leadingA>\[)
+          (?<title>[^\]\n]+)
+          (?<trailingA>\])
+          (?<leadingB>\()
+          (?<url>[^\)\n]+)
+          (?<trailingB>\))
+          /#
+        )
       case .image:
-        nil
+        Regex(
+          #/
+          (?<prefix>!?)
+          (?<leadingA>\[)
+          (?<title>[^\]\n]+)
+          (?<trailingA>\])
+          (?<leadingB>\()
+          (?<url>[^\)\n]+)
+          (?<trailingB>\))
+          /#
+        )
       case .horizontalRule:
-        nil
+        Regex(/\n---+?/)
     }
   }
 }
