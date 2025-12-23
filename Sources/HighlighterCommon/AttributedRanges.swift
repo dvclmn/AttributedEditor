@@ -10,8 +10,6 @@ import CoreTools
 import ThemePark
 
 public typealias AttributedRanges = [AttributedRun]
-//public typealias NSAttributedRanges = [NSAttributedRun]
-
 public typealias BlockRanges = [Range<String.Index>]
 public typealias NSBlockRanges = [NSRange]
 
@@ -61,71 +59,16 @@ extension AttributedRanges {
   func run(
     matching range: Range<String.Index>,
     _ fragment: String
-      //    _ keyword: SyntaxSpecifier
   ) -> AttributedRun? {
     first(where: { $0.range == range && $0.fragment == fragment })
-    //    first(where: { $0.range == range && $0.keyword == keyword })
   }
 
   func runIndex(
     matching range: Range<String.Index>,
     _ fragment: String
-      //    _ keyword: SyntaxSpecifier
   ) -> Int? {
     firstIndex(where: { $0.range == range && $0.fragment == fragment })
-    //    first(where: { $0.range == range && $0.keyword == keyword })
   }
-
-  //  public func toNSRanges(
-  //    in text: String,
-  ////    tag: String?
-  //  ) -> NSAttributedRanges {
-  //    self.compactMap { run in
-  //      guard let range = run.range.toNSRange(in: text) else {
-  //        print("Error getting NSRange?")
-  //        return nil
-  //      }
-  //      let attributes = run.attributes
-  //      return NSAttributedRun(range: range, attributes: attributes)
-  //      //      return (range, attributes)
-  //    }
-  //  }
-
-  /// `Attribute` is a small type safe wrapper
-  /// around `NSAttributedString.Key`
-  //  public mutating func update(
-  //    with attributes: TextAttributes?,
-  ////    with attribute: TextAttributes.Key?,
-  ////    with attribute: AttributeKey?,
-  //    //    with attributes: [AttributeKey?],
-  //    for fragment: String,
-  //    //    for keyword: SyntaxSpecifier,
-  //    in range: Range<String.Index>,
-  //    //    tag: String?
-  //  ) {
-  //    guard let attrs = attributes else { return }
-  //
-  //    /// Find any runs with same range, if present
-  //    /// If an existing run matches exactly, update it.
-  //    if let existingIndex = runIndex(matching: range, fragment) {
-  //
-  //      ///Note: Will need to determine a system for `keyword` conflicts
-  ////      self[safe: existingIndex]?.attributes
-  //      self[safe: existingIndex]?.attributes.
-  ////      self[safe: existingIndex]?.attributes[attr.key] = attr.value
-  //
-  //    } else {
-  //      /// Otherwise, append a new run.
-  //      let new = AttributedRun(
-  //        fragment,
-  //        range: range,
-  //        attributes: attr.toTextAttributes
-  //      )
-  //      self.append(new)
-  //    }
-  //
-  //  }
-
 }
 
 extension AttributedRun: CustomStringConvertible {
@@ -147,81 +90,3 @@ extension NSBlockRanges {
     self.append(range)
   }
 }
-
-//extension NSAttributedRanges {
-//
-//  public mutating func update(
-//    _ attribute: AttributeKey?,
-//    in range: NSRange,
-//    //    tag: String?
-//  ) {
-//    /// Could be wrong, but I *thiiink* this is very ueseful, having this
-//    /// as optional, so I can freely call this method (whether I know if there'll
-//    /// be a value or not), for more generalised code over in Regex shape.
-//    guard let attribute else { return }
-//
-//    /// 1. Ensure the range is valid.
-//    /// Also check for negative lengths (`NSRange` uses Int in Swift, allowing negatives).
-//    guard range.location != NSNotFound, range.length >= 0 else {
-//      assertionFailure("Attempted to update invalid NSRange: \(range)")
-//      return
-//    }
-//
-//    /// 2. Exact Match Check
-//    if let index = self.firstIndex(where: { $0.range == range }) {
-//      /// Update the existing item in place
-//      attribute.update(&self[index].attributes)
-//    } else {
-//      /// 3. Append New
-//      let new = NSAttributedRun(
-//        //        tag: tag,
-//        range: range,
-//        attributes: attribute.attribute
-//      )
-//      self.append(new)
-//    }
-//  }
-//
-//  public mutating func update(
-//    _ attributes: [AttributeKey?],
-//    in range: NSRange,
-//    //    tag: String?
-//  ) {
-//    /// Could be wrong, but I *thiiink* this is very ueseful, having this
-//    /// as optional, so I can freely call this method (whether I know if there'll
-//    /// be a value or not), for more generalised code over in Regex shape.
-//    //    guard let attribute else { return }
-//    let foundAttr = attributes.compactMap(\.self)
-//    guard !foundAttr.isEmpty else { return }
-//    for attr in foundAttr {
-//      self.update(attr, in: range)
-//    }
-//  }
-//}
-
-//  /// `Attribute` is a small type safe wrapper
-//  /// around `NSAttributedString.Key`
-//  public mutating func update(
-//    _ attribute: AttributeKey?,
-//    in range: NSRange,
-////    in range: Range<String.Index>,
-//    tag: String?
-//  ) {
-//    guard let attribute else { return }
-//
-//    /// If an existing run matches exactly, update it.
-//    if let index = self.firstIndex(where: { $0.range == range }) {
-//      attribute.update(&self[index].attributes)
-//    }
-//
-//    //    let nsRange = range.toNSRange(in: <#T##String#>)
-//
-//    /// Otherwise, append a new run.
-//    let new = AttributedRun(
-//      tag: tag,
-//      range: range,
-//      attributes: attribute.attribute
-//    )
-//    self.append(new)
-//  }
-//}
