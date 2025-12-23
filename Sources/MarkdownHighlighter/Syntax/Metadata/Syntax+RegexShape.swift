@@ -8,7 +8,7 @@
 import HighlighterCommon
 
 extension RegexShape.Fragment {
-  
+
   var styleRole: Markdown.StyleRole {
     switch self {
       case .content, .single: .content
@@ -16,36 +16,25 @@ extension RegexShape.Fragment {
       case .languageHint, .url, .prefix: .metadata
     }
   }
-  
-}
-
-extension Markdown {
-  public typealias Components = [Syntax: [RegexShape.Fragment]?]
-  public struct Component {
-    let syntax: Syntax
-    let fragments: [RegexShape.Fragment]
-
-    public init(_ syntax: Syntax, fragments: [RegexShape.Fragment]) {
-      self.syntax = syntax
-      self.fragments = fragments
-    }
-  }
 
 }
+
+//extension Markdown {
+//  public typealias Components = [Syntax: [RegexShape.Fragment]?]
+//  public struct Component {
+//    let syntax: Syntax
+//    let fragments: [RegexShape.Fragment]
+//
+//    public init(_ syntax: Syntax, fragments: [RegexShape.Fragment]) {
+//      self.syntax = syntax
+//      self.fragments = fragments
+//    }
+//  }
+//
+//}
 
 extension Markdown.Syntax {
-  //extension Markdown.Component {
 
-  //  static let components: Markdown.Components = [
-  //    .
-  //  ]
-  //  static let bold: Self = .init(.body, fragments: .)
-
-  //  static var components: [Component] {
-  ////  static var components: Components {
-  //    [
-  //
-  //    ]
   var fragments: [RegexShape.Fragment]? {
 
     switch self {

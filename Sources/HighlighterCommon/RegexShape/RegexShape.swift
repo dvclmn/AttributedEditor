@@ -7,7 +7,6 @@
 
 import AppKit
 import CoreTools
-import HighlighterCommon
 
 /// I think we don't need assoc. values here, because would mean I'm
 /// attempting to handle type erasure, and `AnyRegexOutput` should
@@ -89,7 +88,6 @@ extension RegexShape {
 
       // TODO: Complete these
       case .prefix, .single, .wrapPair: return nil
-
     }
   }
 
@@ -103,47 +101,5 @@ extension RegexShape {
   ) -> NSRange? {
     let stringRange = self.range(for: match, fragment: fragment)
     return stringRange?.toNSRange(in: text)
-    //    switch self {
-    //      case .wrap:
-    //        guard let values = match.output.extractValues(as: Wrap.self) else { return nil }
-    //        return switch fragment {
-    //          case .content: values.content.nsRange(in: text)
-    //          case .syntaxStart: values.leading.nsRange(in: text)
-    //          case .syntaxEnd: values.trailing.nsRange(in: text)
-    //          default: nil
-    //        }
-    //
-    //      case .codeBlock:
-    //        guard let values = match.output.extractValues(as: CodeBlock.self) else {
-    //          return nil
-    //        }
-    //        return switch fragment {
-    //          case .content: values.content.nsRange(in: text)
-    //          case .syntaxStart: values.start.nsRange(in: text)
-    //          case .syntaxEnd: values.end.nsRange(in: text)
-    //          case .languageHint: values.langHint.nsRange(in: text)
-    //          default: nil
-    //        }
-    //
-    //      // TODO: Complete these
-    //      case .prefix, .single, .wrapPair: return nil
-    //
-    //    }
   }
 }
-
-//  case wrap(Markdown.Pattern<Wrap>)
-//  case prefix(Markdown.Pattern<Prefix>)
-//  case single(Markdown.Pattern<Single>)
-//  case codeBlock(Markdown.Pattern<CodeBlock>)
-//  case wrapPair(Markdown.Pattern<WrapPair>)
-//  case wrap(Wrap)
-//  case prefix(Prefix)
-//  case single(Single)
-//  case codeBlock(CodeBlock)
-//  case wrapPair(WrapPair)
-//  case wrap(SyntaxRule<Wrap>)
-//  case prefix(SyntaxRule<Prefix>)
-//  case single(SyntaxRule<Single>)
-//  case codeBlock(SyntaxRule<CodeBlock>)
-//  case wrapPair(SyntaxRule<WrapPair>)

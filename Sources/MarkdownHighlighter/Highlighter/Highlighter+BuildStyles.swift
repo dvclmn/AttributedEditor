@@ -15,7 +15,9 @@ extension MarkdownHighlighter {
   /// 3: `boldItalic`
   var activeSyntax: [Markdown.Syntax] {
     [
-      .inlineCode
+      .inlineCode,
+      .bold,
+      .italic
     ]
   }
 
@@ -57,38 +59,48 @@ extension MarkdownHighlighter {
     }
 
     for match in matches {
-      /// So, we have a match. What do we want to do with it?
-      ///
-      /// - This method is operating on a per-syntax level. So we are
-      ///   working with a single Syntax right now.
-      /// - The ultimate goal here is constructing Attributed Ranges, which
-      /// 	are a pairing of TextAttributes, with their Ranges
-      /// - I got confused for a sec, as I thought `AttributedRun`
-      ///   needed to store which fragment/syntax it was referring to.
-      ///   But then I thought; I guess the Range is enough to say
-      ///   where it is, in the text
-
-      for fragment in fragments {
-        guard
-          let range = shape.range(
-            for: match,
-            fragment: fragment,
-          )
-        else {
-          print("No range for fragment: \(fragment)")
-          continue
-        }
-        let runAlreadyExists = attributes.contains(where: { $0.range == range })
-        guard !runAlreadyExists else { continue }
-
-        let role = fragment.styleRole
-        let textAttrs = theme.textAttributes(for: syntax, role: role)
-        let attributedRun = AttributedRun(range: range, attributes: textAttrs)
-
-        attributes.append(attributedRun)
-      }
 
     }
   }
+  
+  private func processMatch(
+    match: Regex<AnyRegexOutput>.Match,
+    shape: RegexShape,
+    fragments: [RegexShape.Fragment],
+    attributes: inout AttributedRanges,
+  ) {
+    
+    for fragment in fragments {
+      guard
+        let range = shape.range(
+          for: match,
+          fragment: fragment,
+        )
+      else {
+        print("No range for fragment: \(fragment)")
+        continue
+      }
+      let runAlreadyExists = attributes.contains(where: { $0.range == range })
+      guard !runAlreadyExists else { continue }
+      
+      let role = fragment.styleRole
+      let textAttrs = theme.textAttributes(for: syntax, role: role)
+      let attributedRun = AttributedRun(range: range, attributes: textAttrs)
+      
+      attributes.append(attributedRun)
+    }
+  }
 
+}
+
+struct PatternMatch {
+//  let syntax: Markdown.Syntax
+  let match: Regex<AnyRegexOutput>.Match
+  let shape: RegexShape
+  let fragments: [RegexShape.Fragment]
+}
+extension PatternMatch {
+  init?() {
+    
+  }
 }
