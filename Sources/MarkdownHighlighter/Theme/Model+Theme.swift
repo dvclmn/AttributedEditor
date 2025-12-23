@@ -31,10 +31,7 @@ extension Markdown.Theme {
   /// part/fragment, at once.
   func textAttributes(
     for syntax: Markdown.Syntax,
-    //    parts: [Markdown.SyntaxPart],
     part: Markdown.SyntaxPart,
-    //    to attributes: inout [NSAttributedString.Key: Any]
-    //    to attributes: inout TextAttributes
   ) -> TextAttributes {
     /// Start with 2x parts, just syntax and content?
     /// Or whatever is provided here I guess
@@ -55,20 +52,18 @@ extension Markdown.Theme {
   /// syntax/part, so this may return nil.~~
   /// Still figuring out whether to have fallback approach,
   /// or return nil. Main difference is this method ends up
-  /// being bit more opnionayed, if fallback returned.
-  /// (E.g. this decides that syntax is greyer, etc)
+  /// being bit more opinionated, if fallback returned.
+  /// (E.g. this decides that syntax is grey, etc)
   func style(
     for syntax: Markdown.Syntax,
     part: Markdown.SyntaxPart
 
   ) -> TokenStyle {
 
-    /// 1. Check specific definition (e.g., Bold > Content)
+    /// Check specific definition
     if let specific = styleDefinitions[syntax]?[part] {
       return specific
     }
-
-    /// If the above returns nothing
     return defaultToken(for: part)
   }
 

@@ -18,12 +18,11 @@ import CoreTools
 ///   traits/attributes, things that change factors of what's already
 ///   there such as weight and design.
 struct TokenStyle: Sendable, Hashable {
+  
+  /// Important: Considering taking a cue from ThemePark and looking into
+  /// making this non-optional, or at least having a good reason why or why not
   let colour: CodableColour?
   let fontTraits: NSFontDescriptor.SymbolicTraits
-//  var fontTraits: NSFontDescriptor.SymbolicTraits?
-//  var fontWeight: NSFont.Weight?
-//  var fontDesign: NSFontDescriptor.SystemDesign?
-//  var fontScaleFactor: CGFloat?
   
   init(
     colour: CodableColour?,
