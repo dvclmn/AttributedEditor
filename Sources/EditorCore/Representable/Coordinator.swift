@@ -9,8 +9,9 @@ import CoreTools
 import SwiftUI
 
 extension AttributedEditorView {
+  // https://christiantietze.de/posts/2017/07/nstextview-proper-line-height/
   @MainActor
-  public class Coordinator: NSObject, NSTextViewDelegate, @MainActor NSTextStorageDelegate
+  public class Coordinator: NSObject, NSTextViewDelegate, @MainActor NSTextStorageDelegate, NSLayoutManagerDelegate
   {
 
     /// Stable bridge to SwiftUI

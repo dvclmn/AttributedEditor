@@ -53,10 +53,10 @@ extension Highlighter.Core {
     //    textView.syncTypingAttributes()
 
     /// Refresh line numbers
-    if editorConfig.hasLineNumbers {
-      textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
-      textView.needsDisplay = true
-    }
+//    if editorConfig.hasLineNumbers {
+//      textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
+//      textView.needsDisplay = true
+//    }
 
   }
 

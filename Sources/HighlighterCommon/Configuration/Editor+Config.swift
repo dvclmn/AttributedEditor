@@ -33,12 +33,14 @@ public enum Editor {
     /// Note: `lineFragmentPadding` is leading and trailing,
     /// `textContainerInset` is top/bottom(?)
     public let insets: CGSize
-    
+
     /// Expressed in number of lines
     public let overScroll: Int
 
     /// Maximum comfortable reading width, where text
     /// stops growing and remains centered horizontally
+    ///
+    /// If nil, text will expand to fill the width provided to it
     public let maxWidth: CGFloat?
 
     public init(
@@ -63,10 +65,4 @@ extension Editor.Configuration {
   public var hasLineNumbers: Bool { options.contains(.lineNumbers) }
   public var codeBlockInsets: CGSize { insets.multiplyBoth(by: 0.4) }
 
-  public var paragraphStyle: NSParagraphStyle {
-    let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.lineSpacing = lineSpacing
-
-    return paragraphStyle
-  }
 }
