@@ -11,13 +11,12 @@ import HighlighterCommon
 import Sharing
 import SwiftUI
 
-@MainActor
+//@MainActor
 public struct AttributedEditorView: NSViewRepresentable {
   @Binding public var text: String
   @Binding var cursorPosition: InsertionPointPosition?
   var highlighter: any Highlighter.Core
   let editorConfig: Editor.Configuration
-  let debounceInterval: TimeInterval
 
   /// The goal is to populate this from the SwiftUI environment
   /// using Font.Resolved, and some mechanism for fallbacks
@@ -31,14 +30,12 @@ public struct AttributedEditorView: NSViewRepresentable {
     //    cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     config: Editor.Configuration = .init(),
     highlighter: any Highlighter.Core,
-    debounceInterval: TimeInterval = 0.1,
   ) {
     self._text = text
     self.font = font
     self._cursorPosition = .constant(nil)  // Turn this back on when ready
     self.editorConfig = config
     self.highlighter = highlighter
-    self.debounceInterval = debounceInterval
   }
 }
 
@@ -75,7 +72,7 @@ extension AttributedEditorView {
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
-      context.coordinator.previousApplyHighlightingApproach()
+      context.coordinator.updateTextView()
     }
   }
 

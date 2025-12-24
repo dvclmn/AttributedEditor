@@ -13,11 +13,7 @@ extension AttributedEditorView {
   @MainActor
   public class Coordinator: NSObject, NSTextViewDelegate, @MainActor NSTextStorageDelegate, NSLayoutManagerDelegate
   {
-
-    /// Stable bridge to SwiftUI
     let parent: AttributedEditorView
-
-    /// Live AppKit object
     weak var textView: (any Highlightable)?
     var pendingEditedRange: NSRange?
 
@@ -39,8 +35,7 @@ extension AttributedEditorView.Coordinator {
     /// Update the binding immediately so SwiftUI stays in sync
     parent.text = textView.string
     //    updateInsertionPointPosition()
-
-    self.previousApplyHighlightingApproach()
+    self.updateTextView()
 
   }
 

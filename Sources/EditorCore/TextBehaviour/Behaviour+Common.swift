@@ -10,7 +10,7 @@ import AppKit
 // MARK: - Text Input Behavior Protocol
 
 /// Protocol defining custom typing behaviors that can intercept and modify input
-@MainActor
+//@MainActor
 public protocol TextInputBehavior {
   /// Handles a key press event and returns true if it handled the input (preventing default behavior)
   func handleKeyPress(

@@ -10,7 +10,7 @@ import HighlighterCommon
 
 extension AttributedEditorView.Coordinator {
 
-  func previousApplyHighlightingApproach() {
+  func updateTextView() {
     guard let textView else { return }
     let highlighter = self.parent.highlighter
 
@@ -20,7 +20,7 @@ extension AttributedEditorView.Coordinator {
 
     Task {
       await self.debouncer.execute { @MainActor in
-        
+
         let tokens = highlighter.buildStyles(
           in: text,
           with: self.parent.font
@@ -38,8 +38,6 @@ extension AttributedEditorView.Coordinator {
     }
 
   }
-  
-  
 
   func updateInsertionPointPosition() {
     DispatchQueue.main.async {

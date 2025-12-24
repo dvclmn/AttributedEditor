@@ -10,7 +10,7 @@ import CoreTools
 
 extension Highlighter.Core {
 
-  @MainActor
+//  @MainActor
   public func applyStyles(
     tokens: AttributedRanges,
     textView: NSTextView,

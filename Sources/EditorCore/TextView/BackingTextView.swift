@@ -8,7 +8,7 @@
 import AppKit
 import HighlighterCommon
 
-class BackingTextView: NSTextView, @MainActor Highlightable {
+class BackingTextView: NSTextView, Highlightable {
   var highlighter: (any Highlighter.Core)? = nil
   var blockRanges: [NSRange] = []
 
