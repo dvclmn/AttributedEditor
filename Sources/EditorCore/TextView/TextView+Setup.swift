@@ -11,13 +11,7 @@ import SwiftUI
 
 extension BackingTextView {
 
-  func setUpTextView(
-    with defaultFont: NSFont,
-    config: Editor.Configuration,
-    scrollViewWidth: CGFloat
-  ) {
-
-    isEditable = config.isEditable
+  func setUpTextView() {
     drawsBackground = false
     isRichText = false
     allowsUndo = true
@@ -30,20 +24,6 @@ extension BackingTextView {
     isAutomaticDashSubstitutionEnabled = false
     isAutomaticSpellingCorrectionEnabled = false
 
-    self.setInsets(config.insets)
-
-    let paragraphStyle = config.paragraphStyle
-
-    font = defaultFont
-
-    typingAttributes = [
-      .font: defaultFont,
-      .foregroundColor: NSColor.textColor,
-      .paragraphStyle: paragraphStyle,
-    ]
-
-    defaultParagraphStyle = paragraphStyle
-
     isVerticallyResizable = true
     isHorizontallyResizable = false
 
@@ -54,12 +34,5 @@ extension BackingTextView {
       height: max
     )
     textContainer?.widthTracksTextView = true
-
-    textContainer?.containerSize = NSSize(
-      width: scrollViewWidth,
-      height: CGFloat.greatestFiniteMagnitude
-    )
-
   }
-
 }

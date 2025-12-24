@@ -11,11 +11,10 @@ import CoreTools
 extension Highlighter.Core {
 
   @MainActor
-  public func apply(
+  public func applyStyles(
     tokens: AttributedRanges,
     textView: NSTextView,
     affectedRange: NSRange,
-    editorConfig: Editor.Configuration,
     defaults: TextAttributes
   ) {
 
@@ -24,11 +23,12 @@ extension Highlighter.Core {
 
     textStorage.beginEditing()
 
-    var finalAttributes = defaults
-    finalAttributes.updateValue(
-      NSColor.blue.withAlphaComponent(0.18), forKey: .backgroundColor
-    )
-    textStorage.setAttributes(finalAttributes, range: affectedRange)
+//    var attrWithDebug = defaults
+//    attrWithDebug.updateValue(
+//      NSColor.blue.withAlphaComponent(0.18), forKey: .backgroundColor
+//    )
+    /// Reset
+    textStorage.setAttributes(defaults, range: affectedRange)
 
     /// Apply each highlighted range's attributes
     for token in tokens {

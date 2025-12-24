@@ -40,11 +40,7 @@ extension AttributedEditorView.Coordinator {
     parent.text = textView.string
     //    updateInsertionPointPosition()
 
-    Task {
-      await self.debouncer.execute { @MainActor in
-        self.previousApplyHighlightingApproach()
-      }
-    }
+    self.previousApplyHighlightingApproach()
 
   }
 

@@ -54,17 +54,13 @@ extension AttributedEditorView {
     textView.delegate = context.coordinator
     textView.textStorage?.delegate = context.coordinator
     context.coordinator.textView = textView
-    textView.setUpTextView(
-      with: font,
-      config: editorConfig,
-      scrollViewWidth: scrollView.contentSize.width
-    )
+    textView.setUpTextView()
+    configureTextDefaults(textView, scrollWidth: scrollView.contentSize.width)
 
     scrollView.documentView = textView
 
     /// Add line numbers if enabled
     handleLineNumbers(for: scrollView, textView: textView)
-    observeScroll(for: scrollView)
 
     return scrollView
   }

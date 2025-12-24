@@ -15,22 +15,31 @@ extension AttributedEditorView.Coordinator {
     let highlighter = self.parent.highlighter
 
     let text = textView.string
-    let config = parent.editorConfig
-    let tokens = highlighter.buildStyles(in: text, with: parent.font)
-    
     let affectedRange = pendingEditedRange ?? textView.documentNSRange
     pendingEditedRange = nil
 
-    highlighter.apply(
-      tokens: tokens,
-      textView: textView,
-      affectedRange: affectedRange,
-      editorConfig: config,
-      defaults: parent.defaultAttributes
-    )
-    textView.updateHighlighter(with: highlighter)
+    Task {
+      await self.debouncer.execute { @MainActor in
+        
+        let tokens = highlighter.buildStyles(
+          in: text,
+          with: self.parent.font
+        )
+
+        highlighter.applyStyles(
+          tokens: tokens,
+          textView: textView,
+          affectedRange: affectedRange,
+          defaults: self.parent.defaultAttributes
+        )
+
+        textView.updateHighlighter(with: highlighter)
+      }
+    }
 
   }
+  
+  
 
   func updateInsertionPointPosition() {
     DispatchQueue.main.async {

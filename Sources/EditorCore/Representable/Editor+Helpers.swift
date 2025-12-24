@@ -9,6 +9,21 @@ import AppKit
 import CoreTools
 
 extension AttributedEditorView {
+  
+  func configureTextDefaults(
+    _ textView: Highlightable,
+    scrollWidth: CGFloat
+  ) {
+    textView.isEditable = editorConfig.isEditable
+    textView.setInsets(editorConfig.insets)
+    textView.font = font
+    textView.typingAttributes = defaultAttributes
+    textView.defaultParagraphStyle = defaultParagraphStyle
+    textView.textContainer?.containerSize = NSSize(
+      width: scrollWidth,
+      height: CGFloat.greatestFiniteMagnitude
+    )
+  }
 
   package func setUpScrollView(_ scrollView: NSScrollView) {
     scrollView.hasVerticalScroller = true
@@ -18,14 +33,16 @@ extension AttributedEditorView {
     scrollView.drawsBackground = false
   }
 
-  package var defaultAttributes: TextAttributes {
+  var defaultParagraphStyle: NSMutableParagraphStyle {
     let paraStyle = NSMutableParagraphStyle()
     paraStyle.lineSpacing = editorConfig.lineSpacing
-    
+    return paraStyle
+  }
+  package var defaultAttributes: TextAttributes {
     return [
       .font: font,
       .foregroundColor: highlighter.theme.textColour,
-      .paragraphStyle: paraStyle,
+      .paragraphStyle: defaultParagraphStyle,
     ]
   }
 
@@ -49,6 +66,7 @@ extension AttributedEditorView {
       scrollView.hasVerticalRuler = true
       scrollView.rulersVisible = true
     }
+    observeScroll(for: scrollView)
   }
 
   package func observeScroll(for scrollView: NSScrollView) {
