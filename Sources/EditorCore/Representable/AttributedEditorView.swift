@@ -11,31 +11,33 @@ import HighlighterCommon
 import Sharing
 import SwiftUI
 
-public struct AttributedEditorView: NSViewRepresentable {
+struct AttributedEditorView: NSViewRepresentable {
   @Environment(\.font) var swiftUIFont
   @Environment(\.fontResolutionContext) var fontResolutionContext
+  @Environment(\.editorOptions) var editorOptions
+  @Environment(\.lineSpacing) var lineSpacing
   @Binding public var text: String
-  @Binding var cursorPosition: InsertionPointPosition?
+  //  @Binding var cursorPosition: InsertionPointPosition?
   var highlighter: any Highlighter.Core
-  let editorConfig: Editor.Configuration
+  //  let editorConfig: Editor.Configuration
 
   /// The goal is to populate this from the SwiftUI environment
   /// using Font.Resolved, and some mechanism for fallbacks
   /// for macOS versions older than macOS 26
-//  let font: NSFont
+  //  let font: NSFont
 
   public init(
     text: Binding<String>,
-//    font: NSFont,
+    //    font: NSFont,
     /// Retiring this for now, until things are working better
     //    cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
-    config: Editor.Configuration = .init(),
+    //    config: Editor.Configuration = .init(),
     highlighter: any Highlighter.Core,
   ) {
     self._text = text
-//    self.font = font
-    self._cursorPosition = .constant(nil)  // Turn this back on when ready
-    self.editorConfig = config
+    //    self.font = font
+    //    self._cursorPosition = .constant(nil)  // Turn this back on when ready
+    //    self.editorConfig = config
     self.highlighter = highlighter
   }
 }

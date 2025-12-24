@@ -38,7 +38,8 @@ extension AttributedEditorView {
 
   var defaultParagraphStyle: NSMutableParagraphStyle {
     let paraStyle = NSMutableParagraphStyle()
-    paraStyle.lineSpacing = editorConfig.lineSpacing
+    paraStyle.lineSpacing = lineSpacing
+//    paraStyle.lineSpacing = editorConfig.lineSpacing
     return paraStyle
   }
   package var defaultAttributes: TextAttributes {
@@ -63,7 +64,7 @@ extension AttributedEditorView {
     for scrollView: NSScrollView,
     textView: any Highlightable
   ) {
-    if editorConfig.options.contains(.lineNumbers) {
+    if editorOptions.contains(.lineNumbers) {
       let rulerView = LineNumberRulerView(textView: textView)
       scrollView.verticalRulerView = rulerView
       scrollView.hasVerticalRuler = true

@@ -15,6 +15,7 @@ extension EnvironmentValues {
   
   /// I think this may be a native value, not sure
   @Entry public var lineSpacing: CGFloat = 1.4
+  @Entry public var editorOptions: Editor.Options = []
   
 }
 

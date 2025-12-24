@@ -12,10 +12,10 @@ import MarkdownHighlighter
 import SwiftUI
 
 public struct AttributedEditor: View {
-  @Environment(\.insets) private var insets
-  @Environment(\.overScroll) private var overScroll
-  @Environment(\.isEditable) private var isEditable
-  @Environment(\.lineSpacing) private var lineSpacing
+//  @Environment(\.insets) private var insets
+//  @Environment(\.overScroll) private var overScroll
+//  @Environment(\.isEditable) private var isEditable
+//  @Environment(\.lineSpacing) private var lineSpacing
 //  @Environment(\.font) private var font
 //  @Environment(\.fontResolutionContext) private var fontResolutionContext
 
@@ -43,14 +43,14 @@ public struct AttributedEditor: View {
     AttributedEditorView(
       text: $text,
 //            font: finalFont,
-      config: Editor.Configuration(
-        isEditable: isEditable,
-        options: [],
-//        lineSpacing: lineSpacing,
-        insets: insets,
-        overScroll: overScroll,
-        maxWidth: nil
-      ),
+//      config: Editor.Configuration(
+////        isEditable: isEditable,
+//        options: [],
+////        lineSpacing: lineSpacing,
+//        insets: insets,
+//        overScroll: overScroll,
+//        maxWidth: nil
+//      ),
       highlighter: highlighter,
 
     )
