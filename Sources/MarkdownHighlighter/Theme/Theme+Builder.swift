@@ -15,7 +15,7 @@ import ThemePark
 /// Also:
 /// https://developer.apple.com/documentation/foundation/attributedstring/markdownsourceposition
 extension Markdown.Theme {
-  
+
   struct StyleBuilder {
     /// These correspond directly to ``Markdown/StyleRole``
     var content: StyleToken?
@@ -56,7 +56,7 @@ extension Markdown.Theme {
   /// See usage: ``Markdown/Theme/standard``
   mutating func register(
     _ syntax: Markdown.Syntax,
-//    _ syntaxID: Markdown.Syntax.ID,
+    //    _ syntaxID: Markdown.Syntax.ID,
     build: (inout StyleBuilder) -> Void
   ) {
     var builder = StyleBuilder()
@@ -71,5 +71,4 @@ extension Markdown.Theme {
 
     self.styleDefinitions[syntax.id] = tokens
   }
-
 }
