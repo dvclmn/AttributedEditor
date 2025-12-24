@@ -5,8 +5,8 @@
 //  Created by Dave Coleman on 24/12/2025.
 //
 
-import Foundation
 import CoreTools
+import Foundation
 import HighlighterCommon
 
 struct SyntaxData {
@@ -19,16 +19,16 @@ extension SyntaxData {
   init?(syntax: Markdown.Syntax) {
     /// No need to process anything if provided Syntax has no regex shape
     guard let shape = syntax.regexShape else { return nil }
-    
+
     /// Ensure we have a Regex pattern for this syntax
     guard let pattern = syntax.pattern else {
       print("No pattern for syntax \(syntax.name)")
       return nil
     }
-    
+
     /// Again, no fragments means no need to process
     guard let fragments = syntax.fragments else { return nil }
-    
+
     self.init(
       syntaxID: syntax.id,
       pattern: pattern,
@@ -36,13 +36,13 @@ extension SyntaxData {
       fragments: fragments
     )
   }
-  
+
   func processMatch(
     _ match: Regex<AnyRegexOutput>.Match,
     theme: Markdown.Theme,
     attrs attributes: inout AttributedRanges,
   ) {
-    
+
     for fragment in fragments {
       let range = shape.range(for: match, fragment: fragment)
       guard let range else {
@@ -51,12 +51,27 @@ extension SyntaxData {
       }
       let runAlreadyExists = attributes.contains(where: { $0.range == range })
       guard !runAlreadyExists else { continue }
-      
-      let role = fragment.styleRole
-      let textAttrs = theme.textAttributes(for: syntaxID, role: role)
-      let attributedRun = AttributedRun(range: range, attributes: textAttrs)
-      attributes.append(attributedRun)
+
+      let attrRun = AttributedRun(
+        syntaxID: syntaxID,
+        fragment: fragment,
+        range: range,
+        theme: theme
+      )
+      attributes.append(attrRun)
     }
   }
-  
+}
+
+extension AttributedRun {
+  init(
+    syntaxID: Markdown.Syntax.ID,
+    fragment: RegexShape.Fragment,
+    range: Range<String.Index>,
+    theme: Markdown.Theme
+  ) {
+    let role = fragment.styleRole
+    let textAttrs = theme.textAttributes(for: syntaxID, role: role)
+    self.init(fragment.name, range: range, attributes: textAttrs)
+  }
 }

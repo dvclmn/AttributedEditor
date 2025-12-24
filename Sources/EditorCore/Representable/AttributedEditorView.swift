@@ -53,6 +53,7 @@ extension AttributedEditorView {
     let textView = BackingTextView()
     textView.delegate = context.coordinator
     textView.textStorage?.delegate = context.coordinator
+    textView.layoutManager?.delegate = context.coordinator
     context.coordinator.textView = textView
     textView.setUpTextView()
     configureTextDefaults(
@@ -75,7 +76,7 @@ extension AttributedEditorView {
     guard let textView = scrollView.documentView as? Highlightable else { return }
 
     if textView.string != text {
-      debugUpdateNSView(textView)
+//      debugUpdateNSView(textView)
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
