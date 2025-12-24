@@ -23,16 +23,11 @@ public final class MarkdownHighlighter: Highlighter.Core {
     in text: String,
     with font: NSFont
   ) -> AttributedRanges {
-//  ) -> NSAttributedRanges {
 
     var attrs: AttributedRanges = []
 
     for syntax in activeSyntax {
-      processMatches(
-        for: syntax,
-        in: text,
-        &attrs
-      )
+      processMatches(for: syntax, in: text, &attrs)
     }
     //      if isDrawingBlocks {
     //        self.blockRanges.append(contentsOf: newBlocks)

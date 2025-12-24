@@ -25,28 +25,35 @@ extension AttributedEditorView.Coordinator {
           in: text,
           with: self.parent.font
         )
+        let defaults = self.parent.defaultAttributes
 
         highlighter.applyStyles(
           tokens: tokens,
           textView: textView,
           affectedRange: affectedRange,
-          defaults: self.parent.defaultAttributes
+          defaults: defaults
         )
 
         textView.updateHighlighter(with: highlighter)
+
+        /// Refresh line numbers
+        if self.parent.editorOptions.contains(.lineNumbers) {
+          textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
+          textView.needsDisplay = true
+        }
       }
     }
 
   }
 
-//  func updateInsertionPointPosition() {
-//    DispatchQueue.main.async {
-//      self.parent.cursorPosition = self.textView?.insertionPointPosition()
-//
-//      /// Update typing attributes so new text matches existing style
-//      self.textView?.syncTypingAttributes()
-//    }
-//  }
+  //  func updateInsertionPointPosition() {
+  //    DispatchQueue.main.async {
+  //      self.parent.cursorPosition = self.textView?.insertionPointPosition()
+  //
+  //      /// Update typing attributes so new text matches existing style
+  //      self.textView?.syncTypingAttributes()
+  //    }
+  //  }
 
   //  func applyHighlighting(in textView: any Highlightable) {
   //    let highlighter = self.parent.highlighter

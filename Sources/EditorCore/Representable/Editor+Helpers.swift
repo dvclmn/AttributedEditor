@@ -17,7 +17,6 @@ extension AttributedEditorView {
   ) {
     let env = context.environment
     textView.isEditable = env.isEditable
-    //    textView.isEditable = editorConfig.isEditable
     textView.setInsets(env.insets)
     textView.font = font
     textView.typingAttributes = defaultAttributes
@@ -39,7 +38,6 @@ extension AttributedEditorView {
   var defaultParagraphStyle: NSMutableParagraphStyle {
     let paraStyle = NSMutableParagraphStyle()
     paraStyle.lineSpacing = lineSpacing
-//    paraStyle.lineSpacing = editorConfig.lineSpacing
     return paraStyle
   }
   package var defaultAttributes: TextAttributes {
@@ -53,8 +51,6 @@ extension AttributedEditorView {
   func debugUpdateNSView(_ textView: Highlightable) {
     DebugString {
       "SwiftUI triggered `updateNSView` with text change at \(Date.debug)"
-      //      "AppKit character count: \(textView.string.count)"
-      //      "SwiftUI Binding character count: \(text.count)"
       Divider()
     }
 

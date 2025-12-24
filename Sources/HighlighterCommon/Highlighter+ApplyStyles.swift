@@ -10,7 +10,7 @@ import CoreTools
 
 extension Highlighter.Core {
 
-//  @MainActor
+  @MainActor
   public func applyStyles(
     tokens: AttributedRanges,
     textView: NSTextView,
@@ -23,40 +23,23 @@ extension Highlighter.Core {
 
     textStorage.beginEditing()
 
-//    var attrWithDebug = defaults
-//    attrWithDebug.updateValue(
-//      NSColor.blue.withAlphaComponent(0.18), forKey: .backgroundColor
-//    )
+    //    var attrWithDebug = defaults
+    //    attrWithDebug.updateValue(
+    //      NSColor.blue.withAlphaComponent(0.18), forKey: .backgroundColor
+    //    )
     /// Reset
     textStorage.setAttributes(defaults, range: affectedRange)
 
     /// Apply each highlighted range's attributes
     for token in tokens {
-      guard let range = token.nsRange(in: text)?.intersection(affectedRange) else {
-        continue
-      }
-
+      let range = token.nsRange(in: text)?.intersection(affectedRange)
+      guard let range else { continue }
       textStorage.addAttributes(token.attributes, range: range)
     }
 
+    textView.syncTypingAttributes()
+
     textStorage.endEditing()
-
-    /// Preserve the current cursor position and selection
-    //    let selectedRange = textView.selectedRange()
-
-    /// Apply the attributed string to the text storage
-    //    textView.textStorage?.setAttributedString(attrString)
-
-    /// Restore the cursor position
-    //    textView.setSelectedRange(selectedRange)
-
-    //    textView.syncTypingAttributes()
-
-    /// Refresh line numbers
-//    if editorConfig.hasLineNumbers {
-//      textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
-//      textView.needsDisplay = true
-//    }
 
   }
 

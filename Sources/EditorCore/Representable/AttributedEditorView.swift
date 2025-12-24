@@ -11,7 +11,7 @@ import HighlighterCommon
 import Sharing
 import SwiftUI
 
-struct AttributedEditorView: NSViewRepresentable {
+public struct AttributedEditorView: NSViewRepresentable {
   @Environment(\.font) var swiftUIFont
   @Environment(\.fontResolutionContext) var fontResolutionContext
   @Environment(\.editorOptions) var editorOptions
