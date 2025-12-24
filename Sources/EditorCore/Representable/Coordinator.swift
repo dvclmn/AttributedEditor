@@ -42,7 +42,7 @@ extension AttributedEditorView.Coordinator {
   // MARK: - Selection Changed
   /// This or communicating text selection changes from AppKit to SwiftUI
   public func textViewDidChangeSelection(_ notification: Notification) {
-    updateInsertionPointPosition()
+//    updateInsertionPointPosition()
   }
 
   public func textStorage(
