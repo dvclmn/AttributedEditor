@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import EditorCore
 import MarkdownHighlighter
 
 extension EnvironmentValues {

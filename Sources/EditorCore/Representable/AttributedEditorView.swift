@@ -11,8 +11,9 @@ import HighlighterCommon
 import Sharing
 import SwiftUI
 
-//@MainActor
 public struct AttributedEditorView: NSViewRepresentable {
+  @Environment(\.font) var swiftUIFont
+  @Environment(\.fontResolutionContext) var fontResolutionContext
   @Binding public var text: String
   @Binding var cursorPosition: InsertionPointPosition?
   var highlighter: any Highlighter.Core
@@ -21,18 +22,18 @@ public struct AttributedEditorView: NSViewRepresentable {
   /// The goal is to populate this from the SwiftUI environment
   /// using Font.Resolved, and some mechanism for fallbacks
   /// for macOS versions older than macOS 26
-  let font: NSFont
+//  let font: NSFont
 
   public init(
     text: Binding<String>,
-    font: NSFont,
+//    font: NSFont,
     /// Retiring this for now, until things are working better
     //    cursorPosition: Binding<InsertionPointPosition?> = .constant(nil),
     config: Editor.Configuration = .init(),
     highlighter: any Highlighter.Core,
   ) {
     self._text = text
-    self.font = font
+//    self.font = font
     self._cursorPosition = .constant(nil)  // Turn this back on when ready
     self.editorConfig = config
     self.highlighter = highlighter
@@ -52,7 +53,11 @@ extension AttributedEditorView {
     textView.textStorage?.delegate = context.coordinator
     context.coordinator.textView = textView
     textView.setUpTextView()
-    configureTextDefaults(textView, scrollWidth: scrollView.contentSize.width)
+    configureTextDefaults(
+      textView,
+      scrollWidth: scrollView.contentSize.width,
+      context: context
+    )
 
     scrollView.documentView = textView
 

@@ -39,14 +39,14 @@ extension AttributedEditorView.Coordinator {
 
   }
 
-  func updateInsertionPointPosition() {
-    DispatchQueue.main.async {
-      self.parent.cursorPosition = self.textView?.insertionPointPosition()
-
-      /// Update typing attributes so new text matches existing style
-      self.textView?.syncTypingAttributes()
-    }
-  }
+//  func updateInsertionPointPosition() {
+//    DispatchQueue.main.async {
+//      self.parent.cursorPosition = self.textView?.insertionPointPosition()
+//
+//      /// Update typing attributes so new text matches existing style
+//      self.textView?.syncTypingAttributes()
+//    }
+//  }
 
   //  func applyHighlighting(in textView: any Highlightable) {
   //    let highlighter = self.parent.highlighter

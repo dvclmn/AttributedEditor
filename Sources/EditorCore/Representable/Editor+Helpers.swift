@@ -9,13 +9,16 @@ import AppKit
 import CoreTools
 
 extension AttributedEditorView {
-  
+
   func configureTextDefaults(
     _ textView: Highlightable,
-    scrollWidth: CGFloat
+    scrollWidth: CGFloat,
+    context: Context
   ) {
-    textView.isEditable = editorConfig.isEditable
-    textView.setInsets(editorConfig.insets)
+    let env = context.environment
+    textView.isEditable = env.isEditable
+    //    textView.isEditable = editorConfig.isEditable
+    textView.setInsets(env.insets)
     textView.font = font
     textView.typingAttributes = defaultAttributes
     textView.defaultParagraphStyle = defaultParagraphStyle
@@ -49,8 +52,8 @@ extension AttributedEditorView {
   func debugUpdateNSView(_ textView: Highlightable) {
     DebugString {
       "SwiftUI triggered `updateNSView` with text change at \(Date.debug)"
-//      "AppKit character count: \(textView.string.count)"
-//      "SwiftUI Binding character count: \(text.count)"
+      //      "AppKit character count: \(textView.string.count)"
+      //      "SwiftUI Binding character count: \(text.count)"
       Divider()
     }
 
@@ -83,6 +86,14 @@ extension AttributedEditorView {
         scrollView.verticalRulerView?.needsDisplay = true
       }
     }
+  }
+
+  var font: NSFont {
+    guard #available(macOS 26, iOS 26, *), let swiftUIFont else {
+      return NSFont.systemFont(ofSize: 14)
+    }
+    let resolved = swiftUIFont.resolveCompatible(in: fontResolutionContext)
+    return resolved.toNSFont
   }
 
 }

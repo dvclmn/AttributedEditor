@@ -16,8 +16,8 @@ public struct AttributedEditor: View {
   @Environment(\.overScroll) private var overScroll
   @Environment(\.isEditable) private var isEditable
   @Environment(\.lineSpacing) private var lineSpacing
-  @Environment(\.font) private var font
-  @Environment(\.fontResolutionContext) private var fontResolutionContext
+//  @Environment(\.font) private var font
+//  @Environment(\.fontResolutionContext) private var fontResolutionContext
 
   @Binding var text: String
 
@@ -42,11 +42,11 @@ public struct AttributedEditor: View {
   public var body: some View {
     AttributedEditorView(
       text: $text,
-            font: finalFont,
+//            font: finalFont,
       config: Editor.Configuration(
         isEditable: isEditable,
         options: [],
-        lineSpacing: lineSpacing,
+//        lineSpacing: lineSpacing,
         insets: insets,
         overScroll: overScroll,
         maxWidth: nil
@@ -71,38 +71,7 @@ public struct AttributedEditor: View {
   }
 }
 
-extension AttributedEditor {
 
-  private var finalFont: NSFont {
-    guard #available(macOS 26, iOS 26, *), let font else {
-      return NSFont.systemFont(ofSize: 14)
-    }
-    let resolved = font.resolveCompatible(in: fontResolutionContext)
-    return resolved.toNSFont
-  }
-
-  private var digIntoResolvedFont: String {
-
-    guard #available(macOS 26, iOS 26, *) else {
-      return "Info only available on macOS 26 and above"
-    }
-    guard let font else { return "No font" }
-
-    let resolved = font.resolveCompatible(in: fontResolutionContext)
-    let nsFont = resolved.toNSFont
-
-    let desc = nsFont.fontDescriptor
-
-    return DisplayString {
-      Labeled("Font from Env.", value: font)
-      Labeled("Resolved", value: resolved)
-      Labeled("Font Size", value: resolved.fontResolved.pointSize)
-      Labeled("Font Descriptor", value: desc)
-      Labeled("Attributes", value: desc.fontAttributes)
-      Divider()
-    }.plainText
-  }
-}
 #if DEBUG
 #Preview {
   @Previewable @State var text: String = DummyContent.Strings.paragraphsWithCode[1]
