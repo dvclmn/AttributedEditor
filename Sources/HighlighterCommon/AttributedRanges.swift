@@ -9,6 +9,11 @@ import AppKit
 import CoreTools
 import ThemePark
 
+extension NSAttributedString.Key {
+  public static let fontTraits = NSAttributedString.Key("fontTraits")
+  public static let debug = NSAttributedString.Key("debug")
+}
+
 public typealias AttributedRanges = [AttributedRun]
 public typealias BlockRanges = [Range<String.Index>]
 public typealias NSBlockRanges = [NSRange]

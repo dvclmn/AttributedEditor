@@ -71,5 +71,4 @@ extension Markdown.Theme {
       case .background: .default
     }
   }
-
 }

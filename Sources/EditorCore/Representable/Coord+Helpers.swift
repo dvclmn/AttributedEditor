@@ -21,10 +21,7 @@ extension AttributedEditorView.Coordinator {
     Task {
       await self.debouncer.execute { @MainActor in
 
-        let tokens = highlighter.buildStyles(
-          in: text,
-          with: self.parent.font
-        )
+        let tokens = highlighter.buildStyles(in: text)
         let defaults = self.parent.defaultAttributes
 
         highlighter.applyStyles(

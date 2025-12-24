@@ -19,10 +19,7 @@ public final class MarkdownHighlighter: Highlighter.Core {
   }
 
   /// Build attributed ranges for applying in the Editor
-  public func buildStyles(
-    in text: String,
-    with font: NSFont
-  ) -> AttributedRanges {
+  public func buildStyles(in text: String) -> AttributedRanges {
 
     var attrs: AttributedRanges = []
 

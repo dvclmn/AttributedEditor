@@ -9,10 +9,6 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension NSAttributedString.Key {
-  public static let fontTraits = NSAttributedString.Key("fontTraits")
-  public static let debug = NSAttributedString.Key("debug")
-}
 extension NSFontDescriptor.SymbolicTraits: @retroactive Hashable {}
 
 /// I'm trying out using ThemePark's `Style` instead of `StyleToken`
@@ -42,7 +38,6 @@ struct StyleToken: Sendable, Hashable {
 }
 
 extension StyleToken {
-
   static var `default`: StyleToken { .init(colour: .primary) }
   var nsColour: NSColor? { colour.nsColor }
 }

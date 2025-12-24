@@ -7,6 +7,7 @@
 
 import CoreTools
 import SwiftUI
+import HighlighterCommon
 
 extension AttributedEditorView {
   // https://christiantietze.de/posts/2017/07/nstextview-proper-line-height/
@@ -78,26 +79,34 @@ extension AttributedEditorView.Coordinator {
   ) -> [NSAttributedString.Key: Any]? {
 
     /// 1. Get the actual attributes from the text storage
-    let fullAttributes = layoutManager.textStorage?.attributes(at: charIndex, effectiveRange: effectiveRange)
+    let fullAttributes = layoutManager.textStorage?.attributes(
+      at: charIndex,
+      effectiveRange: effectiveRange
+    )
 
-//    print("Got the attributes: \(String(describing: fullAttributes))")
-    // 2. Check if your custom key is present
-    guard let traits = fullAttributes?[.fontTraits] as? FontTraits else {
+//    DebugString {
+//      fullAttributes?.filter { key, value in
+//        value is NSColor || value is FontTraits
+//      }.names ?? "nil"
+//    }
+
+    guard let traits = fullAttributes?[.fontTraits] else {
       print("No traits found in the attributes")
       return nil
     }
     
-//    print("What are the traits: \(traits)")
+    guard let traits = traits as? FontTraits else {
+      print("Could not cast to FontTraits")
+      return nil
+    }
+
 
     let currentFont = self.parent.font
     let adjustedFont = traits.constructFont(font: currentFont)
 
-    //    if let customValue = fullAttributes?[.customHighlight] as? Bool, customValue == true {
     var newAttributes = attrs
-    // 3. Inject "Temporary Attributes" (standard keys)
+    
     newAttributes[.font] = adjustedFont
-//    newAttributes[.backgroundColor] = NSColor.yellow
-//    newAttributes[.foregroundColor] = NSColor.black
     return newAttributes
 
   }
