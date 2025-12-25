@@ -25,15 +25,18 @@ struct StyleToken: Sendable, Hashable {
   /// making this non-optional, or at least having a good reason why or why not
   let colour: CodableColour
   let fontTraits: NSFontDescriptor.SymbolicTraits
+  let hasBackground: Bool
 
   /// Consider that I will need properties for strike throughs, highlights?
 
   init(
     colour: CodableColour,
-    fontTraits: NSFontDescriptor.SymbolicTraits = []
+    fontTraits: NSFontDescriptor.SymbolicTraits = [],
+    hasBackground: Bool = false
   ) {
     self.colour = colour
     self.fontTraits = fontTraits
+    self.hasBackground = hasBackground
   }
 }
 

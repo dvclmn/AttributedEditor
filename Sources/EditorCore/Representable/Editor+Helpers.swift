@@ -38,6 +38,9 @@ extension AttributedEditorView {
   var defaultParagraphStyle: NSMutableParagraphStyle {
     let paraStyle = NSMutableParagraphStyle()
     paraStyle.lineSpacing = lineSpacing
+    paraStyle.textLists = [
+      .init(markerFormat: .circle, options: Int(NSTextList.Options.prependEnclosingMarker.rawValue))
+    ]
     return paraStyle
   }
   package var defaultAttributes: TextAttributes {
@@ -53,7 +56,6 @@ extension AttributedEditorView {
       "SwiftUI triggered `updateNSView` with text change at \(Date.debug)"
       Divider()
     }
-
   }
 
   package func handleLineNumbers(

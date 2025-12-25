@@ -6,8 +6,8 @@
 //
 
 import CoreTools
-import SwiftUI
 import HighlighterCommon
+import SwiftUI
 
 extension AttributedEditorView {
   // https://christiantietze.de/posts/2017/07/nstextview-proper-line-height/
@@ -26,7 +26,7 @@ extension AttributedEditorView {
     }
 
     /// Debouncing mechanism
-    let debouncer = AsyncDebouncer(interval: 0.2)
+    let debouncer = AsyncDebouncer(interval: 0.1)
   }
 }
 
@@ -68,47 +68,54 @@ extension AttributedEditorView.Coordinator {
     //    print("Updated edited range to: \(lineRange) at \(Date.now.timeIntervalSince1970)")
   }
 
-  public var fixesAttributesLazily: Bool { true }
-
-  public func layoutManager(
-    _ layoutManager: NSLayoutManager,
-    shouldUseTemporaryAttributes attrs: [NSAttributedString.Key: Any] = [:],
-    forDrawingToScreen toScreen: Bool,
-    atCharacterIndex charIndex: Int,
-    effectiveRange: NSRangePointer?
-  ) -> [NSAttributedString.Key: Any]? {
-
-    /// 1. Get the actual attributes from the text storage
-    let fullAttributes = layoutManager.textStorage?.attributes(
-      at: charIndex,
-      effectiveRange: effectiveRange
-    )
-
-//    DebugString {
-//      fullAttributes?.filter { key, value in
-//        value is NSColor || value is FontTraits
-//      }.names ?? "nil"
-//    }
-
-    guard let traits = fullAttributes?[.fontTraits] else {
-      print("No traits found in the attributes")
-      return nil
-    }
-    
-    guard let traits = traits as? FontTraits else {
-      print("Could not cast to FontTraits")
-      return nil
-    }
-
-
-    let currentFont = self.parent.font
-    let adjustedFont = traits.constructFont(font: currentFont)
-
-    var newAttributes = attrs
-    
-    newAttributes[.font] = adjustedFont
-    return newAttributes
-
-  }
+  //  public func layoutManager(
+  //    _ layoutManager: NSLayoutManager,
+  //    shouldUseTemporaryAttributes attrs: [NSAttributedString.Key: Any] = [:],
+  //    forDrawingToScreen toScreen: Bool,
+  //    atCharacterIndex charIndex: Int,
+  //    effectiveRange: NSRangePointer?
+  //  ) -> [NSAttributedString.Key: Any]? {
+  //
+  //    /// 1. Get the actual attributes from the text storage
+  //    let fullAttributes = layoutManager.textStorage?.attributes(
+  //      at: charIndex,
+  //      effectiveRange: effectiveRange
+  //    )
+  //
+  //
+  ////    DebugString {
+  ////      fullAttributes?.filter { key, value in
+  ////        value is NSColor || value is FontTraits
+  ////      }.names ?? "nil"
+  ////    }
+  //
+  //    guard let traits = fullAttributes?[.fontTraits] else {
+  ////      print("No traits found in the attributes")
+  //      return nil
+  //    }
+  //
+  //    guard let traits = traits as? FontTraits else {
+  //      print("Could not cast to FontTraits")
+  //      return nil
+  //    }
+  //
+  ////    print("What are the new traits? \(traits)")
+  //
+  //    let currentFont = self.parent.font
+  //    let adjustedFont = traits.constructFont(font: currentFont)
+  //
+  //    DebugString {
+  //      Labeled("Previous font", value: currentFont.fontDescriptor)
+  //      Labeled("New font", value: adjustedFont.fontDescriptor)
+  //    }
+  //
+  //    var newAttributes = attrs
+  //
+  ////    newAttributes[.foregroundColor] = NSColor.systemPink
+  ////    newAttributes[.font] = NSFont.monospacedSystemFont(ofSize: 14, weight: .bold)
+  //    newAttributes[.font] = adjustedFont
+  //    return newAttributes
+  //
+  //  }
 
 }

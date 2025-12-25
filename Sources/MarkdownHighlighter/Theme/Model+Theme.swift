@@ -36,8 +36,14 @@ extension Markdown.Theme {
 
     let token = style(for: syntaxID, styleRole: styleRole)
     var attrs: TextAttributes = [:]
+    
     attrs[.foregroundColor] = token.nsColour
     attrs[.fontTraits] = token.fontTraits
+    
+    if styleRole == .background {
+      attrs[.codeBackground] = token.hasBackground
+    } else {
+    }
     return attrs
   }
 

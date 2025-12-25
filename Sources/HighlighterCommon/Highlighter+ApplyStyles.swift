@@ -12,9 +12,10 @@ extension Highlighter.Core {
 
   @MainActor
   public func applyStyles(
-    tokens: AttributedRanges,
+    runs: AttributedRanges,
     textView: NSTextView,
     affectedRange: NSRange,
+    font: NSFont,
     defaults: TextAttributes
   ) {
 
@@ -23,18 +24,31 @@ extension Highlighter.Core {
 
     textStorage.beginEditing()
 
-    //    var attrWithDebug = defaults
-    //    attrWithDebug.updateValue(
-    //      NSColor.blue.withAlphaComponent(0.18), forKey: .backgroundColor
-    //    )
-    /// Reset
+//    var attrWithDebug = defaults
+//    attrWithDebug.updateValue(
+//      NSFont.monospacedSystemFont(ofSize: 13, weight: .medium), forKey: .font
+//      NSColor.blue.withAlphaComponent(0.18), forKey: .backgroundColor
+//    )
+
+    //    print("Font attributes: ", thing.keys)
+
     textStorage.setAttributes(defaults, range: affectedRange)
 
     /// Apply each highlighted range's attributes
-    for token in tokens {
-      let range = token.nsRange(in: text)?.intersection(affectedRange)
+    for run in runs {
+//      print("Run: \(run)")
+      let range = run.nsRange(in: text)?.intersection(affectedRange)
       guard let range else { continue }
-      textStorage.addAttributes(token.attributes, range: range)
+      
+      var attrs = run.attributes
+      
+      let traits = attrs[.fontTraits] as? FontTraits
+      let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)
+      
+      attrs[.font] = adjustedFont
+      
+      textStorage.setAttributes(attrs, range: range)
+      
     }
 
     textView.syncTypingAttributes()

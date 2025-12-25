@@ -22,6 +22,7 @@ extension Markdown.Theme {
     var syntax: StyleToken?
     var metadata: StyleToken?
     var background: StyleToken?
+//    var background: StyleToken?
   }
 }
 
