@@ -12,6 +12,22 @@ class BackingTextView: NSTextView, Highlightable {
   var highlighter: (any Highlighter.Core)? = nil
   var blockRanges: [NSRange] = []
 
+  init() {
+
+    let ts = NSTextStorage()
+    let lm = BackingLayout()
+    let tc = NSTextContainer(size: .zero)
+
+    lm.addTextContainer(tc)
+    ts.addLayoutManager(lm)
+
+    super.init(frame: .zero, textContainer: tc)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func draw(_ dirtyRect: NSRect) {
     /// Draw custom backgrounds before text is rendered
     drawBlocks()

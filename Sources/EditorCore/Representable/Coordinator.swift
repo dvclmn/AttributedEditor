@@ -67,6 +67,38 @@ extension AttributedEditorView.Coordinator {
     pendingEditedRange = lineRange
     //    print("Updated edited range to: \(lineRange) at \(Date.now.timeIntervalSince1970)")
   }
+  
+//  public func layoutManager(
+//    _ layoutManager: NSLayoutManager,
+//    drawBackgroundForGlyphRange glyphsToShow: NSRange,
+//    at origin: CGPoint
+//  ) {
+//    // Get the attributed string
+//    guard let textStorage = layoutManager.textStorage,
+//          let tc = layoutManager.textContainers.first
+//    else { return }
+//    
+//    // Enumerate attribute ranges within the glyph range
+//    textStorage.enumerateAttribute(
+//      .codeBackground,
+//      in: layoutManager.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
+//    ) { value, range, _ in
+//      guard value != nil else { return }
+//      
+//      // Get the bounding rect(s) for the range
+//      layoutManager.enumerateEnclosingRects(
+//        forGlyphRange: layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil),
+//        withinSelectedGlyphRange: NSRange(location: NSNotFound, length: 0),
+//        in: tc
+//      ) { rect, _ in
+//        let path = NSBezierPath(roundedRect: rect.offsetBy(dx: origin.x, dy: origin.y), xRadius: 4, yRadius: 4)
+//        NSColor.systemYellow.setFill()
+//        path.fill()
+//      }
+//    }
+//  }
+  
+//  public func drawBackground(forGlyphRange: ..., at: ...)
 
   //  public func layoutManager(
   //    _ layoutManager: NSLayoutManager,

@@ -11,9 +11,10 @@ import HighlighterCommon
 extension AttributedEditorView.Coordinator {
 
   func updateTextView() {
-    guard let textView else { return }
+    guard let textView, let lm = textView.layoutManager
+    else { return }
     let highlighter = self.parent.highlighter
-    let lm = textView.layoutManager
+    
     let text = textView.string
     let affectedRange = pendingEditedRange ?? textView.documentNSRange
     pendingEditedRange = nil
@@ -32,7 +33,7 @@ extension AttributedEditorView.Coordinator {
           defaults: defaults
         )
 
-        lm?.allowsNonContiguousLayout = true
+        lm.allowsNonContiguousLayout = true
         
         textView.updateHighlighter(with: highlighter)
 
