@@ -68,6 +68,11 @@ let package = Package(
         //        .product(name: "NSUI", package: "nsui"),
       ]
     ),
+    .testTarget(
+      name: "EditorTests",
+      dependencies: ["EditorCore", "HighlighterCommon", "MarkdownHighlighter"],
+      packageAccess: true,
+    )
 //    .target(
 //      name: "BasicHighlighter",
 //      dependencies: [

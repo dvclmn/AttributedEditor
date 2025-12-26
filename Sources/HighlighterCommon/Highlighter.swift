@@ -17,12 +17,12 @@ extension Highlighter {
 
     /// Thinking that block ranges can be expressed within `NSAttributedRanges`,
     /// by using the `blockIntent` `AttributeKey`
-//    var blockRanges: NSBlockRanges { get set }
     var theme: HighlighterTheme { get set }
 
     func buildStyles(in text: String) -> AttributedRanges
 
     func drawBlockPath(in rect: CGRect) -> NSBezierPath
+    
     func updateTheme(_ theme: HighlighterTheme)
   }
 }

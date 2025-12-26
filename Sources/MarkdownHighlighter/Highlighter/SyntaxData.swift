@@ -16,7 +16,14 @@ struct SyntaxData {
   let fragments: [RegexShape.Fragment]
 }
 extension SyntaxData {
+
+  // TODO: Expand on docs here
+  /// Three basic components needed to style and find ranges for a syntax.
+  /// 1. Shape
+  /// 2. Regex Pattern
+  /// 3. Fragments
   init?(syntax: Markdown.Syntax) {
+
     /// No need to process anything if provided Syntax has no regex shape
     guard let shape = syntax.regexShape else { return nil }
 
@@ -49,9 +56,12 @@ extension SyntaxData {
         print("No range for fragment: \(fragment)")
         continue
       }
+
+      /// Currently using the range as the sole marker for 'equality' here
       let runAlreadyExists = attributes.contains(where: { $0.range == range })
       guard !runAlreadyExists else { continue }
 
+      /// If a run with this range is not already present, add a new one
       let attrRun = AttributedRun(
         syntaxID: syntaxID,
         fragment: fragment,

@@ -22,7 +22,7 @@ extension MarkdownHighlighter {
   }
 
   /// Looks for matches for Markdown syntax in the given text, and populates
-  /// `NSAttributedRanges` with attributes based on the current Theme,
+  /// `AttributedRanges` with attributes based on the current Theme,
   /// and ranges based on the Regex matches.
   /// - Parameters:
   ///   - syntax: The Markdown syntax to process
@@ -34,7 +34,6 @@ extension MarkdownHighlighter {
     in text: String,
     _ attributes: inout AttributedRanges
   ) {
-
     guard let data = SyntaxData(syntax: syntax) else { return }
     let matches = text.matches(of: data.pattern)
 

@@ -11,10 +11,10 @@ class BackingLayout: NSTextLayoutManager {
   
 }
 
-class BackingLayoutLegacy: NSLayoutManager {
-  override init() { super.init() }
-
-  required init?(coder: NSCoder) { super.init(coder: coder) }
+//class BackingLayoutLegacy: NSLayoutManager {
+//  override init() { super.init() }
+//
+//  required init?(coder: NSCoder) { super.init(coder: coder) }
 
 //  override func drawBackground(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
 //    super.drawBackground(forGlyphRange: glyphsToShow, at: origin)
@@ -56,7 +56,7 @@ class BackingLayoutLegacy: NSLayoutManager {
 //      //      }
 //    }
 //  }
-}
+//}
 
 //    }
 //  }

@@ -16,8 +16,6 @@ extension AttributedEditorView.Coordinator {
 
     let text = textView.string
     let affectedRange = textView.documentNSRange
-    //    let affectedRange = pendingEditedRange ?? textView.documentNSRange
-    //    pendingEditedRange = nil
 
     Task {
       await self.debouncer.execute { @MainActor in
@@ -33,7 +31,7 @@ extension AttributedEditorView.Coordinator {
           defaults: defaults
         )
 
-        textView.updateHighlighter(with: highlighter)
+//        textView.updateHighlighter(with: highlighter)
 
         /// Refresh line numbers
         if self.parent.editorOptions.contains(.lineNumbers) {

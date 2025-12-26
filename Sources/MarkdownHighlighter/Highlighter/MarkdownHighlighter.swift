@@ -26,10 +26,6 @@ public final class MarkdownHighlighter: Highlighter.Core {
     for syntax in activeSyntax {
       processMatches(for: syntax, in: text, &attrs)
     }
-    //      if isDrawingBlocks {
-    //        self.blockRanges.append(contentsOf: newBlocks)
-    //      }
-    //    }
 
     return attrs
   }

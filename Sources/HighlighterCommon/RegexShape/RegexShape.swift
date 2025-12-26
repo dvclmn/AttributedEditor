@@ -85,8 +85,17 @@ extension RegexShape {
           default: nil
         }
 
+      case .single:
+        guard let values = match.output.extractValues(as: Single.self) else {
+          return nil
+        }
+        return switch fragment {
+          case .single: values.indexRange
+          default: nil
+        }
+
       // TODO: Complete these
-      case .prefix, .single, .wrapPair: return nil
+      case .prefix, .wrapPair: return nil
     }
   }
 

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import MarkdownHighlighter
+//import MarkdownHighlighter
 
 extension EnvironmentValues {
 //  @Entry public var markdownTheme: Markdown.Theme = .default

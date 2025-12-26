@@ -15,7 +15,8 @@ public protocol Highlightable: NSTextView {
 
   /// This updates the highlighter instance on `BackingTextView`,
   /// which includes any new block ranges
-  func updateHighlighter(with updated: any Highlighter.Core)
+  /// Edit: Not sure if this is still neccesary, retiring at least for now
+//  func updateHighlighter(with updated: any Highlighter.Core)
 
   /// For now, this 'hides' the replacement with `setTemporaryAttributes`,
   /// making the characters `.clear`. May adjust in future?

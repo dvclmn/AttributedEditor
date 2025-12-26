@@ -17,7 +17,7 @@ public struct AttributedEditorView: NSViewRepresentable {
   @Environment(\.editorOptions) var editorOptions
   @Environment(\.lineSpacing) var lineSpacing
   
-  @Binding public var text: String
+  @Binding var text: String
   var highlighter: any Highlighter.Core
 
   public init(
@@ -38,7 +38,7 @@ extension AttributedEditorView {
 
     /// Create and configure the text view
     let textView = BackingTextView()
-    textView.updateHighlighter(with: highlighter)
+//    textView.updateHighlighter(with: highlighter)
     textView.delegate = context.coordinator
     context.coordinator.textView = textView
     textView.setUpTextView()

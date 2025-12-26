@@ -15,8 +15,6 @@ public enum Editor {
     public let rawValue: Int
     
     public static let lineNumbers = Self(rawValue: 1 << 0)
-//    public static let editable = Self(rawValue: 1 << 1)
-    //  public static let units = Self(rawValue: 1 << 2)
     public static let all: Self = [.lineNumbers]
   }
 }

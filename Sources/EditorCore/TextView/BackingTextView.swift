@@ -10,7 +10,7 @@ import HighlighterCommon
 
 class BackingTextView: NSTextView, Highlightable {
   var highlighter: (any Highlighter.Core)? = nil
-  var blockRanges: [NSRange] = []
+//  var blockRanges: [NSRange] = []
 
 //  init() {
 //    let tcs = NSTextContentStorage()
@@ -26,10 +26,10 @@ class BackingTextView: NSTextView, Highlightable {
 //    fatalError("init(coder:) has not been implemented")
 //  }
 
-  func updateHighlighter(with updated: any Highlighter.Core) {
-    highlighter = updated
-    needsDisplay = true
-  }
+//  func updateHighlighter(with updated: any Highlighter.Core) {
+//    highlighter = updated
+//    needsDisplay = true
+//  }
 }
 
 //  override func draw(_ dirtyRect: NSRect) {

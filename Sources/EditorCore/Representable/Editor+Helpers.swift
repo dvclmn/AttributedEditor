@@ -38,9 +38,9 @@ extension AttributedEditorView {
   var defaultParagraphStyle: NSMutableParagraphStyle {
     let paraStyle = NSMutableParagraphStyle()
     paraStyle.lineSpacing = lineSpacing
-    paraStyle.textLists = [
-      .init(markerFormat: .circle, options: Int(NSTextList.Options.prependEnclosingMarker.rawValue))
-    ]
+    //    paraStyle.textLists = [
+    //      .init(markerFormat: .circle, options: Int(NSTextList.Options.prependEnclosingMarker.rawValue))
+    //    ]
     return paraStyle
   }
   package var defaultAttributes: TextAttributes {
@@ -94,7 +94,21 @@ extension AttributedEditorView {
     let resolved = swiftUIFont.resolveCompatible(in: fontResolutionContext)
     return resolved.toNSFont
   }
-  
-  
+
+  func observeTextKitVersionChange(for textView: any Highlightable) {
+
+    /// Post a notification when text view is scrolled so line numbers update
+    NotificationCenter.default.addObserver(
+      forName: NSTextView.didSwitchToNSLayoutManagerNotification,
+      object: textView,
+      queue: .main
+    ) { _ in
+      Task { @MainActor in
+        if textView.layoutManager != nil {
+          print("🔶 Switched to TextKit 1 compatibility mode")
+        }
+      }
+    }
+  }
 
 }
