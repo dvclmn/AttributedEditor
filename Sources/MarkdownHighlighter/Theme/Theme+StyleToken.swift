@@ -8,7 +8,6 @@
 import AppKit
 import ColourKit
 import CoreTools
-import EditorCore
 
 /// I'm trying out using ThemePark's `Style` instead of `StyleToken`
 /// I think the below is true:

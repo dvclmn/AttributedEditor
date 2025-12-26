@@ -35,11 +35,9 @@ extension Markdown.Theme {
     for syntaxID: Markdown.Syntax.ID,
     role styleRole: Markdown.StyleRole,
   ) -> TextAttributes {
-    //  ) -> NSTextAttributes {
 
     let token = style(for: syntaxID, styleRole: styleRole)
     var attrs = TextAttributes()
-    //    var attrs: NSTextAttributes = [:]
 
     attrs[.foregroundColor] = token.nsColour
     attrs[.fontTraits] = token.fontTraits

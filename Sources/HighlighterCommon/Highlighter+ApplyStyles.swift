@@ -46,10 +46,10 @@ extension Highlighter.Core {
       var attrs = run.attributes
 //      print("Artributes for \(run.fragment, default: "No fragment desc"): \(attrs.)")
 
-//      let traits = attrs[.fontTraits] as? FontTraits
-//      let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)
+      let traits = attrs[.fontTraits] as? FontTraits
+      let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)
 
-//      attrs[.font] = adjustedFont
+      attrs[.font] = adjustedFont
 
       ts.setAttributes(attrs, range: range)
 

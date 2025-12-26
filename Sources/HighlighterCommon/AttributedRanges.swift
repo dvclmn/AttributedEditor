@@ -9,8 +9,6 @@ import AppKit
 import CoreTools
 import ThemePark
 
-
-
 public typealias AttributedRanges = [AttributedRun]
 public typealias BlockRanges = [Range<String.Index>]
 public typealias NSBlockRanges = [NSRange]
@@ -24,13 +22,15 @@ public struct AttributedRun {
   public let fragment: String?
   //  public let keyword: SyntaxSpecifier
   public let range: Range<String.Index>
-  public var attributes: NSTextAttributes
+  public var attributes: TextAttributes
+  //  public var attributes: NSTextAttributes
 
   public init(
     _ fragment: String? = nil,
     //    _ keyword: SyntaxSpecifier,
     range: Range<String.Index>,
-    attributes: NSTextAttributes
+    attributes: TextAttributes,
+    //    attributes: NSTextAttributes
   ) {
     self.fragment = fragment
     //    self.keyword = keyword
