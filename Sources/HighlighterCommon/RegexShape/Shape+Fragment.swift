@@ -29,7 +29,7 @@ extension RegexShape.Fragment {
       case .url: "URL"
     }
   }
-  
+
   public static let prefixShape: [Self] = [.prefix, .content]
   public static let wrapShape: [Self] = [.syntaxStart, .content, .syntaxEnd]
   public static let singleShape: [Self] = [.single]

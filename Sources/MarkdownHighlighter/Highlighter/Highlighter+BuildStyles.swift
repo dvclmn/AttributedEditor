@@ -48,7 +48,7 @@ extension MarkdownHighlighter {
     }
 
     for match in matches {
-      data.processMatch(match, theme: theme, attrs: &attributes)
+      data.processMatch(match, for: syntax, theme: theme, attrs: &attributes)
     }
   }
 

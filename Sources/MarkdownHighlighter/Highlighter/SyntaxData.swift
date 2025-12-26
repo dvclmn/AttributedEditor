@@ -46,30 +46,56 @@ extension SyntaxData {
 
   func processMatch(
     _ match: Regex<AnyRegexOutput>.Match,
+    for syntax: Markdown.Syntax,
     theme: Markdown.Theme,
     attrs attributes: inout AttributedRanges,
   ) {
 
-    for fragment in fragments {
-      let range = shape.range(for: match, fragment: fragment)
-      guard let range else {
+    var fragmentDesc: String = "\(syntax.name), w/ Fragments: ["
+
+    let fragmentsList = fragments.filter { fragment in
+      let range = range(for: fragment, in: match)
+      let runAlreadyExists = attributes.contains(where: { $0.range == range })
+      return !runAlreadyExists
+    }
+
+    
+    for fragment in fragmentsList {
+      guard let range = range(for: fragment, in: match) else {
         print("No range for fragment: \(fragment)")
         continue
       }
 
       /// Currently using the range as the sole marker for 'equality' here
-      let runAlreadyExists = attributes.contains(where: { $0.range == range })
-      guard !runAlreadyExists else { continue }
+      //      let runAlreadyExists = attributes.contains(where: { $0.range == range })
+      //      guard !runAlreadyExists else { continue }
+
+      let isFinalFragment: Bool = fragment == fragmentsList.last
+
+      if !isFinalFragment {
+        fragmentDesc += "\(fragment.rawValue), "
+      } else {
+        fragmentDesc += "\(fragment.rawValue)]"
+
+      }
 
       /// If a run with this range is not already present, add a new one
       let attrRun = AttributedRun(
         syntaxID: syntaxID,
         fragment: fragment,
         range: range,
-        theme: theme
+        theme: theme,
+        desc: fragmentDesc
       )
       attributes.append(attrRun)
     }
+  }
+
+  private func range(
+    for fragment: RegexShape.Fragment,
+    in match: Regex<AnyRegexOutput>.Match
+  ) -> Range<String.Index>? {
+    shape.range(for: match, fragment: fragment)
   }
 }
 
@@ -78,10 +104,11 @@ extension AttributedRun {
     syntaxID: Markdown.Syntax.ID,
     fragment: RegexShape.Fragment,
     range: Range<String.Index>,
-    theme: Markdown.Theme
+    theme: Markdown.Theme,
+    desc: String?
   ) {
     let role = fragment.styleRole
-    let textAttrs = theme.textAttributes(for: syntaxID, role: role).toNSAttributes
-    self.init(fragment.name, range: range, attributes: textAttrs)
+    let textAttrs = theme.textAttributes(for: syntaxID, role: role)
+    self.init(desc, range: range, attributes: textAttrs)
   }
 }
