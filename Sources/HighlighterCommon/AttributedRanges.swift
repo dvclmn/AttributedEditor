@@ -9,17 +9,7 @@ import AppKit
 import CoreTools
 import ThemePark
 
-extension String {
-  public static var fontTraitsKey: String { "fontTraits" }
-  public static var codeBackgroundKey: String { "codeBackground" }
-  public static var debugKey: String { "debug" }
 
-}
-extension NSAttributedString.Key {
-  public static let fontTraits = NSAttributedString.Key(String.fontTraitsKey)
-  public static let codeBackground = NSAttributedString.Key(String.codeBackgroundKey)
-  public static let debug = NSAttributedString.Key(String.debugKey)
-}
 
 public typealias AttributedRanges = [AttributedRun]
 public typealias BlockRanges = [Range<String.Index>]

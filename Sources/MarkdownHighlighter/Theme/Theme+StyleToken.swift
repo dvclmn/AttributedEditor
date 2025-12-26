@@ -8,8 +8,7 @@
 import AppKit
 import ColourKit
 import CoreTools
-
-extension NSFontDescriptor.SymbolicTraits: @retroactive Hashable {}
+import EditorCore
 
 /// I'm trying out using ThemePark's `Style` instead of `StyleToken`
 /// I think the below is true:
@@ -24,7 +23,8 @@ struct StyleToken: Sendable, Hashable {
   /// Important: Considering taking a cue from ThemePark and looking into
   /// making this non-optional, or at least having a good reason why or why not
   let colour: CodableColour
-  let fontTraits: NSFontDescriptor.SymbolicTraits
+  let fontTraits: FontTraits?
+  //  let fontTraits: NSFontDescriptor.SymbolicTraits
   let hasBackground: Bool
 
   /// Consider that I will need properties for strike throughs, highlights?
@@ -35,7 +35,7 @@ struct StyleToken: Sendable, Hashable {
     hasBackground: Bool = false
   ) {
     self.colour = colour
-    self.fontTraits = fontTraits
+    self.fontTraits = FontTraits(fontTraits)
     self.hasBackground = hasBackground
   }
 }

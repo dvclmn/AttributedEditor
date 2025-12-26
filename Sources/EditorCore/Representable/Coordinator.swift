@@ -75,6 +75,7 @@ extension AttributedEditorView.Coordinator {
       return nil
     }
 
+    print("Found matches")
     let attrs: TextAttributes = [.backgroundColor: NSColor.systemMint.withAlphaComponent(0.3)]
     let attrText = NSMutableAttributedString(attributedString: originalText)
 
