@@ -51,13 +51,13 @@ extension AttributedEditorView.Coordinator {
     guard let textView else { return }
     var debugText = ""
     if let tlm = textView.textLayoutManager {
-      debugText = "🟢 TK2 active (\(reason))"
+      debugText = "🟢 TextKit 2 active (\(reason))"
       if verboseLog {
         debugText += " — textLayoutManager: \(tlm)"
       }
 
     } else if let lm = textView.layoutManager {
-      debugText = ("🔶 TK1 compatibility mode (\(reason))")
+      debugText = ("🔶 TextKit 1 compatibility mode (\(reason))")
       if verboseLog {
         debugText += " — layoutManager: \(lm)"
       }

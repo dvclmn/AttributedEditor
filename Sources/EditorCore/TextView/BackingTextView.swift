@@ -15,7 +15,7 @@ class BackingTextView: NSTextView, Highlightable {
   init() {
     
     let ts = NSTextStorage()
-    let lm = BackingLayout()
+    let lm = BackingLayoutLegacy()
     let tc = NSTextContainer(size: .zero)
     
     lm.addTextContainer(tc)
@@ -88,14 +88,14 @@ extension BackingTextView {
   /// Ought to apply these attributes during a `textDidChange` event or a dedicated layout pass,
   /// rather than inside the draw loop.
 
-  func drawReplacement() {
-    // 1. Guard for TK2 manager instead of TK1
-    guard let textLayoutManager = self.textLayoutManager,
-      let textStorage = textLayoutManager.textContentManager as? NSTextContentStorage
-    else { return }
-
-    let string = textStorage.textStorage?.string ?? ""
-    let matches = string.matches(of: /---/)
+//  func drawReplacement() {
+//    // 1. Guard for TK2 manager instead of TK1
+//    guard let textLayoutManager = self.textLayoutManager,
+//      let textStorage = textLayoutManager.textContentManager as? NSTextContentStorage
+//    else { return }
+//
+//    let string = textStorage.textStorage?.string ?? ""
+//    let matches = string.matches(of: /---/)
 
     //    for match in matches {
 
@@ -136,7 +136,7 @@ extension BackingTextView {
     //      NSColor.separatorColor.setFill()
     //      ruleRect.fill()
     //    }
-  }
+//  }
 
   //  func drawReplacement() {
   //    guard

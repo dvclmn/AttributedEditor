@@ -7,7 +7,7 @@
 
 import AppKit
 
-class BackingLayout: NSLayoutManager {
+class BackingLayoutLegacy: NSLayoutManager {
   override init() { super.init() }
 
   required init?(coder: NSCoder) { super.init(coder: coder) }
