@@ -94,5 +94,7 @@ extension AttributedEditorView {
     let resolved = swiftUIFont.resolveCompatible(in: fontResolutionContext)
     return resolved.toNSFont
   }
+  
+  
 
 }

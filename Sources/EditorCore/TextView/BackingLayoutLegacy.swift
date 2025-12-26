@@ -7,51 +7,55 @@
 
 import AppKit
 
+class BackingLayout: NSTextLayoutManager {
+  
+}
+
 class BackingLayoutLegacy: NSLayoutManager {
   override init() { super.init() }
 
   required init?(coder: NSCoder) { super.init(coder: coder) }
 
-  override func drawBackground(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
-    super.drawBackground(forGlyphRange: glyphsToShow, at: origin)
-
-    guard let ts = textStorage, let tc = textContainers.first else { return }
-    let charRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
-
-    ts.enumerateAttribute(
-      .codeBackground,
-      in: charRange,
-      options: []
-    ) { (value, range, _) in
-
-//      print("Hello. Value: \(String(describing: value)), Range: \(range)")
-
-      /// Check we're working with the correct attribute type
-      //      guard let isCodeBlock = value as? Bool, isCodeBlock else { return }
-
-      let glyphRange = self.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
-
-      //      guard let hasBackground = value as? Bool, hasBackground else { return }
-
-      let rect = boundingRect(forGlyphRange: glyphRange, in: tc)
-
-      let path = NSBezierPath(
-        roundedRect: rect.offsetBy(dx: origin.x, dy: origin.y),
-        xRadius: 4,
-        yRadius: 4
-      )
-      NSColor.systemBrown.withAlphaComponent(0.3).setFill()
-      path.fill()
-
-      //      enumerateEnclosingRects(
-      //        forGlyphRange: glyphRange,
-      //        withinSelectedGlyphRange: NSRange(location: NSNotFound, length: 0),
-      //        in: tc
-      //      ) { rect, _ in
-      //
-      //      }
-    }
-  }
+//  override func drawBackground(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
+//    super.drawBackground(forGlyphRange: glyphsToShow, at: origin)
+//
+//    guard let ts = textStorage, let tc = textContainers.first else { return }
+//    let charRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
+//
+//    ts.enumerateAttribute(
+//      .codeBackground,
+//      in: charRange,
+//      options: []
+//    ) { (value, range, _) in
+//
+////      print("Hello. Value: \(String(describing: value)), Range: \(range)")
+//
+//      /// Check we're working with the correct attribute type
+//      //      guard let isCodeBlock = value as? Bool, isCodeBlock else { return }
+//
+//      let glyphRange = self.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
+//
+//      //      guard let hasBackground = value as? Bool, hasBackground else { return }
+//
+//      let rect = boundingRect(forGlyphRange: glyphRange, in: tc)
+//
+//      let path = NSBezierPath(
+//        roundedRect: rect.offsetBy(dx: origin.x, dy: origin.y),
+//        xRadius: 4,
+//        yRadius: 4
+//      )
+//      NSColor.systemBrown.withAlphaComponent(0.3).setFill()
+//      path.fill()
+//
+//      //      enumerateEnclosingRects(
+//      //        forGlyphRange: glyphRange,
+//      //        withinSelectedGlyphRange: NSRange(location: NSNotFound, length: 0),
+//      //        in: tc
+//      //      ) { rect, _ in
+//      //
+//      //      }
+//    }
+//  }
 }
 
 //    }
