@@ -39,11 +39,11 @@ extension Markdown.Theme {
     
     attrs[.foregroundColor] = token.nsColour
     attrs[.fontTraits] = token.fontTraits
+    attrs[.codeBackground] = token.hasBackground
     
-    if styleRole == .background {
-      attrs[.codeBackground] = token.hasBackground
-    } else {
-    }
+//    if styleRole == .background {
+//    } else {
+//    }
     return attrs
   }
 
@@ -59,7 +59,6 @@ extension Markdown.Theme {
   private func style(
     for syntaxID: Markdown.Syntax.ID,
     styleRole: Markdown.StyleRole
-
   ) -> StyleToken {
 
     /// Check specific definition

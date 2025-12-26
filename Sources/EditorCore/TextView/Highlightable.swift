@@ -11,7 +11,7 @@ import HighlighterCommon
 public protocol Highlightable: NSTextView {
   /// Does this need to be updatable? Mutable?
   var highlighter: (any Highlighter.Core)? { get set }
-  func drawBlocks()
+//  func drawBlocks()
 
   /// This updates the highlighter instance on `BackingTextView`,
   /// which includes any new block ranges
@@ -22,6 +22,6 @@ public protocol Highlightable: NSTextView {
   ///
   /// Will need to work out how to return something that provides a suitable
   /// glyph range as reference point for drawing over the hidden characters
-  func drawReplacement()
+//  func drawReplacement()
   //  func drawReplacement(replace string: String)
 }

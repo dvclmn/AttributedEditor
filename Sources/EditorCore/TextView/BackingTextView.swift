@@ -28,47 +28,47 @@ class BackingTextView: NSTextView, Highlightable {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func draw(_ dirtyRect: NSRect) {
-    /// Draw custom backgrounds before text is rendered
-    drawBlocks()
-    drawReplacement()  // for horizontal rules, etc.
-    super.draw(dirtyRect)
-  }
-
-  func drawBlocks() {
-    guard let highlighter else { return }
-
-    for range in blockRanges {
-      //    for range in highlighter {
-      //    for range in highlighter.blockRanges {
-      // Convert NSRange -> NSTextRange
-      guard let textRange = self.textRange(for: range) else { continue }
-
-      // Calculate Rect using TextKit 2
-      let rect = self.boundingRect(for: textRange)
-
-      guard !rect.isEmpty else { continue }
-
-      let path = highlighter.drawBlockPath(in: rect)
-      path.fill()
-      path.stroke()
-    }
-    //    guard let layoutManager, let textContainer, let highlighter
-    //    else { return }
-    //
-    //    /// For each block range, calculate its visual bounds and draw a background
-    //    for range in highlighter.blockRanges {
-    //
-    //      let rect = boundingRect(
-    //        for: range,
-    //        lm: layoutManager,
-    //        tc: textContainer
-    //      )
-    //      let path = highlighter.drawBlockPath(in: rect)
-    //      path.fill()
-    //      path.stroke()
-    //    }
-  }
+//  override func draw(_ dirtyRect: NSRect) {
+//    /// Draw custom backgrounds before text is rendered
+//    drawBlocks()
+//    drawReplacement()  // for horizontal rules, etc.
+//    super.draw(dirtyRect)
+//  }
+//
+//  func drawBlocks() {
+//    guard let highlighter else { return }
+//
+//    for range in blockRanges {
+//      //    for range in highlighter {
+//      //    for range in highlighter.blockRanges {
+//      // Convert NSRange -> NSTextRange
+//      guard let textRange = self.textRange(for: range) else { continue }
+//
+//      // Calculate Rect using TextKit 2
+//      let rect = self.boundingRect(for: textRange)
+//
+//      guard !rect.isEmpty else { continue }
+//
+//      let path = highlighter.drawBlockPath(in: rect)
+//      path.fill()
+//      path.stroke()
+//    }
+//    //    guard let layoutManager, let textContainer, let highlighter
+//    //    else { return }
+//    //
+//    //    /// For each block range, calculate its visual bounds and draw a background
+//    //    for range in highlighter.blockRanges {
+//    //
+//    //      let rect = boundingRect(
+//    //        for: range,
+//    //        lm: layoutManager,
+//    //        tc: textContainer
+//    //      )
+//    //      let path = highlighter.drawBlockPath(in: rect)
+//    //      path.fill()
+//    //      path.stroke()
+//    //    }
+//  }
 
   func updateHighlighter(with updated: any Highlighter.Core) {
     highlighter = updated

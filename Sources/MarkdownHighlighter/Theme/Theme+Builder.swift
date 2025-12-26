@@ -22,7 +22,6 @@ extension Markdown.Theme {
     var syntax: StyleToken?
     var metadata: StyleToken?
     var background: StyleToken?
-//    var background: StyleToken?
   }
 }
 
@@ -65,6 +64,19 @@ extension Markdown.Theme {
 
     var tokens: StyleTokens = [:]
 
+//    if let content = builder.content {
+//      tokens[.content] = content
+//    }
+//    if let syntax = builder.syntax {
+//      tokens[.syntax] = syntax
+//    }
+//    if let metadata = builder.metadata {
+//      tokens[.metadata] = metadata
+//    }
+//    if let background = builder.background {
+//      tokens[.background] = background
+//    }
+    
     tokens[.content] = builder.content
     tokens[.syntax] = builder.syntax
     tokens[.metadata] = builder.metadata
