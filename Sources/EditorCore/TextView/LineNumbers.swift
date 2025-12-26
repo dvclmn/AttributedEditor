@@ -87,7 +87,7 @@ class LineNumberRulerView: NSRulerView {
 
         /// Draw the line number
         let lineNumberString = "\(lineNumber)" as NSString
-        let attributes: TextAttributes = [
+        let attributes: NSTextAttributes = [
           .font: font,
           .foregroundColor: textColor,
         ]

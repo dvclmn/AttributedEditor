@@ -43,7 +43,7 @@ extension AttributedEditorView {
     //    ]
     return paraStyle
   }
-  package var defaultAttributes: TextAttributes {
+  package var defaultAttributes: NSTextAttributes {
     return [
       .font: font,
       .foregroundColor: highlighter.theme.textColour,

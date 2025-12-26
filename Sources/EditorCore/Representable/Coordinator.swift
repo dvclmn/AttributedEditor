@@ -76,7 +76,7 @@ extension AttributedEditorView.Coordinator {
     }
 
     print("Found matches")
-    let attrs: TextAttributes = [.backgroundColor: NSColor.systemMint.withAlphaComponent(0.3)]
+    let attrs: NSTextAttributes = [.backgroundColor: NSColor.systemMint.withAlphaComponent(0.3)]
     let attrText = NSMutableAttributedString(attributedString: originalText)
 
     /// The last character is the newline, second to last is the attachment character

@@ -16,7 +16,7 @@ extension Highlighter.Core {
     textView: NSTextView,
     affectedRange: NSRange,
     font: NSFont,
-    defaults: TextAttributes
+    defaults: NSTextAttributes
   ) {
 
     guard let tcs = textView.textContentStorage else { return }

@@ -21,10 +21,12 @@ extension Markdown {
 
 extension Markdown.Theme {
 
+  static var basicCodeBackground: CodeBackground { .init() }
+
   /// Extracts font/colour data from theme tokens,
   /// and populates attributes for this syntax part
   ///
-  /// Note: `TextAttributes` can only carry *one*
+  /// Note: `NSTextAttributes` can only carry *one*
   /// entry at a time, for a key. E.g. foreground, font, etc.
   ///
   /// So this can only handle one 'piece', like a syntax
@@ -32,20 +34,23 @@ extension Markdown.Theme {
   func textAttributes(
     for syntaxID: Markdown.Syntax.ID,
     role styleRole: Markdown.StyleRole,
-  ) -> [TextAttribute] {
-//  ) -> TextAttributes {
+  ) -> TextAttributes {
+    //  ) -> NSTextAttributes {
 
     let token = style(for: syntaxID, styleRole: styleRole)
-    var attrs: [TextAttribute] = []
-//    var attrs: TextAttributes = [:]
-    
+    var attrs = TextAttributes()
+    //    var attrs: NSTextAttributes = [:]
+
     attrs[.foregroundColor] = token.nsColour
     attrs[.fontTraits] = token.fontTraits
-    attrs[.codeBackground] = token.hasBackground
-    
-//    if styleRole == .background {
-//    } else {
-//    }
+
+    if token.hasBackground {
+      attrs[.codeBackground] = Self.basicCodeBackground
+    }
+
+    //    if styleRole == .background {
+    //    } else {
+    //    }
     return attrs
   }
 

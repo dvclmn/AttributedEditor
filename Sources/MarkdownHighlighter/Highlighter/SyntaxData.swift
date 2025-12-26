@@ -81,7 +81,7 @@ extension AttributedRun {
     theme: Markdown.Theme
   ) {
     let role = fragment.styleRole
-    let textAttrs = theme.textAttributes(for: syntaxID, role: role)
+    let textAttrs = theme.textAttributes(for: syntaxID, role: role).toNSAttributes
     self.init(fragment.name, range: range, attributes: textAttrs)
   }
 }
