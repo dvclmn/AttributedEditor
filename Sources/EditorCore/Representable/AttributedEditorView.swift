@@ -52,7 +52,7 @@ extension AttributedEditorView {
     /// Create and configure the text view
     let textView = BackingTextView()
     textView.delegate = context.coordinator
-    textView.textStorage?.delegate = context.coordinator
+//    textView.textStorage?.delegate = context.coordinator
 //    textView.layoutManager?.delegate = context.coordinator
     context.coordinator.textView = textView
     textView.setUpTextView()

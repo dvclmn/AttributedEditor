@@ -14,10 +14,11 @@ extension AttributedEditorView.Coordinator {
     guard let textView, let lm = textView.layoutManager
     else { return }
     let highlighter = self.parent.highlighter
-    
+
     let text = textView.string
-    let affectedRange = pendingEditedRange ?? textView.documentNSRange
-    pendingEditedRange = nil
+    let affectedRange = textView.documentNSRange
+//    let affectedRange = pendingEditedRange ?? textView.documentNSRange
+//    pendingEditedRange = nil
 
     Task {
       await self.debouncer.execute { @MainActor in
@@ -34,7 +35,7 @@ extension AttributedEditorView.Coordinator {
         )
 
         lm.allowsNonContiguousLayout = true
-        
+
         textView.updateHighlighter(with: highlighter)
 
         /// Refresh line numbers
@@ -46,59 +47,79 @@ extension AttributedEditorView.Coordinator {
     }
   }
 
-//  public func drawBackground(forGlyphRange glyphsToShow: NSRange, at origin: NSPoint) {
-//    print("Draw background")
-//    guard let textView,
-//      let textStorage = textView.textStorage,
-//      let layoutManager = textView.layoutManager,
-//      let textContainer = textView.textContainer
-//    else { return }
-//
-//    //    layoutManager.cha
-//    //    textStorage.
-//    let charRange = layoutManager.characterRange(
-//      forGlyphRange: glyphsToShow,
-//      actualGlyphRange: nil
-//    )
-//
-//    let highlighter = parent.highlighter
-//    //
-//    textStorage.enumerateAttribute(
-//      .codeBackground,
-//      in: charRange
-//    ) { value, range, _ in
-//
-//      print("Enumerating")
-//      guard let hasBackground = value as? Bool else { return }
-//
-//      if !hasBackground {
-//
-//        let rect = layoutManager.boundingRect(forGlyphRange: glyphsToShow, in: textContainer)
-//
-//        //    for range in highlighter {
-//        //    for range in highlighter.blockRanges {
-//        // Convert NSRange -> NSTextRange
-//        //        guard let textRange = self.textRange(for: range) else { continue }
-//
-//        // Calculate Rect using TextKit 2
-//        //        let rect = self.boundingRect(for: textRange)
-//
-//        guard !rect.isEmpty else { return }
-//
-//        let path = highlighter.drawBlockPath(in: rect)
-//        path.fill()
-//        path.stroke()
-//
-//      }
-//      // convert character range → glyph range
-//      //      let glyphRange = layoutManager.glyphRange(
-//      //        forCharacterRange: range,
-//      //        actualCharacterRange: nil
-//      //      )
-//
-//      // enumerate line fragments and draw
-//    }
-//  }
+  func logTextKitMode(reason: String, verboseLog: Bool = false) {
+    guard let textView else { return }
+    var debugText = ""
+    if let tlm = textView.textLayoutManager {
+      debugText = "🟢 TK2 active (\(reason))"
+      if verboseLog {
+        debugText += " — textLayoutManager: \(tlm)"
+      }
+
+    } else if let lm = textView.layoutManager {
+      debugText = ("🔶 TK1 compatibility mode (\(reason))")
+      if verboseLog {
+        debugText += " — layoutManager: \(lm)"
+      }
+    } else {
+      debugText = ("⚠️ No layout manager detected (\(reason))")
+    }
+    print(debugText)
+  }
+
+  //  public func drawBackground(forGlyphRange glyphsToShow: NSRange, at origin: NSPoint) {
+  //    print("Draw background")
+  //    guard let textView,
+  //      let textStorage = textView.textStorage,
+  //      let layoutManager = textView.layoutManager,
+  //      let textContainer = textView.textContainer
+  //    else { return }
+  //
+  //    //    layoutManager.cha
+  //    //    textStorage.
+  //    let charRange = layoutManager.characterRange(
+  //      forGlyphRange: glyphsToShow,
+  //      actualGlyphRange: nil
+  //    )
+  //
+  //    let highlighter = parent.highlighter
+  //    //
+  //    textStorage.enumerateAttribute(
+  //      .codeBackground,
+  //      in: charRange
+  //    ) { value, range, _ in
+  //
+  //      print("Enumerating")
+  //      guard let hasBackground = value as? Bool else { return }
+  //
+  //      if !hasBackground {
+  //
+  //        let rect = layoutManager.boundingRect(forGlyphRange: glyphsToShow, in: textContainer)
+  //
+  //        //    for range in highlighter {
+  //        //    for range in highlighter.blockRanges {
+  //        // Convert NSRange -> NSTextRange
+  //        //        guard let textRange = self.textRange(for: range) else { continue }
+  //
+  //        // Calculate Rect using TextKit 2
+  //        //        let rect = self.boundingRect(for: textRange)
+  //
+  //        guard !rect.isEmpty else { return }
+  //
+  //        let path = highlighter.drawBlockPath(in: rect)
+  //        path.fill()
+  //        path.stroke()
+  //
+  //      }
+  //      // convert character range → glyph range
+  //      //      let glyphRange = layoutManager.glyphRange(
+  //      //        forCharacterRange: range,
+  //      //        actualCharacterRange: nil
+  //      //      )
+  //
+  //      // enumerate line fragments and draw
+  //    }
+  //  }
 
 }
 

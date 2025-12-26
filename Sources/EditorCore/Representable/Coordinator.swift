@@ -14,12 +14,12 @@ extension AttributedEditorView {
   @MainActor
   public class Coordinator: NSObject,
     NSTextViewDelegate,
-    @MainActor NSTextStorageDelegate,
+//    @MainActor NSTextStorageDelegate,
     @MainActor NSLayoutManagerDelegate
   {
     let parent: AttributedEditorView
     weak var textView: (any Highlightable)?
-    var pendingEditedRange: NSRange?
+//    var pendingEditedRange: NSRange?
 
     public init(_ view: AttributedEditorView) {
       self.parent = view
@@ -31,6 +31,8 @@ extension AttributedEditorView {
 }
 
 extension AttributedEditorView.Coordinator {
+  
+  
   // MARK: - Text Changed
   /// This is for communicating changes from within AppKit, back to SwiftUI
   public func textDidChange(_ notification: Notification) {
@@ -41,64 +43,69 @@ extension AttributedEditorView.Coordinator {
     //    updateInsertionPointPosition()
     self.updateTextView()
 
+    logTextKitMode(reason: "textDidChange")
+
   }
 
   // MARK: - Selection Changed
   /// This or communicating text selection changes from AppKit to SwiftUI
   public func textViewDidChangeSelection(_ notification: Notification) {
+    /// Danger: this function seems to tank performance
     //    updateInsertionPointPosition()
   }
 
-  public func textStorage(
-    _ textStorage: NSTextStorage,
-    didProcessEditing editedMask: NSTextStorageEditActions,
-    range editedRange: NSRange,
-    changeInLength delta: Int
-  ) {
-    guard editedMask.contains(.editedCharacters) else {
-      //       print("`editedMask` did not contain .editedCharacters: \(editedMask)")
-      return
-    }
-
-    /// Expand to whole lines (cheap + safe)
-    let string = textStorage.string as NSString
-    let lineRange = string.lineRange(for: editedRange)
-
-    pendingEditedRange = lineRange
-    //    print("Updated edited range to: \(lineRange) at \(Date.now.timeIntervalSince1970)")
-  }
-  
-//  public func layoutManager(
-//    _ layoutManager: NSLayoutManager,
-//    drawBackgroundForGlyphRange glyphsToShow: NSRange,
-//    at origin: CGPoint
+//  public func textStorage(
+//    _ textStorage: NSTextStorage,
+//    didProcessEditing editedMask: NSTextStorageEditActions,
+//    range editedRange: NSRange,
+//    changeInLength delta: Int
 //  ) {
-//    // Get the attributed string
-//    guard let textStorage = layoutManager.textStorage,
-//          let tc = layoutManager.textContainers.first
-//    else { return }
 //    
-//    // Enumerate attribute ranges within the glyph range
-//    textStorage.enumerateAttribute(
-//      .codeBackground,
-//      in: layoutManager.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
-//    ) { value, range, _ in
-//      guard value != nil else { return }
-//      
-//      // Get the bounding rect(s) for the range
-//      layoutManager.enumerateEnclosingRects(
-//        forGlyphRange: layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil),
-//        withinSelectedGlyphRange: NSRange(location: NSNotFound, length: 0),
-//        in: tc
-//      ) { rect, _ in
-//        let path = NSBezierPath(roundedRect: rect.offsetBy(dx: origin.x, dy: origin.y), xRadius: 4, yRadius: 4)
-//        NSColor.systemYellow.setFill()
-//        path.fill()
-//      }
+////    logTextKitMode(reason: "NSTextStorage/textStorage")
+//    guard editedMask.contains(.editedCharacters) else {
+//      //       print("`editedMask` did not contain .editedCharacters: \(editedMask)")
+//      return
 //    }
+//
+//    /// Expand to whole lines (cheap + safe)
+//    let string = textStorage.string as NSString
+//    let lineRange = string.lineRange(for: editedRange)
+//
+//    pendingEditedRange = lineRange
+//    //    print("Updated edited range to: \(lineRange) at \(Date.now.timeIntervalSince1970)")
 //  }
-  
-//  public func drawBackground(forGlyphRange: ..., at: ...)
+
+  //  public func layoutManager(
+  //    _ layoutManager: NSLayoutManager,
+  //    drawBackgroundForGlyphRange glyphsToShow: NSRange,
+  //    at origin: CGPoint
+  //  ) {
+  //    // Get the attributed string
+  //    guard let textStorage = layoutManager.textStorage,
+  //          let tc = layoutManager.textContainers.first
+  //    else { return }
+  //
+  //    // Enumerate attribute ranges within the glyph range
+  //    textStorage.enumerateAttribute(
+  //      .codeBackground,
+  //      in: layoutManager.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
+  //    ) { value, range, _ in
+  //      guard value != nil else { return }
+  //
+  //      // Get the bounding rect(s) for the range
+  //      layoutManager.enumerateEnclosingRects(
+  //        forGlyphRange: layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil),
+  //        withinSelectedGlyphRange: NSRange(location: NSNotFound, length: 0),
+  //        in: tc
+  //      ) { rect, _ in
+  //        let path = NSBezierPath(roundedRect: rect.offsetBy(dx: origin.x, dy: origin.y), xRadius: 4, yRadius: 4)
+  //        NSColor.systemYellow.setFill()
+  //        path.fill()
+  //      }
+  //    }
+  //  }
+
+  //  public func drawBackground(forGlyphRange: ..., at: ...)
 
   //  public func layoutManager(
   //    _ layoutManager: NSLayoutManager,

@@ -7,8 +7,6 @@
 
 import AppKit
 
-//import BaseStyles
-
 class BackingLayout: NSLayoutManager {
   override init() { super.init() }
 
@@ -26,7 +24,7 @@ class BackingLayout: NSLayoutManager {
       options: []
     ) { (value, range, _) in
 
-      print("Hello. Value: \(String(describing: value)), Range: \(range)")
+//      print("Hello. Value: \(String(describing: value)), Range: \(range)")
 
       /// Check we're working with the correct attribute type
       //      guard let isCodeBlock = value as? Bool, isCodeBlock else { return }
