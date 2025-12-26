@@ -58,7 +58,7 @@ extension AttributedEditorView {
     }
   }
 
-  package func handleLineNumbers(
+  package func handleLineNumbersIfNeeded(
     for scrollView: NSScrollView,
     textView: any Highlightable
   ) {

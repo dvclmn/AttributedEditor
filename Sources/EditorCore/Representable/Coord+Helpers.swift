@@ -11,14 +11,13 @@ import HighlighterCommon
 extension AttributedEditorView.Coordinator {
 
   func updateTextView() {
-    guard let textView, let lm = textView.layoutManager
-    else { return }
+    guard let textView else { return }
     let highlighter = self.parent.highlighter
 
     let text = textView.string
     let affectedRange = textView.documentNSRange
-//    let affectedRange = pendingEditedRange ?? textView.documentNSRange
-//    pendingEditedRange = nil
+    //    let affectedRange = pendingEditedRange ?? textView.documentNSRange
+    //    pendingEditedRange = nil
 
     Task {
       await self.debouncer.execute { @MainActor in
@@ -34,8 +33,6 @@ extension AttributedEditorView.Coordinator {
           defaults: defaults
         )
 
-        lm.allowsNonContiguousLayout = true
-
         textView.updateHighlighter(with: highlighter)
 
         /// Refresh line numbers
@@ -50,11 +47,12 @@ extension AttributedEditorView.Coordinator {
   func logTextKitMode(reason: String, verboseLog: Bool = false) {
     guard let textView else { return }
     var debugText = ""
-    if let tlm = textView.textLayoutManager {
-      debugText = "🟢 TextKit 2 active (\(reason))"
-      if verboseLog {
-        debugText += " — textLayoutManager: \(tlm)"
-      }
+    if let _ = textView.textLayoutManager {
+      /// Do nothing, only want to be alerted if not TK2
+//      debugText = "🟢 TextKit 2 active (\(reason))"
+//      if verboseLog {
+//        debugText += " — textLayoutManager: \(tlm)"
+//      }
 
     } else if let lm = textView.layoutManager {
       debugText = ("🔶 TextKit 1 compatibility mode (\(reason))")

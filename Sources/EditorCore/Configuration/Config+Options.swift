@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Editor {
+public enum Editor {
   public struct Options: OptionSet, Sendable {
     public init(rawValue: Int) {
       self.rawValue = rawValue
