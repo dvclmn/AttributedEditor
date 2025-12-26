@@ -39,6 +39,7 @@ extension AttributedEditorView {
     /// Create and configure the text view
     let textView = BackingTextView()
 //    textView.updateHighlighter(with: highlighter)
+    textView.textContentStorage?.delegate = context.coordinator
     textView.delegate = context.coordinator
     context.coordinator.textView = textView
     textView.setUpTextView()

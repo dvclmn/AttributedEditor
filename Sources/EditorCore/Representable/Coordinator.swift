@@ -14,12 +14,13 @@ extension AttributedEditorView {
   @MainActor
   public class Coordinator: NSObject,
     NSTextViewDelegate,
-//    @MainActor NSTextStorageDelegate,
-    @MainActor NSLayoutManagerDelegate
+    //    @MainActor NSTextStorageDelegate,
+    @MainActor NSTextContentStorageDelegate
+  //    NSTextContentManagerDelegate
   {
     let parent: AttributedEditorView
     weak var textView: (any Highlightable)?
-//    var pendingEditedRange: NSRange?
+    //    var pendingEditedRange: NSRange?
 
     public init(_ view: AttributedEditorView) {
       self.parent = view
@@ -31,8 +32,7 @@ extension AttributedEditorView {
 }
 
 extension AttributedEditorView.Coordinator {
-  
-  
+
   // MARK: - Text Changed
   /// This is for communicating changes from within AppKit, back to SwiftUI
   public func textDidChange(_ notification: Notification) {
@@ -54,26 +54,76 @@ extension AttributedEditorView.Coordinator {
     //    updateInsertionPointPosition()
   }
 
-//  public func textStorage(
-//    _ textStorage: NSTextStorage,
-//    didProcessEditing editedMask: NSTextStorageEditActions,
-//    range editedRange: NSRange,
-//    changeInLength delta: Int
-//  ) {
-//    
-////    logTextKitMode(reason: "NSTextStorage/textStorage")
-//    guard editedMask.contains(.editedCharacters) else {
-//      //       print("`editedMask` did not contain .editedCharacters: \(editedMask)")
-//      return
-//    }
-//
-//    /// Expand to whole lines (cheap + safe)
-//    let string = textStorage.string as NSString
-//    let lineRange = string.lineRange(for: editedRange)
-//
-//    pendingEditedRange = lineRange
-//    //    print("Updated edited range to: \(lineRange) at \(Date.now.timeIntervalSince1970)")
-//  }
+  public func textContentStorage(
+    _ textContentStorage: NSTextContentStorage,
+    textParagraphWith range: NSRange
+  ) -> NSTextParagraph? {
+
+    let tcs = textContentStorage
+    guard let ts = tcs.textStorage else {
+      print("No `tcs.textStorage` found")
+      return nil
+    }
+
+    var attrParagraph: NSTextParagraph? = nil
+
+    // First, get a copy of the paragraph from the original text storage.
+    let originalText = ts.attributedSubstring(from: range)
+
+    guard originalText.attribute(.codeBackground, at: 0, effectiveRange: nil) != nil else {
+//      debugTCS(originalText: originalText, range: range)
+      return nil
+    }
+
+    let attrs: TextAttributes = [.backgroundColor: NSColor.systemMint.withAlphaComponent(0.3)]
+    let attrText = NSMutableAttributedString(attributedString: originalText)
+
+    /// The last character is the newline, second to last is the attachment character
+    let attrRange = NSRange(location: 0, length: attrText.length - 2)
+    attrText.addAttributes(attrs, range: attrRange)
+
+    /// Create new paragraph with our display attributes.
+    attrParagraph = NSTextParagraph(attributedString: attrText)
+
+    //    return nil
+    return attrParagraph
+  }
+
+  private func debugTCS(
+    originalText: NSAttributedString,
+    range: NSRange
+  ) {
+    let someRange = originalText.string.indexRange
+    let paragraphPreview = originalText.string[someRange]
+    DebugString {
+      "No `codeBackground` found in range: \(range)`"
+      Labeled("Index Range", value: someRange)
+      Labeled("Paragraph Preview", value: paragraphPreview)
+      Labeled("Original Text", value: originalText)
+
+    }
+  }
+
+  //  public func textStorage(
+  //    _ textStorage: NSTextStorage,
+  //    didProcessEditing editedMask: NSTextStorageEditActions,
+  //    range editedRange: NSRange,
+  //    changeInLength delta: Int
+  //  ) {
+  //
+  ////    logTextKitMode(reason: "NSTextStorage/textStorage")
+  //    guard editedMask.contains(.editedCharacters) else {
+  //      //       print("`editedMask` did not contain .editedCharacters: \(editedMask)")
+  //      return
+  //    }
+  //
+  //    /// Expand to whole lines (cheap + safe)
+  //    let string = textStorage.string as NSString
+  //    let lineRange = string.lineRange(for: editedRange)
+  //
+  //    pendingEditedRange = lineRange
+  //    //    print("Updated edited range to: \(lineRange) at \(Date.now.timeIntervalSince1970)")
+  //  }
 
   //  public func layoutManager(
   //    _ layoutManager: NSLayoutManager,
