@@ -7,7 +7,6 @@
 
 import AppKit
 
-
 extension AttributedEditorView.Coordinator {
 
   func updateTextView() {
@@ -23,7 +22,7 @@ extension AttributedEditorView.Coordinator {
         let runs = highlighter.buildStyles(in: text)
         let defaults = self.parent.defaultAttributes
 
-        highlighter.applyStyles(
+        self.applyStyles(
           runs: runs,
           textView: textView,
           affectedRange: affectedRange,
@@ -31,7 +30,7 @@ extension AttributedEditorView.Coordinator {
           defaults: defaults
         )
 
-//        textView.updateHighlighter(with: highlighter)
+        //        textView.updateHighlighter(with: highlighter)
 
         /// Refresh line numbers
         if self.parent.editorOptions.contains(.lineNumbers) {
@@ -45,12 +44,12 @@ extension AttributedEditorView.Coordinator {
   func logTextKitMode(reason: String, verboseLog: Bool = false) {
     guard let textView else { return }
     var debugText = ""
-    if let _ = textView.textLayoutManager {
+    if textView.textLayoutManager != nil {
       /// Do nothing, only want to be alerted if not TK2
-//      debugText = "🟢 TextKit 2 active (\(reason))"
-//      if verboseLog {
-//        debugText += " — textLayoutManager: \(tlm)"
-//      }
+      //      debugText = "🟢 TextKit 2 active (\(reason))"
+      //      if verboseLog {
+      //        debugText += " — textLayoutManager: \(tlm)"
+      //      }
 
     } else if let lm = textView.layoutManager {
       debugText = ("🔶 TextKit 1 compatibility mode (\(reason))")

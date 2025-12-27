@@ -9,7 +9,7 @@ import CoreTools
 import EditorCore
 
 import TextView
-import Markdown
+import MarkdownHighlighter
 import SwiftUI
 
 public struct AttributedEditor: View {
@@ -22,7 +22,8 @@ public struct AttributedEditor: View {
 
   @Binding var text: String
 
-   let highlighter: any Highlighter
+   let highlighter: MarkdownHighlighter
+//   let highlighter: any Highlighter
 
   public init(
     _ text: Binding<String>,

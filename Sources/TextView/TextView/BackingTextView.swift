@@ -6,10 +6,10 @@
 //
 
 import AppKit
-
+import MarkdownHighlighter
 
 class BackingTextView: NSTextView, Highlightable {
-  var highlighter: (any Highlighter)? = nil
+  var highlighter: MarkdownHighlighter? = nil
 //  var blockRanges: [NSRange] = []
 
 //  init() {

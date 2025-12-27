@@ -8,10 +8,9 @@
 import CoreTools
 import Foundation
 
-
 struct SyntaxData {
   let syntax: Markdown.Syntax
-//  let syntaxID: Markdown.Syntax.ID
+  //  let syntaxID: Markdown.Syntax.ID
   let pattern: Regex<AnyRegexOutput>
   let shape: RegexShape
   let fragments: [Fragment]
@@ -40,7 +39,7 @@ extension SyntaxData {
 
     self.init(
       syntax: syntax,
-//      syntaxID: syntax.id,
+      //      syntaxID: syntax.id,
       pattern: pattern,
       shape: shape,
       fragments: fragments
@@ -60,59 +59,59 @@ extension SyntaxData {
         print("No range for fragment: \(fragment)")
         continue
       }
-      
+
       /// Currently using the range as the sole marker for 'equality' here
-      let runAlreadyExists = attributes.contains(where: { $0.range == range })
+      let runAlreadyExists = runs.contains(where: { $0.range == range })
       guard !runAlreadyExists else { continue }
-      
+
       /// If a run with this range is not already present, add a new one
 
       let run = SyntaxRun(syntax: syntax, fragment: fragment, range: range)
       //      let attrRun = HighlightRun(
-//        syntaxID: syntaxID,
-//        fragment: fragment,
-//        range: range,
-//        theme: theme
-//      )
-      attributes.append(run)
+      //        syntaxID: syntaxID,
+      //        fragment: fragment,
+      //        range: range,
+      //        theme: theme
+      //      )
+      runs.append(run)
     }
-    
-//    var fragmentDesc: String = "\(syntax.name), w/ Fragments: ["
-//
-//    let fragmentsList = fragments.filter { fragment in
-//      let range = range(for: fragment, in: match)
-//      let runAlreadyExists = attributes.contains(where: { $0.range == range })
-//      return !runAlreadyExists
-//    }
-//
-//    for fragment in fragmentsList {
-//      guard let range = range(for: fragment, in: match) else {
-//        print("No range for fragment: \(fragment)")
-//        continue
-//      }
-//
-//      /// Currently using the range as the sole marker for 'equality' here
-//      //      let runAlreadyExists = attributes.contains(where: { $0.range == range })
-//      //      guard !runAlreadyExists else { continue }
-//
-////      let isFinalFragment: Bool = fragment == fragmentsList.last
-////
-////      if !isFinalFragment {
-////        fragmentDesc += "\(fragment.rawValue), "
-////      } else {
-////        fragmentDesc += "\(fragment.rawValue)]"
-////      }
-//
-//      /// If a run with this range is not already present, add a new one
-//      let attrRun = AttributedRun(
-//        syntaxID: syntaxID,
-//        fragment: fragment,
-//        range: range,
-//        theme: theme,
-//        desc: fragmentDesc
-//      )
-//      attributes.append(attrRun)
-//    }
+
+    //    var fragmentDesc: String = "\(syntax.name), w/ Fragments: ["
+    //
+    //    let fragmentsList = fragments.filter { fragment in
+    //      let range = range(for: fragment, in: match)
+    //      let runAlreadyExists = attributes.contains(where: { $0.range == range })
+    //      return !runAlreadyExists
+    //    }
+    //
+    //    for fragment in fragmentsList {
+    //      guard let range = range(for: fragment, in: match) else {
+    //        print("No range for fragment: \(fragment)")
+    //        continue
+    //      }
+    //
+    //      /// Currently using the range as the sole marker for 'equality' here
+    //      //      let runAlreadyExists = attributes.contains(where: { $0.range == range })
+    //      //      guard !runAlreadyExists else { continue }
+    //
+    ////      let isFinalFragment: Bool = fragment == fragmentsList.last
+    ////
+    ////      if !isFinalFragment {
+    ////        fragmentDesc += "\(fragment.rawValue), "
+    ////      } else {
+    ////        fragmentDesc += "\(fragment.rawValue)]"
+    ////      }
+    //
+    //      /// If a run with this range is not already present, add a new one
+    //      let attrRun = AttributedRun(
+    //        syntaxID: syntaxID,
+    //        fragment: fragment,
+    //        range: range,
+    //        theme: theme,
+    //        desc: fragmentDesc
+    //      )
+    //      attributes.append(attrRun)
+    //    }
   }
 
   private func range(
@@ -126,17 +125,17 @@ extension SyntaxData {
 extension SyntaxRun {
   init(
     syntax: Markdown.Syntax,
-//    syntaxID: Markdown.Syntax.ID,
+    //    syntaxID: Markdown.Syntax.ID,
     fragment: Fragment,
     range: Range<String.Index>,
-//    theme: MarkdownTheme,
-//    desc: String?
+    //    theme: MarkdownTheme,
+    //    desc: String?
   ) {
     let metadata = "\(syntax), Fragment: \(fragment.rawValue)"
     let role = fragment.styleRole
     self.init(syntax: syntax, role: role, range: range)
-//    let textAttrs = theme.textAttributes(for: syntaxID, role: role)
-//    self.init(metadata: metadata, range: range, attributes: textAttrs)
-//    self.init(desc, range: range, attributes: textAttrs)
+    //    let textAttrs = theme.textAttributes(for: syntaxID, role: role)
+    //    self.init(metadata: metadata, range: range, attributes: textAttrs)
+    //    self.init(desc, range: range, attributes: textAttrs)
   }
 }

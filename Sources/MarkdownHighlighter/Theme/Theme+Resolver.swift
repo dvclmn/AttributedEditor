@@ -9,12 +9,15 @@ import CoreTools
 import EditorCore
 import Foundation
 
-
 package struct ThemeResolver {
 
-  let theme: MarkdownTheme
+  package let theme: MarkdownTheme
 
-  func resolveStyleToken(for run: SyntaxRun) -> ResolvedRun {
+  package init(_ theme: MarkdownTheme) {
+    self.theme = theme
+  }
+
+  package func resolveStyleToken(for run: SyntaxRun) -> ResolvedRun {
     let semanticToken = theme.styleToken(
       syntax: run.syntax,
       //      kind: run.semanticKind,
@@ -36,8 +39,8 @@ package struct ThemeResolver {
 
 }
 
-struct ResolvedRun {
-  let range: Range<String.Index>
-  let attributes: TextAttributes
-  let background: StyleToken.BackgroundStyle?
+package struct ResolvedRun {
+  package let range: Range<String.Index>
+  package let attributes: TextAttributes
+  package let background: StyleToken.BackgroundStyle?
 }

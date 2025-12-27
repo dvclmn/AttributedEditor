@@ -8,12 +8,14 @@
 import AppKit
 import CoreTools
 import EditorCore
-import TextView
+import MarkdownHighlighter
+//import TextView
 
-extension MarkdownHighlighter {
+extension AttributedEditorView.Coordinator {
+//extension MarkdownHighlighter {
   
   var resolver: ThemeResolver {
-    ThemeResolver(theme: self.theme)
+    ThemeResolver(self.parent.highlighter.theme)
   }
 
   @MainActor

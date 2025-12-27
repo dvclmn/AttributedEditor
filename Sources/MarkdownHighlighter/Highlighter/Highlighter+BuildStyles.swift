@@ -38,7 +38,12 @@ extension MarkdownHighlighter {
 
     for match in matches {
 
-      data.processMatch(match, for: syntax, theme: theme, attrs: &runs)
+      data.processMatch(
+        match,
+        for: syntax,
+        theme: theme,
+        runs: &runs
+      )
     }
   }
 

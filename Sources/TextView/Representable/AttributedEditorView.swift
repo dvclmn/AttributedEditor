@@ -7,6 +7,7 @@
 
 import AppKit
 import CoreTools
+import MarkdownHighlighter
 
 import SwiftUI
 
@@ -17,11 +18,12 @@ public struct AttributedEditorView: NSViewRepresentable {
   @Environment(\.lineSpacing) var lineSpacing
   
   @Binding var text: String
-  var highlighter: any Highlighter
+  var highlighter: MarkdownHighlighter
+//  var highlighter: any Highlighter
 
   public init(
     text: Binding<String>,
-    highlighter: any Highlighter,
+    highlighter: MarkdownHighlighter,
   ) {
     self._text = text
     self.highlighter = highlighter
