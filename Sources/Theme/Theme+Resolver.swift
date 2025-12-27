@@ -7,45 +7,65 @@
 
 import Foundation
 import HighlighterCommon
+import CoreTools
 
 struct ThemeResolver {
-  
+
   let theme: any Highlighter.Theme
-  
-  func resolveStyleToken(for run: HighlightRun) -> StyleToken {
-    if let token = theme.styleToken(
-      syntaxID: run.syntaxID,
+
+  func resolveStyleToken(for run: HighlightRun) -> ResolvedRun {
+//  func resolveStyleToken(for run: HighlightRun) -> StyleToken {
+    //    if let token = theme.styleToken(
+    //      syntaxID: run.syntaxID,
+    //      role: run.role
+    //    ) {
+    //      return token
+    //    }
+
+    let semanticToken = theme.styleToken(
+      kind: run.semanticKind,
       role: run.role
-    ) {
-      return token
-    }
+    )
     
-    if let token = theme.styleToken(
-      semanticKind: run.semanticKind,
-      role: run.role
-    ) {
-      return token
-    }
+    let token = semanticToken ?? theme.defaultToken(for: run.role)
     
-    return theme.defaultToken(for: run.role)
-  }
-  
-//  func resolveStyleToken(
-//    _ run: HighlightRun
-//  ) -> ResolvedRun {
-//    let token = theme.styleToken(
-//      for: run.syntaxID,
+    let attrs = theme.textAttributes(for: token)
+    
+    let resolved = ResolvedRun(
+      range: run.range,
+      attributes: attrs,
+//      attributes: TextAttributes.init(for: token),
+      background: token.background
+    )
+    
+    return resolved
+//    if let token = theme.styleToken(
+//      kind: run.semanticKind,
 //      role: run.role
-//    )
-//    
-//    let attributes = TextAttributes.from(token)
-//    
-//    return ResolvedRun(
-//      range: run.range,
-//      attributes: attributes,
-//      background: token.background
-//    )
-//  }
+//    ) {
+//      styleToken = token
+////      return token
+//    }
+
+//    return theme.defaultToken(for: run.role)
+  }
+
+  //  func resolveStyleToken(
+  //    _ run: HighlightRun
+  //  ) -> ResolvedRun {
+  //    let token = theme.styleToken(
+  //      for: run.syntaxID,
+  //      role: run.role
+  //    )
+  //
+  //    let attributes = TextAttributes.from(token)
+  //
+  //    return ResolvedRun(
+  //      range: run.range,
+  //      attributes: attributes,
+  //      background: token.background
+  //    )
+  //  }
 }
 
 struct ResolvedRun {

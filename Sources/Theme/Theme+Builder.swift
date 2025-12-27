@@ -8,31 +8,32 @@
 import AppKit
 import ColourKit
 import CoreTools
+import HighlighterCommon
 import ThemePark
 
 /// Surely just use this?
 /// https://github.com/swiftlang/swift-markdown
 /// Also:
 /// https://developer.apple.com/documentation/foundation/attributedstring/markdownsourceposition
-extension Markdown.Theme {
+extension Highlighter.Theme {
 
-  struct RoleStyles {
-    var content: StyleToken?
-    var syntax: StyleToken?
-    var metadata: StyleToken?
-  }
-  
-//  struct StyleBuilder {
-//    /// These correspond directly to ``Markdown/StyleRole``
-//    var content: StyleToken?
-//    var syntax: StyleToken?
-//    var metadata: StyleToken?
-//    var background: Bool = false
-////    var background: StyleToken?
-//  }
+  //  struct StyleBuilder {
+  //    /// These correspond directly to ``Markdown/StyleRole``
+  //    var content: StyleToken?
+  //    var syntax: StyleToken?
+  //    var metadata: StyleToken?
+  //    var background: Bool = false
+  ////    var background: StyleToken?
+  //  }
 }
 
-extension Markdown.Theme.RoleStyles {
+struct RoleStyle {
+  var content: StyleToken?
+  var syntax: StyleToken?
+  var metadata: StyleToken?
+}
+
+extension RoleStyle {
 
   /// The `url`, `languageHint`, `icon` accessors are nice,
   /// but they belong either:
@@ -44,56 +45,56 @@ extension Markdown.Theme.RoleStyles {
   /// These all just read/write to `metadata`, but make the call site readable.
 
   /// An alias for `metadata` when configuring Links or Images
-//  var url: StyleToken? {
-//    get { metadata }
-//    set { metadata = newValue }
-//  }
-//
-//  /// An Alias for `metadata` when configuring Code Blocks
-//  /// Consider: https://developer.apple.com/documentation/foundation/attributescopes/foundationattributes/languageidentifier
-//  var languageHint: StyleToken? {
-//    get { metadata }
-//    set { metadata = newValue }
-//  }
-//
-//  /// Alias for `metadata` when configuring Callouts
-//  var icon: StyleToken? {
-//    get { metadata }
-//    set { metadata = newValue }
-//  }
+  //  var url: StyleToken? {
+  //    get { metadata }
+  //    set { metadata = newValue }
+  //  }
+  //
+  //  /// An Alias for `metadata` when configuring Code Blocks
+  //  /// Consider: https://developer.apple.com/documentation/foundation/attributescopes/foundationattributes/languageidentifier
+  //  var languageHint: StyleToken? {
+  //    get { metadata }
+  //    set { metadata = newValue }
+  //  }
+  //
+  //  /// Alias for `metadata` when configuring Callouts
+  //  var icon: StyleToken? {
+  //    get { metadata }
+  //    set { metadata = newValue }
+  //  }
 }
 
-extension Markdown.Theme {
-  /// The registration method maps the builder back to the generic parts
-  /// See usage: ``Markdown/Theme/standard``
-  mutating func register(
-    _ syntax: Markdown.Syntax,
-    //    _ syntaxID: Markdown.Syntax.ID,
-    build: (inout StyleBuilder) -> Void
-  ) {
-    var builder = StyleBuilder()
-    build(&builder)
-
-    var tokens: StyleTokens = [:]
-
-//    if let content = builder.content {
-//      tokens[.content] = content
-//    }
-//    if let syntax = builder.syntax {
-//      tokens[.syntax] = syntax
-//    }
-//    if let metadata = builder.metadata {
-//      tokens[.metadata] = metadata
-//    }
-//    if let background = builder.background {
-//      tokens[.background] = background
-//    }
-    
-    tokens[.content] = builder.content
-    tokens[.syntax] = builder.syntax
-    tokens[.metadata] = builder.metadata
-    tokens[.background] = builder.background
-
-    self.styleDefinitions[syntax.id] = tokens
-  }
-}
+//extension Markdown.Theme {
+//  /// The registration method maps the builder back to the generic parts
+//  /// See usage: ``Markdown/Theme/standard``
+//  mutating func register(
+//    _ syntax: Markdown.Syntax,
+//    //    _ syntaxID: Markdown.Syntax.ID,
+//    build: (inout StyleBuilder) -> Void
+//  ) {
+//    var builder = StyleBuilder()
+//    build(&builder)
+//
+//    var tokens: StyleTokens = [:]
+//
+////    if let content = builder.content {
+////      tokens[.content] = content
+////    }
+////    if let syntax = builder.syntax {
+////      tokens[.syntax] = syntax
+////    }
+////    if let metadata = builder.metadata {
+////      tokens[.metadata] = metadata
+////    }
+////    if let background = builder.background {
+////      tokens[.background] = background
+////    }
+//
+//    tokens[.content] = builder.content
+//    tokens[.syntax] = builder.syntax
+//    tokens[.metadata] = builder.metadata
+//    tokens[.background] = builder.background
+//
+//    self.styleDefinitions[syntax.id] = tokens
+//  }
+//}

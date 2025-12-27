@@ -7,6 +7,7 @@
 
 import AppKit
 import HighlighterCommon
+import CoreTools
 
 extension Highlighter {
   
@@ -26,7 +27,8 @@ extension Highlighter {
     /// Default text/base colour
     var textColour: NSColor { get }
     
-    func styleToken()
+    func styleToken(kind: SemanticKind, role: StyleRole) -> StyleToken?
+    func defaultToken(for role: StyleRole) -> StyleToken
     
 //    static var `default`: Self { get }
 
@@ -52,17 +54,18 @@ extension Highlighter.Theme {
   /// So this can only handle one 'piece', like a syntax
   /// part/fragment, at once.
   func textAttributes(
-    for syntaxID: Markdown.Syntax.ID,
-    role styleRole: StyleRole,
+    for token: StyleToken
+//    for syntaxID: Markdown.Syntax.ID,
+//    role styleRole: StyleRole,
   ) -> TextAttributes {
     
-    let token = style(for: syntaxID, styleRole: styleRole)
+//    let token = style(for: syntaxID, styleRole: styleRole)
     var attrs = TextAttributes()
-    
+//    
     attrs[.foregroundColor] = token.nsColour
     attrs[.fontTraits] = token.fontTraits
-    
-#warning("Theme approach is WIP")
+//    
+//#warning("Theme approach is WIP")
     //    if token.hasBackground {
     //      attrs[.codeBackground] = Self.basicCodeBackground
     //    }
