@@ -16,18 +16,29 @@ import ThemePark
 /// https://developer.apple.com/documentation/foundation/attributedstring/markdownsourceposition
 extension Markdown.Theme {
 
-  struct StyleBuilder {
-    /// These correspond directly to ``Markdown/StyleRole``
+  struct RoleStyles {
     var content: StyleToken?
     var syntax: StyleToken?
     var metadata: StyleToken?
-    var background: Bool = false
-//    var background: StyleToken?
   }
+  
+//  struct StyleBuilder {
+//    /// These correspond directly to ``Markdown/StyleRole``
+//    var content: StyleToken?
+//    var syntax: StyleToken?
+//    var metadata: StyleToken?
+//    var background: Bool = false
+////    var background: StyleToken?
+//  }
 }
 
 extension Markdown.Theme.StyleBuilder {
 
+  /// The `url`, `languageHint`, `icon` accessors are nice,
+  /// but they belong either:
+  /// - in Markdown-specific builder extensions
+  /// - as convenience APIs layered on top of the core theme.
+  ///
   /// Re the below `url`, `languageHint` and `icon`:
   /// Originally these were the problematic "Whack-a-mole" aliases
   /// These all just read/write to `metadata`, but make the call site readable.

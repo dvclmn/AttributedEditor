@@ -8,6 +8,9 @@
 import AppKit
 
 extension Highlighter {
+  /// - Theme does not parse Markdown
+  /// - Theme does not know about AST shape
+  /// - Theme *does* know how to style roles for a given syntax
   public protocol Theme {
     //  public protocol Theme: AnyObject {
     /// Base font
