@@ -5,21 +5,19 @@
 //  Created by Dave Coleman on 22/12/2025.
 //
 
-extension RegexShape {
 
-  /// The available possible parts, found within Regex Shapes
-  public enum Fragment: String, Sendable {
-    case content
-    case syntaxStart  // Aka leading
-    case syntaxEnd  //  Aka trailing
-    case languageHint  // Of type `StyleRole.metadata`
-    case url
-    case prefix  // Image "!", Quote ">", etc
-    case single  // ---
-  }
+/// The available possible parts, found within Regex Shapes
+public enum Fragment: String, Sendable {
+  case content
+  case syntaxStart  // Aka leading
+  case syntaxEnd  //  Aka trailing
+  case languageHint  // Of type `StyleRole.metadata`
+  case url
+  case prefix  // Image "!", Quote ">", etc
+  case single  // ---
 }
 
-extension RegexShape.Fragment {
+extension Fragment {
   public var name: String {
     switch self {
       case .content, .prefix, .single: rawValue.capitalized

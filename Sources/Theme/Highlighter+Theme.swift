@@ -6,45 +6,41 @@
 //
 
 import AppKit
-import HighlighterCommon
 import CoreTools
+import HighlighterCommon
 
-extension Highlighter {
-  
-  public typealias StyleTokens = [StyleRole: StyleToken]
-  
-  /// - Theme does not parse Markdown
-  /// - Theme does not know about AST shape
-  /// - Theme *does* know how to style roles for a given syntax
-  public protocol Theme {
-    
-    var styleDefinitions: [AnyHashable: StyleTokens] { get set }
-    
-    //  public protocol Theme: AnyObject {
-    /// Base font
-    //    var font: NSFont { get set }
+public typealias StyleTokens = [StyleRole: StyleToken]
 
-    /// Default text/base colour
-    var textColour: NSColor { get }
-    
-    func styleToken(kind: SemanticKind, role: StyleRole) -> StyleToken?
-    func defaultToken(for role: StyleRole) -> StyleToken
-    
-//    static var `default`: Self { get }
+/// - Theme does not parse Markdown
+/// - Theme does not know about AST shape
+/// - Theme *does* know how to style roles for a given syntax
+public protocol Theme {
 
-    //    mutating func updateFont(with newFont: NSFont)
-  }
+  var styleDefinitions: [AnyHashable: StyleTokens] { get set }
 
+  //  public protocol Theme: AnyObject {
+  /// Base font
+  //    var font: NSFont { get set }
+
+  /// Default text/base colour
+  var textColour: NSColor { get }
+
+  func styleToken(kind: SemanticKind, role: StyleRole) -> StyleToken?
+  func defaultToken(for role: StyleRole) -> StyleToken
+
+  //    static var `default`: Self { get }
+
+  //    mutating func updateFont(with newFont: NSFont)
 }
 
-extension Highlighter.Theme {
+extension Theme {
   //  public var font: NSFont { NSFont.systemFont(ofSize: 14) }
   public var textColour: NSColor { .textColor }
 
   //  public mutating func updateFont(with newFont: NSFont) {
   //    self.font = newFont
   //  }
-  
+
   /// Extracts font/colour data from theme tokens,
   /// and populates attributes for this syntax part
   ///
@@ -55,27 +51,27 @@ extension Highlighter.Theme {
   /// part/fragment, at once.
   func textAttributes(
     for token: StyleToken
-//    for syntaxID: Markdown.Syntax.ID,
-//    role styleRole: StyleRole,
+      //    for syntaxID: Markdown.Syntax.ID,
+      //    role styleRole: StyleRole,
   ) -> TextAttributes {
-    
-//    let token = style(for: syntaxID, styleRole: styleRole)
+
+    //    let token = style(for: syntaxID, styleRole: styleRole)
     var attrs = TextAttributes()
-//    
+    //
     attrs[.foregroundColor] = token.nsColour
     attrs[.fontTraits] = token.fontTraits
-//    
-//#warning("Theme approach is WIP")
+    //
+    //#warning("Theme approach is WIP")
     //    if token.hasBackground {
     //      attrs[.codeBackground] = Self.basicCodeBackground
     //    }
-    
+
     //    if styleRole == .background {
     //    } else {
     //    }
     return attrs
   }
-  
+
   /// This simply provides a neater API, to read into the
   /// contents of the `styleDefinitions` property
   ///
@@ -88,17 +84,17 @@ extension Highlighter.Theme {
   private func styleToken(
     semanticKind: SemanticKind,
     role: StyleRole
-    //    for syntaxID: Markdown.Syntax.ID,
-    //    styleRole: Markdown.StyleRole
+      //    for syntaxID: Markdown.Syntax.ID,
+      //    styleRole: Markdown.StyleRole
   ) -> StyleToken {
-    
+
     /// Check specific definition
     if let specific = styleDefinitions[syntaxID]?[styleRole] {
       return specific
     }
     return defaultToken(for: styleRole)
   }
-  
+
   func defaultToken(for part: Markdown.StyleRole) -> StyleToken {
     switch part {
       case .content: StyleToken(colour: .primary)
