@@ -7,6 +7,7 @@
 
 import AppKit
 import CoreTools
+import EditorCore
 
 extension Highlighter.Core {
 

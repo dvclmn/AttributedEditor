@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import HighlighterCommon
 import CoreTools
+import EditorCore
 
 struct ThemeResolver {
 

@@ -6,6 +6,7 @@
 //
 
 import HighlighterCommon
+import EditorCore
 
 extension RegexShape.Fragment {
 

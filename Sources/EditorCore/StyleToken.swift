@@ -9,6 +9,8 @@ import AppKit
 import ColourKit
 import CoreTools
 
+public typealias StyleTokens = [StyleRole: StyleToken]
+
 /// I'm trying out using ThemePark's `Style` instead of `StyleToken`
 /// I think the below is true:
 /// - By default, a 'full' resolved SwiftUI font from the environment

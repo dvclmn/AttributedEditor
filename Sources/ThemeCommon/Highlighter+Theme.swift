@@ -7,9 +7,9 @@
 
 import AppKit
 import CoreTools
-import HighlighterCommon
+import EditorCore
 
-public typealias StyleTokens = [StyleRole: StyleToken]
+//public typealias StyleTokens = [StyleRole: StyleToken]
 
 /// - Theme does not parse Markdown
 /// - Theme does not know about AST shape

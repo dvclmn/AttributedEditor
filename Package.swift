@@ -38,6 +38,7 @@ let package = Package(
         .module(.highlighter),
         .module(.editorCore),
         .module(.markdown),
+        .module(.theme),
         .coreTools,
       ]
     ),
@@ -45,6 +46,7 @@ let package = Package(
       name: "TextView",
       dependencies: [
         .module(.highlighter),
+        .module(.theme),
         .colourKit,
         .coreTools,
       ]
@@ -59,6 +61,7 @@ let package = Package(
     .target(
       name: "HighlighterCommon",
       dependencies: [
+        .module(.editorCore),
         .coreTools,
         .themePark,
       ]
@@ -75,7 +78,7 @@ let package = Package(
     .target(
       name: "Theme",
       dependencies: [
-        .module(.highlighter),
+        .module(.editorCore),
         .colourKit,
         .coreTools,
         .themePark,
