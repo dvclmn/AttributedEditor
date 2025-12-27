@@ -44,14 +44,15 @@ extension Highlighter.Core {
       guard let range else { continue }
 
       var attrs = run.attributes
-      print("Attributes for \(run.fragment, default: "No fragment desc"):")
       
-      print("\(attrs.description)\n")
 
       let traits = attrs[.fontTraits]
       let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)
 
       attrs[.font] = adjustedFont
+      print("Attributes for \(run.metadata, default: "No fragment desc").")
+      //      print("Range preview: \(run.range.withPreview(in: text))")
+      print("\(attrs.description)\n")
 
       ts.setAttributes(attrs.toNSAttributes, range: range)
 

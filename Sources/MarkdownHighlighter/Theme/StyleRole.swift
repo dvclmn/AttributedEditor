@@ -9,7 +9,7 @@ import CoreTools
 
 extension Markdown {
   
-  /// This is less about Markdown anatomiy, and more about
+  /// This is less about Markdown anatomy, and more about
   /// expressing rendering intent. E.g. this doesn't list out
   /// leading and trailing syntax; because as far as visual styles
   /// go, both should be styled the same.
