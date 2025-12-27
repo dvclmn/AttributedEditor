@@ -12,7 +12,7 @@ import SwiftUI
 /// Protocol defining how text should be analyzed and highlighted
 public protocol Highlighter: AnyObject {
   
-  associatedtype Syntax: Hashable
+//  associatedtype Syntax: Hashable
 
   /// Thinking that block ranges can be expressed within `NSAttributedRanges`,
   /// by using the `blockIntent` `AttributeKey`

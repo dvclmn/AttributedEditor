@@ -8,12 +8,13 @@
 import CoreTools
 import EditorCore
 import Foundation
+import HighlighterCommon
 
 package struct ThemeResolver {
 
   let theme: MarkdownTheme
 
-  func resolveStyleToken(for run: MarkdownRun) -> ResolvedRun {
+  func resolveStyleToken(for run: SyntaxRun) -> ResolvedRun {
     let semanticToken = theme.styleToken(
       syntax: run.syntax,
       //      kind: run.semanticKind,

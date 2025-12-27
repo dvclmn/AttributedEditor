@@ -10,10 +10,12 @@ import CoreTools
 import EditorCore
 import HighlighterCommon
 
-public typealias MarkdownRun = SyntaxRun<Markdown.Syntax>
-public typealias MarkdownRuns = [MarkdownRun]
+//public typealias MarkdownRun = SyntaxRun<Markdown.Syntax>
+public typealias MarkdownRuns = [SyntaxRun]
 
 public final class MarkdownHighlighter: Highlighter {
+//  public typealias Syntax = Markdown.Syntax
+  
 
   private let isDrawingBlocks: Bool = false
   public var theme: MarkdownTheme
