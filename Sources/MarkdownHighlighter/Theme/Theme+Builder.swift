@@ -32,7 +32,7 @@ extension Markdown.Theme {
 //  }
 }
 
-extension Markdown.Theme.StyleBuilder {
+extension Markdown.Theme.RoleStyles {
 
   /// The `url`, `languageHint`, `icon` accessors are nice,
   /// but they belong either:
@@ -44,23 +44,23 @@ extension Markdown.Theme.StyleBuilder {
   /// These all just read/write to `metadata`, but make the call site readable.
 
   /// An alias for `metadata` when configuring Links or Images
-  var url: StyleToken? {
-    get { metadata }
-    set { metadata = newValue }
-  }
-
-  /// An Alias for `metadata` when configuring Code Blocks
-  /// Consider: https://developer.apple.com/documentation/foundation/attributescopes/foundationattributes/languageidentifier
-  var languageHint: StyleToken? {
-    get { metadata }
-    set { metadata = newValue }
-  }
-
-  /// Alias for `metadata` when configuring Callouts
-  var icon: StyleToken? {
-    get { metadata }
-    set { metadata = newValue }
-  }
+//  var url: StyleToken? {
+//    get { metadata }
+//    set { metadata = newValue }
+//  }
+//
+//  /// An Alias for `metadata` when configuring Code Blocks
+//  /// Consider: https://developer.apple.com/documentation/foundation/attributescopes/foundationattributes/languageidentifier
+//  var languageHint: StyleToken? {
+//    get { metadata }
+//    set { metadata = newValue }
+//  }
+//
+//  /// Alias for `metadata` when configuring Callouts
+//  var icon: StyleToken? {
+//    get { metadata }
+//    set { metadata = newValue }
+//  }
 }
 
 extension Markdown.Theme {

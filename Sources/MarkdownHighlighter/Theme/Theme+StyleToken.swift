@@ -19,27 +19,35 @@ import CoreTools
 ///   there such as weight and design.
 struct StyleToken: Sendable, Hashable {
 
-  /// Important: Considering taking a cue from ThemePark and looking into
-  /// making this non-optional, or at least having a good reason why or why not
-  let colour: CodableColour
-  let fontTraits: FontTraits?
-  //  let fontTraits: NSFontDescriptor.SymbolicTraits
-  let hasBackground: Bool
+  var foreground: CodableColour?
+  var fontTraits: FontTraits?
 
-  /// Consider that I will need properties for strike throughs, highlights?
+  var background: BackgroundStyle?
+  var decoration: TextDecoration?
 
-  init(
-    colour: CodableColour,
-    fontTraits: NSFontDescriptor.SymbolicTraits = [],
-    hasBackground: Bool = false
-  ) {
-    self.colour = colour
-    self.fontTraits = FontTraits(fontTraits)
-    self.hasBackground = hasBackground
-  }
+  //  init(
+  //    colour: CodableColour,
+  //    fontTraits: NSFontDescriptor.SymbolicTraits = [],
+  //    hasBackground: Bool = false
+  //  ) {
+  //    self.colour = colour
+  //    self.fontTraits = FontTraits(fontTraits)
+  //    self.hasBackground = hasBackground
+  //  }
 }
 
 extension StyleToken {
-  static var `default`: StyleToken { .init(colour: .primary) }
-  var nsColour: NSColor? { colour.nsColor }
+  static var `default`: StyleToken { .init() }
+  var nsColour: NSColor? { foreground?.nsColor }
+}
+
+enum BackgroundStyle: Hashable, Sendable {
+  case none
+  case roundedRect(CodableColour, cornerRadius: CGFloat)
+  case highlight(CodableColour)
+}
+
+enum TextDecoration: Hashable, Sendable {
+  case underline
+  case strikethrough
 }
