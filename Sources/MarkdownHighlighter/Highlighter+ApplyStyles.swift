@@ -8,6 +8,7 @@
 import AppKit
 import CoreTools
 import EditorCore
+import TextView
 
 extension MarkdownHighlighter {
   
@@ -56,7 +57,8 @@ extension MarkdownHighlighter {
       let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)
 
       attrs[.font] = adjustedFont
-      print("Attributes for \(run.metadata, default: "No fragment desc").")
+
+      print("Attributes for \(run.syntax.name, default: "No fragment desc").")
       //      print("Range preview: \(run.range.withPreview(in: text))")
       print("\(attrs.description)\n")
 
