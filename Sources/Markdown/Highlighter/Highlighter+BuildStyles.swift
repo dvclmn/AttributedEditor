@@ -21,7 +21,7 @@ extension MarkdownHighlighter {
   func processMatches(
     for syntax: Markdown.Syntax,
     in text: String,
-    _ attributes: inout [HighlightRun]
+    _ runs: inout MarkdownRuns
   ) {
     guard let data = SyntaxData(syntax: syntax) else { return }
     let matches = text.matches(of: data.pattern)
@@ -30,7 +30,7 @@ extension MarkdownHighlighter {
       DebugString {
         "No matches for \(syntax.name)"
         Labeled("Fragments", value: data.fragments.map(\.name))
-        Labeled("Attributes", value: attributes)
+        Labeled("Attributes", value: runs)
         Labeled("Text", value: text)
       }
       return
@@ -38,7 +38,7 @@ extension MarkdownHighlighter {
 
     for match in matches {
 
-      data.processMatch(match, for: syntax, theme: theme, attrs: &attributes)
+      data.processMatch(match, for: syntax, theme: theme, attrs: &runs)
     }
   }
 

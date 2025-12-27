@@ -5,8 +5,8 @@
 //  Created by Dave Coleman on 19/11/2025.
 //
 
-import HighlighterCommon
 import EditorCore
+import HighlighterCommon
 
 extension Fragment {
 
@@ -21,12 +21,12 @@ extension Fragment {
 }
 
 //extension Markdown {
-//  public typealias Components = [Syntax: [RegexShape.Fragment]?]
+//  public typealias Components = [Syntax: [Fragment]?]
 //  public struct Component {
 //    let syntax: Syntax
-//    let fragments: [RegexShape.Fragment]
+//    let fragments: [Fragment]
 //
-//    public init(_ syntax: Syntax, fragments: [RegexShape.Fragment]) {
+//    public init(_ syntax: Syntax, fragments: [Fragment]) {
 //      self.syntax = syntax
 //      self.fragments = fragments
 //    }
@@ -49,7 +49,7 @@ extension Markdown.Syntax {
         .heading6,
         .quoteBlock,
         .list:
-        RegexShape.Fragment.prefixShape
+        Fragment.prefixShape
 
       /// ``RegexShape/Wrap``
       case .bold,
@@ -58,13 +58,13 @@ extension Markdown.Syntax {
         .inlineCode,
         .strikethrough,
         .highlight:
-        RegexShape.Fragment.wrapShape
+        Fragment.wrapShape
 
       case .codeBlock:
-        RegexShape.Fragment.codeBlockShape
+        Fragment.codeBlockShape
 
       case .horizontalRule:
-        RegexShape.Fragment.singleShape
+        Fragment.singleShape
 
       case .callout, .body, .link, .image: nil  // Haven't thought this through yet
     }
@@ -73,7 +73,7 @@ extension Markdown.Syntax {
 
 extension Markdown.Syntax {
 
-  //  public var shapes: [RegexShape: [RegexShape.Fragment]]? {
+  //  public var shapes: [RegexShape: [Fragment]]? {
   //
   //  }
 
@@ -114,8 +114,8 @@ extension Markdown.Syntax {
     switch self {
       case .body:
         nil
-        // /(?<prefix>(?:#{1}))(?<content>[^#]+?)/
-        // .anchorsMatchNewLines
+      // /(?<prefix>(?:#{1}))(?<content>[^#]+?)/
+      // .anchorsMatchNewLines
       case .heading1:
         nil
       case .heading2:
@@ -174,7 +174,7 @@ extension Markdown.Syntax {
 
       case .list:
         nil
-      case .quoteBlock: // anchorsMatchLines
+      case .quoteBlock:  // anchorsMatchLines
         nil
       case .callout:
         nil

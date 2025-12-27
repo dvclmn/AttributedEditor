@@ -13,9 +13,10 @@ package struct ThemeResolver {
 
   let theme: MarkdownTheme
 
-  func resolveStyleToken(for run: HighlightRun) -> ResolvedRun {
+  func resolveStyleToken(for run: MarkdownRun) -> ResolvedRun {
     let semanticToken = theme.styleToken(
-      kind: run.semanticKind,
+      syntax: run.syntax,
+      //      kind: run.semanticKind,
       role: run.role
     )
 

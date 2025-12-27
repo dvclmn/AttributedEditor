@@ -11,7 +11,8 @@ import SwiftUI
 
 /// Protocol defining how text should be analyzed and highlighted
 public protocol Highlighter: AnyObject {
-  //  associatedtype Theme
+  
+  associatedtype Syntax: Hashable
 
   /// Thinking that block ranges can be expressed within `NSAttributedRanges`,
   /// by using the `blockIntent` `AttributeKey`
@@ -19,7 +20,7 @@ public protocol Highlighter: AnyObject {
 
   //    var declaredSyntax: [SemanticKind] { get }
 
-  func buildStyles(in text: String) -> [HighlightRun]
+  func buildStyles(in text: String) -> [SyntaxRun]
   func drawBlockPath(in rect: CGRect) -> NSBezierPath
   //  func updateTheme(_ theme: Theme)
 }

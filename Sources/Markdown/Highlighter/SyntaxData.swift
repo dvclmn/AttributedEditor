@@ -9,7 +9,8 @@ import CoreTools
 import Foundation
 
 struct SyntaxData {
-  let syntaxID: Markdown.Syntax.ID
+  let syntax: Markdown.Syntax
+//  let syntaxID: Markdown.Syntax.ID
   let pattern: Regex<AnyRegexOutput>
   let shape: RegexShape
   let fragments: [Fragment]
@@ -37,7 +38,8 @@ extension SyntaxData {
     guard let fragments = syntax.fragments else { return nil }
 
     self.init(
-      syntaxID: syntax.id,
+      syntax: syntax,
+//      syntaxID: syntax.id,
       pattern: pattern,
       shape: shape,
       fragments: fragments
@@ -47,8 +49,8 @@ extension SyntaxData {
   func processMatch(
     _ match: Regex<AnyRegexOutput>.Match,
     for syntax: Markdown.Syntax,
-    theme: Markdown.Theme,
-    attrs attributes: inout [HighlightRun],
+    theme: MarkdownTheme,
+    runs: inout MarkdownRuns,
   ) {
 
     for fragment in fragments {
@@ -63,13 +65,15 @@ extension SyntaxData {
       guard !runAlreadyExists else { continue }
       
       /// If a run with this range is not already present, add a new one
-      let attrRun = HighlightRun(
-        syntaxID: syntaxID,
-        fragment: fragment,
-        range: range,
-        theme: theme
-      )
-      attributes.append(attrRun)
+
+      let run = SyntaxRun(syntax: syntax, fragment: fragment, range: range)
+      //      let attrRun = HighlightRun(
+//        syntaxID: syntaxID,
+//        fragment: fragment,
+//        range: range,
+//        theme: theme
+//      )
+      attributes.append(run)
     }
     
 //    var fragmentDesc: String = "\(syntax.name), w/ Fragments: ["
@@ -118,18 +122,20 @@ extension SyntaxData {
   }
 }
 
-extension HighlightRun {
+extension SyntaxRun {
   init(
-    syntaxID: Markdown.Syntax.ID,
+    syntax: Markdown.Syntax,
+//    syntaxID: Markdown.Syntax.ID,
     fragment: Fragment,
     range: Range<String.Index>,
-    theme: Markdown.Theme,
+//    theme: MarkdownTheme,
 //    desc: String?
   ) {
-    let metadata = "\(syntaxID), Fragment: \(fragment.rawValue)"
+    let metadata = "\(syntax), Fragment: \(fragment.rawValue)"
     let role = fragment.styleRole
-    let textAttrs = theme.textAttributes(for: syntaxID, role: role)
-    self.init(metadata: metadata, range: range, attributes: textAttrs)
+    self.init(syntax: syntax, role: role, range: range)
+//    let textAttrs = theme.textAttributes(for: syntaxID, role: role)
+//    self.init(metadata: metadata, range: range, attributes: textAttrs)
 //    self.init(desc, range: range, attributes: textAttrs)
   }
 }

@@ -5,7 +5,9 @@
 //  Created by Dave Coleman on 20/11/2025.
 //
 
-extension Markdown.Theme {
+import EditorCore
+
+extension MarkdownTheme {
 
   public static let `default`: Self = .standard
 
@@ -13,39 +15,39 @@ extension Markdown.Theme {
     var theme = Self()
 
     theme.register(.bold) {
-      $0.content = StyleToken(colour: .primary, fontTraits: .bold)
+      $0.content = StyleToken(foreground: .primary, fontTraits: .bold)
     }
     theme.register(.italic) {
-      $0.content = StyleToken(colour: .primary, fontTraits: .italic)
-      $0.syntax = StyleToken(colour: .tertiary)
+      $0.content = StyleToken(foreground: .primary, fontTraits: .italic)
+      $0.syntax = StyleToken(foreground: .tertiary)
     }
     theme.register(.boldItalic) {
-      $0.content = StyleToken(colour: .primary, fontTraits: [.bold, .italic])
-      $0.syntax = StyleToken(colour: .tertiary)
+      $0.content = StyleToken(foreground: .primary, fontTraits: [.bold, .italic])
+      $0.syntax = StyleToken(foreground: .tertiary)
     }
 
     theme.register(.link) {
-      $0.content = StyleToken(colour: .link)
-      $0.syntax = StyleToken(colour: .tertiary)  // "[" and "]"
-      $0.url = StyleToken(colour: .gray)  // (http://...)
+      $0.content = StyleToken(foreground: .link)
+      $0.syntax = StyleToken(foreground: .tertiary)  // "[" and "]"
+      //      $0.url = StyleToken(foreground: .gray)  // (http://...)
     }
 
     theme.register(.codeBlock) {
-      $0.content = StyleToken(colour: .secondary, fontTraits: .monoSpace)
-      $0.languageHint = StyleToken(colour: .tertiary, fontTraits: .monoSpace)
-      $0.syntax = StyleToken(colour: .gray, fontTraits: .monoSpace)
+      $0.content = StyleToken(foreground: .secondary, fontTraits: .monoSpace)
+      //      $0.languageHint = StyleToken(foreground: .tertiary, fontTraits: .monoSpace)
+      $0.syntax = StyleToken(foreground: .gray, fontTraits: .monoSpace)
     }
 
     theme.register(.inlineCode) {
-      $0.content = StyleToken(colour: .brown, fontTraits: .monoSpace, )
-      $0.syntax = StyleToken(colour: .gray, fontTraits: .monoSpace)
-      $0.background = StyleToken(colour: .system(.orange, opacity: 0.2), hasBackground: true)
+      $0.content = StyleToken(foreground: .brown, fontTraits: .monoSpace, )
+      $0.syntax = StyleToken(foreground: .gray, fontTraits: .monoSpace)
+      //      $0.background = StyleToken(foreground: .system(.orange, opacity: 0.2), hasBackground: true)
     }
 
     for header in [Markdown.Syntax.heading1, .heading2, .heading3] {
       theme.register(header) {
-        $0.content = StyleToken(colour: .primary, fontTraits: .bold)
-        $0.syntax = StyleToken(colour: .tertiary)
+        $0.content = StyleToken(foreground: .primary, fontTraits: .bold)
+        $0.syntax = StyleToken(foreground: .tertiary)
       }
     }
 

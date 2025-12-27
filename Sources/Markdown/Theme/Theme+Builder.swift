@@ -64,37 +64,37 @@ extension RoleStyles {
   //  }
 }
 
-//extension Markdown.Theme {
-//  /// The registration method maps the builder back to the generic parts
-//  /// See usage: ``Markdown/Theme/standard``
-//  mutating func register(
-//    _ syntax: Markdown.Syntax,
-//    //    _ syntaxID: Markdown.Syntax.ID,
-//    build: (inout StyleBuilder) -> Void
-//  ) {
-//    var builder = StyleBuilder()
-//    build(&builder)
-//
-//    var tokens: StyleTokens = [:]
-//
-////    if let content = builder.content {
-////      tokens[.content] = content
-////    }
-////    if let syntax = builder.syntax {
-////      tokens[.syntax] = syntax
-////    }
-////    if let metadata = builder.metadata {
-////      tokens[.metadata] = metadata
-////    }
-////    if let background = builder.background {
-////      tokens[.background] = background
-////    }
-//
-//    tokens[.content] = builder.content
-//    tokens[.syntax] = builder.syntax
-//    tokens[.metadata] = builder.metadata
-//    tokens[.background] = builder.background
-//
-//    self.styleDefinitions[syntax.id] = tokens
-//  }
-//}
+extension MarkdownTheme {
+  /// The registration method maps the builder back to the generic parts
+  /// See usage: ``Markdown/Theme/standard``
+  mutating func register(
+    _ syntax: Markdown.Syntax,
+    //    _ syntaxID: Markdown.Syntax.ID,
+    build: (inout RoleStyles) -> Void
+  ) {
+    var styles = RoleStyles()
+    build(&styles)
+
+    var tokens: StyleTokens = [:]
+
+//    if let content = builder.content {
+//      tokens[.content] = content
+//    }
+//    if let syntax = builder.syntax {
+//      tokens[.syntax] = syntax
+//    }
+//    if let metadata = builder.metadata {
+//      tokens[.metadata] = metadata
+//    }
+//    if let background = builder.background {
+//      tokens[.background] = background
+//    }
+
+    tokens[.content] = styles.content
+    tokens[.syntax] = styles.syntax
+    tokens[.metadata] = styles.metadata
+//    tokens[.background] = styles.background
+
+    self.styleDefinitions[syntax] = tokens
+  }
+}

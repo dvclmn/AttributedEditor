@@ -8,7 +8,7 @@
 import AppKit
 import ColourKit
 
-extension Markdown.Theme {
+extension MarkdownTheme {
   public enum HighlightColours: String, Sendable {
     case blue
     case purple
@@ -18,7 +18,7 @@ extension Markdown.Theme {
     case red
   }
 }
-extension Markdown.Theme.HighlightColours {
+extension MarkdownTheme.HighlightColours {
 
   /// Colour for the `==` syntax characters
   public var syntax: CodableColour {

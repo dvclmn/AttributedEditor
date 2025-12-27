@@ -17,7 +17,7 @@ let package = Package(
         "HighlighterCommon",
         "Markdown",  // Highlighter and Theme(?)
         "TextView",
-        "ThemeCommon",
+//        "ThemeCommon",
       ]
     )
   ],
@@ -38,7 +38,7 @@ let package = Package(
         .module(.highlighter),
         .module(.editorCore),
         .module(.markdown),
-        .module(.theme),
+//        .module(.theme),
         .coreTools,
       ]
     ),
@@ -63,7 +63,7 @@ let package = Package(
       dependencies: [
         .module(.highlighter),
         .module(.editorCore),
-        .module(.theme),
+//        .module(.theme),
         .colourKit,
         .coreTools,
         //        .product(name: "NSUI", package: "nsui"),
@@ -73,20 +73,20 @@ let package = Package(
       name: "TextView",
       dependencies: [
         .module(.highlighter),
-        .module(.theme),
+//        .module(.theme),
         .colourKit,
         .coreTools,
       ]
     ),
-    .target(
-      name: "ThemeCommon",
-      dependencies: [
-        .module(.editorCore),
-        .colourKit,
-        .coreTools,
-        .themePark,
-      ]
-    ),
+//    .target(
+//      name: "ThemeCommon",
+//      dependencies: [
+//        .module(.editorCore),
+//        .colourKit,
+//        .coreTools,
+//        .themePark,
+//      ]
+//    ),
     
     // MARK: - Tests
     .testTarget(
@@ -123,7 +123,7 @@ enum PackageModule {
   case editorCore
   case highlighter
   case markdown
-  case theme
+//  case theme
 
   var name: String {
     switch self {
@@ -131,7 +131,7 @@ enum PackageModule {
       case .editorCore: return "EditorCore"
       case .highlighter: return "HighlighterCommon"
       case .markdown: return "Markdown"
-      case .theme: return "ThemeCommon"
+//      case .theme: return "ThemeCommon"
     }
   }
 }

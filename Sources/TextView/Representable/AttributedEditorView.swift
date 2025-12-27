@@ -8,7 +8,6 @@
 import AppKit
 import CoreTools
 import HighlighterCommon
-import Sharing
 import SwiftUI
 
 public struct AttributedEditorView: NSViewRepresentable {

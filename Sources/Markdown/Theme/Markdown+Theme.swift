@@ -9,7 +9,6 @@ import AppKit
 import ColourKit
 import CoreTools
 import HighlighterCommon
-import ThemeCommon
 import EditorCore
 import ThemePark
 

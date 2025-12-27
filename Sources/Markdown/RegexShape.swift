@@ -61,7 +61,7 @@ extension RegexShape {
   /// `text` is the original main text being searched for matches
   public func range(
     for match: Regex<AnyRegexOutput>.Match,
-    fragment: RegexShape.Fragment,
+    fragment: Fragment,
   ) -> Range<String.Index>? {
     switch self {
       case .wrap:
@@ -103,7 +103,7 @@ extension RegexShape {
   /// `text` is the original main text being searched for matches
   public func nsRange(
     for match: Regex<AnyRegexOutput>.Match,
-    fragment: RegexShape.Fragment,
+    fragment: Fragment,
     in text: String,
 
   ) -> NSRange? {

@@ -37,12 +37,13 @@ public struct StyleToken: Sendable, Hashable {
   
   public init(
     foreground: CodableColour? = nil,
-    fontTraits: FontTraits? = nil,
+    fontTraits: NSFontDescriptor.SymbolicTraits = [],
+//    fontTraits: FontTraits? = nil,
     background: BackgroundStyle? = nil,
     decoration: TextDecoration? = nil
   ) {
     self.foreground = foreground
-    self.fontTraits = fontTraits
+    self.fontTraits = FontTraits(fontTraits)
     self.background = background
     self.decoration = decoration
   }

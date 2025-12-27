@@ -10,10 +10,14 @@ import CoreTools
 import EditorCore
 
 extension MarkdownHighlighter {
+  
+  var resolver: ThemeResolver {
+    ThemeResolver(theme: self.theme)
+  }
 
   @MainActor
   public func applyStyles(
-    runs: [HighlightRun],
+    runs: [SyntaxRun],
     textView: NSTextView,
     affectedRange: NSRange,
     font: NSFont,
@@ -25,6 +29,7 @@ extension MarkdownHighlighter {
     //    guard let textStorage = textView.textStorage else { return }
     //    let text = textStorage.string
     let text = textView.string
+    
 
     ts.beginEditing()
 
@@ -44,9 +49,9 @@ extension MarkdownHighlighter {
       let range = run.nsRange(in: text)?.intersection(affectedRange)
       guard let range else { continue }
 
-      var attrs = run.attributes
+      let resolved = resolver.resolveStyleToken(for: run)
+      var attrs = resolved.attributes
       
-
       let traits = attrs[.fontTraits]
       let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)
 
