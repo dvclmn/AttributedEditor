@@ -10,7 +10,8 @@ import SwiftUI
 import Testing
 
 @testable import EditorCore
-@testable import Markdown
+@testable import MarkdownHighlighter
+@testable import TextView
 
 @MainActor
 struct EditorTests {

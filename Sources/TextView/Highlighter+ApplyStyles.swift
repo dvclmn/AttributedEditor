@@ -11,12 +11,10 @@ import EditorCore
 import MarkdownHighlighter
 //import TextView
 
-extension AttributedEditorView.Coordinator {
-//extension MarkdownHighlighter {
+//extension AttributedEditorView.Coordinator {
+extension MarkdownHighlighter {
   
-  var resolver: ThemeResolver {
-    ThemeResolver(self.parent.highlighter.theme)
-  }
+//  var resolver: ThemeResolver { ThemeResolver(theme) }
 
   @MainActor
   public func applyStyles(
@@ -32,7 +30,7 @@ extension AttributedEditorView.Coordinator {
     //    guard let textStorage = textView.textStorage else { return }
     //    let text = textStorage.string
     let text = textView.string
-    
+    let resolver = ThemeResolver(theme)
 
     ts.beginEditing()
 

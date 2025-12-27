@@ -23,10 +23,10 @@ public struct AttributedEditorView: NSViewRepresentable {
 
   public init(
     text: Binding<String>,
-    highlighter: MarkdownHighlighter,
+//    highlighter: MarkdownHighlighter,
   ) {
     self._text = text
-    self.highlighter = highlighter
+    self.highlighter = MarkdownHighlighter()
   }
 }
 

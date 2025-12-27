@@ -22,28 +22,28 @@ public struct AttributedEditor: View {
 
   @Binding var text: String
 
-   let highlighter: MarkdownHighlighter
+//   let highlighter: MarkdownHighlighter
 //   let highlighter: any Highlighter
 
   public init(
     _ text: Binding<String>,
-    languageHint: LanguageHint
+//    languageHint: LanguageHint
   ) {
     self._text = text
 
-    switch languageHint {
+//    switch languageHint {
       /// Support for more to come
-      case .markdown:
-        self.highlighter = MarkdownHighlighter()
-      default:
-        print("Language '\(languageHint.rawValue)' not yet supported, defaulting to Markdown Highlighter for now")
-        self.highlighter = MarkdownHighlighter()
-    }
+//      case .markdown:
+//        self.highlighter = MarkdownHighlighter()
+//      default:
+//        print("Language '\(languageHint.rawValue)' not yet supported, defaulting to Markdown Highlighter for now")
+//        self.highlighter = MarkdownHighlighter()
+//    }
   }
 
   public var body: some View {
-    AttributedEditorView(
-      text: $text,
+//    Text("Hello")
+    AttributedEditorView(text: $text)
 //            font: finalFont,
 //      config: Editor.Configuration(
 ////        isEditable: isEditable,
@@ -53,9 +53,9 @@ public struct AttributedEditor: View {
 //        overScroll: overScroll,
 //        maxWidth: nil
 //      ),
-      highlighter: highlighter,
+//      highlighter: highlighter,
 
-    )
+//    )
 
     .onAppear {
 //      if isPreview {
@@ -77,7 +77,7 @@ public struct AttributedEditor: View {
 #if DEBUG
 #Preview {
   @Previewable @State var text: String = DummyContent.Strings.paragraphsWithCode[1]
-  AttributedEditor($text, languageHint: .markdown)
+  AttributedEditor($text)
     .frame(width: 600, height: 690)
 }
 #endif

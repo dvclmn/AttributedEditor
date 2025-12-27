@@ -22,7 +22,7 @@ extension AttributedEditorView.Coordinator {
         let runs = highlighter.buildStyles(in: text)
         let defaults = self.parent.defaultAttributes
 
-        self.applyStyles(
+        highlighter.applyStyles(
           runs: runs,
           textView: textView,
           affectedRange: affectedRange,
