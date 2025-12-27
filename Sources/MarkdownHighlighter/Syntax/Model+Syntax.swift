@@ -7,6 +7,7 @@
 
 import CoreTools
 import SwiftUI
+import HighlighterCommon
 
 public enum Markdown {}
 
@@ -85,3 +86,21 @@ extension Markdown.Syntax {
     }
   }
 }
+
+extension Markdown.Syntax {
+  var semanticKind: SemanticKind {
+    switch self {
+      case .body:
+        return .text
+      case .heading:
+        return .heading
+      case .bold:
+        return .strong
+      case .italic:
+        return .emphasis
+      case .codeInline, .codeBlock:
+        return .code
+    }
+  }
+}
+

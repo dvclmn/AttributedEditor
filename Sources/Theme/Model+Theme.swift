@@ -80,8 +80,10 @@ extension Markdown.Theme {
   /// being bit more opinionated, if fallback returned.
   /// (E.g. this decides that syntax is grey, etc)
   private func styleToken(
-    for syntaxID: Markdown.Syntax.ID,
-    styleRole: Markdown.StyleRole
+    semanticKind: SemanticKind,
+    role: StyleRole
+//    for syntaxID: Markdown.Syntax.ID,
+//    styleRole: Markdown.StyleRole
   ) -> StyleToken {
 
     /// Check specific definition
