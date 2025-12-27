@@ -11,7 +11,7 @@ import EditorCore
 
 struct ThemeResolver {
 
-  let theme: any Highlighter.Theme
+  let theme: any Theme
 
   func resolveStyleToken(for run: HighlightRun) -> ResolvedRun {
 //  func resolveStyleToken(for run: HighlightRun) -> StyleToken {

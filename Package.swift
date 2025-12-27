@@ -13,11 +13,11 @@ let package = Package(
       name: "AttributedEditor",
       targets: [
         "AttributedEditor",
-        "TextView",
         "EditorCore",
         "HighlighterCommon",
-        "ThemeCommon",
         "Markdown",  // Highlighter and Theme(?)
+        "TextView",
+        "ThemeCommon",
       ]
     )
   ],
@@ -42,15 +42,7 @@ let package = Package(
         .coreTools,
       ]
     ),
-    .target(
-      name: "TextView",
-      dependencies: [
-        .module(.highlighter),
-        .module(.theme),
-        .colourKit,
-        .coreTools,
-      ]
-    ),
+    
     .target(
       name: "EditorCore",
       dependencies: [
@@ -70,13 +62,24 @@ let package = Package(
       name: "Markdown",
       dependencies: [
         .module(.highlighter),
+        .module(.editorCore),
+        .module(.theme),
         .colourKit,
         .coreTools,
         //        .product(name: "NSUI", package: "nsui"),
       ]
     ),
     .target(
-      name: "Theme",
+      name: "TextView",
+      dependencies: [
+        .module(.highlighter),
+        .module(.theme),
+        .colourKit,
+        .coreTools,
+      ]
+    ),
+    .target(
+      name: "ThemeCommon",
       dependencies: [
         .module(.editorCore),
         .colourKit,
@@ -84,9 +87,15 @@ let package = Package(
         .themePark,
       ]
     ),
+    
+    // MARK: - Tests
     .testTarget(
       name: "EditorTests",
-      dependencies: [.module(.editorCore), .module(.highlighter), .module(.markdown)],
+      dependencies: [
+        .module(.editorCore),
+        .module(.highlighter),
+        .module(.markdown)
+      ],
       packageAccess: true,
     ),
 

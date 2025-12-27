@@ -21,11 +21,11 @@ public typealias StyleTokens = [StyleRole: StyleToken]
 ///   there such as weight and design.
 public struct StyleToken: Sendable, Hashable {
 
-  var foreground: CodableColour?
-  var fontTraits: FontTraits?
+  public var foreground: CodableColour?
+  public var fontTraits: FontTraits?
 
-  var background: BackgroundStyle?
-  var decoration: TextDecoration?
+  public var background: BackgroundStyle?
+  public var decoration: TextDecoration?
 
   //  init(
   //    colour: CodableColour,
@@ -44,13 +44,13 @@ extension StyleToken {
 }
 
 extension StyleToken {
-  enum BackgroundStyle: Hashable, Sendable {
+  public enum BackgroundStyle: Hashable, Sendable {
     case none
     case roundedRect(CodableColour, cornerRadius: CGFloat)
     case highlight(CodableColour)
   }
 
-  enum TextDecoration: Hashable, Sendable {
+  public enum TextDecoration: Hashable, Sendable {
     case underline
     case strikethrough
   }

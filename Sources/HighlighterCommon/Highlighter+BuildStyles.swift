@@ -6,20 +6,10 @@
 //
 
 import CoreTools
-import HighlighterCommon
+import EditorCore
 
-extension MarkdownHighlighter {
-  /// 📣 Important: This ordering matters:
-  /// 1: `italic`
-  /// 2: `bold`
-  /// 3: `boldItalic`
-  var activeSyntax: [Markdown.Syntax] {
-    [
-      .inlineCode,
-      .bold,
-      .italic,
-    ]
-  }
+extension Highlighter.Core {
+
 
   /// Looks for matches for Markdown syntax in the given text, and populates
   /// `AttributedRanges` with attributes based on the current Theme,

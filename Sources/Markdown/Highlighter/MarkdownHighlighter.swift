@@ -8,6 +8,7 @@
 import AppKit
 import CoreTools
 import HighlighterCommon
+import EditorCore
 
 public final class MarkdownHighlighter: Highlighter.Core {
 
@@ -17,18 +18,32 @@ public final class MarkdownHighlighter: Highlighter.Core {
   public init(theme: Markdown.Theme = .default) {
     self.theme = theme
   }
+  
+  /// 📣 Important: This ordering matters:
+  /// 1: `italic`
+  /// 2: `bold`
+  /// 3: `boldItalic`
+  public var declaredSyntax: [SemanticKind] {
+    let syntax: [Markdown.Syntax] = [
+      .inlineCode,
+      .bold,
+      .italic,
+    ]
+    
+    return syntax.compactMap(\.toSemanticKind)
+  }
 
   /// Build attributed ranges for applying in the Editor
-  public func buildStyles(in text: String) -> AttributedRanges {
-
-    var attrs: AttributedRanges = []
-
-    for syntax in activeSyntax {
-      processMatches(for: syntax, in: text, &attrs)
-    }
-
-    return attrs
-  }
+//  public func buildStyles(in text: String) -> AttributedRanges {
+//
+//    var attrs: AttributedRanges = []
+//
+//    for syntax in activeSyntax {
+//      processMatches(for: syntax, in: text, &attrs)
+//    }
+//
+//    return attrs
+//  }
 
 }
 extension MarkdownHighlighter {
