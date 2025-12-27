@@ -70,10 +70,11 @@ extension AttributedEditorView.Coordinator {
     // First, get a copy of the paragraph from the original text storage.
     let originalText = ts.attributedSubstring(from: range)
 
-    guard originalText.attribute(.codeBackground, at: 0, effectiveRange: nil) != nil else {
+    #warning("Will need to find another method for this codeBackground thing")
+//    guard originalText.attribute(.codeBackground, at: 0, effectiveRange: nil) != nil else {
 //      debugTCS(originalText: originalText, range: range)
-      return nil
-    }
+//      return nil
+//    }
 
     print("Found matches")
     let attrs: NSTextAttributes = [.backgroundColor: NSColor.systemMint.withAlphaComponent(0.3)]

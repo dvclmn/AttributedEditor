@@ -59,9 +59,10 @@ extension Markdown.Theme {
     attrs[.foregroundColor] = token.nsColour
     attrs[.fontTraits] = token.fontTraits
 
-    if token.hasBackground {
-      attrs[.codeBackground] = Self.basicCodeBackground
-    }
+    #warning("Theme approach is WIP")
+//    if token.hasBackground {
+//      attrs[.codeBackground] = Self.basicCodeBackground
+//    }
 
     //    if styleRole == .background {
     //    } else {
@@ -78,7 +79,7 @@ extension Markdown.Theme {
   /// or return nil. Main difference is this method ends up
   /// being bit more opinionated, if fallback returned.
   /// (E.g. this decides that syntax is grey, etc)
-  private func style(
+  private func styleToken(
     for syntaxID: Markdown.Syntax.ID,
     styleRole: Markdown.StyleRole
   ) -> StyleToken {

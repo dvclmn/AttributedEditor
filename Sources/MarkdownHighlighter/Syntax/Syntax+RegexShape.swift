@@ -9,7 +9,7 @@ import HighlighterCommon
 
 extension RegexShape.Fragment {
 
-  var styleRole: Markdown.StyleRole {
+  var styleRole: StyleRole {
     switch self {
       case .content, .single: .content
       case .syntaxStart, .syntaxEnd: .syntax

@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import HighlighterCommon
 
 extension Highlighter {
   /// - Theme does not parse Markdown

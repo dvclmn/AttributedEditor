@@ -41,13 +41,15 @@ extension StyleToken {
   var nsColour: NSColor? { foreground?.nsColor }
 }
 
-enum BackgroundStyle: Hashable, Sendable {
-  case none
-  case roundedRect(CodableColour, cornerRadius: CGFloat)
-  case highlight(CodableColour)
-}
+extension StyleToken {
+  enum BackgroundStyle: Hashable, Sendable {
+    case none
+    case roundedRect(CodableColour, cornerRadius: CGFloat)
+    case highlight(CodableColour)
+  }
 
-enum TextDecoration: Hashable, Sendable {
-  case underline
-  case strikethrough
+  enum TextDecoration: Hashable, Sendable {
+    case underline
+    case strikethrough
+  }
 }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import 
+import HighlighterCommon
 
 struct ThemeResolver {
   
@@ -33,5 +33,5 @@ struct ThemeResolver {
 struct ResolvedRun {
   let range: Range<String.Index>
   let attributes: TextAttributes
-  let background: BackgroundStyle?
+  let background: StyleToken.BackgroundStyle?
 }
