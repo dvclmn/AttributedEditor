@@ -9,15 +9,14 @@ import AppKit
 import ColourKit
 import CoreTools
 import HighlighterCommon
+import ThemeCommon
 import ThemePark
 
-extension Markdown {
-  public struct Theme: Highlighter.Theme, @unchecked Sendable {
-    var styleDefinitions: [AnyHashable: StyleTokens] = [:]
-  }
+public struct MarkdownTheme: Theme, @unchecked Sendable {
+  var styleDefinitions: [AnyHashable: StyleTokens] = [:]
 }
 
-extension Markdown.Theme {
+extension MarkdownTheme {
 
   func backgroundStyle(
     for syntax: Markdown.Syntax,

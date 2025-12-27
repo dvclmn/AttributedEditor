@@ -15,6 +15,7 @@ import EditorCore
 /// - Theme does not know about AST shape
 /// - Theme *does* know how to style roles for a given syntax
 public protocol Theme {
+  typealias StyleTokens = [StyleRole: StyleToken]
 
   var styleDefinitions: [AnyHashable: StyleTokens] { get set }
 
@@ -58,7 +59,7 @@ extension Theme {
     //    let token = style(for: syntaxID, styleRole: styleRole)
     var attrs = TextAttributes()
     //
-    attrs[.foregroundColor] = token.nsColour
+    attrs[.foregroundColor] = token.foreground?.nsColor
     attrs[.fontTraits] = token.fontTraits
     //
     //#warning("Theme approach is WIP")
@@ -81,12 +82,12 @@ extension Theme {
   /// or return nil. Main difference is this method ends up
   /// being bit more opinionated, if fallback returned.
   /// (E.g. this decides that syntax is grey, etc)
-  private func styleToken(
-    semanticKind: SemanticKind,
+  public func styleToken(
+    kind: SemanticKind,
     role: StyleRole
       //    for syntaxID: Markdown.Syntax.ID,
       //    styleRole: Markdown.StyleRole
-  ) -> StyleToken {
+  ) -> StyleToken? {
 
     /// Check specific definition
     if let specific = styleDefinitions[syntaxID]?[styleRole] {
@@ -103,4 +104,5 @@ extension Theme {
       case .background: .default
     }
   }
+
 }

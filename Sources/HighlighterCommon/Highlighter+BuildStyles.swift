@@ -10,7 +10,6 @@ import EditorCore
 
 extension Highlighter.Core {
 
-
   /// Looks for matches for Markdown syntax in the given text, and populates
   /// `AttributedRanges` with attributes based on the current Theme,
   /// and ranges based on the Regex matches.
@@ -38,7 +37,7 @@ extension Highlighter.Core {
     }
 
     for match in matches {
-      
+
       data.processMatch(match, for: syntax, theme: theme, attrs: &attributes)
     }
   }

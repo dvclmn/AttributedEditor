@@ -15,7 +15,7 @@ import EditorCore
 /// https://github.com/swiftlang/swift-markdown
 /// Also:
 /// https://developer.apple.com/documentation/foundation/attributedstring/markdownsourceposition
-extension Highlighter.Theme {
+//extension Highlighter.Theme {
 
   //  struct StyleBuilder {
   //    /// These correspond directly to ``Markdown/StyleRole``
@@ -25,15 +25,15 @@ extension Highlighter.Theme {
   //    var background: Bool = false
   ////    var background: StyleToken?
   //  }
-}
+//}
 
-struct RoleStyle {
+struct RoleStyles {
   var content: StyleToken?
   var syntax: StyleToken?
   var metadata: StyleToken?
 }
 
-extension RoleStyle {
+extension RoleStyles {
 
   /// The `url`, `languageHint`, `icon` accessors are nice,
   /// but they belong either:

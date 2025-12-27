@@ -7,13 +7,12 @@
 
 import CoreTools
 import Foundation
-import HighlighterCommon
 
 struct SyntaxData {
   let syntaxID: Markdown.Syntax.ID
   let pattern: Regex<AnyRegexOutput>
   let shape: RegexShape
-  let fragments: [RegexShape.Fragment]
+  let fragments: [Fragment]
 }
 extension SyntaxData {
 
@@ -111,7 +110,7 @@ extension SyntaxData {
   }
 
   private func range(
-    for fragment: RegexShape.Fragment,
+    for fragment: Fragment,
     in match: Regex<AnyRegexOutput>.Match
   ) -> Range<String.Index>? {
     shape.range(for: match, fragment: fragment)
@@ -121,7 +120,7 @@ extension SyntaxData {
 extension HighlightRun {
   init(
     syntaxID: Markdown.Syntax.ID,
-    fragment: RegexShape.Fragment,
+    fragment: Fragment,
     range: Range<String.Index>,
     theme: Markdown.Theme,
 //    desc: String?

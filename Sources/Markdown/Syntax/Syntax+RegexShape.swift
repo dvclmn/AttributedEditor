@@ -8,7 +8,7 @@
 import HighlighterCommon
 import EditorCore
 
-extension RegexShape.Fragment {
+extension Fragment {
 
   var styleRole: StyleRole {
     switch self {
@@ -36,7 +36,7 @@ extension RegexShape.Fragment {
 
 extension Markdown.Syntax {
 
-  var fragments: [RegexShape.Fragment]? {
+  var fragments: [Fragment]? {
 
     switch self {
 
