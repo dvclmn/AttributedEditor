@@ -14,9 +14,9 @@ let package = Package(
       targets: [
         "AttributedEditor",
         "EditorCore",
-        //        "HighlighterCommon",
+        "HighlighterCommon",
         "MarkdownHighlighter",  // Highlighter and Theme(?)
-//        "TextView",
+        //        "TextView",
         //        "ThemeCommon",
       ]
     )
@@ -37,7 +37,7 @@ let package = Package(
       dependencies: [
         .module(.editorCore),
         .module(.markdown),
-//        .module(.textView),
+        //        .module(.textView),
         .coreTools,
       ]
     ),
@@ -45,39 +45,43 @@ let package = Package(
     .target(
       name: "EditorCore",
       dependencies: [
+        .module(.common),
+        .module(.markdown),
         .colourKit,
         .coreTools,
       ]
     ),
-    //    .target(
-    //      name: "HighlighterCommon",
-    //      dependencies: [
-    //        .module(.editorCore),
-    //        .coreTools,
-    //        .themePark,
-    //      ]
-    //    ),
+    .target(
+      name: "HighlighterCommon",
+      dependencies: [
+        //        .module(.editorCore),
+        .coreTools,
+        .colourKit,
+//        .themRePark,
+      ]
+    ),
     .target(
       name: "MarkdownHighlighter",
       dependencies: [
+        .module(.common),
         //        .module(.highlighter),
-        .module(.editorCore),
+        //        .module(.editorCore),
         //        .module(.theme),
         .colourKit,
         .coreTools,
         //        .product(name: "NSUI", package: "nsui"),
       ]
     ),
-//    .target(
-//      name: "TextView",
-//      dependencies: [
-//        .module(.markdown),
-//        //        .module(.highlighter),
-//        //        .module(.theme),
-//        .colourKit,
-//        .coreTools,
-//      ]
-//    ),
+    //    .target(
+    //      name: "TextView",
+    //      dependencies: [
+    //        .module(.markdown),
+    //        //        .module(.highlighter),
+    //        //        .module(.theme),
+    //        .colourKit,
+    //        .coreTools,
+    //      ]
+    //    ),
     //    .target(
     //      name: "ThemeCommon",
     //      dependencies: [
@@ -94,10 +98,10 @@ let package = Package(
       dependencies: [
         .module(.editorCore),
         .module(.markdown),
+        .module(.common),
       ],
       packageAccess: true,
     ),
-
   ]
 )
 
@@ -120,18 +124,18 @@ extension Target.Dependency {
 enum PackageModule {
   case attributedEditor
   case editorCore
-  //  case highlighter
+  case common
   case markdown
-//  case textView
+  //  case textView
   //  case theme
 
   var name: String {
     switch self {
       case .attributedEditor: return "AttributedEditor"
       case .editorCore: return "EditorCore"
-      //      case .highlighter: return "HighlighterCommon"
+      case .common: return "HighlighterCommon"
       case .markdown: return "MarkdownHighlighter"
-//      case .textView: return "TextView"
+    //      case .textView: return "TextView"
     //      case .theme: return "ThemeCommon"
     }
   }

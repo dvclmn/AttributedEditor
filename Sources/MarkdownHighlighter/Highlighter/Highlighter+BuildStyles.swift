@@ -6,7 +6,8 @@
 //
 
 import CoreTools
-import EditorCore
+//import EditorCore
+
 
 extension MarkdownHighlighter {
 

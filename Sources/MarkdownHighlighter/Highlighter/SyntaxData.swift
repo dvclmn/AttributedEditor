@@ -10,7 +10,6 @@ import Foundation
 
 struct SyntaxData {
   let syntax: Markdown.Syntax
-  //  let syntaxID: Markdown.Syntax.ID
   let pattern: Regex<AnyRegexOutput>
   let shape: RegexShape
   let fragments: [Fragment]
@@ -39,7 +38,6 @@ extension SyntaxData {
 
     self.init(
       syntax: syntax,
-      //      syntaxID: syntax.id,
       pattern: pattern,
       shape: shape,
       fragments: fragments
@@ -66,7 +64,12 @@ extension SyntaxData {
 
       /// If a run with this range is not already present, add a new one
 
-      let run = SyntaxRun(syntax: syntax, fragment: fragment, range: range)
+      let run = SyntaxRun(
+        syntax: syntax,
+        fragment: fragment,
+        range: range,
+        theme: theme
+      )
       //      let attrRun = HighlightRun(
       //        syntaxID: syntaxID,
       //        fragment: fragment,
@@ -128,13 +131,20 @@ extension SyntaxRun {
     //    syntaxID: Markdown.Syntax.ID,
     fragment: Fragment,
     range: Range<String.Index>,
-    //    theme: MarkdownTheme,
+        theme: MarkdownTheme,
     //    desc: String?
   ) {
-    let metadata = "\(syntax), Fragment: \(fragment.rawValue)"
+//    let metadata = "\(syntax), Fragment: \(fragment.rawValue)"
     let role = fragment.styleRole
-    self.init(syntax: syntax, role: role, range: range)
-    //    let textAttrs = theme.textAttributes(for: syntaxID, role: role)
+    let token = theme.styleToken(syntax: syntax, role: role)
+//    ?? theme.defaultToken(for: role)
+    let textAttrs = theme.textAttributes(for: token)
+    self.init(
+      syntax: syntax,
+      role: role,
+      range: range,
+      attributes: textAttrs
+    )
     //    self.init(metadata: metadata, range: range, attributes: textAttrs)
     //    self.init(desc, range: range, attributes: textAttrs)
   }

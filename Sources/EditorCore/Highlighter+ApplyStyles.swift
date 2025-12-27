@@ -7,7 +7,7 @@
 
 import AppKit
 import CoreTools
-import EditorCore
+//import EditorCore
 import MarkdownHighlighter
 //import TextView
 
@@ -30,7 +30,7 @@ extension MarkdownHighlighter {
     //    guard let textStorage = textView.textStorage else { return }
     //    let text = textStorage.string
     let text = textView.string
-    let resolver = ThemeResolver(theme)
+//    let resolver = ThemeResolver(theme)
 
     ts.beginEditing()
 
@@ -50,8 +50,8 @@ extension MarkdownHighlighter {
       let range = run.nsRange(in: text)?.intersection(affectedRange)
       guard let range else { continue }
 
-      let resolved = resolver.resolveStyleToken(for: run)
-      var attrs = resolved.attributes
+//      let resolved = resolver.resolveStyleToken(for: run)
+      var attrs = run.attributes
       
       let traits = attrs[.fontTraits]
       let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)

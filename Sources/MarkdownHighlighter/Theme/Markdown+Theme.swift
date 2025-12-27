@@ -8,7 +8,8 @@
 import AppKit
 import ColourKit
 import CoreTools
-import EditorCore
+import HighlighterCommon
+//import EditorCore
 
 //import ThemePark
 
@@ -93,14 +94,14 @@ extension MarkdownTheme {
     role: StyleRole
       //    for syntaxID: Markdown.Syntax.ID,
       //    styleRole: Markdown.StyleRole
-  ) -> StyleToken? {
+  ) -> StyleToken {
 
     /// Check specific definition
-    //    if let specific = styleDefinitions[syntax]?[role] {
-    //      return specific
-    //    }
-    styleDefinitions[syntax]?[role]
-    //    return defaultToken(for: role)
+        if let specific = styleDefinitions[syntax]?[role] {
+          return specific
+        }
+//    styleDefinitions[syntax]?[role]
+        return defaultToken(for: role)
   }
 
   func defaultToken(for role: StyleRole) -> StyleToken {

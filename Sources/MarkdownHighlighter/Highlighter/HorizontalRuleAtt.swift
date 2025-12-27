@@ -7,8 +7,6 @@
 
 import AppKit
 
-import AppKit
-
 /// NSTextAttachmentCell that draws a horizontal rule
 class HorizontalRuleAttachmentCell: NSTextAttachmentCell {
   

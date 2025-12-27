@@ -7,12 +7,12 @@
 
 import AppKit
 import CoreTools
-import EditorCore
+//import EditorCore
 
 //public typealias MarkdownRun = SyntaxRun<Markdown.Syntax>
 public typealias MarkdownRuns = [SyntaxRun]
 
-public final class MarkdownHighlighter: Highlighter {
+public final class MarkdownHighlighter {
   //  public typealias Syntax = Markdown.Syntax
 
   private let isDrawingBlocks: Bool = false

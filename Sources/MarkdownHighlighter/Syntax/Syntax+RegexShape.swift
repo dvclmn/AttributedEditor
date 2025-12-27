@@ -5,8 +5,8 @@
 //  Created by Dave Coleman on 19/11/2025.
 //
 
-import EditorCore
-
+//import EditorCore
+import HighlighterCommon
 
 extension Fragment {
 
@@ -17,22 +17,7 @@ extension Fragment {
       case .languageHint, .url, .prefix: .metadata
     }
   }
-
 }
-
-//extension Markdown {
-//  public typealias Components = [Syntax: [Fragment]?]
-//  public struct Component {
-//    let syntax: Syntax
-//    let fragments: [Fragment]
-//
-//    public init(_ syntax: Syntax, fragments: [Fragment]) {
-//      self.syntax = syntax
-//      self.fragments = fragments
-//    }
-//  }
-//
-//}
 
 extension Markdown.Syntax {
 
@@ -72,10 +57,6 @@ extension Markdown.Syntax {
 }
 
 extension Markdown.Syntax {
-
-  //  public var shapes: [RegexShape: [Fragment]]? {
-  //
-  //  }
 
   var regexShape: RegexShape? {
     switch self {

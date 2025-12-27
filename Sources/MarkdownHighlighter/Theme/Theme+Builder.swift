@@ -8,8 +8,9 @@
 import AppKit
 import ColourKit
 import CoreTools
+import HighlighterCommon
 //import ThemePark
-import EditorCore
+//import EditorCore
 
 /// Surely just use this?
 /// https://github.com/swiftlang/swift-markdown

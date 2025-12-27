@@ -7,7 +7,7 @@
 
 import AppKit
 import CoreTools
-
+import HighlighterCommon
 
 //import ThemePark
 
@@ -28,7 +28,8 @@ public struct SyntaxRun {
   //  public let syntax: Markdown.Syntax
   public let role: StyleRole
   public let range: Range<String.Index>
-
+  public var attributes: TextAttributes
+  
   /// Optional extra meaning, not styling
   //  public let fragment: Fragment?
 
@@ -41,7 +42,7 @@ public struct SyntaxRun {
 
   //  public let metadata: String?
   //  public let range: Range<String.Index>
-  //  public var attributes: TextAttributes
+    
   //  public var attributes: NSTextAttributes
 
   //  public init(

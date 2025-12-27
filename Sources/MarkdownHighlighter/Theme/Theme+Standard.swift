@@ -5,7 +5,8 @@
 //  Created by Dave Coleman on 20/11/2025.
 //
 
-import EditorCore
+import HighlighterCommon
+//import EditorCore
 
 extension MarkdownTheme {
 
