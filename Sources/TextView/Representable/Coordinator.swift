@@ -6,7 +6,7 @@
 //
 
 import CoreTools
-import HighlighterCommon
+
 import SwiftUI
 
 extension AttributedEditorView {

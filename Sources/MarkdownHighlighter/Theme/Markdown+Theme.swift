@@ -8,7 +8,7 @@
 import AppKit
 import ColourKit
 import CoreTools
-import HighlighterCommon
+
 import EditorCore
 import ThemePark
 

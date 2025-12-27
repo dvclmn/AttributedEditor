@@ -8,7 +8,7 @@
 import CoreTools
 import EditorCore
 import Foundation
-import HighlighterCommon
+
 
 package struct ThemeResolver {
 

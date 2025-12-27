@@ -6,7 +6,7 @@
 //
 
 import AppKit
-import HighlighterCommon
+
 
 public protocol Highlightable: NSTextView {
   /// Does this need to be updatable? Mutable?

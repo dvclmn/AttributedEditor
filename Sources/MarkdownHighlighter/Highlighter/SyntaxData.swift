@@ -7,7 +7,7 @@
 
 import CoreTools
 import Foundation
-import HighlighterCommon
+
 
 struct SyntaxData {
   let syntax: Markdown.Syntax

@@ -7,7 +7,7 @@
 
 import CoreTools
 import EditorCore
-import HighlighterCommon
+
 import TextView
 import Markdown
 import SwiftUI

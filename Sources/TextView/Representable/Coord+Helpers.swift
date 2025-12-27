@@ -6,7 +6,7 @@
 //
 
 import AppKit
-import HighlighterCommon
+
 
 extension AttributedEditorView.Coordinator {
 

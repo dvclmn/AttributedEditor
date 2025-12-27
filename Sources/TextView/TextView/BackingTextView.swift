@@ -6,7 +6,7 @@
 //
 
 import AppKit
-import HighlighterCommon
+
 
 class BackingTextView: NSTextView, Highlightable {
   var highlighter: (any Highlighter)? = nil

@@ -7,7 +7,7 @@
 
 import CoreTools
 import SwiftUI
-import HighlighterCommon
+
 
 public enum Markdown {}
 

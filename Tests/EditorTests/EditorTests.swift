@@ -10,7 +10,6 @@ import SwiftUI
 import Testing
 
 @testable import EditorCore
-@testable import HighlighterCommon
 @testable import Markdown
 
 @MainActor

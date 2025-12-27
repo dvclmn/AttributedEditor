@@ -7,7 +7,7 @@
 
 import AppKit
 import CoreTools
-import HighlighterCommon
+
 import SwiftUI
 
 public struct AttributedEditorView: NSViewRepresentable {

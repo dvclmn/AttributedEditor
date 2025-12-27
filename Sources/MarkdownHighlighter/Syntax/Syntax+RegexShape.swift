@@ -6,7 +6,7 @@
 //
 
 import EditorCore
-import HighlighterCommon
+
 
 extension Fragment {
 

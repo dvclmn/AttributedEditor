@@ -14,8 +14,8 @@ let package = Package(
       targets: [
         "AttributedEditor",
         "EditorCore",
-        "HighlighterCommon",
-        "Markdown",  // Highlighter and Theme(?)
+//        "HighlighterCommon",
+        "MarkdownHighlighter",  // Highlighter and Theme(?)
         "TextView",
 //        "ThemeCommon",
       ]
@@ -35,7 +35,6 @@ let package = Package(
     .target(
       name: "AttributedEditor",
       dependencies: [
-        .module(.highlighter),
         .module(.editorCore),
         .module(.markdown),
         .module(.textView),
@@ -50,18 +49,18 @@ let package = Package(
         .coreTools,
       ]
     ),
+//    .target(
+//      name: "HighlighterCommon",
+//      dependencies: [
+//        .module(.editorCore),
+//        .coreTools,
+//        .themePark,
+//      ]
+//    ),
     .target(
-      name: "HighlighterCommon",
+      name: "MarkdownHighlighter",
       dependencies: [
-        .module(.editorCore),
-        .coreTools,
-        .themePark,
-      ]
-    ),
-    .target(
-      name: "Markdown",
-      dependencies: [
-        .module(.highlighter),
+//        .module(.highlighter),
         .module(.editorCore),
 //        .module(.theme),
         .colourKit,
@@ -72,7 +71,8 @@ let package = Package(
     .target(
       name: "TextView",
       dependencies: [
-        .module(.highlighter),
+        .module(.markdown),
+//        .module(.highlighter),
 //        .module(.theme),
         .colourKit,
         .coreTools,
@@ -93,7 +93,6 @@ let package = Package(
       name: "EditorTests",
       dependencies: [
         .module(.editorCore),
-        .module(.highlighter),
         .module(.markdown)
       ],
       packageAccess: true,
@@ -121,7 +120,7 @@ extension Target.Dependency {
 enum PackageModule {
   case attributedEditor
   case editorCore
-  case highlighter
+//  case highlighter
   case markdown
   case textView
 //  case theme
@@ -130,8 +129,8 @@ enum PackageModule {
     switch self {
       case .attributedEditor: return "AttributedEditor"
       case .editorCore: return "EditorCore"
-      case .highlighter: return "HighlighterCommon"
-      case .markdown: return "Markdown"
+//      case .highlighter: return "HighlighterCommon"
+      case .markdown: return "MarkdownHighlighter"
       case .textView: return "TextView"
 //      case .theme: return "ThemeCommon"
     }
