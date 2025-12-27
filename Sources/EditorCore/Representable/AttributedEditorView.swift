@@ -35,25 +35,25 @@ extension AttributedEditorView {
   public func makeNSView(context: Context) -> NSScrollView {
     /// Create the scroll view container
     let scrollView = NSScrollView()
-    setUpScrollView(scrollView)
-
-    /// Create and configure the text view
-    let textView = BackingTextView()
-//    textView.updateHighlighter(with: highlighter)
-    textView.textContentStorage?.delegate = context.coordinator
-    textView.delegate = context.coordinator
-    context.coordinator.textView = textView
-    textView.setUpTextView()
-    configureTextDefaults(
-      textView,
-      scrollWidth: scrollView.contentSize.width,
-      context: context
-    )
-    context.coordinator.logTextKitMode(reason: "makeNSView")
-
-    scrollView.documentView = textView
-
-    handleLineNumbersIfNeeded(for: scrollView, textView: textView)
+//    setUpScrollView(scrollView)
+//
+//    /// Create and configure the text view
+//    let textView = BackingTextView()
+////    textView.updateHighlighter(with: highlighter)
+//    textView.textContentStorage?.delegate = context.coordinator
+//    textView.delegate = context.coordinator
+//    context.coordinator.textView = textView
+//    textView.setUpTextView()
+//    configureTextDefaults(
+//      textView,
+//      scrollWidth: scrollView.contentSize.width,
+//      context: context
+//    )
+//    context.coordinator.logTextKitMode(reason: "makeNSView")
+//
+//    scrollView.documentView = textView
+//
+//    handleLineNumbersIfNeeded(for: scrollView, textView: textView)
 
     return scrollView
   }
@@ -61,14 +61,14 @@ extension AttributedEditorView {
   // MARK: - SwiftUI Updated
   /// This is for communicating changes from SwiftUI back to AppKit
   public func updateNSView(_ scrollView: NSScrollView, context: Context) {
-    guard let textView = scrollView.documentView as? Highlightable else { return }
-
-    if textView.string != text {
-      let selectedRange = textView.selectedRange()
-      textView.string = text
-      textView.setSelectedRange(selectedRange)
-      context.coordinator.updateTextView()
-    }
+//    guard let textView = scrollView.documentView as? Highlightable else { return }
+//
+//    if textView.string != text {
+//      let selectedRange = textView.selectedRange()
+//      textView.string = text
+//      textView.setSelectedRange(selectedRange)
+//      context.coordinator.updateTextView()
+//    }
   }
 
   public func makeCoordinator() -> Coordinator {

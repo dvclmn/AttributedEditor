@@ -8,8 +8,8 @@
 import AppKit
 import ColourKit
 import CoreTools
-
 import EditorCore
+
 //import ThemePark
 
 public typealias StyleTokens = [StyleRole: StyleToken]
@@ -22,7 +22,6 @@ extension MarkdownTheme {
 
   func backgroundStyle(
     for syntax: Markdown.Syntax,
-    //    for syntaxID: Markdown.Syntax.ID,
     role: StyleRole
   ) -> StyleToken.BackgroundStyle? {
     switch syntax {
@@ -41,15 +40,14 @@ extension MarkdownTheme {
 
 }
 
-
 extension MarkdownTheme {
   //  public var font: NSFont { NSFont.systemFont(ofSize: 14) }
   public var textColour: NSColor { .textColor }
-  
+
   //  public mutating func updateFont(with newFont: NSFont) {
   //    self.font = newFont
   //  }
-  
+
   /// Extracts font/colour data from theme tokens,
   /// and populates attributes for this syntax part
   ///
@@ -60,10 +58,10 @@ extension MarkdownTheme {
   /// part/fragment, at once.
   func textAttributes(
     for token: StyleToken
-    //    for syntaxID: Markdown.Syntax.ID,
-    //    role styleRole: StyleRole,
+      //    for syntaxID: Markdown.Syntax.ID,
+      //    role styleRole: StyleRole,
   ) -> TextAttributes {
-    
+
     //    let token = style(for: syntaxID, styleRole: styleRole)
     var attrs = TextAttributes()
     //
@@ -74,13 +72,13 @@ extension MarkdownTheme {
     //    if token.hasBackground {
     //      attrs[.codeBackground] = Self.basicCodeBackground
     //    }
-    
+
     //    if styleRole == .background {
     //    } else {
     //    }
     return attrs
   }
-  
+
   /// This simply provides a neater API, to read into the
   /// contents of the `styleDefinitions` property
   ///
@@ -93,25 +91,25 @@ extension MarkdownTheme {
   public func styleToken(
     syntax: Markdown.Syntax,
     role: StyleRole
-    //    for syntaxID: Markdown.Syntax.ID,
-    //    styleRole: Markdown.StyleRole
+      //    for syntaxID: Markdown.Syntax.ID,
+      //    styleRole: Markdown.StyleRole
   ) -> StyleToken? {
-    
+
     /// Check specific definition
-//    if let specific = styleDefinitions[syntax]?[role] {
-//      return specific
-//    }
+    //    if let specific = styleDefinitions[syntax]?[role] {
+    //      return specific
+    //    }
     styleDefinitions[syntax]?[role]
-//    return defaultToken(for: role)
+    //    return defaultToken(for: role)
   }
-  
+
   func defaultToken(for role: StyleRole) -> StyleToken {
     switch role {
       case .content: StyleToken(foreground: .primary)
       case .syntax: StyleToken(foreground: .tertiary)
       case .metadata: StyleToken(foreground: .secondary)
-//      case .background: .default
+    //      case .background: .default
     }
   }
-  
+
 }

@@ -9,7 +9,6 @@ import AppKit
 import CoreTools
 import EditorCore
 
-
 //public typealias MarkdownRun = SyntaxRun<Markdown.Syntax>
 public typealias MarkdownRuns = [SyntaxRun]
 

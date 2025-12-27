@@ -14,10 +14,10 @@ let package = Package(
       targets: [
         "AttributedEditor",
         "EditorCore",
-//        "HighlighterCommon",
+        //        "HighlighterCommon",
         "MarkdownHighlighter",  // Highlighter and Theme(?)
-        "TextView",
-//        "ThemeCommon",
+//        "TextView",
+        //        "ThemeCommon",
       ]
     )
   ],
@@ -27,7 +27,7 @@ let package = Package(
     //    .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
     //    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
     //    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
-    .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
+    //    .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
 
   ],
@@ -37,11 +37,11 @@ let package = Package(
       dependencies: [
         .module(.editorCore),
         .module(.markdown),
-        .module(.textView),
+//        .module(.textView),
         .coreTools,
       ]
     ),
-    
+
     .target(
       name: "EditorCore",
       dependencies: [
@@ -49,51 +49,51 @@ let package = Package(
         .coreTools,
       ]
     ),
-//    .target(
-//      name: "HighlighterCommon",
-//      dependencies: [
-//        .module(.editorCore),
-//        .coreTools,
-//        .themePark,
-//      ]
-//    ),
+    //    .target(
+    //      name: "HighlighterCommon",
+    //      dependencies: [
+    //        .module(.editorCore),
+    //        .coreTools,
+    //        .themePark,
+    //      ]
+    //    ),
     .target(
       name: "MarkdownHighlighter",
       dependencies: [
-//        .module(.highlighter),
+        //        .module(.highlighter),
         .module(.editorCore),
-//        .module(.theme),
+        //        .module(.theme),
         .colourKit,
         .coreTools,
         //        .product(name: "NSUI", package: "nsui"),
       ]
     ),
-    .target(
-      name: "TextView",
-      dependencies: [
-        .module(.markdown),
-//        .module(.highlighter),
-//        .module(.theme),
-        .colourKit,
-        .coreTools,
-      ]
-    ),
 //    .target(
-//      name: "ThemeCommon",
+//      name: "TextView",
 //      dependencies: [
-//        .module(.editorCore),
+//        .module(.markdown),
+//        //        .module(.highlighter),
+//        //        .module(.theme),
 //        .colourKit,
 //        .coreTools,
-//        .themePark,
 //      ]
 //    ),
-    
+    //    .target(
+    //      name: "ThemeCommon",
+    //      dependencies: [
+    //        .module(.editorCore),
+    //        .colourKit,
+    //        .coreTools,
+    //        .themePark,
+    //      ]
+    //    ),
+
     // MARK: - Tests
     .testTarget(
       name: "EditorTests",
       dependencies: [
         .module(.editorCore),
-        .module(.markdown)
+        .module(.markdown),
       ],
       packageAccess: true,
     ),
@@ -120,19 +120,19 @@ extension Target.Dependency {
 enum PackageModule {
   case attributedEditor
   case editorCore
-//  case highlighter
+  //  case highlighter
   case markdown
-  case textView
-//  case theme
+//  case textView
+  //  case theme
 
   var name: String {
     switch self {
       case .attributedEditor: return "AttributedEditor"
       case .editorCore: return "EditorCore"
-//      case .highlighter: return "HighlighterCommon"
+      //      case .highlighter: return "HighlighterCommon"
       case .markdown: return "MarkdownHighlighter"
-      case .textView: return "TextView"
-//      case .theme: return "ThemeCommon"
+//      case .textView: return "TextView"
+    //      case .theme: return "ThemeCommon"
     }
   }
 }
