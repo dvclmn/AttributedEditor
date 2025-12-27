@@ -17,7 +17,7 @@ import CoreTools
 /// - I shouldn't be dealing in NSFont here, should only be describing
 ///   traits/attributes, things that change factors of what's already
 ///   there such as weight and design.
-struct StyleToken: Sendable, Hashable {
+public struct StyleToken: Sendable, Hashable {
 
   var foreground: CodableColour?
   var fontTraits: FontTraits?
