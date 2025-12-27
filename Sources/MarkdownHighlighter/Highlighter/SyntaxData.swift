@@ -63,7 +63,7 @@ extension SyntaxData {
       guard !runAlreadyExists else { continue }
       
       /// If a run with this range is not already present, add a new one
-      let attrRun = AttributedRun(
+      let attrRun = HighlightRun(
         syntaxID: syntaxID,
         fragment: fragment,
         range: range,
@@ -118,7 +118,7 @@ extension SyntaxData {
   }
 }
 
-extension AttributedRun {
+extension HighlightRun {
   init(
     syntaxID: Markdown.Syntax.ID,
     fragment: RegexShape.Fragment,

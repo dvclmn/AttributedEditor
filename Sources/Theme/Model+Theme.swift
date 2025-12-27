@@ -11,7 +11,7 @@ import CoreTools
 import HighlighterCommon
 import ThemePark
 
-typealias StyleTokens = [Markdown.StyleRole: StyleToken]
+typealias StyleTokens = [StyleRole: StyleToken]
 
 extension Markdown {
   public struct Theme: Highlighter.Theme, @unchecked Sendable {
@@ -22,15 +22,16 @@ extension Markdown {
 extension Markdown.Theme {
   
   func backgroundStyle(
-    for syntaxID: Markdown.Syntax.ID,
+    for syntax: Markdown.Syntax,
+//    for syntaxID: Markdown.Syntax.ID,
     role: StyleRole
   ) -> BackgroundStyle? {
-    switch syntaxID {
+    switch syntax {
       case .inlineCode:
-        return .roundedRect(.codeBackground, cornerRadius: 4)
+        return .roundedRect(.pink, cornerRadius: 3)
         
       case .codeBlock where role == .content:
-        return .blockBackground(.codeBackground)
+        return .roundedRect(.indigo, cornerRadius: 3)
         
       default:
         return nil
@@ -49,7 +50,7 @@ extension Markdown.Theme {
   /// part/fragment, at once.
   func textAttributes(
     for syntaxID: Markdown.Syntax.ID,
-    role styleRole: Markdown.StyleRole,
+    role styleRole: StyleRole,
   ) -> TextAttributes {
 
     let token = style(for: syntaxID, styleRole: styleRole)

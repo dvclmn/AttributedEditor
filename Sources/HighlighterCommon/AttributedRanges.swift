@@ -9,7 +9,7 @@ import AppKit
 import CoreTools
 import ThemePark
 
-public typealias AttributedRanges = [AttributedRun]
+public typealias AttributedRanges = [HighlightRun]
 public typealias BlockRanges = [Range<String.Index>]
 public typealias NSBlockRanges = [NSRange]
 
@@ -20,7 +20,7 @@ public typealias NSBlockRanges = [NSRange]
 /// No TextAttributes
 /// Just pure meaning
 /// This is the output of the Highlighter.
-public struct AttributedRun: Identifiable {
+public struct HighlightRun: Identifiable {
   public var id: AnyHashable { syntaxID }
   public let syntaxID: AnyHashable
   public let role: StyleRole
@@ -41,37 +41,37 @@ public struct AttributedRun: Identifiable {
 //  public var attributes: TextAttributes
   //  public var attributes: NSTextAttributes
 
-  public init(
-    //    _ fragment: String? = nil,
-    //    _ keyword: SyntaxSpecifier,
-    metadata: String?,
-    range: Range<String.Index>,
-    attributes: TextAttributes,
-    //    attributes: NSTextAttributes
-  ) {
-    //    self.fragment = fragment
-    //    self.keyword = keyword
-    self.metadata = metadata
-    self.range = range
-    self.attributes = attributes
-  }
+//  public init(
+//    //    _ fragment: String? = nil,
+//    //    _ keyword: SyntaxSpecifier,
+//    metadata: String?,
+//    range: Range<String.Index>,
+//    attributes: TextAttributes,
+//    //    attributes: NSTextAttributes
+//  ) {
+//    //    self.fragment = fragment
+//    //    self.keyword = keyword
+//    self.metadata = metadata
+//    self.range = range
+//    self.attributes = attributes
+//  }
 }
 
-extension AttributedRun {
+extension HighlightRun {
   /// Semantically here meaning that the identifying properties
   /// like keyword and range are equal, but the style attributes may
   /// not be. So there'd be a choice about overwriting, preserving, etc.
-  func isSemanticallyEqual(to other: AttributedRun) -> Bool {
-    range == other.range
-    //    fragment == other.fragment && range == other.range
-  }
+//  func isSemanticallyEqual(to other: HighlightRun) -> Bool {
+//    range == other.range
+//    //    fragment == other.fragment && range == other.range
+//  }
 
-  public func hasSameRange(as other: AttributedRun) -> Bool {
+  public func hasSameRange(as other: HighlightRun) -> Bool {
     range == other.range
   }
 }
 
-extension AttributedRun {
+extension HighlightRun {
   public func nsRange(in text: String) -> NSRange? { range.toNSRange(in: text) }
 }
 
@@ -80,7 +80,7 @@ extension AttributedRanges {
   func run(
     matching range: Range<String.Index>,
     _ fragment: String
-  ) -> AttributedRun? {
+  ) -> HighlightRun? {
     first(where: { $0.range == range })
     //    first(where: { $0.range == range && $0.fragment == fragment })
   }
@@ -94,24 +94,24 @@ extension AttributedRanges {
   }
 }
 
-extension AttributedRun: CustomStringConvertible {
-  public var description: String {
-    DisplayString {
-      Indented("AttributedRun") {
-        Labeled("Metadata", value: metadata)
-        Labeled("Range", value: range)
-        Labeled("Attributes", value: attributes)
-      }
-    }.plainText
-  }
-}
+//extension HighlightRun: CustomStringConvertible {
+//  public var description: String {
+//    DisplayString {
+//      Indented("HighlightRun") {
+//        Labeled("Metadata", value: metadata)
+//        Labeled("Range", value: range)
+//        Labeled("Attributes", value: attributes)
+//      }
+//    }.plainText
+//  }
+//}
 
-extension NSBlockRanges {
-  public mutating func append<T>(
-    from match: Regex<T>.Match,
-    in text: String
-  ) {
-    guard let range = match.nsRange(in: text) else { return }
-    self.append(range)
-  }
-}
+//extension NSBlockRanges {
+//  public mutating func append<T>(
+//    from match: Regex<T>.Match,
+//    in text: String
+//  ) {
+//    guard let range = match.nsRange(in: text) else { return }
+//    self.append(range)
+//  }
+//}
