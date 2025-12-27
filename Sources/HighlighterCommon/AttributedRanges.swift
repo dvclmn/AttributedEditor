@@ -13,7 +13,21 @@ public typealias AttributedRanges = [AttributedRun]
 public typealias BlockRanges = [Range<String.Index>]
 public typealias NSBlockRanges = [NSRange]
 
-public struct AttributedRun {
+
+/// No colours
+/// No fonts
+/// No backgrounds
+/// No TextAttributes
+/// Just pure meaning
+/// This is the output of the Highlighter.
+public struct AttributedRun: Identifiable {
+  public var id: AnyHashable { syntaxID }
+  public let syntaxID: AnyHashable
+  public let role: StyleRole
+  public let range: Range<String.Index>
+  
+  /// Optional extra meaning, not styling
+  public let fragment: RegexShape.Fragment?
 
   /// The lexeme/syntax/operator/keyword etc that this run is attached to
   /// This is a String for now, until I set up Theming
@@ -22,9 +36,9 @@ public struct AttributedRun {
   //  public let fragment: String?
   //  public let keyword: SyntaxSpecifier
 
-  public let metadata: String?
-  public let range: Range<String.Index>
-  public var attributes: TextAttributes
+//  public let metadata: String?
+//  public let range: Range<String.Index>
+//  public var attributes: TextAttributes
   //  public var attributes: NSTextAttributes
 
   public init(

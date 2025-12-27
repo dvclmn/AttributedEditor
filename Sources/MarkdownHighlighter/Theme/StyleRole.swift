@@ -7,7 +7,7 @@
 
 import CoreTools
 
-extension Markdown {
+//extension Markdown {
 
   /// This is less about Markdown anatomy, and more about
   /// expressing rendering intent. E.g. this doesn't list out
@@ -34,4 +34,4 @@ extension Markdown {
     case metadata  // E.g. Link/image URL, Language hint, Callout Icon
     //    case background  // Block background
   }
-}
+//}

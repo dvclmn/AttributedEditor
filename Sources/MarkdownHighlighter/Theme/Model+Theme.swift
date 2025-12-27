@@ -20,6 +20,22 @@ extension Markdown {
 }
 
 extension Markdown.Theme {
+  
+  func backgroundStyle(
+    for syntaxID: Markdown.Syntax.ID,
+    role: StyleRole
+  ) -> BackgroundStyle? {
+    switch syntaxID {
+      case .inlineCode:
+        return .roundedRect(.codeBackground, cornerRadius: 4)
+        
+      case .codeBlock where role == .content:
+        return .blockBackground(.codeBackground)
+        
+      default:
+        return nil
+    }
+  }
 
   static var basicCodeBackground: CodeBackground { .init() }
 
@@ -82,3 +98,4 @@ extension Markdown.Theme {
     }
   }
 }
+
