@@ -14,6 +14,7 @@ struct SyntaxData {
   let shape: RegexShape
   let fragments: [Fragment]
 }
+
 extension SyntaxData {
 
   // TODO: Expand on docs here

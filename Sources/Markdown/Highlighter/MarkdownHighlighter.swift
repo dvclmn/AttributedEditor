@@ -14,6 +14,10 @@ public final class MarkdownHighlighter: Highlighter {
 
   private let isDrawingBlocks: Bool = false
   public var theme: MarkdownTheme
+  
+  var themeResolver: ThemeResolver {
+    
+  }
 
   public init(theme: MarkdownTheme = .default) {
     self.theme = theme
@@ -34,16 +38,16 @@ public final class MarkdownHighlighter: Highlighter {
   }
 
   /// Build attributed ranges for applying in the Editor
-  //  public func buildStyles(in text: String) -> AttributedRanges {
-  //
-  //    var attrs: AttributedRanges = []
-  //
-  //    for syntax in activeSyntax {
-  //      processMatches(for: syntax, in: text, &attrs)
-  //    }
-  //
-  //    return attrs
-  //  }
+    public func buildStyles(in text: String) -> [HighlightRun] {
+  
+      var runs = [HighlightRun]()
+  
+      for syntax in activeSyntax {
+        processMatches(for: syntax, in: text, &attrs)
+      }
+  
+      return attrs
+    }
 
 }
 extension MarkdownHighlighter {

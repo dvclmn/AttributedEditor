@@ -16,7 +16,7 @@ import ThemePark
 public typealias StyleTokens = [StyleRole: StyleToken]
 
 public struct MarkdownTheme: Sendable {
-  var styleDefinitions: [Markdown.Syntax.ID: StyleTokens] = [:]
+  var styleDefinitions: [Markdown.Syntax: StyleTokens] = [:]
 }
 
 extension MarkdownTheme {
@@ -92,25 +92,26 @@ extension MarkdownTheme {
   /// being bit more opinionated, if fallback returned.
   /// (E.g. this decides that syntax is grey, etc)
   public func styleToken(
-    kind: SemanticKind,
+    syntax: Markdown.Syntax,
     role: StyleRole
     //    for syntaxID: Markdown.Syntax.ID,
     //    styleRole: Markdown.StyleRole
   ) -> StyleToken? {
     
     /// Check specific definition
-    if let specific = styleDefinitions[syntaxID]?[styleRole] {
-      return specific
-    }
-    return defaultToken(for: styleRole)
+//    if let specific = styleDefinitions[syntax]?[role] {
+//      return specific
+//    }
+    styleDefinitions[syntax]?[role]
+//    return defaultToken(for: role)
   }
   
-  func defaultToken(for part: Markdown.StyleRole) -> StyleToken {
-    switch part {
-      case .content: StyleToken(colour: .primary)
-      case .syntax: StyleToken(colour: .tertiary)
-      case .metadata: StyleToken(colour: .secondary)
-      case .background: .default
+  func defaultToken(for role: StyleRole) -> StyleToken {
+    switch role {
+      case .content: StyleToken(foreground: .primary)
+      case .syntax: StyleToken(foreground: .tertiary)
+      case .metadata: StyleToken(foreground: .secondary)
+//      case .background: .default
     }
   }
   

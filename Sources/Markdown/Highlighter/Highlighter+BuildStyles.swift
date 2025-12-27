@@ -8,7 +8,7 @@
 import CoreTools
 import EditorCore
 
-extension Highlighter {
+extension MarkdownHighlighter {
 
   /// Looks for matches for Markdown syntax in the given text, and populates
   /// `AttributedRanges` with attributes based on the current Theme,

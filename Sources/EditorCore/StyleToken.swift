@@ -34,6 +34,18 @@ public struct StyleToken: Sendable, Hashable {
   //    self.fontTraits = FontTraits(fontTraits)
   //    self.hasBackground = hasBackground
   //  }
+  
+  public init(
+    foreground: CodableColour? = nil,
+    fontTraits: FontTraits? = nil,
+    background: BackgroundStyle? = nil,
+    decoration: TextDecoration? = nil
+  ) {
+    self.foreground = foreground
+    self.fontTraits = fontTraits
+    self.background = background
+    self.decoration = decoration
+  }
 }
 
 extension StyleToken {

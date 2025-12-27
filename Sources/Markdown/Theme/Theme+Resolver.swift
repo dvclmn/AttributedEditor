@@ -9,7 +9,7 @@ import CoreTools
 import EditorCore
 import Foundation
 
-struct ThemeResolver {
+package struct ThemeResolver {
 
   let theme: MarkdownTheme
 
