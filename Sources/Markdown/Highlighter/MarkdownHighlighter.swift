@@ -14,8 +14,7 @@ import HighlighterCommon
 public typealias MarkdownRuns = [SyntaxRun]
 
 public final class MarkdownHighlighter: Highlighter {
-//  public typealias Syntax = Markdown.Syntax
-  
+  //  public typealias Syntax = Markdown.Syntax
 
   private let isDrawingBlocks: Bool = false
   public var theme: MarkdownTheme
@@ -29,8 +28,6 @@ public final class MarkdownHighlighter: Highlighter {
   /// 2: `bold`
   /// 3: `boldItalic`
   public var declaredSyntax: [Markdown.Syntax] {
-
-    //    return syntax.compactMap(\.toSemanticKind)
     [
       .inlineCode,
       .bold,

@@ -7,6 +7,7 @@
 
 import AppKit
 import CoreTools
+import HighlighterCommon
 
 //import ThemePark
 
@@ -22,8 +23,8 @@ public struct SyntaxRun {
   //  public let syntaxID: AnyHashable
   //  public let semanticKind: SemanticKind
 
-  public var syntax: AnyHashable
-  //  public let syntax: Syntax
+//  public var syntax: AnyHashable
+  public let syntax: Markdown.Syntax
   //  public let syntax: Markdown.Syntax
   public let role: StyleRole
   public let range: Range<String.Index>

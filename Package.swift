@@ -38,7 +38,7 @@ let package = Package(
         .module(.highlighter),
         .module(.editorCore),
         .module(.markdown),
-//        .module(.theme),
+        .module(.textView),
         .coreTools,
       ]
     ),
@@ -123,6 +123,7 @@ enum PackageModule {
   case editorCore
   case highlighter
   case markdown
+  case textView
 //  case theme
 
   var name: String {
@@ -131,6 +132,7 @@ enum PackageModule {
       case .editorCore: return "EditorCore"
       case .highlighter: return "HighlighterCommon"
       case .markdown: return "Markdown"
+      case .textView: return "TextView"
 //      case .theme: return "ThemeCommon"
     }
   }

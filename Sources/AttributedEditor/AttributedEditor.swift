@@ -8,7 +8,8 @@
 import CoreTools
 import EditorCore
 import HighlighterCommon
-import MarkdownHighlighter
+import TextView
+import Markdown
 import SwiftUI
 
 public struct AttributedEditor: View {
