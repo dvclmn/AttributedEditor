@@ -12,20 +12,21 @@ let package = Package(
     .library(
       name: "AttributedEditor",
       targets: [
-        "EditorCore",
         "AttributedEditor",
+        "TextView",
+        "EditorCore",
         "HighlighterCommon",
-        "MarkdownHighlighter",
-        "Theme",
+        "ThemeCommon",
+        "Markdown",  // Highlighter and Theme(?)
       ]
     )
   ],
   dependencies: [
     .package(url: "https://github.com/dvclmn/BaseHelpers", branch: "main"),
     //    .package(url: "https://github.com/mattmassicotte/nsui", from: "1.3.0"),
-//    .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
-//    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
-//    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
+    //    .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
+    //    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
+    //    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
     .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
 
@@ -34,63 +35,108 @@ let package = Package(
     .target(
       name: "AttributedEditor",
       dependencies: [
-        "HighlighterCommon",
-        "EditorCore",
-        "MarkdownHighlighter",
-        .product(name: "CoreTools", package: "BaseHelpers"),
-        //        .product(name: "Sharing", package: "swift-sharing"),
+        .module(.highlighter),
+        .module(.editorCore),
+        .module(.markdown),
+        .coreTools,
+      ]
+    ),
+    .target(
+      name: "TextView",
+      dependencies: [
+        .module(.highlighter),
+        .colourKit,
+        .coreTools,
       ]
     ),
     .target(
       name: "EditorCore",
       dependencies: [
-        "HighlighterCommon",
-        .product(name: "ColourKit", package: "BaseHelpers"),
-        .product(name: "CoreTools", package: "BaseHelpers"),
-        //        .product(name: "NSUI", package: "nsui"),
-//        .product(name: "Sharing", package: "swift-sharing"),
+        .colourKit,
+        .coreTools,
       ]
     ),
     .target(
       name: "HighlighterCommon",
       dependencies: [
-        .product(name: "CoreTools", package: "BaseHelpers"),
-        .product(name: "ThemePark", package: "ThemePark"),
-        //        .product(name: "Sharing", package: "swift-sharing"),
+        .coreTools,
+        .themePark,
       ]
     ),
     .target(
-      name: "MarkdownHighlighter",
+      name: "Markdown",
       dependencies: [
-        "HighlighterCommon",
-        .product(name: "ColourKit", package: "BaseHelpers"),
-        .product(name: "CoreTools", package: "BaseHelpers"),
+        .module(.highlighter),
+        .colourKit,
+        .coreTools,
         //        .product(name: "NSUI", package: "nsui"),
       ]
     ),
     .target(
       name: "Theme",
       dependencies: [
-        "HighlighterCommon",
-        .product(name: "ColourKit", package: "BaseHelpers"),
-        .product(name: "CoreTools", package: "BaseHelpers"),
-        .product(name: "ThemePark", package: "ThemePark"),
-        //        .product(name: "NSUI", package: "nsui"),
+        .module(.highlighter),
+        .colourKit,
+        .coreTools,
+        .themePark,
       ]
     ),
     .testTarget(
       name: "EditorTests",
-      dependencies: ["EditorCore", "HighlighterCommon", "MarkdownHighlighter"],
+      dependencies: [.module(.editorCore), .module(.highlighter), .module(.markdown)],
       packageAccess: true,
-    )
-//    .target(
-//      name: "BasicHighlighter",
-//      dependencies: [
-//        "HighlighterCommon",
-//        .product(name: "ColourKit", package: "BaseHelpers"),
-//        .product(name: "CoreTools", package: "BaseHelpers"),
-//        //        .product(name: "NSUI", package: "nsui"),
-//      ]
-//    ),
+    ),
+
   ]
 )
+
+extension Target.Dependency {
+
+  static func module(_ baseModule: PackageModule) -> Self {
+    .target(name: baseModule.name)
+  }
+  static var colourKit: Self {
+    .product(name: "ColourKit", package: "BaseHelpers")
+  }
+  static var coreTools: Self {
+    .product(name: "CoreTools", package: "BaseHelpers")
+  }
+  static var themePark: Self {
+    .product(name: "ThemePark", package: "ThemePark")
+  }
+}
+
+enum PackageModule {
+  case attributedEditor
+  case editorCore
+  case highlighter
+  case markdown
+  case theme
+
+  var name: String {
+    switch self {
+      case .attributedEditor: return "AttributedEditor"
+      case .editorCore: return "EditorCore"
+      case .highlighter: return "HighlighterCommon"
+      case .markdown: return "Markdown"
+      case .theme: return "ThemeCommon"
+    }
+  }
+}
+//enum ExternalDependency {
+//  case baseHelpers
+//  case themePark
+//
+//  var productName: String {
+//    switch self {
+//      case .baseHelpers: return "AttributedEditor"
+//      case .themePark: return "EditorCore"
+//    }
+//  }
+//  var packageName: String {
+//     switch self {
+//      case .baseHelpers: return "BaseHelpers"
+//      case .themePark: return "ThemePark"
+//    }
+//  }
+//}
