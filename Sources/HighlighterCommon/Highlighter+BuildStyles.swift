@@ -8,7 +8,7 @@
 import CoreTools
 import EditorCore
 
-extension Highlighter.Core {
+extension Highlighter {
 
   /// Looks for matches for Markdown syntax in the given text, and populates
   /// `AttributedRanges` with attributes based on the current Theme,
@@ -21,7 +21,7 @@ extension Highlighter.Core {
   func processMatches(
     for syntax: Markdown.Syntax,
     in text: String,
-    _ attributes: inout AttributedRanges
+    _ attributes: inout [HighlightRun]
   ) {
     guard let data = SyntaxData(syntax: syntax) else { return }
     let matches = text.matches(of: data.pattern)

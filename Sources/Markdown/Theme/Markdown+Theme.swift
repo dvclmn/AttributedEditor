@@ -10,10 +10,13 @@ import ColourKit
 import CoreTools
 import HighlighterCommon
 import ThemeCommon
+import EditorCore
 import ThemePark
 
-public struct MarkdownTheme: Theme, @unchecked Sendable {
-  var styleDefinitions: [AnyHashable: StyleTokens] = [:]
+public typealias StyleTokens = [StyleRole: StyleToken]
+
+public struct MarkdownTheme: Sendable {
+  var styleDefinitions: [Markdown.Syntax.ID: StyleTokens] = [:]
 }
 
 extension MarkdownTheme {
@@ -22,7 +25,7 @@ extension MarkdownTheme {
     for syntax: Markdown.Syntax,
     //    for syntaxID: Markdown.Syntax.ID,
     role: StyleRole
-  ) -> BackgroundStyle? {
+  ) -> StyleToken.BackgroundStyle? {
     switch syntax {
       case .inlineCode:
         return .roundedRect(.pink, cornerRadius: 3)
@@ -37,4 +40,78 @@ extension MarkdownTheme {
 
   static var basicCodeBackground: CodeBackground { .init() }
 
+}
+
+
+extension MarkdownTheme {
+  //  public var font: NSFont { NSFont.systemFont(ofSize: 14) }
+  public var textColour: NSColor { .textColor }
+  
+  //  public mutating func updateFont(with newFont: NSFont) {
+  //    self.font = newFont
+  //  }
+  
+  /// Extracts font/colour data from theme tokens,
+  /// and populates attributes for this syntax part
+  ///
+  /// Note: `NSTextAttributes` can only carry *one*
+  /// entry at a time, for a key. E.g. foreground, font, etc.
+  ///
+  /// So this can only handle one 'piece', like a syntax
+  /// part/fragment, at once.
+  func textAttributes(
+    for token: StyleToken
+    //    for syntaxID: Markdown.Syntax.ID,
+    //    role styleRole: StyleRole,
+  ) -> TextAttributes {
+    
+    //    let token = style(for: syntaxID, styleRole: styleRole)
+    var attrs = TextAttributes()
+    //
+    attrs[.foregroundColor] = token.foreground?.nsColor
+    attrs[.fontTraits] = token.fontTraits
+    //
+    //#warning("Theme approach is WIP")
+    //    if token.hasBackground {
+    //      attrs[.codeBackground] = Self.basicCodeBackground
+    //    }
+    
+    //    if styleRole == .background {
+    //    } else {
+    //    }
+    return attrs
+  }
+  
+  /// This simply provides a neater API, to read into the
+  /// contents of the `styleDefinitions` property
+  ///
+  /// ~~There may not always be a specific token for a given
+  /// syntax/part, so this may return nil.~~
+  /// Still figuring out whether to have fallback approach,
+  /// or return nil. Main difference is this method ends up
+  /// being bit more opinionated, if fallback returned.
+  /// (E.g. this decides that syntax is grey, etc)
+  public func styleToken(
+    kind: SemanticKind,
+    role: StyleRole
+    //    for syntaxID: Markdown.Syntax.ID,
+    //    styleRole: Markdown.StyleRole
+  ) -> StyleToken? {
+    
+    /// Check specific definition
+    if let specific = styleDefinitions[syntaxID]?[styleRole] {
+      return specific
+    }
+    return defaultToken(for: styleRole)
+  }
+  
+  func defaultToken(for part: Markdown.StyleRole) -> StyleToken {
+    switch part {
+      case .content: StyleToken(colour: .primary)
+      case .syntax: StyleToken(colour: .tertiary)
+      case .metadata: StyleToken(colour: .secondary)
+      case .background: .default
+    }
+  }
+  
 }

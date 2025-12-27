@@ -21,7 +21,7 @@ public struct AttributedEditor: View {
 
   @Binding var text: String
 
-   let highlighter: any Highlighter.Core
+   let highlighter: any Highlighter
 
   public init(
     _ text: Binding<String>,

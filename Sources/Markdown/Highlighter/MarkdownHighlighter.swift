@@ -7,43 +7,43 @@
 
 import AppKit
 import CoreTools
-import HighlighterCommon
 import EditorCore
+import HighlighterCommon
 
-public final class MarkdownHighlighter: Highlighter.Core {
+public final class MarkdownHighlighter: Highlighter {
 
   private let isDrawingBlocks: Bool = false
-  public var theme: Markdown.Theme
+  public var theme: MarkdownTheme
 
-  public init(theme: Markdown.Theme = .default) {
+  public init(theme: MarkdownTheme = .default) {
     self.theme = theme
   }
-  
+
   /// 📣 Important: This ordering matters:
   /// 1: `italic`
   /// 2: `bold`
   /// 3: `boldItalic`
-  public var declaredSyntax: [SemanticKind] {
-    let syntax: [Markdown.Syntax] = [
+  public var declaredSyntax: [Markdown.Syntax] {
+
+    //    return syntax.compactMap(\.toSemanticKind)
+    [
       .inlineCode,
       .bold,
       .italic,
     ]
-    
-    return syntax.compactMap(\.toSemanticKind)
   }
 
   /// Build attributed ranges for applying in the Editor
-//  public func buildStyles(in text: String) -> AttributedRanges {
-//
-//    var attrs: AttributedRanges = []
-//
-//    for syntax in activeSyntax {
-//      processMatches(for: syntax, in: text, &attrs)
-//    }
-//
-//    return attrs
-//  }
+  //  public func buildStyles(in text: String) -> AttributedRanges {
+  //
+  //    var attrs: AttributedRanges = []
+  //
+  //    for syntax in activeSyntax {
+  //      processMatches(for: syntax, in: text, &attrs)
+  //    }
+  //
+  //    return attrs
+  //  }
 
 }
 extension MarkdownHighlighter {

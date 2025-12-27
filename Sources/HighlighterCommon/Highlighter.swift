@@ -6,43 +6,29 @@
 //
 
 import AppKit
-import SwiftUI
 import EditorCore
+import SwiftUI
 
-public enum Highlighter {}
+/// Protocol defining how text should be analyzed and highlighted
+public protocol Highlighter: AnyObject {
+  //  associatedtype Theme
 
-extension Highlighter {
-  /// Protocol defining how text should be analyzed and highlighted
-  public protocol Core: AnyObject {
-    associatedtype Theme
+  /// Thinking that block ranges can be expressed within `NSAttributedRanges`,
+  /// by using the `blockIntent` `AttributeKey`
+  //  var theme: Theme { get set }
 
-    /// Thinking that block ranges can be expressed within `NSAttributedRanges`,
-    /// by using the `blockIntent` `AttributeKey`
-    var theme: Theme { get set }
+  //    var declaredSyntax: [SemanticKind] { get }
 
-    var declaredSyntax: [SemanticKind] { get }
-    
-    func buildStyles(in text: String) -> AttributedRanges
-    func drawBlockPath(in rect: CGRect) -> NSBezierPath
-    func updateTheme(_ theme: Theme)
-  }
+  func buildStyles(in text: String) -> [HighlightRun]
+  func drawBlockPath(in rect: CGRect) -> NSBezierPath
+  //  func updateTheme(_ theme: Theme)
 }
 
-extension Highlighter.Core {
-  public func buildStyles(in text: String) -> AttributedRanges {
-    
-    var attrs: AttributedRanges = []
-    
-    for syntax in activeSyntax {
-      processMatches(for: syntax, in: text, &attrs)
-    }
-    
-    return attrs
-  }
-  
-  public func updateTheme(_ theme: Theme) {
-    self.theme = theme
-  }
+extension Highlighter {
+
+  //  public func updateTheme(_ theme: Theme) {
+  //    self.theme = theme
+  //  }
 
   public func drawBlockPath(
     in rect: CGRect,

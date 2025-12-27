@@ -47,7 +47,7 @@ extension SyntaxData {
     _ match: Regex<AnyRegexOutput>.Match,
     for syntax: Markdown.Syntax,
     theme: Markdown.Theme,
-    attrs attributes: inout AttributedRanges,
+    attrs attributes: inout [HighlightRun],
   ) {
 
     for fragment in fragments {

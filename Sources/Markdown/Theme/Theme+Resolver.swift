@@ -11,7 +11,7 @@ import Foundation
 
 struct ThemeResolver {
 
-  let theme: any Theme
+  let theme: MarkdownTheme
 
   func resolveStyleToken(for run: HighlightRun) -> ResolvedRun {
     let semanticToken = theme.styleToken(

@@ -9,11 +9,11 @@ import AppKit
 import CoreTools
 import EditorCore
 
-extension Highlighter.Core {
+extension MarkdownHighlighter {
 
   @MainActor
   public func applyStyles(
-    runs: AttributedRanges,
+    runs: [HighlightRun],
     textView: NSTextView,
     affectedRange: NSRange,
     font: NSFont,

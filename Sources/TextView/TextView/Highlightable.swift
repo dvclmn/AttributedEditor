@@ -10,7 +10,7 @@ import HighlighterCommon
 
 public protocol Highlightable: NSTextView {
   /// Does this need to be updatable? Mutable?
-  var highlighter: (any Highlighter.Core)? { get set }
+  var highlighter: (any Highlighter)? { get set }
 //  func drawBlocks()
 
   /// This updates the highlighter instance on `BackingTextView`,

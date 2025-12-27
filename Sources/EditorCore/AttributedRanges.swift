@@ -9,16 +9,16 @@ import AppKit
 import CoreTools
 import ThemePark
 
-public typealias AttributedRanges = [HighlightRun]
-public typealias BlockRanges = [Range<String.Index>]
-public typealias NSBlockRanges = [NSRange]
+//public typealias AttributedRanges = [HighlightRun]
+//public typealias BlockRanges = [Range<String.Index>]
+//public typealias NSBlockRanges = [NSRange]
 
 /// No colours, fonts, background, attrs
 /// This is the output of the Highlighter.
 public struct HighlightRun: Identifiable {
   public var id: AnyHashable { syntaxID }
   public let syntaxID: AnyHashable
-  public let semanticKind: SemanticKind
+//  public let semanticKind: SemanticKind
 
   /// This is now a fallback? For semantic kind?
   public let role: StyleRole
@@ -73,24 +73,24 @@ extension HighlightRun {
   public func nsRange(in text: String) -> NSRange? { range.toNSRange(in: text) }
 }
 
-extension AttributedRanges {
-
-  func run(
-    matching range: Range<String.Index>,
-    _ fragment: String
-  ) -> HighlightRun? {
-    first(where: { $0.range == range })
-    //    first(where: { $0.range == range && $0.fragment == fragment })
-  }
-
-  func runIndex(
-    matching range: Range<String.Index>,
-    _ fragment: String
-  ) -> Int? {
-    firstIndex(where: { $0.range == range })
-    //    firstIndex(where: { $0.range == range && $0.fragment == fragment })
-  }
-}
+//extension AttributedRanges {
+//
+//  func run(
+//    matching range: Range<String.Index>,
+//    _ fragment: String
+//  ) -> HighlightRun? {
+//    first(where: { $0.range == range })
+//    //    first(where: { $0.range == range && $0.fragment == fragment })
+//  }
+//
+//  func runIndex(
+//    matching range: Range<String.Index>,
+//    _ fragment: String
+//  ) -> Int? {
+//    firstIndex(where: { $0.range == range })
+//    //    firstIndex(where: { $0.range == range && $0.fragment == fragment })
+//  }
+//}
 
 //extension HighlightRun: CustomStringConvertible {
 //  public var description: String {

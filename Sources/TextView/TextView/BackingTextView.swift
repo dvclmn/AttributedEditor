@@ -9,7 +9,7 @@ import AppKit
 import HighlighterCommon
 
 class BackingTextView: NSTextView, Highlightable {
-  var highlighter: (any Highlighter.Core)? = nil
+  var highlighter: (any Highlighter)? = nil
 //  var blockRanges: [NSRange] = []
 
 //  init() {

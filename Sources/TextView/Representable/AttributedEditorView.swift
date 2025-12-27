@@ -18,11 +18,11 @@ public struct AttributedEditorView: NSViewRepresentable {
   @Environment(\.lineSpacing) var lineSpacing
   
   @Binding var text: String
-  var highlighter: any Highlighter.Core
+  var highlighter: any Highlighter
 
   public init(
     text: Binding<String>,
-    highlighter: any Highlighter.Core,
+    highlighter: any Highlighter,
   ) {
     self._text = text
     self.highlighter = highlighter
