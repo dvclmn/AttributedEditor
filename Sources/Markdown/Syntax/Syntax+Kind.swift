@@ -7,50 +7,19 @@
 
 import EditorCore
 
-extension Markdown.Syntax {
-  
-  public var toSemanticKind: SemanticKind? {
-    switch self {
-      case .body:
-        <#code#>
-      case .heading1:
-        <#code#>
-      case .heading2:
-        <#code#>
-      case .heading3:
-        <#code#>
-      case .heading4:
-        <#code#>
-      case .heading5:
-        <#code#>
-      case .heading6:
-        <#code#>
-      case .bold:
-        <#code#>
-      case .italic:
-        <#code#>
-      case .boldItalic:
-        <#code#>
-      case .inlineCode:
-        <#code#>
-      case .codeBlock:
-        <#code#>
-      case .list:
-        <#code#>
-      case .quoteBlock:
-        <#code#>
-      case .callout:
-        <#code#>
-      case .strikethrough:
-        <#code#>
-      case .highlight:
-        <#code#>
-      case .link:
-        <#code#>
-      case .image:
-        <#code#>
-      case .horizontalRule:
-        <#code#>
-    }
-  }
-}
+//extension Markdown.Syntax {
+//
+//  public var toSemanticKind: [SemanticKind] {
+//    switch self {
+//      case .body: [.text]
+//      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6: [.heading]
+//      case .bold: [.strong]
+//      case .italic: [.emphasis]
+//      case .boldItalic: [.strong, .emphasis]
+//      case .inlineCode, .codeBlock: [.code]
+//
+//      case .list, .quoteBlock, .callout, .strikethrough, .highlight, .link, .image, .horizontalRule: [.text]
+//
+//    }
+//  }
+//}
