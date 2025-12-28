@@ -5,7 +5,6 @@
 //  Created by Dave Coleman on 22/12/2025.
 //
 
-
 /// The available possible parts, found within Regex Shapes
 public enum Fragment: String, Sendable {
   case content

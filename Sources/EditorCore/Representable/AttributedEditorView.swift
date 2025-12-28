@@ -18,6 +18,7 @@ public struct AttributedEditorView: NSViewRepresentable {
   @Environment(\.lineSpacing) var lineSpacing
   
   @Binding var text: String
+  
   var highlighter: MarkdownHighlighter
 //  var highlighter: any Highlighter
 
@@ -25,6 +26,7 @@ public struct AttributedEditorView: NSViewRepresentable {
     text: Binding<String>,
 //    highlighter: MarkdownHighlighter,
   ) {
+    
     self._text = text
     self.highlighter = MarkdownHighlighter()
   }
