@@ -19,7 +19,7 @@ package final class TextViewController: NSUIViewController {
   private static var defaultSyntaxColors: [String: NSUIColor] = [:]
 
   init() {
-    
+
     self.textView = NSUITextView(usingTextLayoutManager: false)
 
     guard let hl = try? Self.makeHighlighter(for: textView) else {
@@ -29,7 +29,7 @@ package final class TextViewController: NSUIViewController {
 
     super.init(nibName: nil, bundle: nil)
 
-    // enable non-continguous layout for TextKit 1
+    /// enable non-continguous layout for TextKit 1
     if textView.textLayoutManager == nil {
       textView.nsuiLayoutManager?.allowsNonContiguousLayout = true
     }
@@ -42,11 +42,10 @@ package final class TextViewController: NSUIViewController {
 
   private static func makeHighlighter(for textView: NSUITextView) throws -> TextViewHighlighter {
     let regularFont = NSUIFont.monospacedSystemFont(ofSize: 16, weight: .regular)
-    let boldFont = NSUIFont.monospacedSystemFont(ofSize: 16, weight: .bold)
-    let italicDescriptor =
-      regularFont.fontDescriptor.nsuiWithSymbolicTraits(.traitItalic) ?? regularFont.fontDescriptor
+//    let boldFont = NSUIFont.monospacedSystemFont(ofSize: 16, weight: .bold)
+//    let italicDescriptor = regularFont.fontDescriptor.nsuiWithSymbolicTraits(.traitItalic) ?? regularFont.fontDescriptor
 
-    let italicFont = NSUIFont(nsuiDescriptor: italicDescriptor, size: 16) ?? regularFont
+//    let italicFont = NSUIFont(nsuiDescriptor: italicDescriptor, size: 16) ?? regularFont
 
     // Set the default styles. This is applied by stock `NSTextStorage`s during
     // so-called "attribute fixing" when you type, and we emulate that as
@@ -58,10 +57,13 @@ package final class TextViewController: NSUIViewController {
 
     let provider: TokenAttributeProvider = { token in
       switch token.name {
-        case let keyword where keyword.hasPrefix("keyword"):
-          return [.foregroundColor: NSUIColor.red, .font: boldFont]
-        case "comment", "spell": return [.foregroundColor: NSUIColor.green, .font: italicFont]
+          
+//        case let keyword where keyword.hasPrefix("keyword"):
+//          return [.foregroundColor: NSUIColor.red, .font: boldFont]
+          
+//        case "comment", "spell": return [.foregroundColor: NSUIColor.green, .font: italicFont]
         // Note: Default is not actually applied to unstyled/untokenized text.
+        
         default:
           // Everything else, assign a random color
           let color: NSUIColor
@@ -80,7 +82,8 @@ package final class TextViewController: NSUIViewController {
       }
     }
 
-    // this is doing both synchronous language initialization everything, but TreeSitterClient supports lazy loading for embedded languages
+    /// this is doing both synchronous language initialization everything,
+    /// but TreeSitterClient supports lazy loading for embedded languages
     let markdownConfig = try! LanguageConfiguration(
       tree_sitter_markdown(),
       name: "Markdown"
@@ -92,21 +95,13 @@ package final class TextViewController: NSUIViewController {
       bundleName: "TreeSitterMarkdown_TreeSitterMarkdownInline"
     )
 
-    //    let swiftConfig = try! LanguageConfiguration(
-    //      tree_sitter_swift(),
-    //      name: "Swift"
-    //    )
-
     let highlighterConfig = TextViewHighlighter.Configuration(
       languageConfiguration: markdownConfig,  // the root language
-      //      languageConfiguration: swiftConfig, // the root language
       attributeProvider: provider,
       languageProvider: { name in
         print("embedded language: ", name)
 
         switch name {
-          //          case "swift":
-          //            return swiftConfig
           case "markdown":
             return markdownConfig
           case "markdown_inline":
@@ -130,7 +125,7 @@ package final class TextViewController: NSUIViewController {
     scrollView.autohidesScrollers = true
     scrollView.borderType = .noBorder
     scrollView.drawsBackground = false
-    
+
     scrollView.documentView = textView
 
     let max = CGFloat.greatestFiniteMagnitude
@@ -139,38 +134,16 @@ package final class TextViewController: NSUIViewController {
     textView.maxSize = NSSize(width: max, height: max)
     textView.isVerticallyResizable = true
     textView.isHorizontallyResizable = true
-
-    textView.isRichText = false  // Discards any attributes when pasting.
+    textView.isRichText = false
 
     self.view = scrollView
     #else
     self.view = textView
     #endif
 
-    // this has to be done after the textview has been embedded in the scrollView if
-    // it wasn't that way on creation
+    /// this has to be done after the textview has been embedded in the
+    /// scrollView if it wasn't that way on creation
     highlighter.observeEnclosingScrollView()
 
-//    regularTestWithSwiftCode()
   }
-
-//  func regularTestWithSwiftCode() {
-//    let url = Bundle.main.url(forResource: "test", withExtension: "code")!
-//    let content = try! String(contentsOf: url)
-//
-//    textView.text = content
-//  }
-
-//  func doBigMarkdownTest() {
-//    let url = Bundle.main.url(forResource: "big_test", withExtension: "md")!
-//    let content = try! String(contentsOf: url)
-//
-//    textView.text = content
-//
-//    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-//      let range = NSRange(location: content.utf16.count, length: 0)
-//
-//      self.textView.scrollRangeToVisible(range)
-//    }
-//  }
 }

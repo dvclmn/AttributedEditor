@@ -97,18 +97,18 @@ extension AttributedEditorView {
   /// This is for communicating changes from SwiftUI back to AppKit
   package func updateNSViewController(_ controller: TextViewController, context: Context) {
     //  public func updateNSView(_ scrollView: NSScrollView, context: Context) {
-    let textView = controller.textView
+//    let textView = controller.textView
 //    guard  else { return }
     //
-        if textView.string != text {
-//          let selectedRange = textView.selectedRange()
-          textView.string = text
-//          textView.setSelectedRange(selectedRange)
-//          context.coordinator.updateTextView()
-        }
+//        if textView.string != text {
+////          let selectedRange = textView.selectedRange()
+//          textView.string = text
+////          textView.setSelectedRange(selectedRange)
+////          context.coordinator.updateTextView()
+//        }
   }
 
-  //  public func makeCoordinator() -> Coordinator {
-  //    Coordinator(self)
-  //  }
+    public func makeCoordinator() -> Coordinator {
+      Coordinator(self)
+    }
 }

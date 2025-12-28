@@ -5,47 +5,49 @@
 //  Created by Dave Coleman on 14/8/2024.
 //
 
-//import CoreTools
-//import SwiftUI
+import CoreTools
+import SwiftUI
 
-//extension AttributedEditorView {
+extension AttributedEditorView {
 //  // https://christiantietze.de/posts/2017/07/nstextview-proper-line-height/
-//  @MainActor
-//  public class Coordinator: NSObject,
-//    NSTextViewDelegate,
+  @MainActor
+  public class Coordinator: NSObject, NSTextViewDelegate {
 //    //    @MainActor NSTextStorageDelegate,
 //    @MainActor NSTextContentStorageDelegate
 //  //    NSTextContentManagerDelegate
 //  {
-//    let parent: AttributedEditorView
+    let parent: AttributedEditorView
+    weak var textController: TextViewController?
 //    weak var textView: NSTextView?
 ////    weak var textView: (any Highlightable)?
 //    //    var pendingEditedRange: NSRange?
 //
-//    public init(_ view: AttributedEditorView) {
-//      self.parent = view
-//    }
+    public init(_ view: AttributedEditorView) {
+      self.parent = view
+    }
 //
 //    /// Debouncing mechanism
 //    let debouncer = AsyncDebouncer(interval: 0.1)
-//  }
-//}
+  }
+}
 //
-//extension AttributedEditorView.Coordinator {
-//
-//  // MARK: - Text Changed
-//  /// This is for communicating changes from within AppKit, back to SwiftUI
-//  public func textDidChange(_ notification: Notification) {
-//    guard let textView else { return }
-//
-//    /// Update the binding immediately so SwiftUI stays in sync
-//    parent.text = textView.string
-//    //    updateInsertionPointPosition()
-//    self.updateTextView()
-//
-//    logTextKitMode(reason: "textDidChange")
-//
-//  }
+extension AttributedEditorView.Coordinator {
+  //
+  //  // MARK: - Text Changed
+  //  /// This is for communicating changes from within AppKit, back to SwiftUI
+  public func textDidChange(_ notification: Notification) {
+    guard let textView = self.textController?.textView else { return }
+    
+    /// Update the binding immediately so SwiftUI stays in sync
+    print("Hoping to update the SwiftUI text binding here")
+    parent.text = textView.string
+    //    updateInsertionPointPosition()
+    //    self.updateTextView()
+    //
+    //    logTextKitMode(reason: "textDidChange")
+    
+  }
+}
 //
 //  // MARK: - Selection Changed
 //  /// This or communicating text selection changes from AppKit to SwiftUI

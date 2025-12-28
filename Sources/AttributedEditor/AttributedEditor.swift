@@ -56,6 +56,9 @@ public struct AttributedEditor: View {
 
 //    )
 
+      .task(id: self.text) {
+        print("The text has changed in SwiftUI")
+      }
     .onAppear {
       print("Do we get here?")
 //      if isPreview {
