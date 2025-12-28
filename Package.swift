@@ -14,10 +14,7 @@ let package = Package(
       targets: [
         "AttributedEditor",
         "EditorCore",
-//        "HighlighterCommon",
-        "MarkdownHighlighter",  // Highlighter and Theme(?)
-        //        "TextView",
-        //        "ThemeCommon",
+        "MarkdownHighlighter",
       ]
     )
   ],
@@ -27,8 +24,8 @@ let package = Package(
     //    .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
     //    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
     //    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
-    //    .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
-      .package(url: "https://github.com/ChimeHQ/Neon", from: "0.6.0"),
+    .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
+    .package(url: "https://github.com/ChimeHQ/Neon", from: "0.6.0"),
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
 
   ],
@@ -38,6 +35,7 @@ let package = Package(
       dependencies: [
         .module(.editorCore),
         .module(.markdown),
+        .themePark,
         //        .module(.textView),
         .coreTools,
       ]
@@ -51,48 +49,20 @@ let package = Package(
         .colourKit,
         .coreTools,
         .neon,
+        .themePark,
       ]
     ),
-//    .target(
-//      name: "HighlighterCommon",
-//      dependencies: [
-//        //        .module(.editorCore),
-//        .coreTools,
-//        .colourKit,
-////        .themRePark,
-//      ]
-//    ),
+
     .target(
       name: "MarkdownHighlighter",
       dependencies: [
         .module(.common),
-        //        .module(.highlighter),
-        //        .module(.editorCore),
-        //        .module(.theme),
         .colourKit,
         .coreTools,
-        //        .product(name: "NSUI", package: "nsui"),
+        .neon,
+        .themePark,
       ]
     ),
-    //    .target(
-    //      name: "TextView",
-    //      dependencies: [
-    //        .module(.markdown),
-    //        //        .module(.highlighter),
-    //        //        .module(.theme),
-    //        .colourKit,
-    //        .coreTools,
-    //      ]
-    //    ),
-    //    .target(
-    //      name: "ThemeCommon",
-    //      dependencies: [
-    //        .module(.editorCore),
-    //        .colourKit,
-    //        .coreTools,
-    //        .themePark,
-    //      ]
-    //    ),
 
     // MARK: - Tests
     .testTarget(

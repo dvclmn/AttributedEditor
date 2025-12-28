@@ -7,7 +7,6 @@
 
 import AppKit
 import CoreTools
-import HighlighterCommon
 //import EditorCore
 
 //public typealias MarkdownRun = SyntaxRun<Markdown.Syntax>

@@ -8,7 +8,6 @@
 import AppKit
 import ColourKit
 import CoreTools
-import HighlighterCommon
 
 struct SyntaxRoleKey: Hashable {
   let syntax: Markdown.Syntax

@@ -11,7 +11,6 @@ import Testing
 
 @testable import EditorCore
 @testable import MarkdownHighlighter
-@testable import HighlighterCommon
 
 @MainActor
 struct EditorTests {

@@ -6,7 +6,7 @@
 //
 
 import AppKit
-import HighlighterCommon
+import Neon
 
 extension AttributedEditorView.Coordinator {
 
