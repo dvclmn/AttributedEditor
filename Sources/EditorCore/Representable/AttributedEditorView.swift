@@ -8,8 +8,7 @@
 import AppKit
 import CoreTools
 import MarkdownHighlighter
-
-
+import Neon
 import SwiftUI
 
 public struct AttributedEditorView: NSViewRepresentable {
@@ -41,7 +40,10 @@ extension AttributedEditorView {
     setUpScrollView(scrollView)
 
     /// Create and configure the text view
-    let textSystem = TextViewSystemInterface
+    let textSystem = TextViewSystemInterface(
+      textView: <#T##TextView#>,
+      attributeProvider: <#T##TokenAttributeProvider##TokenAttributeProvider##(Token) -> [NSAttributedString.Key : Any]#>
+    )
 //    let textView = NSTextView()
 //    textView.updateHighlighter(with: highlighter)
     textView.textContentStorage?.delegate = context.coordinator

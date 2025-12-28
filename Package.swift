@@ -34,34 +34,33 @@ let package = Package(
     .target(
       name: "AttributedEditor",
       dependencies: [
-        .module(.editorCore),
-        .module(.markdown),
-        .themePark,
-        //        .module(.textView),
-        .coreTools,
+        .local(.editorCore),
+        .local(.markdown),
+        .exteral(.themePark),
+        .exteral(.coreTools),
       ]
     ),
 
     .target(
       name: "EditorCore",
       dependencies: [
-        .module(.common),
-        .module(.markdown),
-        .colourKit,
-        .coreTools,
-        .neon,
-        .themePark,
+        .local(.markdown),
+        .exteral(.colourKit),
+        .exteral(.coreTools),
+        .exteral(.neon),
+        .exteral(.themePark),
+        .exteral(.lowlight),
       ]
     ),
 
     .target(
       name: "MarkdownHighlighter",
       dependencies: [
-        .module(.common),
-        .colourKit,
-        .coreTools,
-        .neon,
-        .themePark,
+        .exteral(.colourKit),
+        .exteral(.coreTools),
+        .exteral(.neon),
+        .exteral(.themePark),
+        .exteral(.lowlight),
       ]
     ),
 
@@ -69,9 +68,8 @@ let package = Package(
     .testTarget(
       name: "EditorTests",
       dependencies: [
-        .module(.editorCore),
-        .module(.markdown),
-        .module(.common),
+        .local(.editorCore),
+        .local(.markdown),
       ],
       packageAccess: true,
     ),
@@ -80,34 +78,25 @@ let package = Package(
 
 extension Target.Dependency {
 
-  static func module(_ baseModule: PackageModule) -> Self {
+  static func local(_ baseModule: PackageModule) -> Self {
     .target(name: baseModule.name)
   }
-  static var colourKit: Self {
-    .product(name: "ColourKit", package: "BaseHelpers")
-  }
-  static var coreTools: Self {
-    .product(name: "CoreTools", package: "BaseHelpers")
-  }
-  static var themePark: Self {
-    .product(name: "ThemePark", package: "ThemePark")
-  }
-  static var neon: Self {
-    .product(name: "Neon", package: "Neon")
+  static func exteral(_ package: ExternalDependency) -> Self {
+    package.dependency
   }
 }
 
 enum PackageModule {
   case attributedEditor
   case editorCore
-//  case common
+  //  case common
   case markdown
 
   var name: String {
     switch self {
       case .attributedEditor: return "AttributedEditor"
       case .editorCore: return "EditorCore"
-//      case .common: return "HighlighterCommon"
+      //      case .common: return "HighlighterCommon"
       case .markdown: return "MarkdownHighlighter"
     }
   }
