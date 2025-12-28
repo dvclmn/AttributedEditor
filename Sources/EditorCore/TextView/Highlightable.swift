@@ -8,9 +8,9 @@
 import AppKit
 import MarkdownHighlighter
 
-public protocol Highlightable: NSTextView {
+//public protocol Highlightable: NSTextView {
   /// Does this need to be updatable? Mutable?
-  var highlighter: MarkdownHighlighter? { get set }
+//  var highlighter: MarkdownHighlighter? { get set }
 //  func drawBlocks()
 
   /// This updates the highlighter instance on `BackingTextView`,
@@ -25,4 +25,4 @@ public protocol Highlightable: NSTextView {
   /// glyph range as reference point for drawing over the hidden characters
 //  func drawReplacement()
   //  func drawReplacement(replace string: String)
-}
+//}

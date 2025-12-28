@@ -22,8 +22,8 @@ public struct StyleToken: Sendable, Hashable {
   public var foreground: CodableColour?
   public var fontTraits: FontTraits?
 
-  public var background: BackgroundStyle?
-  public var decoration: TextDecoration?
+//  public var background: BackgroundStyle?
+//  public var decoration: TextDecoration?
 
   //  init(
   //    colour: CodableColour,
@@ -39,13 +39,13 @@ public struct StyleToken: Sendable, Hashable {
     foreground: CodableColour? = nil,
     fontTraits: NSFontDescriptor.SymbolicTraits = [],
 //    fontTraits: FontTraits? = nil,
-    background: BackgroundStyle? = nil,
-    decoration: TextDecoration? = nil
+//    background: BackgroundStyle? = nil,
+//    decoration: TextDecoration? = nil
   ) {
     self.foreground = foreground
     self.fontTraits = FontTraits(fontTraits)
-    self.background = background
-    self.decoration = decoration
+//    self.background = background
+//    self.decoration = decoration
   }
 }
 
@@ -54,15 +54,15 @@ extension StyleToken {
   var nsColour: NSColor? { foreground?.nsColor }
 }
 
-extension StyleToken {
-  public enum BackgroundStyle: Hashable, Sendable {
-    case none
-    case roundedRect(CodableColour, cornerRadius: CGFloat)
-    case highlight(CodableColour)
-  }
-
-  public enum TextDecoration: Hashable, Sendable {
-    case underline
-    case strikethrough
-  }
-}
+//extension StyleToken {
+//  public enum BackgroundStyle: Hashable, Sendable {
+//    case none
+//    case roundedRect(CodableColour, cornerRadius: CGFloat)
+//    case highlight(CodableColour)
+//  }
+//
+//  public enum TextDecoration: Hashable, Sendable {
+//    case underline
+//    case strikethrough
+//  }
+//}

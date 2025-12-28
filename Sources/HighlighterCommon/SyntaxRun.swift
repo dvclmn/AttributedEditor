@@ -9,6 +9,7 @@ import AppKit
 import CoreTools
 import HighlighterCommon
 
+public typealias MarkdownRuns = [SyntaxRun]
 //import ThemePark
 
 //public typealias AttributedRanges = [SyntaxRun]

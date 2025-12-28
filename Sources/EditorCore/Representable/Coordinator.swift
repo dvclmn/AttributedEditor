@@ -19,7 +19,8 @@ extension AttributedEditorView {
   //    NSTextContentManagerDelegate
   {
     let parent: AttributedEditorView
-    weak var textView: (any Highlightable)?
+    weak var textView: NSTextView?
+//    weak var textView: (any Highlightable)?
     //    var pendingEditedRange: NSRange?
 
     public init(_ view: AttributedEditorView) {

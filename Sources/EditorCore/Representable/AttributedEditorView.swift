@@ -19,7 +19,7 @@ public struct AttributedEditorView: NSViewRepresentable {
   
   @Binding var text: String
   
-  var highlighter: MarkdownHighlighter
+  var highlighter: MarkdownHighlighter = .init()
 //  var highlighter: any Highlighter
 
   public init(
@@ -63,7 +63,7 @@ extension AttributedEditorView {
   // MARK: - SwiftUI Updated
   /// This is for communicating changes from SwiftUI back to AppKit
   public func updateNSView(_ scrollView: NSScrollView, context: Context) {
-    guard let textView = scrollView.documentView as? Highlightable else { return }
+    guard let textView = scrollView.documentView as? NSTextView else { return }
 
     if textView.string != text {
       let selectedRange = textView.selectedRange()

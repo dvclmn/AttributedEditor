@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import HighlighterCommon
 
 extension AttributedEditorView.Coordinator {
 
@@ -20,15 +21,14 @@ extension AttributedEditorView.Coordinator {
       await self.debouncer.execute { @MainActor in
 
         let runs = highlighter.buildStyles(in: text)
-        let defaults = self.parent.defaultAttributes
 
-        highlighter.applyStyles(
-          runs: runs,
-          textView: textView,
-          affectedRange: affectedRange,
-          font: self.parent.font,
-          defaults: defaults
-        )
+        //        highlighter.applyStyles(
+        //          runs: runs,
+        //          textView: textView,
+        //          affectedRange: affectedRange,
+        //          font: self.parent.font,
+        //          defaults: defaults
+        //        )
 
         //        textView.updateHighlighter(with: highlighter)
 
@@ -39,6 +39,66 @@ extension AttributedEditorView.Coordinator {
         }
       }
     }
+  }
+
+  @MainActor
+  public func applyStyles(
+    runs: [SyntaxRun],
+    //    textView: NSTextView,
+    affectedRange: NSRange,
+    //    font: NSFont,
+    //    defaults: NSTextAttributes
+  ) {
+
+    guard let textView,
+      let tcs = textView.textContentStorage,
+      let ts = tcs.textStorage
+    else { return }
+    //    guard let textStorage = textView.textStorage else { return }
+    //    let text = textStorage.string
+    let text = textView.string
+    let defaults = self.parent.defaultAttributes
+    let font = self.parent.font
+    //    let resolver = ThemeResolver(theme)
+
+    ts.beginEditing()
+
+    //    var attrWithDebug = defaults
+    //    attrWithDebug.updateValue(
+    //      NSFont.monospacedSystemFont(ofSize: 13, weight: .medium), forKey: .font
+    //      NSColor.blue.withAlphaComponent(0.18), forKey: .backgroundColor
+    //    )
+
+    //    print("Font attributes: ", thing.keys)
+
+    ts.setAttributes(defaults, range: affectedRange)
+
+    /// Apply each highlighted range's attributes
+    for run in runs {
+
+      let range = run.nsRange(in: text)?.intersection(affectedRange)
+      guard let range else { continue }
+
+      //      let resolved = resolver.resolveStyleToken(for: run)
+      var attrs = run.attributes
+
+      let traits = attrs[.fontTraits]
+      let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)
+
+      attrs[.font] = adjustedFont
+
+      print("Attributes for \(run.syntax.name, default: "No fragment desc").")
+      //      print("Range preview: \(run.range.withPreview(in: text))")
+      print("\(attrs.description)\n")
+
+      ts.setAttributes(attrs.toNSAttributes, range: range)
+
+    }
+
+    textView.syncTypingAttributes()
+
+    ts.endEditing()
+
   }
 
   func logTextKitMode(reason: String, verboseLog: Bool = false) {

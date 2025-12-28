@@ -9,35 +9,37 @@ import AppKit
 import ColourKit
 import CoreTools
 import HighlighterCommon
-//import EditorCore
 
-//import ThemePark
+struct SyntaxRoleKey: Hashable {
+  let syntax: Markdown.Syntax
+  let role: StyleRole
+}
 
-public typealias StyleTokens = [StyleRole: StyleToken]
+//public typealias StyleTokens = [StyleRole: StyleToken]
 
 public struct MarkdownTheme: Sendable {
-  var styleDefinitions: [Markdown.Syntax: StyleTokens] = [:]
+  var styleDefinitions: [SyntaxRoleKey: StyleToken] = [:]
 }
 
 extension MarkdownTheme {
 
-  func backgroundStyle(
-    for syntax: Markdown.Syntax,
-    role: StyleRole
-  ) -> StyleToken.BackgroundStyle? {
-    switch syntax {
-      case .inlineCode:
-        return .roundedRect(.pink, cornerRadius: 3)
-
-      case .codeBlock where role == .content:
-        return .roundedRect(.indigo, cornerRadius: 3)
-
-      default:
-        return nil
-    }
-  }
-
-  static var basicCodeBackground: CodeBackground { .init() }
+  //  func backgroundStyle(
+  //    for syntax: Markdown.Syntax,
+  //    role: StyleRole
+  //  ) -> StyleToken.BackgroundStyle? {
+  //    switch syntax {
+  //      case .inlineCode:
+  //        return .roundedRect(.pink, cornerRadius: 3)
+  //
+  //      case .codeBlock where role == .content:
+  //        return .roundedRect(.indigo, cornerRadius: 3)
+  //
+  //      default:
+  //        return nil
+  //    }
+  //  }
+  //
+  //  static var basicCodeBackground: CodeBackground { .init() }
 
 }
 
@@ -81,14 +83,11 @@ extension MarkdownTheme {
   }
 
   /// This simply provides a neater API, to read into the
-  /// contents of the `styleDefinitions` property
+  /// contents of the `styleDefinitions` property.
   ///
-  /// ~~There may not always be a specific token for a given
-  /// syntax/part, so this may return nil.~~
-  /// Still figuring out whether to have fallback approach,
-  /// or return nil. Main difference is this method ends up
-  /// being bit more opinionated, if fallback returned.
-  /// (E.g. this decides that syntax is grey, etc)
+  /// This method looks up tokens using the combined `SyntaxRoleKey`
+  /// instead of nested dictionaries.
+  /// If no specific token is found, a default token for the role is returned.
   public func styleToken(
     syntax: Markdown.Syntax,
     role: StyleRole
@@ -96,12 +95,11 @@ extension MarkdownTheme {
       //    styleRole: Markdown.StyleRole
   ) -> StyleToken {
 
-    /// Check specific definition
-        if let specific = styleDefinitions[syntax]?[role] {
-          return specific
-        }
-//    styleDefinitions[syntax]?[role]
-        return defaultToken(for: role)
+    /// Check specific definition using combined key
+    if let token = styleDefinitions[SyntaxRoleKey(syntax: syntax, role: role)] {
+      return token
+    }
+    return defaultToken(for: role)
   }
 
   func defaultToken(for role: StyleRole) -> StyleToken {

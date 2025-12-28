@@ -8,8 +8,8 @@
 import AppKit
 import MarkdownHighlighter
 
-class BackingTextView: NSTextView, Highlightable {
-  var highlighter: MarkdownHighlighter? = nil
+//class BackingTextView: NSTextView, Highlightable {
+//  var highlighter: MarkdownHighlighter? = nil
 //  var blockRanges: [NSRange] = []
 
 //  init() {
@@ -76,7 +76,7 @@ class BackingTextView: NSTextView, Highlightable {
 
 //}
 
-extension BackingTextView {
+//extension BackingTextView {
 
   /// `setRenderingAttributes`: In TextKit 1, `setTemporaryAttributes` was
   /// often safe to call during display. In TextKit 2, `setRenderingAttributes` modifies
@@ -183,4 +183,4 @@ extension BackingTextView {
   //      ruleRect.fill()
   //    }
   //  }
-}
+//}

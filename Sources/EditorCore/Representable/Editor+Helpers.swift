@@ -11,7 +11,7 @@ import CoreTools
 extension AttributedEditorView {
 
   func configureTextDefaults(
-    _ textView: Highlightable,
+    _ textView: NSTextView,
     scrollWidth: CGFloat,
     context: Context
   ) {
@@ -51,7 +51,7 @@ extension AttributedEditorView {
     ]
   }
 
-  func debugUpdateNSView(_ textView: Highlightable) {
+  func debugUpdateNSView(_ textView: NSTextView) {
     DebugString {
       "SwiftUI triggered `updateNSView` with text change at \(Date.debug)"
       Divider()
@@ -60,7 +60,7 @@ extension AttributedEditorView {
 
   package func handleLineNumbersIfNeeded(
     for scrollView: NSScrollView,
-    textView: any Highlightable
+    textView: NSTextView
   ) {
     if editorOptions.contains(.lineNumbers) {
       let rulerView = LineNumberRulerView(textView: textView)
@@ -95,7 +95,7 @@ extension AttributedEditorView {
     return resolved.toNSFont
   }
 
-  func observeTextKitVersionChange(for textView: any Highlightable) {
+  func observeTextKitVersionChange(for textView: NSTextView) {
 
     /// Post a notification when text view is scrolled so line numbers update
     NotificationCenter.default.addObserver(
