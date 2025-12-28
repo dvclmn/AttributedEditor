@@ -13,17 +13,19 @@ import TreeSitterMarkdownInline
 
 @MainActor
 package final class TextViewController: NSUIViewController {
-  private let textView: NSUITextView
+  package let textView: NSUITextView
   private let highlighter: TextViewHighlighter
 
   private static var defaultSyntaxColors: [String: NSUIColor] = [:]
 
   init() {
     
-    print("Do we get this far?")
     self.textView = NSUITextView(usingTextLayoutManager: false)
 
-    self.highlighter = try! Self.makeHighlighter(for: textView)
+    guard let hl = try? Self.makeHighlighter(for: textView) else {
+      fatalError("Could not create highlighter")
+    }
+    self.highlighter = hl
 
     super.init(nibName: nil, bundle: nil)
 
@@ -124,6 +126,11 @@ package final class TextViewController: NSUIViewController {
     let scrollView = NSScrollView()
 
     scrollView.hasVerticalScroller = true
+    scrollView.hasHorizontalScroller = false
+    scrollView.autohidesScrollers = true
+    scrollView.borderType = .noBorder
+    scrollView.drawsBackground = false
+    
     scrollView.documentView = textView
 
     let max = CGFloat.greatestFiniteMagnitude

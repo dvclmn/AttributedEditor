@@ -60,7 +60,7 @@ extension AttributedEditorView {
   package func makeNSViewController(context: Context) -> TextViewController {
     let controller = TextViewController()
     // You may want to set initial text:
-    //        controller.textView.text = text
+            controller.textView.text = text
     // Set delegates or handlers as needed
     return controller
     //  public func makeNSView(context: Context) -> NSScrollView {
@@ -97,14 +97,15 @@ extension AttributedEditorView {
   /// This is for communicating changes from SwiftUI back to AppKit
   package func updateNSViewController(_ controller: TextViewController, context: Context) {
     //  public func updateNSView(_ scrollView: NSScrollView, context: Context) {
-    //    guard let textView = scrollView.documentView as? NSTextView else { return }
+    let textView = controller.textView
+//    guard  else { return }
     //
-    //    if textView.string != text {
-    //      let selectedRange = textView.selectedRange()
-    //      textView.string = text
-    //      textView.setSelectedRange(selectedRange)
-    //      context.coordinator.updateTextView()
-    //    }
+        if textView.string != text {
+//          let selectedRange = textView.selectedRange()
+          textView.string = text
+//          textView.setSelectedRange(selectedRange)
+//          context.coordinator.updateTextView()
+        }
   }
 
   //  public func makeCoordinator() -> Coordinator {
