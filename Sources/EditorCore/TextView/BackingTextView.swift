@@ -5,8 +5,8 @@
 //  Created by Dave Coleman on 15/11/2025.
 //
 
-import AppKit
-import MarkdownHighlighter
+//import AppKit
+//import MarkdownHighlighter
 
 //class BackingTextView: NSTextView, Highlightable {
 //  var highlighter: MarkdownHighlighter? = nil
@@ -30,7 +30,7 @@ import MarkdownHighlighter
 //    highlighter = updated
 //    needsDisplay = true
 //  }
-}
+//}
 
 //  override func draw(_ dirtyRect: NSRect) {
 //    /// Draw custom backgrounds before text is rendered

@@ -8,7 +8,6 @@
 import CoreTools
 import EditorCore
 
-//import TextView
 import MarkdownHighlighter
 import SwiftUI
 
@@ -42,7 +41,7 @@ public struct AttributedEditor: View {
   }
 
   public var body: some View {
-//    Text("Hello")
+//    Text("Hello `AttributedEditor: View {...}`")
     AttributedEditorView(text: $text)
 //            font: finalFont,
 //      config: Editor.Configuration(
@@ -57,11 +56,12 @@ public struct AttributedEditor: View {
 
 //    )
 
-//    .onAppear {
+    .onAppear {
+      print("Do we get here?")
 //      if isPreview {
 //        print(digIntoResolvedFont)
 //      }
-//    }
+    }
 
 //    .task(id: font) {
 //      highlighter.theme.updateFont(with: finalFont)

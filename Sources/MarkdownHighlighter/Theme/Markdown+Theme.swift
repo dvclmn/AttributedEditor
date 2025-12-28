@@ -14,10 +14,11 @@ struct SyntaxRoleKey: Hashable {
   let role: StyleRole
 }
 
-//public typealias StyleTokens = [StyleRole: StyleToken]
+public typealias StyleTokens = [StyleRole: StyleToken]
 
 public struct MarkdownTheme: Sendable {
-  var styleDefinitions: [SyntaxRoleKey: StyleToken] = [:]
+  var styleDefinitions: [Markdown.Syntax: StyleTokens] = [:]
+//  var styleDefinitions: [SyntaxRoleKey: StyleToken] = [:]
 }
 
 extension MarkdownTheme {
@@ -95,9 +96,15 @@ extension MarkdownTheme {
   ) -> StyleToken {
 
     /// Check specific definition using combined key
-    if let token = styleDefinitions[SyntaxRoleKey(syntax: syntax, role: role)] {
-      return token
+//    if let token = styleDefinitions[SyntaxRoleKey(syntax: syntax, role: role)] {
+//      return token
+//    }
+//    return defaultToken(for: role)
+    
+    if let specific = styleDefinitions[syntax]?[role] {
+      return specific
     }
+    //    styleDefinitions[syntax]?[role]
     return defaultToken(for: role)
   }
 

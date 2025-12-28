@@ -6,20 +6,21 @@
 //
 
 import NSUI
-import Neon
+@preconcurrency import Neon
 import SwiftTreeSitter
 import TreeSitterMarkdown
 import TreeSitterMarkdownInline
-import TreeSitterSwift
 
 @MainActor
-final class TextViewController: NSUIViewController {
+package final class TextViewController: NSUIViewController {
   private let textView: NSUITextView
   private let highlighter: TextViewHighlighter
 
   private static var defaultSyntaxColors: [String: NSUIColor] = [:]
 
   init() {
+    
+    print("Do we get this far?")
     self.textView = NSUITextView(usingTextLayoutManager: false)
 
     self.highlighter = try! Self.makeHighlighter(for: textView)
@@ -118,7 +119,7 @@ final class TextViewController: NSUIViewController {
     return try TextViewHighlighter(textView: textView, configuration: highlighterConfig)
   }
 
-  override func loadView() {
+  package override func loadView() {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     let scrollView = NSScrollView()
 
@@ -143,26 +144,26 @@ final class TextViewController: NSUIViewController {
     // it wasn't that way on creation
     highlighter.observeEnclosingScrollView()
 
-    regularTestWithSwiftCode()
+//    regularTestWithSwiftCode()
   }
 
-  func regularTestWithSwiftCode() {
-    let url = Bundle.main.url(forResource: "test", withExtension: "code")!
-    let content = try! String(contentsOf: url)
+//  func regularTestWithSwiftCode() {
+//    let url = Bundle.main.url(forResource: "test", withExtension: "code")!
+//    let content = try! String(contentsOf: url)
+//
+//    textView.text = content
+//  }
 
-    textView.text = content
-  }
-
-  func doBigMarkdownTest() {
-    let url = Bundle.main.url(forResource: "big_test", withExtension: "md")!
-    let content = try! String(contentsOf: url)
-
-    textView.text = content
-
-    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-      let range = NSRange(location: content.utf16.count, length: 0)
-
-      self.textView.scrollRangeToVisible(range)
-    }
-  }
+//  func doBigMarkdownTest() {
+//    let url = Bundle.main.url(forResource: "big_test", withExtension: "md")!
+//    let content = try! String(contentsOf: url)
+//
+//    textView.text = content
+//
+//    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+//      let range = NSRange(location: content.utf16.count, length: 0)
+//
+//      self.textView.scrollRangeToVisible(range)
+//    }
+//  }
 }

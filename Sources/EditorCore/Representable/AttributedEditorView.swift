@@ -13,7 +13,7 @@ import SwiftUI
 
 //struct AttributedEditorView: NSViewControllerRepresentable {
 //  @Binding var text: String
-//  
+//
 //  func makeNSViewController(context: Context) -> TextViewController {
 //    let controller = TextViewController()
 //    // You may want to set initial text:
@@ -21,7 +21,7 @@ import SwiftUI
 //    // Set delegates or handlers as needed
 //    return controller
 //  }
-//  
+//
 //  func updateNSViewController(_ controller: TextViewController, context: Context) {
 //    // Sync from SwiftUI to controller if necessary
 //    if controller.textView.text != text {
@@ -32,78 +32,82 @@ import SwiftUI
 //  }
 //}
 
-struct AttributedEditorView: NSViewControllerRepresentable {
-  typealias NSViewControllerType = <#type#>
-  
-//public struct AttributedEditorView: NSViewRepresentable {
-  @Environment(\.font) var swiftUIFont
-  @Environment(\.fontResolutionContext) var fontResolutionContext
-  @Environment(\.editorOptions) var editorOptions
-  @Environment(\.lineSpacing) var lineSpacing
-  
+package struct AttributedEditorView: NSViewControllerRepresentable {
+  package typealias NSViewControllerType = TextViewController
+  //public struct AttributedEditorView: NSViewRepresentable {
+//  @Environment(\.font) var swiftUIFont
+//  @Environment(\.fontResolutionContext) var fontResolutionContext
+//  @Environment(\.editorOptions) var editorOptions
+//  @Environment(\.lineSpacing) var lineSpacing
+
   @Binding var text: String
-  
-  var highlighter: MarkdownHighlighter = .init()
-//  var highlighter: any Highlighter
+
+//  var highlighter: MarkdownHighlighter = .init()
+  //  var highlighter: any Highlighter
 
   public init(
     text: Binding<String>,
-//    highlighter: MarkdownHighlighter,
+    //    highlighter: MarkdownHighlighter,
   ) {
-    
+
     self._text = text
-    self.highlighter = MarkdownHighlighter()
+//    self.highlighter = MarkdownHighlighter()
   }
 }
 
 extension AttributedEditorView {
 
-  func makeNSViewController(context: Context) -> TextViewController {
-//  public func makeNSView(context: Context) -> NSScrollView {
+  package func makeNSViewController(context: Context) -> TextViewController {
+    let controller = TextViewController()
+    // You may want to set initial text:
+    //        controller.textView.text = text
+    // Set delegates or handlers as needed
+    return controller
+    //  public func makeNSView(context: Context) -> NSScrollView {
     /// Create the scroll view container
-    let scrollView = NSScrollView()
-    setUpScrollView(scrollView)
+    //    let scrollView = NSScrollView()
+    //    setUpScrollView(scrollView)
 
     /// Create and configure the text view
-    let textSystem = TextViewSystemInterface(
-      textView: <#T##TextView#>,
-      attributeProvider: <#T##TokenAttributeProvider##TokenAttributeProvider##(Token) -> [NSAttributedString.Key : Any]#>
-    )
-//    let textView = NSTextView()
-//    textView.updateHighlighter(with: highlighter)
-    textView.textContentStorage?.delegate = context.coordinator
-    textView.delegate = context.coordinator
-    context.coordinator.textView = textView
-    textView.setUpTextView()
-    configureTextDefaults(
-      textView,
-      scrollWidth: scrollView.contentSize.width,
-      context: context
-    )
-    context.coordinator.logTextKitMode(reason: "makeNSView")
+    //    let textSystem = TextViewSystemInterface(
+    //      textView: <#T##TextView#>,
+    //      attributeProvider: <#T##TokenAttributeProvider##TokenAttributeProvider##(Token) -> [NSAttributedString.Key : Any]#>
+    //    )
+    //    let textView = NSTextView()
+    //    textView.updateHighlighter(with: highlighter)
+    //    textView.textContentStorage?.delegate = context.coordinator
+    //    textView.delegate = context.coordinator
+    //    context.coordinator.textView = textView
+    //    textView.setUpTextView()
+    //    configureTextDefaults(
+    //      textView,
+    //      scrollWidth: scrollView.contentSize.width,
+    //      context: context
+    //    )
+    //    context.coordinator.logTextKitMode(reason: "makeNSView")
+    //
+    //    scrollView.documentView = textView
+    //
+    //    handleLineNumbersIfNeeded(for: scrollView, textView: textView)
 
-    scrollView.documentView = textView
-
-    handleLineNumbersIfNeeded(for: scrollView, textView: textView)
-
-    return scrollView
+    //    return scrollView
   }
 
   // MARK: - SwiftUI Updated
   /// This is for communicating changes from SwiftUI back to AppKit
-  func updateNSViewController(_ controller: TextViewController, context: Context) {
-  //  public func updateNSView(_ scrollView: NSScrollView, context: Context) {
-    guard let textView = scrollView.documentView as? NSTextView else { return }
-
-    if textView.string != text {
-      let selectedRange = textView.selectedRange()
-      textView.string = text
-      textView.setSelectedRange(selectedRange)
-      context.coordinator.updateTextView()
-    }
+  package func updateNSViewController(_ controller: TextViewController, context: Context) {
+    //  public func updateNSView(_ scrollView: NSScrollView, context: Context) {
+    //    guard let textView = scrollView.documentView as? NSTextView else { return }
+    //
+    //    if textView.string != text {
+    //      let selectedRange = textView.selectedRange()
+    //      textView.string = text
+    //      textView.setSelectedRange(selectedRange)
+    //      context.coordinator.updateTextView()
+    //    }
   }
 
-  public func makeCoordinator() -> Coordinator {
-    Coordinator(self)
-  }
+  //  public func makeCoordinator() -> Coordinator {
+  //    Coordinator(self)
+  //  }
 }

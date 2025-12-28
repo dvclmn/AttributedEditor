@@ -37,7 +37,9 @@ extension AttributedEditorView {
 
   var defaultParagraphStyle: NSMutableParagraphStyle {
     let paraStyle = NSMutableParagraphStyle()
-    paraStyle.lineSpacing = lineSpacing
+
+    paraStyle.lineSpacing = 0.2
+    //    paraStyle.lineSpacing = lineSpacing
     //    paraStyle.textLists = [
     //      .init(markerFormat: .circle, options: Int(NSTextList.Options.prependEnclosingMarker.rawValue))
     //    ]
@@ -46,7 +48,7 @@ extension AttributedEditorView {
   package var defaultAttributes: NSTextAttributes {
     return [
       .font: font,
-      .foregroundColor: highlighter.theme.textColour,
+      //      .foregroundColor: highlighter.theme.textColour,
       .paragraphStyle: defaultParagraphStyle,
     ]
   }
@@ -62,13 +64,13 @@ extension AttributedEditorView {
     for scrollView: NSScrollView,
     textView: NSTextView
   ) {
-    if editorOptions.contains(.lineNumbers) {
-      let rulerView = LineNumberRulerView(textView: textView)
-      scrollView.verticalRulerView = rulerView
-      scrollView.hasVerticalRuler = true
-      scrollView.rulersVisible = true
-    }
-    observeScroll(for: scrollView)
+    //    if editorOptions.contains(.lineNumbers) {
+    //      let rulerView = LineNumberRulerView(textView: textView)
+    //      scrollView.verticalRulerView = rulerView
+    //      scrollView.hasVerticalRuler = true
+    //      scrollView.rulersVisible = true
+    //    }
+    //    observeScroll(for: scrollView)
   }
 
   package func observeScroll(for scrollView: NSScrollView) {
@@ -88,11 +90,13 @@ extension AttributedEditorView {
   }
 
   var font: NSFont {
-    guard #available(macOS 26, iOS 26, *), let swiftUIFont else {
-      return NSFont.systemFont(ofSize: 14)
-    }
-    let resolved = swiftUIFont.resolveCompatible(in: fontResolutionContext)
-    return resolved.toNSFont
+    return NSFont.systemFont(ofSize: 23)
+    //
+    //    guard #available(macOS 26, iOS 26, *), let swiftUIFont else {
+    //      return NSFont.systemFont(ofSize: 14)
+    //    }
+    //    let resolved = swiftUIFont.resolveCompatible(in: fontResolutionContext)
+    //    return resolved.toNSFont
   }
 
   func observeTextKitVersionChange(for textView: NSTextView) {
@@ -110,7 +114,5 @@ extension AttributedEditorView {
       }
     }
   }
-  
-  
 
 }
