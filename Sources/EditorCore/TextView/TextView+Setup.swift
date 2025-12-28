@@ -9,7 +9,7 @@
 import CoreTools
 import SwiftUI
 
-extension BackingTextView {
+extension NSTextView {
 
   func setUpTextView() {
     drawsBackground = false

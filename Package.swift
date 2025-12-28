@@ -14,7 +14,7 @@ let package = Package(
       targets: [
         "AttributedEditor",
         "EditorCore",
-        "HighlighterCommon",
+//        "HighlighterCommon",
         "MarkdownHighlighter",  // Highlighter and Theme(?)
         //        "TextView",
         //        "ThemeCommon",
@@ -50,17 +50,18 @@ let package = Package(
         .module(.markdown),
         .colourKit,
         .coreTools,
+        .neon,
       ]
     ),
-    .target(
-      name: "HighlighterCommon",
-      dependencies: [
-        //        .module(.editorCore),
-        .coreTools,
-        .colourKit,
-//        .themRePark,
-      ]
-    ),
+//    .target(
+//      name: "HighlighterCommon",
+//      dependencies: [
+//        //        .module(.editorCore),
+//        .coreTools,
+//        .colourKit,
+////        .themRePark,
+//      ]
+//    ),
     .target(
       name: "MarkdownHighlighter",
       dependencies: [
