@@ -25,6 +25,7 @@ let package = Package(
     //    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
     //    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
     .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
+    .package(url: "https://github.com/ChimeHQ/Lowlight", branch: "main"),
     .package(url: "https://github.com/ChimeHQ/Neon", from: "0.6.0"),
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
 
@@ -99,36 +100,42 @@ extension Target.Dependency {
 enum PackageModule {
   case attributedEditor
   case editorCore
-  case common
+//  case common
   case markdown
-  //  case textView
-  //  case theme
 
   var name: String {
     switch self {
       case .attributedEditor: return "AttributedEditor"
       case .editorCore: return "EditorCore"
-      case .common: return "HighlighterCommon"
+//      case .common: return "HighlighterCommon"
       case .markdown: return "MarkdownHighlighter"
-    //      case .textView: return "TextView"
-    //      case .theme: return "ThemeCommon"
     }
   }
 }
-//enum ExternalDependency {
-//  case baseHelpers
-//  case themePark
-//
-//  var productName: String {
-//    switch self {
-//      case .baseHelpers: return "AttributedEditor"
-//      case .themePark: return "EditorCore"
-//    }
-//  }
-//  var packageName: String {
-//     switch self {
-//      case .baseHelpers: return "BaseHelpers"
-//      case .themePark: return "ThemePark"
-//    }
-//  }
-//}
+enum ExternalDependency {
+  case colourKit
+  case coreTools
+  case themePark
+  case neon
+  case lowlight
+
+  /// If different to product name
+  var product: String? {
+    switch self {
+      case .colourKit: "ColourKit"
+      case .coreTools: "CoreTools"
+      case .themePark, .neon, .lowlight: nil
+    }
+  }
+  var package: String {
+    switch self {
+      case .colourKit, .coreTools: "BaseHelpers"
+      case .themePark: "ThemePark"
+      case .neon: "Neon"
+      case .lowlight: "Lowlight"
+    }
+  }
+  var dependency: Target.Dependency {
+    .product(name: product ?? package, package: package)
+  }
+}

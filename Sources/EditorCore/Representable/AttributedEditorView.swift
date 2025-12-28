@@ -41,7 +41,8 @@ extension AttributedEditorView {
     setUpScrollView(scrollView)
 
     /// Create and configure the text view
-    let textView = NSTextView()
+    let textSystem = TextViewSystemInterface
+//    let textView = NSTextView()
 //    textView.updateHighlighter(with: highlighter)
     textView.textContentStorage?.delegate = context.coordinator
     textView.delegate = context.coordinator
