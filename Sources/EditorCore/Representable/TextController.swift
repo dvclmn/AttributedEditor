@@ -15,7 +15,8 @@ import TreeSitterMarkdownInline
 package final class TextViewController: NSUIViewController {
   package let textView: NSUITextView
   private let highlighter: TextViewHighlighter
-
+//let textDidChange
+  
   private static var defaultSyntaxColors: [String: NSUIColor] = [:]
 
   init() {

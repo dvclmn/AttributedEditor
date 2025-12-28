@@ -34,15 +34,14 @@ import SwiftUI
 
 package struct AttributedEditorView: NSViewControllerRepresentable {
   package typealias NSViewControllerType = TextViewController
-  //public struct AttributedEditorView: NSViewRepresentable {
-//  @Environment(\.font) var swiftUIFont
-//  @Environment(\.fontResolutionContext) var fontResolutionContext
-//  @Environment(\.editorOptions) var editorOptions
-//  @Environment(\.lineSpacing) var lineSpacing
+  //  @Environment(\.font) var swiftUIFont
+  //  @Environment(\.fontResolutionContext) var fontResolutionContext
+  //  @Environment(\.editorOptions) var editorOptions
+  //  @Environment(\.lineSpacing) var lineSpacing
 
   @Binding var text: String
 
-//  var highlighter: MarkdownHighlighter = .init()
+  //  var highlighter: MarkdownHighlighter = .init()
   //  var highlighter: any Highlighter
 
   public init(
@@ -51,7 +50,7 @@ package struct AttributedEditorView: NSViewControllerRepresentable {
   ) {
 
     self._text = text
-//    self.highlighter = MarkdownHighlighter()
+    //    self.highlighter = MarkdownHighlighter()
   }
 }
 
@@ -59,56 +58,38 @@ extension AttributedEditorView {
 
   package func makeNSViewController(context: Context) -> TextViewController {
     let controller = TextViewController()
-    // You may want to set initial text:
-            controller.textView.text = text
-    // Set delegates or handlers as needed
-    return controller
-    //  public func makeNSView(context: Context) -> NSScrollView {
-    /// Create the scroll view container
-    //    let scrollView = NSScrollView()
-    //    setUpScrollView(scrollView)
+    print("Here is the delegate for the text view (BEFORE): \(String(describing: controller.textView.delegate))")
+    controller.textView.delegate = context.coordinator
+    print("Here is the delegate for the text view (AFTER): \(String(describing: controller.textView.delegate))")
+//    controller.textView.textStorage?.
+//    controller.textDidChange = { [weak context.coordinator] newText in
+//      context.coordinator?.textDidChange(to: newText)
+//    }
+    //    controller.textView.delegate = context.coordinator
+    controller.textView.text = text
 
-    /// Create and configure the text view
-    //    let textSystem = TextViewSystemInterface(
-    //      textView: <#T##TextView#>,
-    //      attributeProvider: <#T##TokenAttributeProvider##TokenAttributeProvider##(Token) -> [NSAttributedString.Key : Any]#>
-    //    )
-    //    let textView = NSTextView()
-    //    textView.updateHighlighter(with: highlighter)
-    //    textView.textContentStorage?.delegate = context.coordinator
-    //    textView.delegate = context.coordinator
-    //    context.coordinator.textView = textView
-    //    textView.setUpTextView()
-    //    configureTextDefaults(
-    //      textView,
-    //      scrollWidth: scrollView.contentSize.width,
-    //      context: context
-    //    )
-    //    context.coordinator.logTextKitMode(reason: "makeNSView")
-    //
-    //    scrollView.documentView = textView
-    //
     //    handleLineNumbersIfNeeded(for: scrollView, textView: textView)
 
-    //    return scrollView
+    return controller
+
   }
 
   // MARK: - SwiftUI Updated
   /// This is for communicating changes from SwiftUI back to AppKit
   package func updateNSViewController(_ controller: TextViewController, context: Context) {
     //  public func updateNSView(_ scrollView: NSScrollView, context: Context) {
-//    let textView = controller.textView
-//    guard  else { return }
+    let textView = controller.textView
+    //    guard  else { return }
     //
-//        if textView.string != text {
-////          let selectedRange = textView.selectedRange()
-//          textView.string = text
-////          textView.setSelectedRange(selectedRange)
-////          context.coordinator.updateTextView()
-//        }
+    if textView.string != text {
+      let selectedRange = textView.selectedRange()
+      textView.string = text
+      textView.setSelectedRange(selectedRange)
+      ////          context.coordinator.updateTextView()
+    }
   }
 
-    public func makeCoordinator() -> Coordinator {
-      Coordinator(self)
-    }
+  public func makeCoordinator() -> Coordinator {
+    Coordinator(self)
+  }
 }

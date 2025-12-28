@@ -17,7 +17,7 @@ extension AttributedEditorView {
 //  //    NSTextContentManagerDelegate
 //  {
     let parent: AttributedEditorView
-    weak var textController: TextViewController?
+//    weak var textController: TextViewController?
 //    weak var textView: NSTextView?
 ////    weak var textView: (any Highlightable)?
 //    //    var pendingEditedRange: NSRange?
@@ -32,20 +32,38 @@ extension AttributedEditorView {
 }
 //
 extension AttributedEditorView.Coordinator {
+  
+  /// Update the SwiftUI binding when the text changes in AppKit
+//  func textDidChange(to text: String) {
+//    if parent.text != text {
+//      parent.text = text
+//    }
+//  }
   //
   //  // MARK: - Text Changed
   //  /// This is for communicating changes from within AppKit, back to SwiftUI
   public func textDidChange(_ notification: Notification) {
-    guard let textView = self.textController?.textView else { return }
+    guard let textView = notification.object as? NSTextView else {
+      print("No NSTextView found in notification")
+      return
+    }
+    print("SwiftUI text (BEFORE): \(self.parent.text)")
+    print("AppKit text (BEFORE): \(textView.string)")
+    updateIfChanged(&self.parent.text, to: textView.string)
     
-    /// Update the binding immediately so SwiftUI stays in sync
-    print("Hoping to update the SwiftUI text binding here")
-    parent.text = textView.string
-    //    updateInsertionPointPosition()
-    //    self.updateTextView()
-    //
-    //    logTextKitMode(reason: "textDidChange")
-    
+    print("SwiftUI text (AFTER): \(self.parent.text)")
+    print("AppKit text (AFTER): \(textView.string)")
+//    print("Do we see the textView? \(textView)")
+////    guard let textView = self.textController?.textView else { return }
+//    
+//    /// Update the binding immediately so SwiftUI stays in sync
+//    print("Hoping to update the SwiftUI text binding here")
+//    parent.text = textView.string
+//    //    updateInsertionPointPosition()
+//    //    self.updateTextView()
+//    //
+//    //    logTextKitMode(reason: "textDidChange")
+//    
   }
 }
 //
