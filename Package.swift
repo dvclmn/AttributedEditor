@@ -20,10 +20,11 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/dvclmn/BaseHelpers", branch: "main"),
-    //    .package(url: "https://github.com/mattmassicotte/nsui", from: "1.3.0"),
+        .package(url: "https://github.com/mattmassicotte/nsui", from: "1.3.0"),
     //    .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
     //    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
     //    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
+        .package(url: "https://github.com/tree-sitter-grammars/tree-sitter-markdown", branch: "split_parser"),
     .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
     .package(url: "https://github.com/ChimeHQ/Lowlight", branch: "main"),
     .package(url: "https://github.com/ChimeHQ/Neon", from: "0.6.0"),
@@ -50,6 +51,8 @@ let package = Package(
         .exteral(.neon),
         .exteral(.themePark),
         .exteral(.lowlight),
+        .exteral(.nsui),
+        .exteral(.treeSitterMarkdown),
       ]
     ),
 
@@ -107,13 +110,15 @@ enum ExternalDependency {
   case themePark
   case neon
   case lowlight
+  case nsui
+  case treeSitterMarkdown
 
   /// If different to product name
   var product: String? {
     switch self {
       case .colourKit: "ColourKit"
       case .coreTools: "CoreTools"
-      case .themePark, .neon, .lowlight: nil
+      case .themePark, .neon, .lowlight, .nsui, .treeSitterMarkdown: nil
     }
   }
   var package: String {
@@ -122,6 +127,8 @@ enum ExternalDependency {
       case .themePark: "ThemePark"
       case .neon: "Neon"
       case .lowlight: "Lowlight"
+      case .nsui: "NSUI"
+      case .treeSitterMarkdown: "TreeSitterMarkdown"
     }
   }
   var dependency: Target.Dependency {

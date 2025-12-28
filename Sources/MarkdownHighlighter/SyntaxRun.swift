@@ -8,7 +8,7 @@
 import AppKit
 import CoreTools
 
-public typealias MarkdownRuns = [SyntaxRun]
+//public typealias MarkdownRuns = [SyntaxRun]
 //import ThemePark
 
 //public typealias AttributedRanges = [SyntaxRun]
