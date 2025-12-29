@@ -25,12 +25,13 @@ extension MarkdownTheme {
 
   func updateTokens(
     for syntax: Markdown.Syntax,
-    with styles: RoleStyles,
+    with styles: StyleRole,
+//    with styles: RoleStyles,
     _ tokens: inout StyleTokens,
   ) {
-    tokens[syntax]?[.content] = styles.content
-    tokens[syntax]?[.syntax] = styles.syntax
-    tokens[syntax]?[.metadata] = styles.metadata
+    tokens[syntax]?[\.content] = styles.content
+    tokens[syntax]?[\.syntax] = styles.syntax
+    tokens[syntax]?[\.metadata] = styles.metadata
   }
 
   /// Looks up tokens given a syntax type and style role.
@@ -100,19 +101,22 @@ extension MarkdownTheme {
     _ syntax: Markdown.Syntax,
     //    role: StyleRole,
     //    _ syntaxID: Markdown.Syntax.ID,
-    build: (inout RoleStyles) -> Void
+    build: (inout StyleRole) -> Void
   ) {
-    var styles = RoleStyles()
+    var styles = StyleRole()
     build(&styles)
 
     var tokens: StyleTokens = [:]
 
-    tokens[SyntaxKey(syntax, .content)] = styles.content
-    tokens[.syntax] = styles.syntax
-    tokens[.metadata] = styles.metadata
+//    tokens[SyntaxKey(syntax, .content)] = styles.content
+    tokens[syntax]?[\.content] = styles.content
+    tokens[syntax]?[\.syntax] = styles.syntax
+    tokens[syntax]?[\.metadata] = styles.metadata
+//    tokens[.syntax] = styles.syntax
+//    tokens[.metadata] = styles.metadata
     //    tokens[.background] = styles.background
 
-    self.styleDefinitions[syntax] = tokens
+    self.styleDefinitions = tokens
   }
 
   //  private func update(role: StyleRole, for tokens: inout StyleTokens) {

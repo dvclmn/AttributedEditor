@@ -27,6 +27,7 @@ import CoreTools
 
 typealias RolePath = KeyPath<StyleRole, StyleToken?>
 
+// Previously RoleStyles
 struct StyleRole {
   var content: StyleToken?
   var syntax: StyleToken?
