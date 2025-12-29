@@ -9,24 +9,37 @@ import AppKit
 import ColourKit
 import CoreTools
 
-typealias StyleTokens = [SyntaxKey: StyleToken]
+extension KeyPath: @retroactive @unchecked Sendable where Value == StyleRole {}
+
+typealias StyleTokens = [Markdown.Syntax: [RolePath: StyleToken]]
 public struct MarkdownTheme: Sendable {
   var styleDefinitions: StyleTokens = [:]
 }
 
 extension MarkdownTheme {
 
-  subscript(syntax: Markdown.Syntax, role: StyleRole) -> StyleToken? {
-    get { styleDefinitions[SyntaxKey(syntax, role)] }
-    set { styleDefinitions[SyntaxKey(syntax, role)] = newValue }
+  subscript(syntax: Markdown.Syntax, role: RolePath) -> StyleToken? {
+    get { styleDefinitions[syntax]?[role] }
+    set { styleDefinitions[syntax]?[role] = newValue }
+  }
+
+  func updateTokens(
+    for syntax: Markdown.Syntax,
+    with styles: RoleStyles,
+    _ tokens: inout StyleTokens,
+  ) {
+    tokens[syntax]?[.content] = styles.content
+    tokens[syntax]?[.syntax] = styles.syntax
+    tokens[syntax]?[.metadata] = styles.metadata
   }
 
   /// Looks up tokens given a syntax type and style role.
   /// If this specific token definition is not found, a default
   /// token for the role is returned.
-  public func styleToken(
+  func styleToken(
     for syntax: Markdown.Syntax,
-    role: StyleRole
+    role: RolePath
+//    role: StyleRole
   ) -> StyleToken {
 
     /// Check specific definition using combined key
@@ -60,18 +73,24 @@ extension MarkdownTheme {
 
   func textAttributes(
     syntax: Markdown.Syntax,
-    role: StyleRole,
+    role: RolePath,
+//    role: StyleRole,
   ) -> TextAttributes {
     let token = styleToken(for: syntax, role: role)
     return textAttributes(for: token)
   }
 
-  func defaultToken(for role: StyleRole) -> StyleToken {
+  func defaultToken(for role: RolePath) -> StyleToken {
+    //  func defaultToken(for role: StyleRole) -> StyleToken {
     switch role {
-      case .content: StyleToken(foreground: .primary)
-      case .syntax: StyleToken(foreground: .tertiary)
-      case .metadata: StyleToken(foreground: .secondary)
-    //      case .background: .default
+      case \.content: StyleToken(foreground: .primary)
+      case \.syntax: StyleToken(foreground: .tertiary)
+      case \.metadata: StyleToken(foreground: .secondary)
+      //      case .content: StyleToken(foreground: .primary)
+      //      case .syntax: StyleToken(foreground: .tertiary)
+      //      case .metadata: StyleToken(foreground: .secondary)
+      //      case .background: .default
+      default: StyleToken.default
     }
   }
 
@@ -95,10 +114,10 @@ extension MarkdownTheme {
 
     self.styleDefinitions[syntax] = tokens
   }
-  
-//  private func update(role: StyleRole, for tokens: inout StyleTokens) {
-//
-//    tokens[SyntaxKey(syntax, role)] = tokens[keyPath: role.rolePath]
-//  }
+
+  //  private func update(role: StyleRole, for tokens: inout StyleTokens) {
+  //
+  //    tokens[SyntaxKey(syntax, role)] = tokens[keyPath: role.rolePath]
+  //  }
 
 }
