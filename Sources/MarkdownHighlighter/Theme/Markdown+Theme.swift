@@ -17,10 +17,29 @@ public struct MarkdownTheme: Sendable {
 }
 
 extension MarkdownTheme {
-  
-//  init() {
-//    
-//  }
+
+  init(@ThemeBuilder builder: () -> [SyntaxRoleDef]) {
+    var tokens: StyleTokens = [:]
+
+    let allRoles: Set<RolePath> = [
+      \.content,
+      \.syntax,
+      \.metadata,
+    ]
+    for def in builder() {
+      for rolePath in allRoles {
+        if let value = def.role[keyPath: rolePath] {
+          tokens[def.syntax, default: [:]][rolePath] = value
+        }
+      }
+    }
+
+    self.init(styleDefinitions: tokens)
+  }
+
+  //  init() {
+  //
+  //  }
 
   subscript(syntax: Markdown.Syntax, role: RolePath) -> StyleToken? {
     get { styleDefinitions[syntax]?[role] }
@@ -30,7 +49,7 @@ extension MarkdownTheme {
   func updateTokens(
     for syntax: Markdown.Syntax,
     with styles: StyleRole,
-//    with styles: RoleStyles,
+    //    with styles: RoleStyles,
     _ tokens: inout StyleTokens,
   ) {
     tokens[syntax]?[\.content] = styles.content
@@ -44,7 +63,7 @@ extension MarkdownTheme {
   func styleToken(
     for syntax: Markdown.Syntax,
     role: RolePath
-//    role: StyleRole
+      //    role: StyleRole
   ) -> StyleToken {
 
     /// Check specific definition using combined key
@@ -63,7 +82,7 @@ extension MarkdownTheme {
     var attrs = TextAttributes()
     //
     attrs[.foregroundColor] = token.foreground?.nsColor
-//    attrs[.foregroundColor] = token.foreground?.nsColor
+    //    attrs[.foregroundColor] = token.foreground?.nsColor
     attrs[.fontTraits] = token.fontTraits
     //
     //#warning("Theme approach is WIP")
@@ -80,7 +99,7 @@ extension MarkdownTheme {
   func textAttributes(
     syntax: Markdown.Syntax,
     role: RolePath,
-//    role: StyleRole,
+    //    role: StyleRole,
   ) -> TextAttributes {
     let token = styleToken(for: syntax, role: role)
     return textAttributes(for: token)
@@ -113,12 +132,12 @@ extension MarkdownTheme {
 
     var tokens: StyleTokens = [:]
 
-//    tokens[SyntaxKey(syntax, .content)] = styles.content
+    //    tokens[SyntaxKey(syntax, .content)] = styles.content
     tokens[syntax]?[\.content] = styles.content
     tokens[syntax]?[\.syntax] = styles.syntax
     tokens[syntax]?[\.metadata] = styles.metadata
-//    tokens[.syntax] = styles.syntax
-//    tokens[.metadata] = styles.metadata
+    //    tokens[.syntax] = styles.syntax
+    //    tokens[.metadata] = styles.metadata
     //    tokens[.background] = styles.background
 
     self.styleDefinitions = tokens
