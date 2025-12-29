@@ -7,9 +7,13 @@
 
 import AppKit
 //import Neon
+import CoreTools
 import MarkdownHighlighter
 
 extension AttributedEditorView.Coordinator {
+  var defaults: NSTextAttributes { self.parent.defaultAttributes }
+  var theme: MarkdownTheme { self.parent.highlighter.theme }
+  var font: NSFont { self.parent.font }
 
   func updateTextView() {
     guard let textView else { return }
@@ -22,17 +26,7 @@ extension AttributedEditorView.Coordinator {
       await self.debouncer.execute { @MainActor in
 
         let runs = highlighter.buildStyles(in: text)
-
         self.applyStyles(runs: runs, affectedRange: affectedRange)
-//        applyStyles(
-//          runs: runs,
-//          textView: textView,
-//          affectedRange: affectedRange,
-//          font: self.parent.font,
-//          defaults: defaults
-//        )
-
-        //        textView.updateHighlighter(with: highlighter)
 
         /// Refresh line numbers
         if self.parent.editorOptions.contains(.lineNumbers) {
@@ -46,33 +40,17 @@ extension AttributedEditorView.Coordinator {
   @MainActor
   func applyStyles(
     runs: [SyntaxRun],
-    //    textView: NSTextView,
     affectedRange: NSRange,
-    //    font: NSFont,
-    //    defaults: NSTextAttributes
   ) {
 
     guard let textView,
       let tcs = textView.textContentStorage,
       let ts = tcs.textStorage
     else { return }
-    //    guard let textStorage = textView.textStorage else { return }
-    //    let text = textStorage.string
+
     let text = textView.string
-    let defaults = self.parent.defaultAttributes
-    let theme = self.parent.highlighter.theme
-    let font = self.parent.font
-    //    let resolver = ThemeResolver(theme)
 
     ts.beginEditing()
-
-    //    var attrWithDebug = defaults
-    //    attrWithDebug.updateValue(
-    //      NSFont.monospacedSystemFont(ofSize: 13, weight: .medium), forKey: .font
-    //      NSColor.blue.withAlphaComponent(0.18), forKey: .backgroundColor
-    //    )
-
-    //    print("Font attributes: ", thing.keys)
 
     ts.setAttributes(defaults, range: affectedRange)
 
@@ -95,11 +73,8 @@ extension AttributedEditorView.Coordinator {
       print("\(attrs.description)\n")
 
       ts.setAttributes(attrs.toNSAttributes, range: range)
-
     }
-
     textView.syncTypingAttributes()
-
     ts.endEditing()
 
   }

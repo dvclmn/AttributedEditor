@@ -19,13 +19,10 @@ public struct AttributedEditorView: NSViewRepresentable {
   @Binding var text: String
   
   var highlighter: MarkdownHighlighter = .init()
-//  var highlighter: any Highlighter
 
   public init(
     text: Binding<String>,
-//    highlighter: MarkdownHighlighter,
   ) {
-    
     self._text = text
     self.highlighter = MarkdownHighlighter()
   }
@@ -39,7 +36,6 @@ extension AttributedEditorView {
     setUpScrollView(scrollView)
 
     let textView = NSTextView()
-//    textView.updateHighlighter(with: highlighter)
     textView.textContentStorage?.delegate = context.coordinator
     textView.delegate = context.coordinator
     context.coordinator.textView = textView
@@ -50,9 +46,7 @@ extension AttributedEditorView {
       context: context
     )
     context.coordinator.logTextKitMode(reason: "makeNSView")
-
     scrollView.documentView = textView
-
     handleLineNumbersIfNeeded(for: scrollView, textView: textView)
 
     return scrollView
