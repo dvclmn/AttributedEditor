@@ -12,10 +12,33 @@ extension MarkdownTheme {
   public static let `default`: Self = .standard
 
   public static var standard: Self {
-
     MarkdownTheme {
       Syntax(.bold) { roles in
         roles[.content] = StyleToken(foreground: .primary, fontTraits: .bold)
+      }
+      Syntax(.italic) { roles in
+        roles[.content] = StyleToken(foreground: .primary, fontTraits: .italic)
+        roles[.syntax] = StyleToken(foreground: .tertiary)
+      }
+      Syntax(.boldItalic) { roles in
+        roles[.content] = StyleToken(foreground: .primary, fontTraits: [.bold, .italic])
+        roles[.syntax] = StyleToken(foreground: .tertiary)
+      }
+      Syntax(.link) { roles in
+        roles[.content] = StyleToken(foreground: .link)
+        roles[.syntax] = StyleToken(foreground: .tertiary)
+      }
+      Syntax(.codeBlock) { roles in
+        roles[.content] = StyleToken(foreground: .secondary, fontTraits: .monoSpace)
+        roles[.syntax] = StyleToken(foreground: .gray, fontTraits: .monoSpace)
+      }
+      Syntax(.inlineCode) { roles in
+        roles[.content] = StyleToken(foreground: .brown, fontTraits: .monoSpace)
+        roles[.syntax] = StyleToken(foreground: .gray, fontTraits: .monoSpace)
+      }
+      Syntax(Markdown.Syntax.allHeaders) { roles in
+        roles[.content] = StyleToken(foreground: .primary, fontTraits: .bold)
+        roles[.syntax] = StyleToken(foreground: .tertiary)
       }
     }
   }
@@ -85,3 +108,4 @@ extension MarkdownTheme {
 //    return theme
 //  }()
 //}
+

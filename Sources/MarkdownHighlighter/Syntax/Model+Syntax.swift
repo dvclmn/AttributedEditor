@@ -43,6 +43,10 @@ extension Markdown {
 
 extension Markdown.Syntax {
   nonisolated public var id: String { name }
+  
+  public static var allHeaders: [Markdown.Syntax] {
+    [.heading1, .heading2, .heading3, .heading4, .heading5, .heading6]
+  }
 
   public var name: String {
     switch self {
