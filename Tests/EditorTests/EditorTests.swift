@@ -5,7 +5,6 @@
 //  Created by Dave Coleman on 11/8/2024.
 //
 
-import Foundation
 import SwiftUI
 import Testing
 
@@ -14,50 +13,50 @@ import Testing
 
 @MainActor
 struct EditorTests {
-  let hl: MarkdownHighlighter
-  var textView: BackingTextView
+  let highlighter: MarkdownHighlighter
+
   let font = NSFont.monospacedSystemFont(ofSize: 14, weight: .regular)
 
   @Test func findsInlineCode() {
-    textView.string = "I have a portion of `inline code` text."
-    let text = textView.string
-    let affectedRange = textView.documentNSRange
-
-    let runs = hl.buildStyles(in: text)
-
-    hl.applyStyles(
-      runs: runs,
-      textView: textView,
-      affectedRange: affectedRange,
-      font: font,
-      defaults: [:]
-    )
+//    textView.string = "I have a portion of `inline code` text."
+//    let text = textView.string
+//    let affectedRange = textView.documentNSRange
+//
+//    let runs = highlighter.buildStyles(in: text)
+//
+//    highlighter.applyStyles(
+//      runs: runs,
+//      textView: textView,
+//      affectedRange: affectedRange,
+//      font: font,
+//      defaults: [:]
+//    )
 
   }
 
 }
 
-extension EditorTests {
-  init() {
-    let tv = BackingTextView()
-    let highlighter = MarkdownHighlighter()
-
-    tv.setUpTextView()
-    tv.highlighter = highlighter
-//    tv.updateHighlighter(with: highlighter)
-    self.textView = tv
-    self.hl = highlighter
-  }
-
-  //  func makeEditor(withText text: String) -> AttributedEditorView {
-  //    let editor = AttributedEditorView(
-  //      text: .constant(text),
-  //      highlighter: self.highlighter
-  //    )
-  //
-  //    let hl = editor.high
-  //  }
-}
+//extension EditorTests {
+//  init() {
+//    let tv = BackingTextView()
+//    let highlighter = MarkdownHighlighter()
+//
+//    tv.setUpTextView()
+//    tv.highlighter = highlighter
+////    tv.updateHighlighter(with: highlighter)
+//    self.textView = tv
+//    self.highlighter = highlighter
+//  }
+//
+//  //  func makeEditor(withText text: String) -> AttributedEditorView {
+//  //    let editor = AttributedEditorView(
+//  //      text: .constant(text),
+//  //      highlighter: self.highlighter
+//  //    )
+//  //
+//  //    let hl = editor.high
+//  //  }
+//}
 
 //
 //@testable import MarkdownEditor

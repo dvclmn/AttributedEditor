@@ -6,7 +6,6 @@
 //
 
 import AppKit
-//import Neon
 import CoreTools
 import MarkdownHighlighter
 

@@ -110,7 +110,5 @@ extension AttributedEditorView {
       }
     }
   }
-  
-  
 
 }

@@ -17,6 +17,10 @@ public struct MarkdownTheme: Sendable {
 }
 
 extension MarkdownTheme {
+  
+//  init() {
+//    
+//  }
 
   subscript(syntax: Markdown.Syntax, role: RolePath) -> StyleToken? {
     get { styleDefinitions[syntax]?[role] }
@@ -59,6 +63,7 @@ extension MarkdownTheme {
     var attrs = TextAttributes()
     //
     attrs[.foregroundColor] = token.foreground?.nsColor
+//    attrs[.foregroundColor] = token.foreground?.nsColor
     attrs[.fontTraits] = token.fontTraits
     //
     //#warning("Theme approach is WIP")
