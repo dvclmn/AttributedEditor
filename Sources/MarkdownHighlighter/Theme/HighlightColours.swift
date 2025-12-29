@@ -24,12 +24,12 @@ extension MarkdownTheme.HighlightColours {
   public var syntax: CodableColour {
     CodableColour.mix(contrastColour, .gray, 0.3, opacity: 0.3)
   }
-  
+
   /// The highlighted text content
   public var content: CodableColour {
     CodableColour.system(contrastColour)
   }
-  
+
   /// Text background colour
   public var colourBG: CodableColour {
     CodableColour.system(colourMain, opacity: 0.2)
@@ -38,7 +38,7 @@ extension MarkdownTheme.HighlightColours {
   public var colourMain: SystemColour {
     SystemColour(rawValue: rawValue) ?? .primary
   }
-  
+
   public var contrastColour: SystemColour {
     switch self {
       case .blue: .cyan

@@ -13,6 +13,7 @@ extension AttributedEditorView.Coordinator {
   var defaults: NSTextAttributes { self.parent.defaultAttributes }
   var theme: MarkdownTheme { self.parent.highlighter.theme }
   var font: NSFont { self.parent.font }
+  var hasLineNumbers: Bool { self.parent.editorOptions.contains(.lineNumbers) }
 
   func updateTextView() {
     guard let textView else { return }
@@ -28,7 +29,7 @@ extension AttributedEditorView.Coordinator {
         self.applyStyles(runs: runs, affectedRange: affectedRange)
 
         /// Refresh line numbers
-        if self.parent.editorOptions.contains(.lineNumbers) {
+        if self.hasLineNumbers {
           textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
           textView.needsDisplay = true
         }
@@ -49,6 +50,7 @@ extension AttributedEditorView.Coordinator {
 
     let text = textView.string
 
+    // MARK: - Begin edit
     ts.beginEditing()
 
     ts.setAttributes(defaults, range: affectedRange)
@@ -67,13 +69,16 @@ extension AttributedEditorView.Coordinator {
 
       attrs[.font] = adjustedFont
 
-      print("Attributes for \(run.syntax.name, default: "No fragment desc").")
+//      print("Attributes for \(run.syntax.name, default: "No fragment desc").")
       //      print("Range preview: \(run.range.withPreview(in: text))")
-      print("\(attrs.description)\n")
+//      print("\(attrs.description)\n")
 
       ts.setAttributes(attrs.toNSAttributes, range: range)
     }
+    
     textView.syncTypingAttributes()
+
+    // MARK: - End edit
     ts.endEditing()
 
   }

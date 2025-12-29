@@ -7,8 +7,6 @@
 
 import CoreTools
 
-//import EditorCore
-
 extension MarkdownHighlighter {
 
   /// Looks for matches for Markdown syntax in the given text, and populates
@@ -24,25 +22,24 @@ extension MarkdownHighlighter {
     in text: String,
     _ runs: inout MarkdownRuns
   ) {
-    guard let data = SyntaxData(syntax: syntax) else { return }
-    let matches = text.matches(of: data.pattern)
-
-    guard !matches.isEmpty else {
-      DebugString {
-        "No matches for \(syntax.name)"
-        Labeled("Fragments", value: data.fragments.map(\.name))
-        Labeled("Attributes", value: runs)
-        Labeled("Text", value: text)
-      }
-      return
-    }
-    for match in matches {
-      data.processMatch(
-        match,
-        for: syntax,
-        runs: &runs
-      )
-    }
+//    guard let data = SyntaxData(syntax: syntax) else { return }
+//    let matches = text.matches(of: data.pattern)
+//
+//    guard !matches.isEmpty else {
+//      DebugString {
+//        "No matches for \(syntax.name)"
+//        Labeled("Fragments", value: data.fragments.map(\.name))
+//        Labeled("Attributes", value: runs)
+//        Labeled("Text", value: text)
+//      }
+//      return
+//    }
+//    for match in matches {
+//      data.processMatch(
+//        match,
+//        for: syntax,
+//        runs: &runs
+//      )
+//    }
   }
-
 }

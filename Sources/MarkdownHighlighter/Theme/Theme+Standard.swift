@@ -40,6 +40,11 @@ extension MarkdownTheme {
         roles.set(.content, style: StyleToken(colour: .brown, font: .monoSpace))
         roles.set(.syntax, style: StyleToken(colour: .gray, font: .monoSpace))
       }
+      
+      Syntax(.highlight) { roles in
+        roles.set(.content, style: StyleToken(colour: .blue))
+        roles.set(.syntax, style: StyleToken(colour: .cyan))
+      }
 
       Syntax(Markdown.Syntax.allHeaders) { roles in
         roles.set(.content, style: StyleToken(colour: .primary, font: .bold))

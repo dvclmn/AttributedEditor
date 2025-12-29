@@ -57,6 +57,17 @@ public enum RegexShape: Equatable, Hashable {
   )
 }
 extension RegexShape {
+
+  public var toFragments: [Fragment] {
+    switch self {
+      case .wrap: [.syntaxStart, .content, .syntaxEnd]
+      case .prefix: [.prefix, .content]
+      case .single: [.single]
+      case .codeBlock: [.syntaxStart, .languageHint, .content, .syntaxEnd]
+      case .wrapPair: fatalError("Not yet implemented")
+    }
+  }
+
   /// Return a range for a given Regex Match and shape part
   /// `text` is the original main text being searched for matches
   public func range(

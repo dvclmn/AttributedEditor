@@ -28,29 +28,11 @@ extension Fragment {
     }
   }
 
-  public static let prefixShape: [Self] = [.prefix, .content]
-  public static let wrapShape: [Self] = [.syntaxStart, .content, .syntaxEnd]
-  public static let singleShape: [Self] = [.single]
-  public static let codeBlockShape: [Self] = [
-    .syntaxStart,
-    .languageHint,
-    .content,
-    .syntaxEnd,
-  ]
-
-  var styleRole: StyleRole {
+  var toStyleRole: StyleRole {
     switch self {
       case .content, .single: .content
       case .syntaxStart, .syntaxEnd: .syntax
       case .languageHint, .url, .prefix: .metadata
     }
   }
-  
-//  var styleRolePath: RolePath {
-//    switch self {
-//      case .content, .single: \.content
-//      case .syntaxStart, .syntaxEnd: \.syntax
-//      case .languageHint, .url, .prefix: \.metadata
-//    }
-//  }
 }

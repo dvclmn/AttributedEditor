@@ -7,9 +7,9 @@
 
 import AppKit
 
-class BackingLayout: NSTextLayoutManager {
-  
-}
+//class BackingLayout: NSTextLayoutManager {
+//  
+//}
 
 //class BackingLayoutLegacy: NSLayoutManager {
 //  override init() { super.init() }

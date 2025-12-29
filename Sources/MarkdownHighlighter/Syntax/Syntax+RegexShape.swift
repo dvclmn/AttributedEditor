@@ -5,51 +5,11 @@
 //  Created by Dave Coleman on 19/11/2025.
 //
 
-//import EditorCore
-
-extension Fragment {
-
-
-}
-
 extension Markdown.Syntax {
 
   var fragments: [Fragment]? {
-
-    switch self {
-
-      /// ``RegexShape/Prefix``
-      case .heading1,
-        .heading2,
-        .heading3,
-        .heading4,
-        .heading5,
-        .heading6,
-        .quoteBlock,
-        .list:
-        Fragment.prefixShape
-
-      /// ``RegexShape/Wrap``
-      case .bold,
-        .italic,
-        .boldItalic,
-        .inlineCode,
-        .strikethrough,
-        .highlight:
-        Fragment.wrapShape
-
-      case .codeBlock:
-        Fragment.codeBlockShape
-
-      case .horizontalRule:
-        Fragment.singleShape
-
-      case .callout, .body, .link, .image: nil  // Haven't thought this through yet
-    }
+    self.regexShape?.toFragments
   }
-}
-
-extension Markdown.Syntax {
 
   var regexShape: RegexShape? {
     switch self {

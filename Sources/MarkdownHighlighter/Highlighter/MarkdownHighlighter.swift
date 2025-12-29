@@ -7,11 +7,12 @@
 
 import AppKit
 import CoreTools
+
 //import EditorCore
 
 //public typealias MarkdownRun = SyntaxRun<Markdown.Syntax>
 
-package  final class MarkdownHighlighter {
+package final class MarkdownHighlighter {
   //  public typealias Syntax = Markdown.Syntax
 
   private let isDrawingBlocks: Bool = false
@@ -39,7 +40,19 @@ package  final class MarkdownHighlighter {
     var runs: MarkdownRuns = []
 
     for syntax in declaredSyntax {
-      processMatches(for: syntax, in: text, &runs)
+
+      guard let data = SyntaxData(syntax: syntax) else { return [] }
+      let matches = text.matches(of: data.pattern)
+
+      guard !matches.isEmpty else { return [] }
+
+      for match in matches {
+        data.processMatch(
+          match,
+          for: syntax,
+          runs: &runs
+        )
+      }
     }
 
     return runs

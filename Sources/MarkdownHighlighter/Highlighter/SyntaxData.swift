@@ -64,7 +64,7 @@ extension SyntaxData {
       /// If a run with this range is not already present, add a new one
       let run = SyntaxRun(
         syntax: syntax,
-        role: fragment.styleRole,
+        role: fragment.toStyleRole,
         range: range
       )
       runs.append(run)
