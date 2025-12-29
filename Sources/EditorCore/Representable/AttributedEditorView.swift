@@ -11,31 +11,7 @@ import MarkdownHighlighter
 import Neon
 import SwiftUI
 
-//struct AttributedEditorView: NSViewControllerRepresentable {
-//  @Binding var text: String
-//  
-//  func makeNSViewController(context: Context) -> TextViewController {
-//    let controller = TextViewController()
-//    // You may want to set initial text:
-//    controller.textView.text = text
-//    // Set delegates or handlers as needed
-//    return controller
-//  }
-//  
-//  func updateNSViewController(_ controller: TextViewController, context: Context) {
-//    // Sync from SwiftUI to controller if necessary
-//    if controller.textView.text != text {
-//      controller.textView.text = text
-//    }
-//    // Optionally, listen to changes on the NSTextView to update the binding
-//    // via delegate or notification
-//  }
-//}
-
-struct AttributedEditorView: NSViewControllerRepresentable {
-  typealias NSViewControllerType = <#type#>
-  
-//public struct AttributedEditorView: NSViewRepresentable {
+public struct AttributedEditorView: NSViewRepresentable {
   @Environment(\.font) var swiftUIFont
   @Environment(\.fontResolutionContext) var fontResolutionContext
   @Environment(\.editorOptions) var editorOptions
@@ -58,18 +34,12 @@ struct AttributedEditorView: NSViewControllerRepresentable {
 
 extension AttributedEditorView {
 
-  func makeNSViewController(context: Context) -> TextViewController {
-//  public func makeNSView(context: Context) -> NSScrollView {
+  public func makeNSView(context: Context) -> NSScrollView {
     /// Create the scroll view container
     let scrollView = NSScrollView()
     setUpScrollView(scrollView)
 
-    /// Create and configure the text view
-    let textSystem = TextViewSystemInterface(
-      textView: <#T##TextView#>,
-      attributeProvider: <#T##TokenAttributeProvider##TokenAttributeProvider##(Token) -> [NSAttributedString.Key : Any]#>
-    )
-//    let textView = NSTextView()
+    let textView = NSTextView()
 //    textView.updateHighlighter(with: highlighter)
     textView.textContentStorage?.delegate = context.coordinator
     textView.delegate = context.coordinator
@@ -91,8 +61,7 @@ extension AttributedEditorView {
 
   // MARK: - SwiftUI Updated
   /// This is for communicating changes from SwiftUI back to AppKit
-  func updateNSViewController(_ controller: TextViewController, context: Context) {
-  //  public func updateNSView(_ scrollView: NSScrollView, context: Context) {
+    public func updateNSView(_ scrollView: NSScrollView, context: Context) {
     guard let textView = scrollView.documentView as? NSTextView else { return }
 
     if textView.string != text {
