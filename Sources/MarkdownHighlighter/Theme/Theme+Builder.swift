@@ -8,17 +8,19 @@
 @resultBuilder
 public struct ThemeBuilder {
   public static func buildBlock(
-    _ syntaxRoles: SyntaxRoleDef...
+    _ syntaxRoles: [SyntaxRoleDef]...
   ) -> [SyntaxRoleDef] {
-    syntaxRoles
+    syntaxRoles.flatMap(\.self)
   }
-}
-extension ThemeBuilder {
-  public static func buildExpression(
-    _ expression: [SyntaxRoleDef]
-  ) -> [SyntaxRoleDef] {
-    expression
+  
+  public static func buildArray(_ components: [[DisplayBlock]]) -> [DisplayBlock] {
+    components.flatMap { $0 }
   }
+//  public static func buildExpression(
+//    _ expression: [SyntaxRoleDef]...
+//  ) -> [SyntaxRoleDef] {
+//    expression.flatMap(\.self)
+//  }
 }
 
 public struct SyntaxRoleDef {
@@ -35,11 +37,12 @@ func Syntax(
   _ syntax: Markdown.Syntax...,
   build: (inout StyleRoles) -> Void
 ) -> [SyntaxRoleDef] {
+
   var roles = StyleRoles()
   build(&roles)
 
   var defs: [SyntaxRoleDef] = []
-  
+
   for syn in syntax {
     defs.append(SyntaxRoleDef(syn, roles: roles))
   }
