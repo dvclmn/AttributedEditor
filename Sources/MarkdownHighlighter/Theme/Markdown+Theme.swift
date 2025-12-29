@@ -9,59 +9,36 @@ import AppKit
 import ColourKit
 import CoreTools
 
-struct SyntaxRoleKey: Hashable {
-  let syntax: Markdown.Syntax
-  let role: StyleRole
-}
-
-//public typealias StyleTokens = [StyleRole: StyleToken]
-
 public struct MarkdownTheme: Sendable {
-  var styleDefinitions: [SyntaxRoleKey: StyleToken] = [:]
+  var styleDefinitions: [SyntaxKey: StyleToken] = [:]
 }
 
 extension MarkdownTheme {
-
-  //  func backgroundStyle(
-  //    for syntax: Markdown.Syntax,
-  //    role: StyleRole
-  //  ) -> StyleToken.BackgroundStyle? {
-  //    switch syntax {
-  //      case .inlineCode:
-  //        return .roundedRect(.pink, cornerRadius: 3)
-  //
-  //      case .codeBlock where role == .content:
-  //        return .roundedRect(.indigo, cornerRadius: 3)
-  //
-  //      default:
-  //        return nil
-  //    }
-  //  }
-  //
-  //  static var basicCodeBackground: CodeBackground { .init() }
-
-}
-
-extension MarkdownTheme {
-  //  public var font: NSFont { NSFont.systemFont(ofSize: 14) }
-  public var textColour: NSColor { .textColor }
-
-  //  public mutating func updateFont(with newFont: NSFont) {
-  //    self.font = newFont
-  //  }
-
-  /// Extracts font/colour data from theme tokens,
-  /// and populates attributes for this syntax part
+  
+  
+  /// This simply provides a neater API, to read into the
+  /// contents of the `styleDefinitions` property.
   ///
-  /// Note: `NSTextAttributes` can only carry *one*
-  /// entry at a time, for a key. E.g. foreground, font, etc.
-  ///
-  /// So this can only handle one 'piece', like a syntax
-  /// part/fragment, at once.
+  /// This method looks up tokens using the combined `SyntaxKey`
+  /// instead of nested dictionaries.
+  /// If no specific token is found, a default token for the role is returned.
+  public func styleToken(
+    for syntax: Markdown.Syntax,
+    role: StyleRole
+    //    for syntaxID: Markdown.Syntax.ID,
+    //    styleRole: Markdown.StyleRole
+  ) -> StyleToken {
+    
+    /// Check specific definition using combined key
+    if let token = styleDefinitions[SyntaxKey(syntax: syntax, role: role)] {
+      return token
+    }
+    return defaultToken(for: role)
+  }
+
+  /// Retrieves font/colour data from theme tokens
   func textAttributes(
     for token: StyleToken
-      //    for syntaxID: Markdown.Syntax.ID,
-      //    role styleRole: StyleRole,
   ) -> TextAttributes {
 
     //    let token = style(for: syntaxID, styleRole: styleRole)
@@ -80,26 +57,15 @@ extension MarkdownTheme {
     //    }
     return attrs
   }
-
-  /// This simply provides a neater API, to read into the
-  /// contents of the `styleDefinitions` property.
-  ///
-  /// This method looks up tokens using the combined `SyntaxRoleKey`
-  /// instead of nested dictionaries.
-  /// If no specific token is found, a default token for the role is returned.
-  public func styleToken(
+  
+  func textAttributes(
     syntax: Markdown.Syntax,
-    role: StyleRole
-      //    for syntaxID: Markdown.Syntax.ID,
-      //    styleRole: Markdown.StyleRole
-  ) -> StyleToken {
-
-    /// Check specific definition using combined key
-    if let token = styleDefinitions[SyntaxRoleKey(syntax: syntax, role: role)] {
-      return token
-    }
-    return defaultToken(for: role)
+    role: StyleRole,
+  ) -> TextAttributes {
+    let token = styleToken(for: syntax, role: role)
+    return textAttributes(for: token)
   }
+
 
   func defaultToken(for role: StyleRole) -> StyleToken {
     switch role {
@@ -108,6 +74,29 @@ extension MarkdownTheme {
       case .metadata: StyleToken(foreground: .secondary)
     //      case .background: .default
     }
+  }
+
+  /// The registration method maps the builder back to the generic parts
+  /// See usage: ``Markdown/Theme/standard``
+  mutating func register(
+    _ syntax: Markdown.Syntax,
+    role: StyleRole,
+    //    _ syntaxID: Markdown.Syntax.ID,
+    build: (inout RoleStyles) -> Void
+  ) {
+    var styles = RoleStyles()
+    build(&styles)
+
+    //      var tokens: StyleTokens = [:]
+
+    styleDefinitions[SyntaxKey(syntax, role)] = token
+
+    tokens[.content] = styles.content
+    tokens[.syntax] = styles.syntax
+    tokens[.metadata] = styles.metadata
+    //    tokens[.background] = styles.background
+
+    self.styleDefinitions[syntax] = tokens
   }
 
 }
