@@ -9,8 +9,9 @@ import AppKit
 import ColourKit
 import CoreTools
 
+typealias StyleTokens = [SyntaxKey: StyleToken]
 public struct MarkdownTheme: Sendable {
-  var styleDefinitions: [SyntaxKey: StyleToken] = [:]
+  var styleDefinitions: StyleTokens = [:]
 }
 
 extension MarkdownTheme {
@@ -78,23 +79,26 @@ extension MarkdownTheme {
   /// See usage: ``Markdown/Theme/standard``
   mutating func register(
     _ syntax: Markdown.Syntax,
-    role: StyleRole,
+    //    role: StyleRole,
     //    _ syntaxID: Markdown.Syntax.ID,
     build: (inout RoleStyles) -> Void
   ) {
     var styles = RoleStyles()
     build(&styles)
 
-    //      var tokens: StyleTokens = [:]
+    var tokens: StyleTokens = [:]
 
-    self[syntax, role]  = token
-
-    tokens[.content] = styles.content
+    tokens[SyntaxKey(syntax, .content)] = styles.content
     tokens[.syntax] = styles.syntax
     tokens[.metadata] = styles.metadata
     //    tokens[.background] = styles.background
 
     self.styleDefinitions[syntax] = tokens
   }
+  
+//  private func update(role: StyleRole, for tokens: inout StyleTokens) {
+//
+//    tokens[SyntaxKey(syntax, role)] = tokens[keyPath: role.rolePath]
+//  }
 
 }

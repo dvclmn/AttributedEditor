@@ -15,6 +15,20 @@ public enum StyleRole: Hashable, Sendable {
   case content
   case syntax
   case metadata
+  
+  var rolePath: WritableKeyPath<RoleStyles, StyleToken?> {
+    switch self {
+      case .content: \.content
+      case .syntax: \.syntax
+      case .metadata: \.metadata
+    }
+  }
+}
+
+struct RoleStyles {
+  var content: StyleToken?
+  var syntax: StyleToken?
+  var metadata: StyleToken?
 }
 
 /// Composite key, for use with `StyleToken` lookup for themes
@@ -30,9 +44,5 @@ extension SyntaxKey {
   }
 }
 
-struct RoleStyles {
-  var content: StyleToken?
-  var syntax: StyleToken?
-  var metadata: StyleToken?
-}
+
 
