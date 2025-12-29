@@ -34,12 +34,16 @@ extension StyleRoles {
   }
 
   /// convenience initializer
-  @inlinable
-  public init(_ pairs: (StyleRole, StyleToken)...) {
-    var dict: [StyleRole: StyleToken] = [:]
-    for (r, t) in pairs { dict[r] = t }
-    self.init(values: dict)
-  }
+//    @inlinable
+//    public init(_ pairs: (StyleRole, StyleToken)...) {
+//      var dict: [StyleRole: StyleToken] = [:]
+//      for (r, t) in pairs { dict[r] = t }
+//      self.init(values: dict)
+//    }
+
+    mutating func set(_ role: StyleRole, style token: StyleToken?) {
+      values[role] = token
+    }
 
   /// iterate in deterministic order
   public func forEach(_ body: (StyleRole, StyleToken) -> Void) {
@@ -60,31 +64,5 @@ extension StyleRoles {
       }
     }
   }
+
 }
-
-//package typealias RolePath = KeyPath<StyleRole, StyleToken?>
-
-// Previously RoleStyles
-//package struct StyleRole {
-//  var content: StyleToken?
-//  var syntax: StyleToken?
-//  var metadata: StyleToken?
-//}
-
-/// Expresses rendering intent. E.g. this doesn't list out
-/// leading and trailing syntax; because as far as visual styles
-/// go, both should be styled the same.
-//@CaseDetection
-//public enum StyleRole: Hashable, Sendable, CaseIterable {
-//  case content
-//  case syntax
-//  case metadata
-//
-//  var rolePath: WritableKeyPath<RoleStyles, StyleToken?> {
-//    switch self {
-//      case .content: \.content
-//      case .syntax: \.syntax
-//      case .metadata: \.metadata
-//    }
-//  }
-//}

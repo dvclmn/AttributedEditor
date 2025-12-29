@@ -9,43 +9,24 @@ import AppKit
 import ColourKit
 import CoreTools
 
-/// I'm trying out using ThemePark's `Style` instead of `StyleToken`
-/// I think the below is true:
-/// - By default, a 'full' resolved SwiftUI font from the environment
-///   is passed in right at the top in the `NSViewRepresentable`
-///   (converted to an `NSFont`)
-/// - I shouldn't be dealing in NSFont here, should only be describing
-///   traits/attributes, things that change factors of what's already
-///   there such as weight and design.
 public struct StyleToken: Sendable, Hashable {
 
   public var foreground: CodableColour?
   public var fontTraits: FontTraits?
 
-//  public var background: BackgroundStyle?
-//  public var decoration: TextDecoration?
-
-  //  init(
-  //    colour: CodableColour,
-  //    fontTraits: NSFontDescriptor.SymbolicTraits = [],
-  //    hasBackground: Bool = false
-  //  ) {
-  //    self.colour = colour
-  //    self.fontTraits = FontTraits(fontTraits)
-  //    self.hasBackground = hasBackground
-  //  }
+  public var background: BackgroundStyle?
+  public var decoration: TextDecoration?
   
   public init(
-    foreground: CodableColour? = nil,
-    fontTraits: NSFontDescriptor.SymbolicTraits = [],
-//    fontTraits: FontTraits? = nil,
-//    background: BackgroundStyle? = nil,
-//    decoration: TextDecoration? = nil
+    colour: CodableColour? = nil,
+    font: NSFontDescriptor.SymbolicTraits = [],
+    background: BackgroundStyle? = nil,
+    decoration: TextDecoration? = nil
   ) {
-    self.foreground = foreground
-    self.fontTraits = FontTraits(fontTraits)
-//    self.background = background
-//    self.decoration = decoration
+    self.foreground = colour
+    self.fontTraits = FontTraits(font)
+    self.background = background
+    self.decoration = decoration
   }
 }
 
@@ -54,15 +35,15 @@ extension StyleToken {
   var nsColour: NSColor? { foreground?.nsColor }
 }
 
-//extension StyleToken {
-//  public enum BackgroundStyle: Hashable, Sendable {
-//    case none
-//    case roundedRect(CodableColour, cornerRadius: CGFloat)
-//    case highlight(CodableColour)
-//  }
-//
-//  public enum TextDecoration: Hashable, Sendable {
-//    case underline
-//    case strikethrough
-//  }
-//}
+extension StyleToken {
+  public enum BackgroundStyle: Hashable, Sendable {
+    case none
+    case roundedRect(CodableColour, cornerRadius: CGFloat)
+    case highlight(CodableColour)
+  }
+
+  public enum TextDecoration: Hashable, Sendable {
+    case underline
+    case strikethrough
+  }
+}

@@ -13,7 +13,6 @@ typealias StyleTokens = [Markdown.Syntax: StyleRoles]
 
 public struct MarkdownTheme: Sendable {
   var styleDefinitions: StyleTokens = [:]
-
 }
 
 extension MarkdownTheme {
@@ -21,9 +20,9 @@ extension MarkdownTheme {
   init(@ThemeBuilder builder: () -> [SyntaxRoleDef]) {
     var tokens: StyleTokens = [:]
     for def in builder() {
-      
-      /// or simpler: `tokens[def.syntax] = def.roles`
-      tokens[def.syntax, default: .init()].merge(def.roles, prefer: { $1 })
+      /// Also option for a merge operation rather than straight
+      /// replace if preferred: ``StyleRoles/merge(_:prefer:)``
+      tokens[def.syntax] = def.roles
     }
     self.styleDefinitions = tokens
   }
@@ -39,10 +38,9 @@ extension MarkdownTheme {
   func styleToken(
     for syntax: Markdown.Syntax,
     role: StyleRole
-      //    role: StyleRole
   ) -> StyleToken {
 
-    /// Check specific definition using combined key
+    /// Check for specific definition first
     if let token = self[syntax, role] {
       return token
     }
@@ -53,74 +51,26 @@ extension MarkdownTheme {
   func textAttributes(
     for token: StyleToken
   ) -> TextAttributes {
-
-    //    let token = style(for: syntaxID, styleRole: styleRole)
     var attrs = TextAttributes()
-    //
     attrs[.foregroundColor] = token.foreground?.nsColor
-    //    attrs[.foregroundColor] = token.foreground?.nsColor
     attrs[.fontTraits] = token.fontTraits
-    //
-    //#warning("Theme approach is WIP")
-    //    if token.hasBackground {
-    //      attrs[.codeBackground] = Self.basicCodeBackground
-    //    }
 
-    //    if styleRole == .background {
-    //    } else {
-    //    }
     return attrs
   }
 
   func textAttributes(
     syntax: Markdown.Syntax,
     role: StyleRole,
-    //    role: StyleRole,
   ) -> TextAttributes {
     let token = styleToken(for: syntax, role: role)
     return textAttributes(for: token)
   }
 
   func defaultToken(for role: StyleRole) -> StyleToken {
-    //  func defaultToken(for role: StyleRole) -> StyleToken {
     switch role {
-      case .content: StyleToken(foreground: .primary)
-      case .syntax: StyleToken(foreground: .tertiary)
-      case .metadata: StyleToken(foreground: .secondary)
-    //      case .content: StyleToken(foreground: .primary)
-    //      case .syntax: StyleToken(foreground: .tertiary)
-    //      case .metadata: StyleToken(foreground: .secondary)
-    //      case .background: .default
+      case .content: StyleToken(colour: .primary)
+      case .syntax: StyleToken(colour: .tertiary)
+      case .metadata: StyleToken(colour: .secondary)
     }
   }
-
-  /// The registration method maps the builder back to the generic parts
-  /// See usage: ``Markdown/Theme/standard``
-  //  mutating func register(
-  //    _ syntax: Markdown.Syntax,
-  //    //    role: StyleRole,
-  //    //    _ syntaxID: Markdown.Syntax.ID,
-  //    build: (inout StyleRole) -> Void
-  //  ) {
-  //    var styles = StyleRole()
-  //    build(&styles)
-  //
-  //    var tokens: StyleTokens = [:]
-  //
-  //    //    tokens[SyntaxKey(syntax, .content)] = styles.content
-  //    tokens[syntax]?[\.content] = styles.content
-  //    tokens[syntax]?[\.syntax] = styles.syntax
-  //    tokens[syntax]?[\.metadata] = styles.metadata
-  //    //    tokens[.syntax] = styles.syntax
-  //    //    tokens[.metadata] = styles.metadata
-  //    //    tokens[.background] = styles.background
-  //
-  //    self.styleDefinitions = tokens
-  //  }
-
-  //  private func update(role: StyleRole, for tokens: inout StyleTokens) {
-  //
-  //    tokens[SyntaxKey(syntax, role)] = tokens[keyPath: role.rolePath]
-  //  }
-
 }
