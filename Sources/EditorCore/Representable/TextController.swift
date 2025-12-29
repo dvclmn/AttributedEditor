@@ -5,6 +5,7 @@
 //  Created by Dave Coleman on 28/12/2025.
 //
 
+import CoreTools
 import NSUI
 @preconcurrency import Neon
 import SwiftTreeSitter
@@ -15,18 +16,31 @@ import TreeSitterMarkdownInline
 package final class TextViewController: NSUIViewController {
   package let textView: NSUITextView
   private let highlighter: TextViewHighlighter
-//let textDidChange
-  
+  //  private var font: NSFont
   private static var defaultSyntaxColors: [String: NSUIColor] = [:]
+  //
+  //  func updateFont(_ font: NSFont) {
+  //    textView.font = font
+  //  }
 
-  init() {
+  init(
+//    initialText: String,
+    //    font: NSFont
+  ) {
+    print("Initialised TextViewController for highlighting")
+    let textView = NSUITextView(usingTextLayoutManager: false)
+//    textView.string = initialText
+    self.textView = textView
 
-    self.textView = NSUITextView(usingTextLayoutManager: false)
-
-    guard let hl = try? Self.makeHighlighter(for: textView) else {
+    guard
+      let hltr = try? Self.makeHighlighter(
+        for: textView,
+        //      font: font
+      )
+    else {
       fatalError("Could not create highlighter")
     }
-    self.highlighter = hl
+    self.highlighter = hltr
 
     super.init(nibName: nil, bundle: nil)
 
@@ -41,12 +55,16 @@ package final class TextViewController: NSUIViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-  private static func makeHighlighter(for textView: NSUITextView) throws -> TextViewHighlighter {
-    let regularFont = NSUIFont.monospacedSystemFont(ofSize: 16, weight: .regular)
-//    let boldFont = NSUIFont.monospacedSystemFont(ofSize: 16, weight: .bold)
-//    let italicDescriptor = regularFont.fontDescriptor.nsuiWithSymbolicTraits(.traitItalic) ?? regularFont.fontDescriptor
+  private static func makeHighlighter(
+    for textView: NSUITextView,
+    //    font: NSFont
+  ) throws -> TextViewHighlighter {
+    print("Made the highlighter")
+    let regularFont = NSUIFont.monospacedSystemFont(ofSize: 17, weight: .regular)
+    //    let boldFont = NSUIFont.monospacedSystemFont(ofSize: 16, weight: .bold)
+    //    let italicDescriptor = regularFont.fontDescriptor.nsuiWithSymbolicTraits(.traitItalic) ?? regularFont.fontDescriptor
 
-//    let italicFont = NSUIFont(nsuiDescriptor: italicDescriptor, size: 16) ?? regularFont
+    //    let italicFont = NSUIFont(nsuiDescriptor: italicDescriptor, size: 16) ?? regularFont
 
     // Set the default styles. This is applied by stock `NSTextStorage`s during
     // so-called "attribute fixing" when you type, and we emulate that as
@@ -58,15 +76,19 @@ package final class TextViewController: NSUIViewController {
 
     let provider: TokenAttributeProvider = { token in
       switch token.name {
-          
-//        case let keyword where keyword.hasPrefix("keyword"):
-//          return [.foregroundColor: NSUIColor.red, .font: boldFont]
-          
-//        case "comment", "spell": return [.foregroundColor: NSUIColor.green, .font: italicFont]
+
+        //        case let keyword where keyword.hasPrefix("keyword"):
+        //          return [.foregroundColor: NSUIColor.red, .font: boldFont]
+
+        //        case "comment", "spell": return [.foregroundColor: NSUIColor.green, .font: italicFont]
         // Note: Default is not actually applied to unstyled/untokenized text.
-        
+
         default:
           // Everything else, assign a random color
+          //          DebugString {
+          //            Labeled("Token Name", value: token.name)
+          //            Labeled("Token Range", value: token.range.withPreview(in: textView.text, contextLength: 30))
+          //          }
           let color: NSUIColor
           if let cachedColor = self.defaultSyntaxColors[token.name] {
             color = cachedColor
@@ -100,13 +122,15 @@ package final class TextViewController: NSUIViewController {
       languageConfiguration: markdownConfig,  // the root language
       attributeProvider: provider,
       languageProvider: { name in
-        print("embedded language: ", name)
+        //        print("embedded language: ", name)
 
         switch name {
           case "markdown":
             return markdownConfig
+            
           case "markdown_inline":
             return markdownInlineConfig
+            
           default:
             return nil
         }
@@ -124,7 +148,7 @@ package final class TextViewController: NSUIViewController {
     scrollView.hasVerticalScroller = true
     scrollView.hasHorizontalScroller = false
     scrollView.autohidesScrollers = true
-    scrollView.borderType = .noBorder
+//    scrollView.borderType = .noBorder
     scrollView.drawsBackground = false
 
     scrollView.documentView = textView
@@ -136,6 +160,7 @@ package final class TextViewController: NSUIViewController {
     textView.isVerticallyResizable = true
     textView.isHorizontallyResizable = true
     textView.isRichText = false
+    textView.drawsBackground = false
 
     self.view = scrollView
     #else
@@ -145,6 +170,27 @@ package final class TextViewController: NSUIViewController {
     /// this has to be done after the textview has been embedded in the
     /// scrollView if it wasn't that way on creation
     highlighter.observeEnclosingScrollView()
-
+    
+    textView.text = DummyContent.Strings.Markdown.shortMarkdownBasics
+    //    doBigMarkdownTest()
   }
+
+  //  func doBigMarkdownTest() {
+  //    guard let url = Bundle.main.url(forResource: "big_test", withExtension: "md") else {
+  //      print("Unable to locate big test file")
+  //      return
+  //    }
+  //    guard let content = try? String(contentsOf: url) else {
+  //      print("Couldn't convert to String")
+  //      return
+  //    }
+  //
+  //    textView.text = content
+  //
+  //    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+  //      let range = NSRange(location: content.utf16.count, length: 0)
+  //
+  //      self.textView.scrollRangeToVisible(range)
+  //    }
+  //  }
 }

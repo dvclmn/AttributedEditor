@@ -42,7 +42,8 @@ public struct AttributedEditor: View {
 
   public var body: some View {
 //    Text("Hello `AttributedEditor: View {...}`")
-    AttributedEditorView(text: $text)
+    AttributedEditorView()
+//    AttributedEditorView(text: $text)
 //            font: finalFont,
 //      config: Editor.Configuration(
 ////        isEditable: isEditable,
@@ -56,15 +57,15 @@ public struct AttributedEditor: View {
 
 //    )
 
-      .task(id: self.text) {
-        print("The text has changed in SwiftUI")
-      }
-    .onAppear {
-      print("Do we get here?")
+//      .task(id: self.text) {
+//        print("The text has changed in SwiftUI")
+//      }
+//    .onAppear {
+//      print("Do we get here?")
 //      if isPreview {
 //        print(digIntoResolvedFont)
 //      }
-    }
+//    }
 
 //    .task(id: font) {
 //      highlighter.theme.updateFont(with: finalFont)
