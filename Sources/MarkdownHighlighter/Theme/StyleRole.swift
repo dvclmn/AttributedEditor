@@ -33,16 +33,3 @@ struct StyleRole {
   var syntax: StyleToken?
   var metadata: StyleToken?
 }
-
-/// Composite key, for use with `StyleToken` lookup for themes
-//struct SyntaxKey: Hashable {
-//  let syntax: Markdown.Syntax
-//  let role: StyleRole
-//
-//}
-//extension SyntaxKey {
-//  init(_ syntax: Markdown.Syntax, _ role: StyleRole) {
-//    self.syntax = syntax
-//    self.role = role
-//  }
-//}
