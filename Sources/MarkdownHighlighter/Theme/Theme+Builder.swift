@@ -13,6 +13,13 @@ public struct ThemeBuilder {
     syntaxRoles
   }
 }
+extension ThemeBuilder {
+  public static func buildExpression(
+    _ expression: [SyntaxRoleDef]
+  ) -> [SyntaxRoleDef] {
+    expression
+  }
+}
 
 public struct SyntaxRoleDef {
   var syntax: Markdown.Syntax
@@ -24,10 +31,19 @@ public struct SyntaxRoleDef {
   }
 }
 
-func Syntax(_ syntax: Markdown.Syntax, build: (inout StyleRoles) -> Void) -> SyntaxRoleDef {
+func Syntax(
+  _ syntax: Markdown.Syntax...,
+  build: (inout StyleRoles) -> Void
+) -> [SyntaxRoleDef] {
   var roles = StyleRoles()
   build(&roles)
-  return SyntaxRoleDef(syntax, roles: roles)
+
+  var defs: [SyntaxRoleDef] = []
+  
+  for syn in syntax {
+    defs.append(SyntaxRoleDef(syn, roles: roles))
+  }
+  return defs
 }
 
 extension StyleRoles {

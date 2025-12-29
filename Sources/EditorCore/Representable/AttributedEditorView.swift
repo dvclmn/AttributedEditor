@@ -15,9 +15,9 @@ public struct AttributedEditorView: NSViewRepresentable {
   @Environment(\.fontResolutionContext) var fontResolutionContext
   @Environment(\.editorOptions) var editorOptions
   @Environment(\.lineSpacing) var lineSpacing
-  
+
   @Binding var text: String
-  
+
   var highlighter: MarkdownHighlighter = .init()
 
   public init(
@@ -54,7 +54,7 @@ extension AttributedEditorView {
 
   // MARK: - SwiftUI Updated
   /// This is for communicating changes from SwiftUI back to AppKit
-    public func updateNSView(_ scrollView: NSScrollView, context: Context) {
+  public func updateNSView(_ scrollView: NSScrollView, context: Context) {
     guard let textView = scrollView.documentView as? NSTextView else { return }
 
     if textView.string != text {

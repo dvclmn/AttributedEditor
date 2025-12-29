@@ -14,6 +14,6 @@ package typealias MarkdownRuns = [SyntaxRun]
 /// This is the output of the Highlighter.
 package struct SyntaxRun {
   public let syntax: Markdown.Syntax
-  public let role: RolePath
+  public let role: StyleRole
   public let range: Range<String.Index>
 }

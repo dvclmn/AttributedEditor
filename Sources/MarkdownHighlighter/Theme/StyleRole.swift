@@ -7,49 +7,33 @@
 
 import CoreTools
 
-// the role domain
-public enum StyleRole: CaseIterable, Hashable, Sendable {
+/// the role domain
+public enum StyleRole: String, CaseIterable, Hashable, Sendable {
   case content
   case syntax
   case metadata
 
-  // optional: a stable string key (useful for serialisation, debug)
-  public var key: String {
-    switch self {
-      case .content: return "content"
-      case .syntax: return "syntax"
-      case .metadata: return "metadata"
-    }
-  }
-
-  // optional: human-friendly label, ordering, etc
-  public var displayName: String {
-    switch self {
-      case .content: return "Content"
-      case .syntax: return "Syntax"
-      case .metadata: return "Metadata"
-    }
-  }
+  public var name: String { rawValue.capitalized }
 }
 
-// container for treatments of roles
+/// container for treatments of roles
 public struct StyleRoles: Sendable {
-  // small dictionary: role -> token
-  // Use a specialised small typedef if you like, but Dict is fine.
+
   public var values: [StyleRole: StyleToken] = [:]
 
   public init(values: [StyleRole: StyleToken] = [:]) {
     self.values = values
   }
+}
+
+extension StyleRoles {
 
   public subscript(_ role: StyleRole) -> StyleToken? {
     get { values[role] }
-    set {
-      values[role] = newValue
-    }
+    set { values[role] = newValue }
   }
 
-  // convenience initializer
+  /// convenience initializer
   @inlinable
   public init(_ pairs: (StyleRole, StyleToken)...) {
     var dict: [StyleRole: StyleToken] = [:]
@@ -57,15 +41,17 @@ public struct StyleRoles: Sendable {
     self.init(values: dict)
   }
 
-  // iterate in deterministic order
+  /// iterate in deterministic order
   public func forEach(_ body: (StyleRole, StyleToken) -> Void) {
     for role in StyleRole.allCases {
       if let token = values[role] { body(role, token) }
     }
   }
 
-  // merge helper
-  public mutating func merge(_ other: StyleRoles, prefer: (StyleToken, StyleToken) -> StyleToken) {
+  public mutating func merge(
+    _ other: StyleRoles,
+    prefer: (StyleToken, StyleToken) -> StyleToken
+  ) {
     for (role, token) in other.values {
       if let existing = values[role] {
         values[role] = prefer(existing, token)
@@ -75,7 +61,6 @@ public struct StyleRoles: Sendable {
     }
   }
 }
-
 
 //package typealias RolePath = KeyPath<StyleRole, StyleToken?>
 
