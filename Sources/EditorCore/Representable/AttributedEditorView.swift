@@ -8,7 +8,6 @@
 import AppKit
 import CoreTools
 import MarkdownHighlighter
-import Neon
 import SwiftUI
 
 public struct AttributedEditorView: NSViewRepresentable {

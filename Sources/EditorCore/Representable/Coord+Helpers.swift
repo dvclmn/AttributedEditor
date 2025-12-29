@@ -6,7 +6,7 @@
 //
 
 import AppKit
-import Neon
+//import Neon
 import MarkdownHighlighter
 
 extension AttributedEditorView.Coordinator {
@@ -23,13 +23,14 @@ extension AttributedEditorView.Coordinator {
 
         let runs = highlighter.buildStyles(in: text)
 
-        //        highlighter.applyStyles(
-        //          runs: runs,
-        //          textView: textView,
-        //          affectedRange: affectedRange,
-        //          font: self.parent.font,
-        //          defaults: defaults
-        //        )
+        self.applyStyles(runs: runs, affectedRange: affectedRange)
+//        applyStyles(
+//          runs: runs,
+//          textView: textView,
+//          affectedRange: affectedRange,
+//          font: self.parent.font,
+//          defaults: defaults
+//        )
 
         //        textView.updateHighlighter(with: highlighter)
 
