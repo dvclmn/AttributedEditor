@@ -29,3 +29,10 @@ extension SyntaxKey {
     self.role = role
   }
 }
+
+struct RoleStyles {
+  var content: StyleToken?
+  var syntax: StyleToken?
+  var metadata: StyleToken?
+}
+

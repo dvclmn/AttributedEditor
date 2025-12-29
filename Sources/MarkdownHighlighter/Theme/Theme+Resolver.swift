@@ -5,43 +5,33 @@
 //  Created by Dave Coleman on 27/12/2025.
 //
 
-//import CoreTools
-//import EditorCore
-//import HighlighterCommon
-//import Foundation
+import CoreTools
+import Foundation
 
-//package struct ThemeResolver {
-//
-//  package let theme: MarkdownTheme
-//
-//  package init(_ theme: MarkdownTheme) {
-//    self.theme = theme
-//  }
-//
-//  package func resolveStyleToken(for run: SyntaxRun) -> ResolvedRun {
-//    let semanticToken = theme.styleToken(
-//      syntax: run.syntax,
-//      //      kind: run.semanticKind,
-//      role: run.role
-//    )
-//
-//    let token = semanticToken ?? theme.defaultToken(for: run.role)
-//
-//    let attrs = theme.textAttributes(for: token)
-//
-//    let resolved = ResolvedRun(
-//      range: run.range,
-//      attributes: attrs,
-//      background: token.background
-//    )
-//
-//    return resolved
-//  }
-//
-//}
-//
-//package struct ResolvedRun {
-//  package let range: Range<String.Index>
-//  package let attributes: TextAttributes
-//  package let background: StyleToken.BackgroundStyle?
-//}
+package struct ThemeResolver {
+
+  let theme: MarkdownTheme
+
+  init(_ theme: MarkdownTheme) {
+    self.theme = theme
+  }
+
+  func resolveToken(for run: SyntaxRun) -> ResolvedRun {
+    let token = theme.styleToken(
+      for: run.syntax,
+      role: run.role
+    )
+
+    let attrs = theme.textAttributes(for: token)
+
+    return ResolvedRun(
+      range: run.range,
+      attributes: attrs,
+    )
+  }
+}
+
+package struct ResolvedRun {
+  package let range: Range<String.Index>
+  package let attributes: TextAttributes
+}

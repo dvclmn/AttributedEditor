@@ -5,6 +5,8 @@
 //  Created by Dave Coleman on 29/12/2025.
 //
 
+import AppKit
+
 extension MarkdownTheme {
   
   //  public var font: NSFont { NSFont.systemFont(ofSize: 14) }

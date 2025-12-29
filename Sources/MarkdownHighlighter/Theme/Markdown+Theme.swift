@@ -14,23 +14,22 @@ public struct MarkdownTheme: Sendable {
 }
 
 extension MarkdownTheme {
-  
-  
-  /// This simply provides a neater API, to read into the
-  /// contents of the `styleDefinitions` property.
-  ///
-  /// This method looks up tokens using the combined `SyntaxKey`
-  /// instead of nested dictionaries.
-  /// If no specific token is found, a default token for the role is returned.
+
+  subscript(syntax: Markdown.Syntax, role: StyleRole) -> StyleToken? {
+    get { styleDefinitions[SyntaxKey(syntax, role)] }
+    set { styleDefinitions[SyntaxKey(syntax, role)] = newValue }
+  }
+
+  /// Looks up tokens given a syntax type and style role.
+  /// If this specific token definition is not found, a default
+  /// token for the role is returned.
   public func styleToken(
     for syntax: Markdown.Syntax,
     role: StyleRole
-    //    for syntaxID: Markdown.Syntax.ID,
-    //    styleRole: Markdown.StyleRole
   ) -> StyleToken {
-    
+
     /// Check specific definition using combined key
-    if let token = styleDefinitions[SyntaxKey(syntax: syntax, role: role)] {
+    if let token = self[syntax, role] {
       return token
     }
     return defaultToken(for: role)
@@ -57,7 +56,7 @@ extension MarkdownTheme {
     //    }
     return attrs
   }
-  
+
   func textAttributes(
     syntax: Markdown.Syntax,
     role: StyleRole,
@@ -65,7 +64,6 @@ extension MarkdownTheme {
     let token = styleToken(for: syntax, role: role)
     return textAttributes(for: token)
   }
-
 
   func defaultToken(for role: StyleRole) -> StyleToken {
     switch role {
@@ -89,7 +87,7 @@ extension MarkdownTheme {
 
     //      var tokens: StyleTokens = [:]
 
-    styleDefinitions[SyntaxKey(syntax, role)] = token
+    self[syntax, role]  = token
 
     tokens[.content] = styles.content
     tokens[.syntax] = styles.syntax
