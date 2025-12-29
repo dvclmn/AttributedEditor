@@ -62,11 +62,9 @@ extension SyntaxData {
       guard !runAlreadyExists else { continue }
 
       /// If a run with this range is not already present, add a new one
-
-      let rolePath = fragment.styleRolePath
       let run = SyntaxRun(
         syntax: syntax,
-        role: rolePath,
+        role: fragment.styleRolePath,
         range: range
       )
       runs.append(run)
@@ -80,27 +78,3 @@ extension SyntaxData {
     shape.range(for: match, fragment: fragment)
   }
 }
-
-//extension SyntaxRun {
-//  init(
-//    syntax: Markdown.Syntax,
-//    fragment: Fragment,
-//    range: Range<String.Index>,
-//        theme: MarkdownTheme,
-//    //    desc: String?
-//  ) {
-////    let metadata = "\(syntax), Fragment: \(fragment.rawValue)"
-//    let rolePath = fragment.styleRolePath
-//    let token = theme.styleToken(for: syntax, role: rolePath)
-////    ?? theme.defaultToken(for: role)
-//    let textAttrs = theme.textAttributes(for: token)
-//    self.init(
-//      syntax: syntax,
-//      role: rolePath,
-//      range: range,
-//      attributes: textAttrs
-//    )
-//    //    self.init(metadata: metadata, range: range, attributes: textAttrs)
-//    //    self.init(desc, range: range, attributes: textAttrs)
-//  }
-//}

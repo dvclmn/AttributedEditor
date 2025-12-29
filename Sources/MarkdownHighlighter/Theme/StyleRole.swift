@@ -25,10 +25,10 @@ import CoreTools
 //  }
 //}
 
-typealias RolePath = KeyPath<StyleRole, StyleToken?>
+package typealias RolePath = KeyPath<StyleRole, StyleToken?>
 
 // Previously RoleStyles
-struct StyleRole {
+package struct StyleRole {
   var content: StyleToken?
   var syntax: StyleToken?
   var metadata: StyleToken?

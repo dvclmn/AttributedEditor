@@ -7,6 +7,7 @@
 
 import AppKit
 import Neon
+import MarkdownHighlighter
 
 extension AttributedEditorView.Coordinator {
 
@@ -42,7 +43,7 @@ extension AttributedEditorView.Coordinator {
   }
 
   @MainActor
-  public func applyStyles(
+  func applyStyles(
     runs: [SyntaxRun],
     //    textView: NSTextView,
     affectedRange: NSRange,
@@ -58,6 +59,7 @@ extension AttributedEditorView.Coordinator {
     //    let text = textStorage.string
     let text = textView.string
     let defaults = self.parent.defaultAttributes
+    let theme = self.parent.highlighter.theme
     let font = self.parent.font
     //    let resolver = ThemeResolver(theme)
 
@@ -76,11 +78,11 @@ extension AttributedEditorView.Coordinator {
     /// Apply each highlighted range's attributes
     for run in runs {
 
-      let range = run.nsRange(in: text)?.intersection(affectedRange)
+      let range = run.range.toNSRange(in: text)?.intersection(affectedRange)
       guard let range else { continue }
 
-      //      let resolved = resolver.resolveStyleToken(for: run)
-      var attrs = run.attributes
+      let resolved = ThemeResolver.resolveToken(with: theme, for: run)
+      var attrs = resolved.attributes
 
       let traits = attrs[.fontTraits]
       let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)

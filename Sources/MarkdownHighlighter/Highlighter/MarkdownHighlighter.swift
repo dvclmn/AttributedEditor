@@ -11,7 +11,7 @@ import CoreTools
 
 //public typealias MarkdownRun = SyntaxRun<Markdown.Syntax>
 
-public final class MarkdownHighlighter {
+package  final class MarkdownHighlighter {
   //  public typealias Syntax = Markdown.Syntax
 
   private let isDrawingBlocks: Bool = false
@@ -34,7 +34,7 @@ public final class MarkdownHighlighter {
   }
 
   /// Build attributed ranges for applying in the Editor
-  func buildStyles(in text: String) -> MarkdownRuns {
+  package func buildStyles(in text: String) -> MarkdownRuns {
 
     var runs: MarkdownRuns = []
 

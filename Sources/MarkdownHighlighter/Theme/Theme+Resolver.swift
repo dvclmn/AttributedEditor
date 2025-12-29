@@ -10,13 +10,16 @@ import Foundation
 
 package struct ThemeResolver {
 
-  let theme: MarkdownTheme
+//  let theme: MarkdownTheme
 
-  init(_ theme: MarkdownTheme) {
-    self.theme = theme
-  }
+//  init(_ theme: MarkdownTheme) {
+//    self.theme = theme
+//  }
 
-  func resolveToken(for run: SyntaxRun) -> ResolvedRun {
+  package static func resolveToken(
+    with theme: MarkdownTheme,
+    for run: SyntaxRun
+  ) -> ResolvedRun {
     let token = theme.styleToken(
       for: run.syntax,
       role: run.role

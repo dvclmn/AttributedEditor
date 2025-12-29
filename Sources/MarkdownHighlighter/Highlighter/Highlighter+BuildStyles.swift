@@ -6,8 +6,8 @@
 //
 
 import CoreTools
-//import EditorCore
 
+//import EditorCore
 
 extension MarkdownHighlighter {
 
@@ -36,13 +36,10 @@ extension MarkdownHighlighter {
       }
       return
     }
-
     for match in matches {
-
       data.processMatch(
         match,
         for: syntax,
-        theme: theme,
         runs: &runs
       )
     }
