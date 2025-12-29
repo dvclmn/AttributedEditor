@@ -6,6 +6,7 @@
 //
 
 /// The available possible parts, found within Regex Shapes
+/// This loosely relates to `StyleRole`, just more granular
 public enum Fragment: String, Sendable {
   case content
   case syntaxStart  // Aka leading
@@ -36,4 +37,12 @@ extension Fragment {
     .content,
     .syntaxEnd,
   ]
+
+  var styleRolePath: RolePath {
+    switch self {
+      case .content, .single: \.content
+      case .syntaxStart, .syntaxEnd: \.syntax
+      case .languageHint, .url, .prefix: \.metadata
+    }
+  }
 }

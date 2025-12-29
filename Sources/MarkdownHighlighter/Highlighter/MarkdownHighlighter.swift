@@ -34,7 +34,7 @@ public final class MarkdownHighlighter {
   }
 
   /// Build attributed ranges for applying in the Editor
-  public func buildStyles(in text: String) -> MarkdownRuns {
+  func buildStyles(in text: String) -> MarkdownRuns {
 
     var runs: MarkdownRuns = []
 

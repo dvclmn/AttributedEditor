@@ -9,13 +9,7 @@
 
 extension Fragment {
 
-  var styleRole: StyleRole {
-    switch self {
-      case .content, .single: .content
-      case .syntaxStart, .syntaxEnd: .syntax
-      case .languageHint, .url, .prefix: .metadata
-    }
-  }
+
 }
 
 extension Markdown.Syntax {

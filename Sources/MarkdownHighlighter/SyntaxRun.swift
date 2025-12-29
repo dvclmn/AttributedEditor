@@ -8,13 +8,12 @@
 import AppKit
 import CoreTools
 
-public typealias MarkdownRuns = [SyntaxRun]
+typealias MarkdownRuns = [SyntaxRun]
 
 /// No colours, fonts, background, attrs
 /// This is the output of the Highlighter.
-public struct SyntaxRun {
+struct SyntaxRun {
   public let syntax: Markdown.Syntax
-  public let role: StyleRole
+  public let role: RolePath
   public let range: Range<String.Index>
-
 }
