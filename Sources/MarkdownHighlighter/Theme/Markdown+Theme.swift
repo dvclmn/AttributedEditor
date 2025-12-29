@@ -9,33 +9,47 @@ import AppKit
 import ColourKit
 import CoreTools
 
-extension KeyPath: @retroactive @unchecked Sendable where Value == StyleRole {}
+//extension KeyPath: @retroactive @unchecked Sendable where Value == StyleRole {}
 
-typealias StyleTokens = [Markdown.Syntax: [RolePath: StyleToken]]
+//typealias StyleTokens = [Markdown.Syntax: [RolePath: StyleToken]]
+//public struct MarkdownTheme: Sendable {
+//  var styleDefinitions: StyleTokens = [:]
+
+typealias StyleTokens = [Markdown.Syntax: StyleRoles]
+
 public struct MarkdownTheme: Sendable {
   var styleDefinitions: StyleTokens = [:]
+
 }
 
 extension MarkdownTheme {
 
   init(@ThemeBuilder builder: () -> [SyntaxRoleDef]) {
     var tokens: StyleTokens = [:]
-
-    let allRoles: Set<RolePath> = [
-      \.content,
-      \.syntax,
-      \.metadata,
-    ]
     for def in builder() {
-      for rolePath in allRoles {
-        if let value = def.role[keyPath: rolePath] {
-          tokens[def.syntax, default: [:]][rolePath] = value
-        }
-      }
+      tokens[def.syntax, default: .init()].merge(def.roles, prefer: { $1 })
+      // or simply: tokens[def.syntax] = def.roles
     }
-
-    self.init(styleDefinitions: tokens)
+    self.styleDefinitions = tokens
   }
+//  init(@ThemeBuilder builder: () -> [SyntaxRoleDef]) {
+//    var tokens: StyleTokens = [:]
+//
+//    let allRoles: Set<RolePath> = [
+//      \.content,
+//      \.syntax,
+//      \.metadata,
+//    ]
+//    for def in builder() {
+//      for rolePath in allRoles {
+//        if let value = def.role[keyPath: rolePath] {
+//          tokens[def.syntax, default: [:]][rolePath] = value
+//        }
+//      }
+//    }
+//
+//    self.init(styleDefinitions: tokens)
+//  }
 
   //  init() {
   //
@@ -121,27 +135,27 @@ extension MarkdownTheme {
 
   /// The registration method maps the builder back to the generic parts
   /// See usage: ``Markdown/Theme/standard``
-  mutating func register(
-    _ syntax: Markdown.Syntax,
-    //    role: StyleRole,
-    //    _ syntaxID: Markdown.Syntax.ID,
-    build: (inout StyleRole) -> Void
-  ) {
-    var styles = StyleRole()
-    build(&styles)
-
-    var tokens: StyleTokens = [:]
-
-    //    tokens[SyntaxKey(syntax, .content)] = styles.content
-    tokens[syntax]?[\.content] = styles.content
-    tokens[syntax]?[\.syntax] = styles.syntax
-    tokens[syntax]?[\.metadata] = styles.metadata
-    //    tokens[.syntax] = styles.syntax
-    //    tokens[.metadata] = styles.metadata
-    //    tokens[.background] = styles.background
-
-    self.styleDefinitions = tokens
-  }
+//  mutating func register(
+//    _ syntax: Markdown.Syntax,
+//    //    role: StyleRole,
+//    //    _ syntaxID: Markdown.Syntax.ID,
+//    build: (inout StyleRole) -> Void
+//  ) {
+//    var styles = StyleRole()
+//    build(&styles)
+//
+//    var tokens: StyleTokens = [:]
+//
+//    //    tokens[SyntaxKey(syntax, .content)] = styles.content
+//    tokens[syntax]?[\.content] = styles.content
+//    tokens[syntax]?[\.syntax] = styles.syntax
+//    tokens[syntax]?[\.metadata] = styles.metadata
+//    //    tokens[.syntax] = styles.syntax
+//    //    tokens[.metadata] = styles.metadata
+//    //    tokens[.background] = styles.background
+//
+//    self.styleDefinitions = tokens
+//  }
 
   //  private func update(role: StyleRole, for tokens: inout StyleTokens) {
   //
