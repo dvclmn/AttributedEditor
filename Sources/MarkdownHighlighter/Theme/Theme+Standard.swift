@@ -6,7 +6,6 @@
 //
 
 extension MarkdownTheme {
-
   public static let `default`: Self = .standard
 
   public static var standard: Self {
@@ -43,7 +42,7 @@ extension MarkdownTheme {
 
       Syntax(.strikethrough) { roles in
         roles.set(.content, style: StyleToken(colour: .gray, decoration: .default))
-        roles.set(.syntax, style: StyleToken(colour: .red, font: .monoSpace))
+//        roles.set(.syntax, style: StyleToken(colour: .red, font: .monoSpace))
       }
 
       Syntax(Markdown.Syntax.allHeaders) { roles in

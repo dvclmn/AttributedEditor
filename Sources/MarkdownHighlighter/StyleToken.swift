@@ -34,6 +34,10 @@ public struct StyleToken: Sendable, Hashable {
 extension StyleToken {
   static var `default`: StyleToken { .init() }
   var nsColour: NSColor? { foreground?.nsColor }
+  
+  func addStrikeStylesIfNeeded(_ attrs: inout NSTextAttributes) {
+    self.decoration?.setTextDecoration(.strikethrough, attrs: &attrs)
+  }
 }
 
 extension StyleToken {

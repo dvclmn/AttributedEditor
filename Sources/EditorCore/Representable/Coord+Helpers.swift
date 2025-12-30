@@ -63,13 +63,13 @@ extension AttributedEditorView.Coordinator {
       var attrs = resolved.attributes
       resolved.updateFont(using: font, in: &attrs)
       
-      let testAttrs: NSTextAttributes = [
-        .strikethroughStyle: NSUnderlineStyle(.single).rawValue,
-        .strikethroughColor: NSColor.red,
-        .underlineStyle: NSUnderlineStyle(.single).rawValue,
-      ]
+//      let testAttrs: NSTextAttributes = [
+//        .strikethroughStyle: NSUnderlineStyle(.single).rawValue,
+//        .strikethroughColor: NSColor.red,
+//        .underlineStyle: NSUnderlineStyle(.single).rawValue,
+//      ]
 
-      ts.setAttributes(testAttrs, range: range)
+      ts.setAttributes(attrs, range: range)
     }
 
     textView.syncTypingAttributes()
