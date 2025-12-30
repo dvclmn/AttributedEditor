@@ -58,6 +58,7 @@ extension AttributedEditorView {
     guard let textView = scrollView.documentView as? NSTextView else { return }
 
     if textView.string != text {
+//      textView.needsLayout = true
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
