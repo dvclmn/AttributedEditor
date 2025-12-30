@@ -18,7 +18,7 @@ public struct AttributedEditorView: NSViewRepresentable {
 
   @Binding var text: String
 
-  var highlighter: MarkdownHighlighter = .init()
+  var highlighter: MarkdownHighlighter
 
   public init(
     text: Binding<String>,
@@ -54,19 +54,60 @@ extension AttributedEditorView {
 
   // MARK: - SwiftUI Updated
   /// This is for communicating changes from SwiftUI back to AppKit
+
   public func updateNSView(_ scrollView: NSScrollView, context: Context) {
     guard let textView = scrollView.documentView as? NSTextView else { return }
 
     if textView.string != text {
-//      textView.needsLayout = true
+      //      textView.needsLayout = true
       let selectedRange = textView.selectedRange()
       textView.string = text
       textView.setSelectedRange(selectedRange)
       context.coordinator.updateTextView()
     }
+
   }
 
-  public func makeCoordinator() -> Coordinator {
-    Coordinator(self)
-  }
+  //  public func makeCoordinator() -> Coordinator {
+  //    Coordinator(self)
+  //  }
+
+  //  private func getFont(with context: Context) -> NSFont {
+  //    print("Let's try resolving the SwiftUI font from environment at \(Date.debug)")
+  //    guard let font = context.environment.font else {
+  //      print("⚠️ Couldn't get a font from the environment. Skipping.")
+  //      return
+  //    }
+  //    print("Got font from the environment at \(Date.debug)")
+  ////    let shouldUpdate: Bool = self.fontContext == nil || self.fontContext?.font != font
+  ////    print("Local font context: \(String(describing: self.fontContext))")
+  ////    guard shouldUpdate else {
+  ////      print("No need to update. The font hasn't changed.")
+  ////      return
+  ////    }
+  //    let fontResContext = context.environment.fontResolutionContext
+  //    let fontContext = FontContext(font, context: fontResContext)
+  ////    Task { @MainActor in
+  ////      self.fontContext = fontContext
+  ////    }
+  //
+  //    let resolved = fontContext.font.resolveCompatible(in: fontContext.context)
+  //    return resolved.toNSFont
+  //  }
+  //
+  //  var font: NSFont {
+  //    let fallback = NSFont.systemFont(ofSize: 7)
+  //    print("Checking font context at \(Date.debug): \(String(describing: fontContext))")
+  //
+  //    guard let fontContext else {
+  //      print("No value for `fontContext`")
+  //      return fallback
+  //    }
+  //    guard #available(macOS 26, iOS 26, *) else {
+  //      print("macOS 26 not available, Falling back to less-preferred default font")
+  //      return fallback
+  //    }
+  //    let resolved = fontContext.font.resolveCompatible(in: fontContext.context)
+  //    return resolved.toNSFont
+  //  }
 }

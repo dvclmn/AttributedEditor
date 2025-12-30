@@ -1,0 +1,196 @@
+//
+//  TextController.swift
+//  AttributedEditor
+//
+//  Created by Dave Coleman on 28/12/2025.
+//
+
+import CoreTools
+import NSUI
+@preconcurrency import Neon
+import SwiftTreeSitter
+import TreeSitterMarkdown
+import TreeSitterMarkdownInline
+
+@MainActor
+package final class TextViewController: NSUIViewController {
+  package let textView: NSUITextView
+  private let highlighter: TextViewHighlighter
+  //  private var font: NSFont
+  private static var defaultSyntaxColors: [String: NSUIColor] = [:]
+  //
+  //  func updateFont(_ font: NSFont) {
+  //    textView.font = font
+  //  }
+
+  init(
+//    initialText: String,
+    //    font: NSFont
+  ) {
+    print("Initialised TextViewController for highlighting")
+    let textView = NSUITextView(usingTextLayoutManager: false)
+//    textView.string = initialText
+    self.textView = textView
+
+    guard
+      let hltr = try? Self.makeHighlighter(
+        for: textView,
+        //      font: font
+      )
+    else {
+      fatalError("Could not create highlighter")
+    }
+    self.highlighter = hltr
+
+    super.init(nibName: nil, bundle: nil)
+
+    /// enable non-continguous layout for TextKit 1
+    if textView.textLayoutManager == nil {
+      textView.nsuiLayoutManager?.allowsNonContiguousLayout = true
+    }
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  private static func makeHighlighter(
+    for textView: NSUITextView,
+    //    font: NSFont
+  ) throws -> TextViewHighlighter {
+    print("Made the highlighter")
+    let regularFont = NSUIFont.monospacedSystemFont(ofSize: 17, weight: .regular)
+    //    let boldFont = NSUIFont.monospacedSystemFont(ofSize: 16, weight: .bold)
+    //    let italicDescriptor = regularFont.fontDescriptor.nsuiWithSymbolicTraits(.traitItalic) ?? regularFont.fontDescriptor
+
+    //    let italicFont = NSUIFont(nsuiDescriptor: italicDescriptor, size: 16) ?? regularFont
+
+    // Set the default styles. This is applied by stock `NSTextStorage`s during
+    // so-called "attribute fixing" when you type, and we emulate that as
+    // part of the highlighting process in `TextViewSystemInterface`.
+    textView.typingAttributes = [
+      .foregroundColor: NSUIColor.darkGray,
+      .font: regularFont,
+    ]
+
+    let provider: TokenAttributeProvider = { token in
+      switch token.name {
+
+        //        case let keyword where keyword.hasPrefix("keyword"):
+        //          return [.foregroundColor: NSUIColor.red, .font: boldFont]
+
+        //        case "comment", "spell": return [.foregroundColor: NSUIColor.green, .font: italicFont]
+        // Note: Default is not actually applied to unstyled/untokenized text.
+
+        default:
+          // Everything else, assign a random color
+          //          DebugString {
+          //            Labeled("Token Name", value: token.name)
+          //            Labeled("Token Range", value: token.range.withPreview(in: textView.text, contextLength: 30))
+          //          }
+          let color: NSUIColor
+          if let cachedColor = self.defaultSyntaxColors[token.name] {
+            color = cachedColor
+          } else {
+            color = NSUIColor(
+              red: .random(in: 0..<1.0),
+              green: .random(in: 0..<1.0),
+              blue: .random(in: 0..<1.0),
+              alpha: 1.0
+            )
+            self.defaultSyntaxColors[token.name] = color
+          }
+          return [.foregroundColor: color, .font: regularFont]
+      }
+    }
+
+    /// this is doing both synchronous language initialization everything,
+    /// but TreeSitterClient supports lazy loading for embedded languages
+    let markdownConfig = try! LanguageConfiguration(
+      tree_sitter_markdown(),
+      name: "Markdown"
+    )
+
+    let markdownInlineConfig = try! LanguageConfiguration(
+      tree_sitter_markdown_inline(),
+      name: "MarkdownInline",
+      bundleName: "TreeSitterMarkdown_TreeSitterMarkdownInline"
+    )
+
+    let highlighterConfig = TextViewHighlighter.Configuration(
+      languageConfiguration: markdownConfig,  // the root language
+      attributeProvider: provider,
+      languageProvider: { name in
+        //        print("embedded language: ", name)
+
+        switch name {
+          case "markdown":
+            return markdownConfig
+            
+          case "markdown_inline":
+            return markdownInlineConfig
+            
+          default:
+            return nil
+        }
+      },
+      locationTransformer: { _ in nil }
+    )
+
+    return try TextViewHighlighter(textView: textView, configuration: highlighterConfig)
+  }
+
+  package override func loadView() {
+    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+    let scrollView = NSScrollView()
+
+    scrollView.hasVerticalScroller = true
+    scrollView.hasHorizontalScroller = false
+    scrollView.autohidesScrollers = true
+//    scrollView.borderType = .noBorder
+    scrollView.drawsBackground = false
+
+    scrollView.documentView = textView
+
+    let max = CGFloat.greatestFiniteMagnitude
+
+    textView.minSize = NSSize.zero
+    textView.maxSize = NSSize(width: max, height: max)
+    textView.isVerticallyResizable = true
+    textView.isHorizontallyResizable = true
+    textView.isRichText = false
+    textView.drawsBackground = false
+
+    self.view = scrollView
+    #else
+    self.view = textView
+    #endif
+
+    /// this has to be done after the textview has been embedded in the
+    /// scrollView if it wasn't that way on creation
+    highlighter.observeEnclosingScrollView()
+    
+    textView.text = DummyContent.Strings.Markdown.shortMarkdownBasics
+    //    doBigMarkdownTest()
+  }
+
+  //  func doBigMarkdownTest() {
+  //    guard let url = Bundle.main.url(forResource: "big_test", withExtension: "md") else {
+  //      print("Unable to locate big test file")
+  //      return
+  //    }
+  //    guard let content = try? String(contentsOf: url) else {
+  //      print("Couldn't convert to String")
+  //      return
+  //    }
+  //
+  //    textView.text = content
+  //
+  //    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+  //      let range = NSRange(location: content.utf16.count, length: 0)
+  //
+  //      self.textView.scrollRangeToVisible(range)
+  //    }
+  //  }
+}

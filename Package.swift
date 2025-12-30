@@ -23,10 +23,10 @@ let package = Package(
     .package(url: "https://github.com/mattmassicotte/nsui", from: "1.3.0"),
     //    .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
     //    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
-    //    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
-    //    .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
+        .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
     //    .package(url: "https://github.com/ChimeHQ/Lowlight", branch: "main"),
-    //    .package(url: "https://github.com/ChimeHQ/Neon", from: "0.6.0"),
+    //    .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
+   
     .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
 
   ],
@@ -47,6 +47,7 @@ let package = Package(
         .exteral(.colourKit),
         .exteral(.coreTools),
         .exteral(.nsui),
+        .exteral(.glyph),
       ]
     ),
 
@@ -66,7 +67,6 @@ let package = Package(
         .local(.editorCore),
         .local(.markdown),
       ],
-      packageAccess: true,
     ),
   ]
 )
@@ -99,10 +99,8 @@ enum PackageModule {
 enum ExternalDependency {
   case colourKit
   case coreTools
-  //  case themePark
-  //  case neon
-  //  case lowlight
   case nsui
+  case glyph
 
   /// If different to product name
   var product: String? {
@@ -110,15 +108,16 @@ enum ExternalDependency {
       case .colourKit: "ColourKit"
       case .coreTools: "CoreTools"
       case .nsui: nil
+      case .glyph: nil
+
     }
   }
   var package: String {
     switch self {
       case .colourKit, .coreTools: "BaseHelpers"
-      //      case .themePark: "ThemePark"
-      //      case .neon: "Neon"
-      //      case .lowlight: "Lowlight"
       case .nsui: "NSUI"
+      case .glyph: "Glyph"
+
     }
   }
   var dependency: Target.Dependency {
