@@ -42,7 +42,7 @@ public struct AttributedEditor: View {
 
   public var body: some View {
 //    Text("Hello `AttributedEditor: View {...}`")
-    AttributedEditorView()
+    AttributedEditorView(text: $text)
 //    AttributedEditorView(text: $text)
 //            font: finalFont,
 //      config: Editor.Configuration(

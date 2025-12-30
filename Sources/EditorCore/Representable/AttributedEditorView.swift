@@ -68,9 +68,9 @@ extension AttributedEditorView {
 
   }
 
-  //  public func makeCoordinator() -> Coordinator {
-  //    Coordinator(self)
-  //  }
+    public func makeCoordinator() -> Coordinator {
+      Coordinator(self)
+    }
 
   //  private func getFont(with context: Context) -> NSFont {
   //    print("Let's try resolving the SwiftUI font from environment at \(Date.debug)")
