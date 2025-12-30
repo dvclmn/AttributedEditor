@@ -5,6 +5,8 @@
 //  Created by Dave Coleman on 19/11/2025.
 //
 
+import RegexBuilder
+
 extension Markdown.Syntax {
 
   var fragments: [Fragment]? {
@@ -49,31 +51,16 @@ extension Markdown.Syntax {
 
       // /(?<prefix>(?:#{1}))(?<content>[^#]+?)/
       // .anchorsMatchNewLines
-      case .heading1:
-        nil
-      case .heading2:
-        nil
-      case .heading3:
-        nil
-      case .heading4:
-        nil
-      case .heading5:
-        nil
-      case .heading6:
-        nil
+      case .heading1: return nil
+      case .heading2: return nil
+      case .heading3: return nil
+      case .heading4: return nil
+      case .heading5: return nil
+      case .heading6: return nil
       case .bold:
-        
-        /// `(?:…)` = Non-capturing group
-        /// `{2}` = Match two of the preceeding token
-        Regex(
-          #/
-          (?<leading>(?:\*{2}|_{2}))
-          (?<content>[^\n]+?)
-          (?<trailing>\k<leading>)
-          /#
-        )
+
       case .italic:
-        Regex(
+        return Regex(
           #/
           (?<leading>[\*_])
           (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
@@ -87,10 +74,10 @@ extension Markdown.Syntax {
         //          (?<trailing>\k<leading>)
         //          /#
         //        )
-        nil
+        return nil
 
       case .inlineCode:
-        Regex(
+        return Regex(
           #/
           (?<leading>`)
           (?<content>(?:[^`\n])+?)
@@ -108,22 +95,22 @@ extension Markdown.Syntax {
         //        )
         //        .dotMatchesNewlines()
         //        .anchorsMatchLineEndings()
-        nil
+        return nil
       case .list:
-        nil
-      case .quoteBlock:  nil
-      case .callout: nil
+        return nil
+      case .quoteBlock: return nil
+      case .callout: return nil
       case .strikethrough:
-        Regex(
+        return Regex(
           #/
           (?<leading>(?:\~{2}))
           (?<content>[^\n]+?)
           (?<trailing>\k<leading>)
           /#
         )
-        
+
       case .highlight:
-        Regex(
+        return Regex(
           #/
           (?<leading>==)
           (?<content>[^== \n][^\n]*?[^== \n])
@@ -141,7 +128,7 @@ extension Markdown.Syntax {
         //          (?<trailingB>\))
         //          /#
         //        )
-        nil
+        return nil
       case .image:
         //        Regex(
         //          #/
@@ -154,12 +141,98 @@ extension Markdown.Syntax {
         //          (?<trailingB>\))
         //          /#
         //        )
-        nil
+        return nil
       case .horizontalRule:
-        nil
-//            Regex(/\n---+?/)
-//          .anchorsMatchLineEndings()
-//          .ignoresCase()
+        return nil
+    //            Regex(/\n---+?/)
+    //          .anchorsMatchLineEndings()
+    //          .ignoresCase()
     }
+  }
+}
+
+extension Markdown {
+  
+  struct Pattern {
+    let characters: CharacterClass
+    let count: Int
+  }
+}
+extension Markdown.Pattern {
+  init(_ characters: Character..., count: Int = 1) {
+    precondition(!characters.isEmpty, "Must provide at least one character")
+    if characters.count == 1, let first = characters.first {
+      self.init(characters: .anyOf(<#T##s: Sequence##Sequence#>), count: <#T##Int#>)
+    } else {
+      
+    }
+    guard let first = characters.first else
+    self.init(
+      characters: CharacterClass(characters.toString),
+      count: count
+    )
+  }
+}
+
+extension RegexShape {
+  func characters(for syntax: Markdown.Syntax) -> Markdown.Pattern {
+    switch syntax {
+      case .bold: .init("*", count: 2)
+      case .italic: .init("*", count: 1)
+      case .boldItalic: .init("*", count: 2)
+      case .inlineCode: .init("*", count: 2)
+      case .strikethrough: .init("*", count: 2)
+      case .highlight: .init("*", count: 2)
+//      case .heading1:
+//      case .heading2:
+//      case .heading3:
+//      case .heading4:
+//      case .heading5:
+//      case .heading6:
+//      case .bold:
+//      case .italic:
+//      case .boldItalic:
+//      case .inlineCode:
+//      case .codeBlock:
+//      case .list:
+//      case .quoteBlock:
+//      case .callout:
+//      case .strikethrough:
+//      case .highlight:
+//      case .link:
+//      case .image:
+//      case .horizontalRule:
+    }
+  }
+}
+
+extension Markdown.Syntax {
+  
+  
+  
+  private func buildWrapRegex() -> some RegexComponent {
+    
+    /// `(?:…)` = Non-capturing group
+    /// `{2}` = Match two of the preceeding token
+    let leading = Reference(Substring.self)
+    let content = Reference(Substring.self)
+    let trailing = Reference(Substring.self)
+    
+    let syntax = ChoiceOf {
+      Repeat("*", count: 2)
+      Repeat("_", count: 2)
+    }
+    
+    return Regex(
+      Regex {
+        
+        Capture(as: leading) { syntax }
+        Capture(as: content) {
+          OneOrMore(.anyNonNewline.subtracting(.anyOf("*_")), .reluctant)
+        }
+        Capture(as: trailing) { syntax }
+        
+      }
+    )
   }
 }
