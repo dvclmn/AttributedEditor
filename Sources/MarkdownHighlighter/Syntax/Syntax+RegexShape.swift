@@ -63,6 +63,9 @@ extension Markdown.Syntax {
       case .heading6:
         nil
       case .bold:
+        
+        /// `(?:…)` = Non-capturing group
+        /// `{2}` = Match two of the preceeding token
         Regex(
           #/
           (?<leading>(?:\*{2}|_{2}))
@@ -78,13 +81,14 @@ extension Markdown.Syntax {
           (?<trailing>\k<leading>)
           /#)
       case .boldItalic:
-        Regex(
-          #/
-          (?<leading>(?:\*{3}|_{3}))
-          (?<content>[^\n]+?)
-          (?<trailing>\k<leading>)
-          /#
-        )
+        //        Regex(
+        //          #/
+        //          (?<leading>(?:\*{3}|_{3}))
+        //          (?<content>[^\n]+?)
+        //          (?<trailing>\k<leading>)
+        //          /#
+        //        )
+        nil
 
       case .inlineCode:
         Regex(
@@ -95,23 +99,21 @@ extension Markdown.Syntax {
           /#
         )
       case .codeBlock:
-        Regex(
-          #/
-          (?<start>```[ \t]*)
-          (?<langHint>[^\n]*)\n
-          (?<content>(?:.|\n)*?)
-          (?<end>^```[ \t]*$)
-          /#
-        )
-        .dotMatchesNewlines()
-        .anchorsMatchLineEndings()
-
+        //        Regex(
+        //          #/
+        //          (?<start>```[ \t]*)
+        //          (?<langHint>[^\n]*)\n
+        //          (?<content>(?:.|\n)*?)
+        //          (?<end>^```[ \t]*$)
+        //          /#
+        //        )
+        //        .dotMatchesNewlines()
+        //        .anchorsMatchLineEndings()
+        nil
       case .list:
         nil
-      case .quoteBlock:  // anchorsMatchLines
-        nil
-      case .callout:
-        nil
+      case .quoteBlock:  nil
+      case .callout: nil
       case .strikethrough:
         Regex(
           #/
@@ -120,6 +122,7 @@ extension Markdown.Syntax {
           (?<trailing>\k<leading>)
           /#
         )
+        
       case .highlight:
         Regex(
           #/
@@ -129,30 +132,35 @@ extension Markdown.Syntax {
           /#
         )
       case .link:
-        Regex(
-          #/
-          (?<leadingA>\[)
-          (?<title>[^\]\n]+)
-          (?<trailingA>\])
-          (?<leadingB>\()
-          (?<url>[^\)\n]+)
-          (?<trailingB>\))
-          /#
-        )
+        //        Regex(
+        //          #/
+        //          (?<leadingA>\[)
+        //          (?<title>[^\]\n]+)
+        //          (?<trailingA>\])
+        //          (?<leadingB>\()
+        //          (?<url>[^\)\n]+)
+        //          (?<trailingB>\))
+        //          /#
+        //        )
+        nil
       case .image:
-        Regex(
-          #/
-          (?<prefix>!?)
-          (?<leadingA>\[)
-          (?<title>[^\]\n]+)
-          (?<trailingA>\])
-          (?<leadingB>\()
-          (?<url>[^\)\n]+)
-          (?<trailingB>\))
-          /#
-        )
+        //        Regex(
+        //          #/
+        //          (?<prefix>!?)
+        //          (?<leadingA>\[)
+        //          (?<title>[^\]\n]+)
+        //          (?<trailingA>\])
+        //          (?<leadingB>\()
+        //          (?<url>[^\)\n]+)
+        //          (?<trailingB>\))
+        //          /#
+        //        )
+        nil
       case .horizontalRule:
-        Regex(/\n---+?/)
+        nil
+//            Regex(/\n---+?/)
+//          .anchorsMatchLineEndings()
+//          .ignoresCase()
     }
   }
 }

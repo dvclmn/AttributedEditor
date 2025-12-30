@@ -27,11 +27,17 @@ package final class MarkdownHighlighter {
   /// 2: `bold`
   /// 3: `boldItalic`
   public var declaredSyntax: [Markdown.Syntax] {
-    [
-      .inlineCode,
-      .bold,
-      .italic,
-    ]
+    let elements = Markdown.Syntax.allCases.filter { $0.pattern != nil }
+    //    print("Declared syntax list:", elements.map(\.name).joined(separator: ", "))
+    return elements
+    //    [
+    //      .inlineCode,
+    //      .italic,
+    //      .bold,
+    ////      .boldItalic,
+    //      .highlight,
+    //      .
+    //    ]
   }
 
   /// Build attributed ranges for applying in the Editor
@@ -41,10 +47,16 @@ package final class MarkdownHighlighter {
 
     for syntax in declaredSyntax {
 
-      guard let data = SyntaxData(syntax: syntax) else { return [] }
+      guard let data = SyntaxData(syntax: syntax) else {
+        print("Couldn't create data for \(syntax.name)")
+        return []
+      }
       let matches = text.matches(of: data.pattern)
 
-      guard !matches.isEmpty else { return [] }
+      guard !matches.isEmpty else {
+        print("No matches for \(syntax.name)")
+        return []
+      }
 
       for match in matches {
         data.processMatch(

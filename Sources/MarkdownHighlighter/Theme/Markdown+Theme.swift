@@ -54,6 +54,7 @@ extension MarkdownTheme {
     var attrs = TextAttributes()
     attrs[.foregroundColor] = token.foreground?.nsColor
     attrs[.fontTraits] = token.fontTraits
+    attrs[.strike] = token.fontTraits
 
     return attrs
   }
@@ -69,7 +70,7 @@ extension MarkdownTheme {
   func defaultToken(for role: StyleRole) -> StyleToken {
     switch role {
       case .content: StyleToken(colour: .primary)
-      case .syntax: StyleToken(colour: .tertiary)
+      case .syntax: StyleToken(colour: .gray, font: .monoSpace)
       case .metadata: StyleToken(colour: .secondary)
     }
   }

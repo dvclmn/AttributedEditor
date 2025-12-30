@@ -13,7 +13,7 @@ public enum Markdown {}
 /// For RegexShape, go to ``Markdown/Syntax/regexShape``
 extension Markdown {
   @CaseDetection
-  public enum Syntax: String, Identifiable, Equatable, Hashable, Sendable {
+  public enum Syntax: String, CaseIterable, Identifiable, Equatable, Hashable, Sendable {
 
     case body
     case heading1
@@ -75,7 +75,7 @@ extension Markdown.Syntax {
     }
   }
 
-  public var isCodeSyntax: Bool {
+  public var isCode: Bool {
     switch self {
       case .inlineCode, .codeBlock: true
       default: false

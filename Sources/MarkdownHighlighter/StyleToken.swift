@@ -16,7 +16,7 @@ public struct StyleToken: Sendable, Hashable {
 
   public var background: BackgroundStyle?
   public var decoration: TextDecoration?
-  
+
   public init(
     colour: CodableColour? = nil,
     font: NSFontDescriptor.SymbolicTraits = [],

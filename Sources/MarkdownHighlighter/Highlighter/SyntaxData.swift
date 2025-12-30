@@ -8,6 +8,8 @@
 import CoreTools
 import Foundation
 
+/// This is kinda a way to unwrap all the optionals from these
+/// properties on Markdown.Syntax, and plop them in one place
 struct SyntaxData {
   let syntax: Markdown.Syntax
   let pattern: Regex<AnyRegexOutput>
@@ -23,8 +25,8 @@ extension SyntaxData {
   /// 2. Regex Pattern
   /// 3. Fragments
   init?(syntax: Markdown.Syntax) {
-
-    /// No need to process anything if provided Syntax has no regex shape
+//    print("Beginning optional syntax init for \(syntax.name)")
+    /// No need to initialise anything if provided Syntax has no regex shape
     guard let shape = syntax.regexShape else { return nil }
 
     /// Ensure we have a Regex pattern for this syntax
@@ -33,8 +35,10 @@ extension SyntaxData {
       return nil
     }
 
-    /// Again, no fragments means no need to process
+    /// Again, no fragments means no need to init
     guard let fragments = syntax.fragments else { return nil }
+
+//    print("Syntax \(syntax.name) had required properties regexShape, pattern, and fragments. Initialising")
 
     self.init(
       syntax: syntax,
@@ -49,7 +53,6 @@ extension SyntaxData {
     for syntax: Markdown.Syntax,
     runs: inout MarkdownRuns,
   ) {
-
     for fragment in fragments {
       let range = shape.range(for: match, fragment: fragment)
       guard let range else {
@@ -71,10 +74,10 @@ extension SyntaxData {
     }
   }
 
-  private func range(
-    for fragment: Fragment,
-    in match: Regex<AnyRegexOutput>.Match
-  ) -> Range<String.Index>? {
-    shape.range(for: match, fragment: fragment)
-  }
+  //  private func range(
+  //    for fragment: Fragment,
+  //    in match: Regex<AnyRegexOutput>.Match
+  //  ) -> Range<String.Index>? {
+  //    shape.range(for: match, fragment: fragment)
+  //  }
 }

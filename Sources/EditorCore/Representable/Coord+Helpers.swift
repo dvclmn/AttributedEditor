@@ -26,6 +26,22 @@ extension AttributedEditorView.Coordinator {
       await self.debouncer.execute { @MainActor in
 
         let runs = highlighter.buildStyles(in: text)
+        print("Runs: \(runs.count)")
+        //        let names: [String] = runs.map { element in
+        //          element.syntax.name
+        //        }
+        //        print(names.joined(separator: ", "))
+        //        let containsHighlight = runs.contains(where: {$0.syntax == .highlight})
+        //        DebugString {
+        //          containsHighlight ? "Highlight syntax found" : "No highlight syntax found"
+        //        }
+        //        DebugString {
+
+        //          runs.reduce(into: "") { partial, element in
+        //            partial += element.syntax.name
+        //          }
+        //        }
+
         self.applyStyles(runs: runs, affectedRange: affectedRange)
 
         /// Refresh line numbers
@@ -69,13 +85,13 @@ extension AttributedEditorView.Coordinator {
 
       attrs[.font] = adjustedFont
 
-//      print("Attributes for \(run.syntax.name, default: "No fragment desc").")
+      //      print("Attributes for \(run.syntax.name, default: "No fragment desc").")
       //      print("Range preview: \(run.range.withPreview(in: text))")
-//      print("\(attrs.description)\n")
+      //      print("\(attrs.description)\n")
 
       ts.setAttributes(attrs.toNSAttributes, range: range)
     }
-    
+
     textView.syncTypingAttributes()
 
     // MARK: - End edit
