@@ -30,5 +30,5 @@ package struct ThemeResolver {
 
 package struct ResolvedRun {
   package let range: Range<String.Index>
-  package let attributes: TextAttributes
+  package let attributes: NSTextAttributes
 }

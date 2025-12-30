@@ -50,11 +50,12 @@ extension MarkdownTheme {
   /// Retrieves font/colour data from theme tokens
   func textAttributes(
     for token: StyleToken
-  ) -> TextAttributes {
-    var attrs = TextAttributes()
+  ) -> NSTextAttributes {
+    var attrs = NSTextAttributes()
     attrs[.foregroundColor] = token.foreground?.nsColor
     attrs[.fontTraits] = token.fontTraits
-    attrs[.strike] = token.fontTraits
+    attrs[.strikethroughColor] = token.strikeColour
+    attrs[.strikethroughStyle] = token.strikeStyle
 
     return attrs
   }
@@ -62,7 +63,7 @@ extension MarkdownTheme {
   func textAttributes(
     syntax: Markdown.Syntax,
     role: StyleRole,
-  ) -> TextAttributes {
+  ) -> NSTextAttributes {
     let token = styleToken(for: syntax, role: role)
     return textAttributes(for: token)
   }
