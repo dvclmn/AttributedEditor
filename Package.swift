@@ -23,11 +23,10 @@ let package = Package(
     .package(url: "https://github.com/mattmassicotte/nsui", from: "1.3.0"),
     //    .package(url: "https://github.com/pointfreeco/swift-sharing", from: "2.7.4"),
     //    .package(url: "https://github.com/ChimeHQ/Rearrange", from: "2.0.0"),
-        .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
+    .package(url: "https://github.com/ChimeHQ/Glyph", branch: "main"),
     //    .package(url: "https://github.com/ChimeHQ/Lowlight", branch: "main"),
     //    .package(url: "https://github.com/ChimeHQ/ThemePark", branch: "main"),
-   
-    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
+//    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
 
   ],
   targets: [
@@ -36,7 +35,7 @@ let package = Package(
       dependencies: [
         .local(.editorCore),
         .local(.markdown),
-        .exteral(.coreTools),
+        .external(.coreTools),
       ]
     ),
 
@@ -44,18 +43,18 @@ let package = Package(
       name: "EditorCore",
       dependencies: [
         .local(.markdown),
-        .exteral(.colourKit),
-        .exteral(.coreTools),
-        .exteral(.nsui),
-        .exteral(.glyph),
+        .external(.colourKit),
+        .external(.coreTools),
+        .external(.nsui),
+        .external(.glyph),
       ]
     ),
 
     .target(
       name: "MarkdownHighlighter",
       dependencies: [
-        .exteral(.colourKit),
-        .exteral(.coreTools),
+        .external(.colourKit),
+        .external(.coreTools),
 
       ]
     ),
@@ -76,7 +75,7 @@ extension Target.Dependency {
   static func local(_ baseModule: PackageModule) -> Self {
     .target(name: baseModule.name)
   }
-  static func exteral(_ package: ExternalDependency) -> Self {
+  static func external(_ package: ExternalDependency) -> Self {
     package.dependency
   }
 }
@@ -84,14 +83,13 @@ extension Target.Dependency {
 enum PackageModule {
   case attributedEditor
   case editorCore
-  //  case common
+
   case markdown
 
   var name: String {
     switch self {
       case .attributedEditor: return "AttributedEditor"
       case .editorCore: return "EditorCore"
-      //      case .common: return "HighlighterCommon"
       case .markdown: return "MarkdownHighlighter"
     }
   }
@@ -109,7 +107,6 @@ enum ExternalDependency {
       case .coreTools: "CoreTools"
       case .nsui: nil
       case .glyph: nil
-
     }
   }
   var package: String {
