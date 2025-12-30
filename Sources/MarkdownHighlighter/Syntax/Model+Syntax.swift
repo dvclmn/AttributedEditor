@@ -15,7 +15,7 @@ extension Markdown {
   @CaseDetection
   public enum Syntax: String, CaseIterable, Identifiable, Equatable, Hashable, Sendable {
 
-    case body
+//    case body
     case heading1
     case heading2
     case heading3
@@ -71,7 +71,7 @@ extension Markdown.Syntax {
       case .quoteBlock: "Quote"
       case .link: "Link"
       case .image: "Image"
-      case .body: "Body"
+//      case .body: "Body"
     }
   }
 

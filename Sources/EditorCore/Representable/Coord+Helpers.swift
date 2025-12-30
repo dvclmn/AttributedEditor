@@ -26,22 +26,6 @@ extension AttributedEditorView.Coordinator {
       await self.debouncer.execute { @MainActor in
 
         let runs = highlighter.buildStyles(in: text)
-        print("Runs: \(runs.count)")
-        //        let names: [String] = runs.map { element in
-        //          element.syntax.name
-        //        }
-        //        print(names.joined(separator: ", "))
-        //        let containsHighlight = runs.contains(where: {$0.syntax == .highlight})
-        //        DebugString {
-        //          containsHighlight ? "Highlight syntax found" : "No highlight syntax found"
-        //        }
-        //        DebugString {
-
-        //          runs.reduce(into: "") { partial, element in
-        //            partial += element.syntax.name
-        //          }
-        //        }
-
         self.applyStyles(runs: runs, affectedRange: affectedRange)
 
         /// Refresh line numbers
@@ -58,7 +42,6 @@ extension AttributedEditorView.Coordinator {
     runs: [SyntaxRun],
     affectedRange: NSRange,
   ) {
-
     guard let textView,
       let tcs = textView.textContentStorage,
       let ts = tcs.textStorage
@@ -68,7 +51,6 @@ extension AttributedEditorView.Coordinator {
 
     // MARK: - Begin edit
     ts.beginEditing()
-
     ts.setAttributes(defaults, range: affectedRange)
 
     /// Apply each highlighted range's attributes
@@ -80,8 +62,14 @@ extension AttributedEditorView.Coordinator {
       let resolved = ThemeResolver.resolveToken(with: theme, for: run)
       var attrs = resolved.attributes
       resolved.updateFont(using: font, in: &attrs)
+      
+      let testAttrs: NSTextAttributes = [
+        .strikethroughStyle: NSUnderlineStyle(.single).rawValue,
+        .strikethroughColor: NSColor.red,
+        .underlineStyle: NSUnderlineStyle(.single).rawValue,
+      ]
 
-      ts.setAttributes(attrs, range: range)
+      ts.setAttributes(testAttrs, range: range)
     }
 
     textView.syncTypingAttributes()
@@ -175,15 +163,15 @@ extension AttributedEditorView.Coordinator {
 //  func applyHighlighting(in textView: any Highlightable) {
 
 //    let highlighter = self.parent.highlighter
-//    
+//
 //    let text = textView.string
 //    let affectedRange = textView.documentNSRange
-//    
+//
 //    Task {
 //      await self.debouncer.execute { @MainActor in
-//        
+//
 //        let runs = highlighter.buildStyles(in: text)
-//        
+//
 //        //        highlighter.applyStyles(
 //        //          runs: runs,
 //        //          textView: textView,
@@ -191,9 +179,9 @@ extension AttributedEditorView.Coordinator {
 //        //          font: self.parent.font,
 //        //          defaults: defaults
 //        //        )
-//        
+//
 //        //        textView.updateHighlighter(with: highlighter)
-//        
+//
 //        /// Refresh line numbers
 //        if self.parent.editorOptions.contains(.lineNumbers) {
 //          textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true

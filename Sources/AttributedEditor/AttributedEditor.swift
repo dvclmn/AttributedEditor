@@ -7,76 +7,75 @@
 
 import CoreTools
 import EditorCore
-
 import MarkdownHighlighter
 import SwiftUI
 
 public struct AttributedEditor: View {
-//  @Environment(\.insets) private var insets
-//  @Environment(\.overScroll) private var overScroll
-//  @Environment(\.isEditable) private var isEditable
-//  @Environment(\.lineSpacing) private var lineSpacing
-//  @Environment(\.font) private var font
-//  @Environment(\.fontResolutionContext) private var fontResolutionContext
+  //  @Environment(\.insets) private var insets
+  //  @Environment(\.overScroll) private var overScroll
+  //  @Environment(\.isEditable) private var isEditable
+  //  @Environment(\.lineSpacing) private var lineSpacing
+  //  @Environment(\.font) private var font
+  //  @Environment(\.fontResolutionContext) private var fontResolutionContext
 
   @Binding var text: String
 
-//   let highlighter: MarkdownHighlighter
-//   let highlighter: any Highlighter
+  //   let highlighter: MarkdownHighlighter
+  //   let highlighter: any Highlighter
 
   public init(
     _ text: Binding<String>,
-//    languageHint: LanguageHint
+    //    languageHint: LanguageHint
   ) {
     self._text = text
 
-//    switch languageHint {
-      /// Support for more to come
-//      case .markdown:
-//        self.highlighter = MarkdownHighlighter()
-//      default:
-//        print("Language '\(languageHint.rawValue)' not yet supported, defaulting to Markdown Highlighter for now")
-//        self.highlighter = MarkdownHighlighter()
-//    }
+    //    switch languageHint {
+    /// Support for more to come
+    //      case .markdown:
+    //        self.highlighter = MarkdownHighlighter()
+    //      default:
+    //        print("Language '\(languageHint.rawValue)' not yet supported, defaulting to Markdown Highlighter for now")
+    //        self.highlighter = MarkdownHighlighter()
+    //    }
   }
 
   public var body: some View {
-//    Text("Hello `AttributedEditor: View {...}`")
+    //    Text("Hello `AttributedEditor: View {...}`")
     AttributedEditorView(text: $text)
-//    AttributedEditorView(text: $text)
-//            font: finalFont,
-//      config: Editor.Configuration(
-////        isEditable: isEditable,
-//        options: [],
-////        lineSpacing: lineSpacing,
-//        insets: insets,
-//        overScroll: overScroll,
-//        maxWidth: nil
-//      ),
-//      highlighter: highlighter,
+      .foregroundStyle(.primary)
+    //    AttributedEditorView(text: $text)
+    //            font: finalFont,
+    //      config: Editor.Configuration(
+    ////        isEditable: isEditable,
+    //        options: [],
+    ////        lineSpacing: lineSpacing,
+    //        insets: insets,
+    //        overScroll: overScroll,
+    //        maxWidth: nil
+    //      ),
+    //      highlighter: highlighter,
 
-//    )
+    //    )
 
-//      .task(id: self.text) {
-//        print("The text has changed in SwiftUI")
-//      }
-//    .onAppear {
-//      print("Do we get here?")
-//      if isPreview {
-//        print(digIntoResolvedFont)
-//      }
-//    }
+    //      .task(id: self.text) {
+    //        print("The text has changed in SwiftUI")
+    //      }
+    //    .onAppear {
+    //      print("Do we get here?")
+    //      if isPreview {
+    //        print(digIntoResolvedFont)
+    //      }
+    //    }
 
-//    .task(id: font) {
-//      highlighter.theme.updateFont(with: finalFont)
-//    }
+    //    .task(id: font) {
+    //      highlighter.theme.updateFont(with: finalFont)
+    //    }
     // TODO: Bring this back
     //    .onAppear {
     //      highlighter.updateTheme(markdownTheme)
     //    }
   }
 }
-
 
 #if DEBUG
 #Preview {

@@ -39,15 +39,14 @@ extension Markdown.Syntax {
       case .horizontalRule:
         .single
 
-      case .body, .list, .callout:
+      case .list, .callout:
         nil
     }
   }
 
   public var pattern: Regex<AnyRegexOutput>? {
     switch self {
-      case .body:
-        nil
+
       // /(?<prefix>(?:#{1}))(?<content>[^#]+?)/
       // .anchorsMatchNewLines
       case .heading1:

@@ -19,6 +19,7 @@ extension MarkdownTheme {
 
   init(@ThemeBuilder builder: () -> [SyntaxRoleDef]) {
     var tokens: StyleTokens = [:]
+    
     for def in builder() {
       /// Also option for a merge operation rather than straight
       /// replace if preferred: ``StyleRoles/merge(_:prefer:)``
@@ -54,8 +55,6 @@ extension MarkdownTheme {
     var attrs = NSTextAttributes()
     attrs[.foregroundColor] = token.foreground?.nsColor
     attrs[.fontTraits] = token.fontTraits
-    attrs[.strikethroughColor] = token.strikeColour
-    attrs[.strikethroughStyle] = token.strikeStyle
 
     return attrs
   }

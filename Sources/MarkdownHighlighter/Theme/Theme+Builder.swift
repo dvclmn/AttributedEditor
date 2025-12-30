@@ -49,14 +49,4 @@ func Syntax(
   build: (inout StyleRoles) -> Void
 ) -> [SyntaxRoleDef] {
   Syntax(syntax, build: build)
-
-}
-
-extension StyleRoles {
-
-}
-
-// convenience functions for more fluent DSL:
-func role(_ r: StyleRole, _ token: StyleToken) -> (StyleRole, StyleToken) {
-  (r, token)
 }

@@ -11,6 +11,7 @@ extension MarkdownTheme {
 
   public static var standard: Self {
     MarkdownTheme {
+      
       Syntax(.bold) { roles in
         roles.set(.content, style: StyleToken(colour: .primary, font: .bold))
       }
@@ -41,7 +42,7 @@ extension MarkdownTheme {
       }
 
       Syntax(.strikethrough) { roles in
-        roles.set(.content, style: StyleToken(colour: .gray, decoration: .strikeDefault))
+        roles.set(.content, style: StyleToken(colour: .gray, decoration: .default))
         roles.set(.syntax, style: StyleToken(colour: .red, font: .monoSpace))
       }
 

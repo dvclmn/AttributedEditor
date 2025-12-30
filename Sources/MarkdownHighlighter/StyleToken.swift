@@ -34,11 +34,6 @@ public struct StyleToken: Sendable, Hashable {
 extension StyleToken {
   static var `default`: StyleToken { .init() }
   var nsColour: NSColor? { foreground?.nsColor }
-
-  var strikeColour: NSColor? {
-    decoration?.strikethroughValue?.colour
-  }
-  var strikeStyle: NSUnderlineStyle { .single }
 }
 
 extension StyleToken {
@@ -47,24 +42,4 @@ extension StyleToken {
     case roundedRect(CodableColour, cornerRadius: CGFloat)
     case highlight(CodableColour)
   }
-
-  @AssociatedValues
-  public enum TextDecoration: Hashable, Sendable {
-    case underline
-    case strikethrough(Config)
-  }
-}
-
-extension StyleToken.TextDecoration {
-  public struct Config: Hashable, Sendable {
-    let colour: NSColor
-    let strokeWidth: CGFloat
-  }
-  
-  public static let strikeDefault: Self = .strikethrough(.default)
-  
-}
-
-extension StyleToken.TextDecoration.Config {
-  public static let `default`: Self = .init(colour: .red, strokeWidth: 1)
 }
