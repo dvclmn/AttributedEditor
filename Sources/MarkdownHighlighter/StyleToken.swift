@@ -20,11 +20,12 @@ public struct StyleToken: Sendable, Hashable {
   public init(
     colour: CodableColour? = nil,
     font: NSFontDescriptor.SymbolicTraits = [],
+    fontScale: CGFloat = 1,
     background: BackgroundStyle? = nil,
     decoration: TextDecoration? = nil
   ) {
     self.foreground = colour
-    self.fontTraits = FontTraits(font)
+    self.fontTraits = FontTraits(font, sizeScale: fontScale)
     self.background = background
     self.decoration = decoration
   }
@@ -59,13 +60,11 @@ extension StyleToken.TextDecoration {
     let colour: NSColor
     let strokeWidth: CGFloat
   }
+  
+  public static let strikeDefault: Self = .strikethrough(.default)
+  
+}
 
-  //  var colour: NSColor? {
-  //    switch self {
-  //      case .underline:
-  //        <#code#>
-  //      case .strikethrough(let config):
-  //        <#code#>
-  //    }
-  //  }
+extension StyleToken.TextDecoration.Config {
+  public static let `default`: Self = .init(colour: .red, strokeWidth: 1)
 }

@@ -32,16 +32,16 @@ extension MarkdownTheme {
       }
 
       Syntax(.inlineCode) { roles in
-        roles.set(.content, style: StyleToken(colour: .brown, font: .monoSpace))
+        roles.set(.content, style: StyleToken(colour: .brown, font: .monoSpace, fontScale: 0.94))
       }
-      
+
       Syntax(.highlight) { roles in
         roles.set(.content, style: StyleToken(colour: .blue))
         roles.set(.syntax, style: StyleToken(colour: .cyan))
       }
-      
+
       Syntax(.strikethrough) { roles in
-        roles.set(.content, style: StyleToken(colour: .gray, decoration: .strikethrough))
+        roles.set(.content, style: StyleToken(colour: .gray, decoration: .strikeDefault))
         roles.set(.syntax, style: StyleToken(colour: .red, font: .monoSpace))
       }
 

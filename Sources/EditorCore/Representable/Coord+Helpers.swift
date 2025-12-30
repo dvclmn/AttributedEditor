@@ -79,17 +79,9 @@ extension AttributedEditorView.Coordinator {
 
       let resolved = ThemeResolver.resolveToken(with: theme, for: run)
       var attrs = resolved.attributes
+      resolved.updateFont(using: font, in: &attrs)
 
-      let traits = attrs[.fontTraits]
-      let adjustedFont = traits?.constructFont(font: font, sizeScale: 0.94)
-
-      attrs[.font] = adjustedFont
-
-      //      print("Attributes for \(run.syntax.name, default: "No fragment desc").")
-      //      print("Range preview: \(run.range.withPreview(in: text))")
-      //      print("\(attrs.description)\n")
-
-      ts.setAttributes(attrs.toNSAttributes, range: range)
+      ts.setAttributes(attrs, range: range)
     }
 
     textView.syncTypingAttributes()
@@ -104,11 +96,6 @@ extension AttributedEditorView.Coordinator {
     var debugText = ""
     if textView.textLayoutManager != nil {
       /// Do nothing, only want to be alerted if not TK2
-      //      debugText = "🟢 TextKit 2 active (\(reason))"
-      //      if verboseLog {
-      //        debugText += " — textLayoutManager: \(tlm)"
-      //      }
-
     } else if let lm = textView.layoutManager {
       debugText = ("🔶 TextKit 1 compatibility mode (\(reason))")
       if verboseLog {

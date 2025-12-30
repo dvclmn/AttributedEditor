@@ -5,8 +5,8 @@
 //  Created by Dave Coleman on 27/12/2025.
 //
 
+import AppKit
 import CoreTools
-import Foundation
 
 package struct ThemeResolver {
 
@@ -31,4 +31,13 @@ package struct ThemeResolver {
 package struct ResolvedRun {
   package let range: Range<String.Index>
   package let attributes: NSTextAttributes
+
+  package func updateFont(
+    using font: NSFont,
+    in attrs: inout NSTextAttributes
+  ) {
+    let traits = attrs[.fontTraits] as? FontTraits
+    let adjustedFont = traits?.constructFont(using: font)
+    attrs[.font] = adjustedFont
+  }
 }
