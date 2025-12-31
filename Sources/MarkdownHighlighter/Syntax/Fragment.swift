@@ -8,12 +8,12 @@
 /// The available possible parts, found within Regex Shapes
 /// This loosely relates to `StyleRole`, just more granular
 public enum Fragment: String, Sendable {
-  case content
-  case syntaxStart  // Aka leading
-  case syntaxEnd  //  Aka trailing
+  case content // Or title? For link, image?
+  case syntaxLeading  // Aka leading
+  case syntaxTrailing  //  Aka trailing
+  case prefix  // Image "!", Quote ">", etc
   case languageHint  // Of type `StyleRole.metadata`
   case url
-  case prefix  // Image "!", Quote ">", etc
   case single  // ---
 }
 
@@ -21,8 +21,8 @@ extension Fragment {
   public var name: String {
     switch self {
       case .content, .prefix, .single: rawValue.capitalized
-      case .syntaxStart: "Syntax Start"
-      case .syntaxEnd: "Syntax End"
+      case .syntaxLeading: "Syntax Start"
+      case .syntaxTrailing: "Syntax End"
       case .languageHint: "Language Hint"
       case .url: "URL"
     }
@@ -31,7 +31,7 @@ extension Fragment {
   var toStyleRole: StyleRole {
     switch self {
       case .content, .single: .content
-      case .syntaxStart, .syntaxEnd: .syntax
+      case .syntaxLeading, .syntaxTrailing: .syntax
       case .languageHint, .url, .prefix: .metadata
     }
   }

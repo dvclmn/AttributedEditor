@@ -11,6 +11,7 @@ import Foundation
 //@AssociatedValues
 enum SyntaxDescriptor {
   case wrap(WrapSpec)
+  case link(LinkSpec)
   //  case prefix(PrefixSpec)
   //  case codeBlock(CodeBlockSpec)
   //  case pair(PairSpec)
@@ -19,12 +20,14 @@ extension SyntaxDescriptor {
   var shape: RegexShape {
     switch self {
       case .wrap(_): .wrap
+      case .link(_): .link
     }
   }
   func pattern(for syntax: Markdown.Syntax) -> Regex<AnyRegexOutput> {
     precondition(syntax.regexShape == shape, "Syntax '\(syntax.name)' must have RegexShape \(shape.name).")
 
     return switch self {
+      case .wrap(let wrapSpec): wrapSpec.pattern()
       case .wrap(let wrapSpec): wrapSpec.pattern()
     }
   }

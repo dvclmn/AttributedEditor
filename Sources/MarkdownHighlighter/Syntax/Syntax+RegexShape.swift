@@ -11,11 +11,11 @@ extension Markdown.Syntax {
 
   var fragments: [Fragment]? {
     switch regexShape {
-      case .wrap: [.syntaxStart, .content, .syntaxEnd]
+      case .wrap: [.syntaxLeading, .content, .syntaxTrailing]
       case .prefix: [.prefix, .content]
       case .single: [.single]
-      case .codeBlock: [.syntaxStart, .languageHint, .content, .syntaxEnd]
-      case .wrapPair: fatalError("Not yet implemented")
+      case .codeBlock: [.syntaxLeading, .languageHint, .content, .syntaxTrailing]
+      case .link: fatalError("Not yet implemented")
       default: nil
     }
   }
@@ -43,7 +43,7 @@ extension Markdown.Syntax {
         .codeBlock
 
       case .link, .image:
-        .wrapPair
+        .link
 
       case .horizontalRule:
         .single
