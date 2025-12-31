@@ -10,8 +10,19 @@ import AppKit
 /// Trying to get compiler checked support coverage
 public struct Supported {
 
-  public static let syntax: [Markdown.Syntax] = {
-    [
+  public let syntax: [Markdown.Syntax]
+  public let textAttributes: [NSAttributedString.Key]
+
+  public init(syntax: [Markdown.Syntax], attributes: [NSAttributedString.Key]) {
+    self.syntax = syntax
+    self.textAttributes = attributes
+  }
+
+}
+
+extension Supported {
+  public static var `default`: Supported {
+    let syntax: [Markdown.Syntax] = [
       //      .heading1,
       //      .heading2,
       //      .heading3,
@@ -35,10 +46,8 @@ public struct Supported {
       //      .image,
       //      .horizontalRule,
     ]
-  }()
 
-  public static let textAttributes: [NSAttributedString.Key] = {
-    [
+    let attributes: [NSAttributedString.Key] = [
       .foregroundColor,
       .fontTraits,
       .font,
@@ -52,9 +61,11 @@ public struct Supported {
       //      .textHighlightStyle,
       //      .textHighlightColorScheme,
     ]
-  }()
-}
 
-//extension Supported {
-//  public static let
-//}
+    return Supported(
+      syntax: syntax,
+      attributes: attributes
+    )
+  }
+
+}

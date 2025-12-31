@@ -15,8 +15,9 @@ import CoreTools
 package final class MarkdownHighlighter {
   //  public typealias Syntax = Markdown.Syntax
 
-  private let isDrawingBlocks: Bool = false
+  //  private let isDrawingBlocks: Bool = false
   public var theme: MarkdownTheme
+  public var supported: Supported = .default
 
   public init(theme: MarkdownTheme = .default) {
     self.theme = theme
@@ -45,14 +46,14 @@ package final class MarkdownHighlighter {
 
     var runs: MarkdownRuns = []
 
-    for syntax in Supported.syntax {
+    for syntax in supported.syntax {
 
       guard let data = SyntaxData(syntax: syntax) else {
         print("Couldn't create data for \(syntax.name)")
         assertionFailure("Syntax Data should not be nil.")
         return []
       }
-      
+
       let matches = text.matches(of: data.pattern)
 
       guard !matches.isEmpty else {
