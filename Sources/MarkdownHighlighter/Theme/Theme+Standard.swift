@@ -45,7 +45,7 @@ extension MarkdownTheme {
 //        roles.set(.syntax, style: StyleToken(colour: .red, font: .monoSpace))
       }
 
-      Syntax(Markdown.Syntax.allHeaders) { roles in
+      Syntax(Markdown.Syntax.allHeadings) { roles in
         roles.set(.content, style: StyleToken(colour: .primary, font: .bold))
         roles.set(.syntax, style: StyleToken(colour: .tertiary))
       }

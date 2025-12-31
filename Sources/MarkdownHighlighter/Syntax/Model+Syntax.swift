@@ -13,22 +13,38 @@ public enum Markdown {}
 /// For RegexShape, go to ``Markdown/Syntax/regexShape``
 extension Markdown {
   @CaseDetection
-  public enum Syntax: String, CaseIterable, Identifiable, Equatable, Hashable, Sendable {
+  public enum Syntax: CaseIterable, Identifiable, Equatable, Hashable, Sendable {
 
-    //    case body
-    case heading1
-    case heading2
-    case heading3
-    case heading4
-    case heading5
-    case heading6
+    public static var allCases: [Markdown.Syntax] {
+      let base: [Markdown.Syntax] = [
+        .bold,
+        .italic,
+        .boldItalic,
+        .inlineCode,
+        .codeBlock,
+        .list,
+        .quoteBlock(level: 1),
+        .quoteBlock(level: 2),
+        .quoteBlock(level: 3),
+        .callout,
+        .strikethrough,
+        .highlight,
+        .link,
+        .image,
+        .horizontalRule,
+      ]
+      return allHeadings + base
+
+    }
+
+    case heading(level: Int)
     case bold
     case italic
     case boldItalic
     case inlineCode
     case codeBlock
     case list
-    case quoteBlock
+    case quoteBlock(level: Int)
     case callout
     case strikethrough
     case highlight
@@ -44,18 +60,25 @@ extension Markdown {
 extension Markdown.Syntax {
   nonisolated public var id: String { name }
 
-  public static var allHeaders: [Markdown.Syntax] {
-    [.heading1, .heading2, .heading3, .heading4, .heading5, .heading6]
+  public static var allHeadings: [Markdown.Syntax] {
+    [
+      .heading(level: 1),
+      .heading(level: 2),
+      .heading(level: 3),
+      .heading(level: 4),
+      .heading(level: 5),
+      .heading(level: 6),
+    ]
   }
 
   public var name: String {
     switch self {
-      case .heading1: "Heading 1"
-      case .heading2: "Heading 2"
-      case .heading3: "Heading 3"
-      case .heading4: "Heading 4"
-      case .heading5: "Heading 5"
-      case .heading6: "Heading 6"
+      case .heading(let level): "Heading \(level)"
+      //      case .heading2: "Heading 2"
+      //      case .heading3: "Heading 3"
+      //      case .heading4: "Heading 4"
+      //      case .heading5: "Heading 5"
+      //      case .heading6: "Heading 6"
 
       case .bold: "Bold"
       case .italic: "Italic"
@@ -68,7 +91,7 @@ extension Markdown.Syntax {
       case .codeBlock: "Code block"
       case .callout: "Callout"
 
-      case .quoteBlock: "Quote"
+      case .quoteBlock(let level): "Quote block \(level)"
       case .link: "Link"
       case .image: "Image"
     //      case .body: "Body"
@@ -89,15 +112,15 @@ extension Markdown.Syntax {
     }
   }
 
-  public var headerLevel: Int? {
-    switch self {
-      case .heading1: 1
-      case .heading2: 2
-      case .heading3: 3
-      case .heading4: 4
-      case .heading5: 5
-      case .heading6: 6
-      default: nil
-    }
-  }
+  //  public var headerLevel: Int? {
+  //    switch self {
+  //      case .heading1: 1
+  //      case .heading2: 2
+  //      case .heading3: 3
+  //      case .heading4: 4
+  //      case .heading5: 5
+  //      case .heading6: 6
+  //      default: nil
+  //    }
+  //  }
 }

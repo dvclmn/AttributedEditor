@@ -54,24 +54,29 @@ extension SyntaxData {
     runs: inout MarkdownRuns,
   ) {
     for fragment in fragments {
-      let range = shape.range(for: match, fragment: fragment)
-      guard let range else {
-        print("No range for fragment: \(fragment)")
-        continue
+      do {
+        let range = try shape.range(for: match, fragment: fragment)
+        //        guard let range else {
+        //          print("No range for fragment: \(fragment)")
+        //          continue
+        /// Currently using the range as the sole marker for 'equality' here
+        let runAlreadyExists = runs.contains(where: { $0.range == range })
+        guard !runAlreadyExists else { continue }
+
+        /// If a run with this range is not already present, add a new one
+        let run = SyntaxRun(
+          syntax: syntax,
+          role: fragment.toStyleRole,
+          range: range
+        )
+        runs.append(run)
+        //        }
+      } catch {
+        print("Error getting range for a fragment. \(error)")
       }
 
-      /// Currently using the range as the sole marker for 'equality' here
-      let runAlreadyExists = runs.contains(where: { $0.range == range })
-      guard !runAlreadyExists else { continue }
-
-      /// If a run with this range is not already present, add a new one
-      let run = SyntaxRun(
-        syntax: syntax,
-        role: fragment.toStyleRole,
-        range: range
-      )
-      runs.append(run)
     }
+
   }
 
   //  private func range(

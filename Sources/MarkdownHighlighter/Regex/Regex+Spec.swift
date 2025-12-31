@@ -24,12 +24,12 @@ extension SyntaxDescriptor {
       case .link(_): .link
     }
   }
-  func pattern(for syntax: Markdown.Syntax) -> Regex<AnyRegexOutput> {
-    precondition(syntax.regexShape == shape, "Syntax '\(syntax.name)' must have RegexShape \(shape.name).")
+  func pattern() -> Regex<AnyRegexOutput> {
+    //    precondition(syntax.regexShape == shape, "Syntax '\(syntax.name)' must have RegexShape \(shape.name).")
 
     return switch self {
       case .wrap(let spec): spec.pattern()
-      case .prefix(let spec): spec.pattern(for: syntax.headerLevel)
+      case .prefix(let spec): spec.pattern()
       case .link(let spec): spec.pattern()
     }
   }

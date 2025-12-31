@@ -15,19 +15,14 @@ extension Markdown.Syntax {
       case .prefix: [.prefix, .content]
       case .single: [.single]
       case .codeBlock: [.syntaxLeading, .languageHint, .content, .syntaxTrailing]
-      case .link: fatalError("Not yet implemented")
+      case .link: [.syntaxLeading, .content, .syntaxTrailing, .syntaxLeading, .url, .syntaxTrailing]
       default: nil
     }
   }
 
   var regexShape: RegexShape? {
     switch self {
-      case .heading1,
-        .heading2,
-        .heading3,
-        .heading4,
-        .heading5,
-        .heading6,
+      case .heading,
         .quoteBlock:
         .prefix
 

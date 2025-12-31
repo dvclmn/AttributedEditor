@@ -84,7 +84,7 @@ extension RegexShape {
           case .content: values.content.indexRange
           case .syntaxLeading: values.leading.indexRange
           case .syntaxTrailing: values.trailing.indexRange
-          default: fatalError("Fragment \(fragment) not supported for RegexShape.wrap")
+          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
       case .codeBlock:
@@ -108,9 +108,19 @@ extension RegexShape {
           default: fatalError("Fragment \(fragment) not supported for RegexShape.single")
         }
 
+      case .prefix:
+        guard let values = match.output.extractValues(as: Prefix.self) else {
+          throw RegexShapeError.failedValueExtraction(.prefix, fragment)
+        }
+        return switch fragment {
+          case .prefix: values.prefix.indexRange
+          case .content: values.content.indexRange
+          default: fatalError("Fragment \(fragment) not supported for RegexShape.codeBlock")
+        }
+
       // TODO: Complete these
-      case .prefix, .link:
-      default: fatalError("Fragment \(fragment) not supported for RegexShape.prefix or .link")
+      case .link:
+        fatalError("Fragment \(fragment) not supported for RegexShape.prefix or .link")
     }
   }
 

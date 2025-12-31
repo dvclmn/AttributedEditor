@@ -11,23 +11,25 @@ import RegexBuilder
 struct PrefixSpec {
   let markers: [String]  // "#", "##", ">"
   let kind: Kind
+  let level: Int
   //  let requiresSpace: Bool
 }
 
 extension PrefixSpec {
-  
+
   enum Kind: String {
     case heading = "#"
     case quoteBlock = ">"
   }
-  func pattern(for level: Int) -> Regex<AnyRegexOutput> {
+  func pattern() -> Regex<AnyRegexOutput> {
+    //  func pattern(for level: Int) -> Regex<AnyRegexOutput> {
     let prefix = Reference(Substring.self)
     let content = Reference(Substring.self)
 
     let pattern = Regex {
 
       Capture(as: prefix) {
-        createPrefix(for: kind, level: level)
+        createPrefix(for: kind)
       }
 
       One(.whitespace)
@@ -50,7 +52,7 @@ extension PrefixSpec {
 
   private func createPrefix(
     for kind: Kind,
-    level: Int
+    //    level: Int
   ) -> ChoiceOf<Substring> {
     ChoiceOf {
       String(repeating: kind.rawValue, count: level)
