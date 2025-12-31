@@ -23,17 +23,17 @@ public struct Supported {
       .italic,
       .boldItalic,
 
-//      .inlineCode,
+      //      .inlineCode,
       //      .codeBlock,
 
       //      .list,
       //      .quoteBlock,
       //      .callout,
-//      .strikethrough,
-//      .highlight,
+      //      .strikethrough,
+      //      .highlight,
       //      .link,
       //      .image,
-//      .horizontalRule,
+      //      .horizontalRule,
     ]
   }()
 

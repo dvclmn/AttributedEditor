@@ -9,7 +9,7 @@ import Foundation
 import RegexBuilder
 
 struct PrefixSpec {
-  let markers: [String]  // "#", "##", ">"
+//  let markers: [String]  // "#", "##", ">"
   let kind: Kind
   let level: Int
   //  let requiresSpace: Bool
@@ -21,7 +21,7 @@ extension PrefixSpec {
     case heading = "#"
     case quoteBlock = ">"
   }
-  func pattern() -> Regex<AnyRegexOutput> {
+  var pattern: Regex<AnyRegexOutput> {
     //  func pattern(for level: Int) -> Regex<AnyRegexOutput> {
     let prefix = Reference(Substring.self)
     let content = Reference(Substring.self)

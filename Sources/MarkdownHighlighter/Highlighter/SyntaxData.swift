@@ -30,7 +30,7 @@ extension SyntaxData {
     guard let shape = syntax.regexShape else { return nil }
 
     /// Ensure we have a Regex pattern for this syntax
-    guard let pattern = syntax.descriptor?.pattern(for: syntax) else {
+    guard let pattern = syntax.descriptor?.pattern else {
       print("No pattern for syntax \(syntax.name)")
       return nil
     }

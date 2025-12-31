@@ -24,13 +24,13 @@ extension SyntaxDescriptor {
       case .link(_): .link
     }
   }
-  func pattern() -> Regex<AnyRegexOutput> {
+  var pattern: Regex<AnyRegexOutput> {
     //    precondition(syntax.regexShape == shape, "Syntax '\(syntax.name)' must have RegexShape \(shape.name).")
 
     return switch self {
-      case .wrap(let spec): spec.pattern()
-      case .prefix(let spec): spec.pattern()
-      case .link(let spec): spec.pattern()
+      case .wrap(let spec): spec.pattern
+      case .prefix(let spec): spec.pattern
+      case .link(let spec): spec.pattern
     }
   }
 }

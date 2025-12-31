@@ -17,7 +17,7 @@ extension LinkSpec {
     case image
   }
 
-  func pattern() -> Regex<AnyRegexOutput> {
+  var pattern: Regex<AnyRegexOutput> {
     let title = Reference(Substring.self)
     let url = Reference(Substring.self)
 

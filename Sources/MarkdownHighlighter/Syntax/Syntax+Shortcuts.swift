@@ -10,11 +10,11 @@ import CoreTools
 extension Markdown.Syntax {
   public var shortcuts: [KBShortcut] {
     switch self {
-      case .heading1, .heading2, .heading3, .heading4, .heading5, .heading6:
-        let levelString = self.rawValue.suffix(1)
-        guard let level = Int(levelString) else {
-          return []
-        }
+      case .heading(let level):
+        //        let levelString = self.rawValue.suffix(1)
+        //        guard let level = Int(levelString) else {
+        //          return []
+        //        }
         return [
           KBShortcut(
             .character(Character("\(level)")),

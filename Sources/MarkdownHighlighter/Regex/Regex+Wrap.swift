@@ -13,11 +13,17 @@ struct WrapSpec {
   let altA: Character
   let altB: Character?
   let count: Int
+  
+  init(altA: Character, altB: Character? = nil, count: Int) {
+    self.altA = altA
+    self.altB = altB
+    self.count = count
+  }
 }
 
 extension WrapSpec {
 
-  func pattern() -> Regex<AnyRegexOutput> {
+  var pattern: Regex<AnyRegexOutput> {
     let leading = Reference(Substring.self)
     let content = Reference(Substring.self)
     let trailing = Reference(Substring.self)
