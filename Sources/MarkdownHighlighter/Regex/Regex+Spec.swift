@@ -11,8 +11,8 @@ import Foundation
 //@AssociatedValues
 enum SyntaxDescriptor {
   case wrap(WrapSpec)
+  case prefix(PrefixSpec)
   case link(LinkSpec)
-  //  case prefix(PrefixSpec)
   //  case codeBlock(CodeBlockSpec)
   //  case pair(PairSpec)
 }
@@ -20,6 +20,7 @@ extension SyntaxDescriptor {
   var shape: RegexShape {
     switch self {
       case .wrap(_): .wrap
+      case .prefix(_): .prefix
       case .link(_): .link
     }
   }
@@ -27,8 +28,9 @@ extension SyntaxDescriptor {
     precondition(syntax.regexShape == shape, "Syntax '\(syntax.name)' must have RegexShape \(shape.name).")
 
     return switch self {
-      case .wrap(let wrapSpec): wrapSpec.pattern()
-      case .wrap(let wrapSpec): wrapSpec.pattern()
+      case .wrap(let spec): spec.pattern()
+      case .prefix(let spec): spec.pattern(for: syntax.headerLevel)
+      case .link(let spec): spec.pattern()
     }
   }
 }

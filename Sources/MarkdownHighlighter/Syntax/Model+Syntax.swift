@@ -15,7 +15,7 @@ extension Markdown {
   @CaseDetection
   public enum Syntax: String, CaseIterable, Identifiable, Equatable, Hashable, Sendable {
 
-//    case body
+    //    case body
     case heading1
     case heading2
     case heading3
@@ -43,7 +43,7 @@ extension Markdown {
 
 extension Markdown.Syntax {
   nonisolated public var id: String { name }
-  
+
   public static var allHeaders: [Markdown.Syntax] {
     [.heading1, .heading2, .heading3, .heading4, .heading5, .heading6]
   }
@@ -71,7 +71,7 @@ extension Markdown.Syntax {
       case .quoteBlock: "Quote"
       case .link: "Link"
       case .image: "Image"
-//      case .body: "Body"
+    //      case .body: "Body"
     }
   }
 
@@ -86,6 +86,18 @@ extension Markdown.Syntax {
     switch self {
       case .codeBlock, .inlineCode, .callout, .quoteBlock: true
       default: false
+    }
+  }
+
+  public var headerLevel: Int? {
+    switch self {
+      case .heading1: 1
+      case .heading2: 2
+      case .heading3: 3
+      case .heading4: 4
+      case .heading5: 5
+      case .heading6: 6
+      default: nil
     }
   }
 }

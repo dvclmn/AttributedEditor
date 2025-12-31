@@ -5,6 +5,8 @@
 //  Created by Dave Coleman on 31/12/2025.
 //
 
+import RegexBuilder
+
 struct LinkSpec {
   let kind: Kind
 }
@@ -14,31 +16,30 @@ extension LinkSpec {
     case link
     case image
   }
-  
+
   func pattern() -> Regex<AnyRegexOutput> {
-    let leading = Reference(Substring.self)
-    let content = Reference(Substring.self)
-    let trailing = Reference(Substring.self)
+    let title = Reference(Substring.self)
+    let url = Reference(Substring.self)
+
     let pattern = Regex {
-      let wrapper = Regex {
-        ChoiceOf {
-          Repeat(altA, count: count)
-          Repeat(altB ?? altA, count: count)
+      Optionally("!")
+      "["
+      Capture {
+        ZeroOrMore {
+          CharacterClass.anyOf("]").inverted
         }
       }
-      Capture(as: leading) { wrapper }
-      
-      Capture(as: content) {
-        OneOrMore {
-          CharacterClass.anyNonNewline
+      "]"
+      "("
+      Capture {
+        ZeroOrMore {
+          CharacterClass.anyOf(")").inverted
         }
       }
-      
-      Capture(as: trailing) { wrapper }
+      ")"
     }
-    
+
     return Regex(pattern)
   }
 
-  
 }
