@@ -70,7 +70,7 @@ extension RegexShape {
     switch self {
       case .wrap:
         guard let values = match.output.extractValues(as: Wrap.self) else {
-          throw RegexShapeError.failedValueExtraction(.wrap, fragment)
+          throw RegexError.failedValueExtraction(.wrap, fragment)
         }
         return switch fragment {
           case .content: values.content.indexRange
@@ -81,7 +81,7 @@ extension RegexShape {
 
       case .codeBlock:
         guard let values = match.output.extractValues(as: CodeBlock.self) else {
-          throw RegexShapeError.failedValueExtraction(.codeBlock, fragment)
+          throw RegexError.failedValueExtraction(.codeBlock, fragment)
         }
         return switch fragment {
           case .content: values.content.indexRange
@@ -93,7 +93,7 @@ extension RegexShape {
 
       case .single:
         guard let values = match.output.extractValues(as: Single.self) else {
-          throw RegexShapeError.failedValueExtraction(.single, fragment)
+          throw RegexError.failedValueExtraction(.single, fragment)
         }
         return switch fragment {
           case .single: values.indexRange
@@ -102,7 +102,7 @@ extension RegexShape {
 
       case .prefix:
         guard let values = match.output.extractValues(as: Prefix.self) else {
-          throw RegexShapeError.failedValueExtraction(.prefix, fragment)
+          throw RegexError.failedValueExtraction(.prefix, fragment)
         }
         return switch fragment {
           case .prefix: values.prefix.indexRange

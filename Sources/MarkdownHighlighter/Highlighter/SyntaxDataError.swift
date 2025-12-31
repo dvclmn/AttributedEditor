@@ -13,8 +13,9 @@ enum SyntaxError: Error {
   case noFragments
 }
 
-enum RegexShapeError: Error {
+enum RegexError: Error {
   /// Referring to `AnyRegexOutput/extractValues(as:)`
   case failedValueExtraction(RegexShape, Fragment)
+  case noMatches(text: String, syntax: Markdown.Syntax)
   
 }

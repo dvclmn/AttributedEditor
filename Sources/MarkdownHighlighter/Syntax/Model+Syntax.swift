@@ -74,12 +74,6 @@ extension Markdown.Syntax {
   public var name: String {
     switch self {
       case .heading(let level): "Heading \(level)"
-      //      case .heading2: "Heading 2"
-      //      case .heading3: "Heading 3"
-      //      case .heading4: "Heading 4"
-      //      case .heading5: "Heading 5"
-      //      case .heading6: "Heading 6"
-
       case .bold: "Bold"
       case .italic: "Italic"
       case .boldItalic: "Bold Italic"
@@ -123,4 +117,8 @@ extension Markdown.Syntax {
   //      default: nil
   //    }
   //  }
+}
+
+extension Markdown.Syntax: CustomStringConvertible {
+  public var description: String { name }
 }

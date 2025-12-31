@@ -5,6 +5,8 @@
 //  Created by Dave Coleman on 22/12/2025.
 //
 
+import Foundation
+
 /// The available possible parts, found within Regex Shapes
 /// This loosely relates to `StyleRole`, just more granular
 public enum Fragment: String, Sendable {
@@ -35,4 +37,7 @@ extension Fragment {
       case .languageHint, .url, .prefix: .metadata
     }
   }
+}
+extension Fragment: CustomStringConvertible {
+  public var description: String { rawValue }
 }

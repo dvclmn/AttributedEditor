@@ -66,3 +66,6 @@ extension StyleRoles {
   }
 
 }
+extension StyleRole: CustomStringConvertible {
+  public var description: String { rawValue }
+}

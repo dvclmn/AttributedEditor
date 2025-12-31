@@ -12,43 +12,42 @@ import Testing
 
 @testable import MarkdownHighlighter
 
+typealias Syntax = Markdown.Syntax
 struct RegexTests {
   let highlighter = MarkdownHighlighter()
 
-  @Test("Bold match")
-  func bold() async throws {
-    let asteriskText = "Some **bold** text."
-    //    let syntaxes: [Markdown.Syntax] = [.bold, .italic, .boldItalic]
-    //    let syntax = Markdown.Syntax.bold
-    let bold = Markdown.Syntax.bold
-    let boldDesc = bold.descriptor
-    let supported = Supported(syntax: [.bold], attributes: [])
-    //    let supported = Supported(syntax: [.bold, .italic, .boldItalic], attributes: [])
+  /// Pretending that only asterisk characters are valid, for now
+  @Test(arguments: [
+    Syntax.bold,
+    Syntax.boldItalic,
+    Syntax.italic,
+  ])
+  func asteriskSyntax(_ syntax: Syntax) async throws {
+
+    let text = "Some **example** text."
+
+    /// Assign the syntax from the Test arguments as supported
+    let supported = Supported(
+      syntax: [syntax],
+      attributes: []
+    )
     highlighter.supported = supported
 
-    let runs = try highlighter.buildStyles(in: asteriskText)
+    let runs = try highlighter.buildStyles(in: text)
 
-    let leadingRange = runs[0].range
-    let leadingString = asteriskText[leadingRange]
-
-    let trailingRange = runs[2].range
-    let trailingString = asteriskText[trailingRange]
-    //    let sameFragmentCount = runs.allSatisfy(\.)
-
-    //    print("Number of runs: \(runs.count)")
-    DebugString {
-      Indented("Runs") {
-        //        "\(dump(runs))"
-        for run in runs {
-          "\(run.range): \(asteriskText[run.range])"
-        }
-      }
-    }
     //    #expect(runs)
-    #expect(boldDesc?.shape == .wrap)
-    #expect(leadingString == trailingString)
-    //    #expect(runs.count == )
+    let lead = runs.text(0, in: text)
+    let content = runs.text(1, in: text)
+    let trail = runs.text(2, in: text)
+    #expect(syntax.descriptor?.shape == .wrap)
+    #expect(lead == trail)
+    #expect(content == "example")
 
+    //    for run in runs {
+    //
+    //    }
+
+    //    #expect(runs.count == )
   }
 
 }

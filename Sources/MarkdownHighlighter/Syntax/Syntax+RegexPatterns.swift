@@ -6,7 +6,6 @@
 //
 
 extension Markdown.Syntax {
-
   var descriptor: SyntaxDescriptor? {
     switch self {
       case .bold:
@@ -36,19 +35,19 @@ extension Markdown.Syntax {
           )
         )
       case .strikethrough:
-          .wrap(
-            WrapSpec(
-              altA: "~",
-              count: 2
-            )
+        .wrap(
+          WrapSpec(
+            altA: "~",
+            count: 2
           )
+        )
       case .highlight:
-          .wrap(
-            WrapSpec(
-              altA: "=",
-              count: 2
-            )
+        .wrap(
+          WrapSpec(
+            altA: "=",
+            count: 2
           )
+        )
 
       case .heading(let level):
         .prefix(

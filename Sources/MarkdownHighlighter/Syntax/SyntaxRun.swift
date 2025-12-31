@@ -19,8 +19,26 @@ package struct SyntaxRun {
 }
 
 extension SyntaxRun {
+
   var fragments: [Fragment]? { syntax.fragments }
   struct Metadata {
     let matches: [Regex<AnyRegexOutput>.Match]
   }
 }
+
+extension Array where Element == SyntaxRun {
+  func text(_ index: Int, in text: String) -> String {
+    var result = ""
+    for run in self {
+      result += text[safe: run.range]?.toString ?? ""
+    }
+    return result
+//    for run in self {
+//      result += text[safe: run.range.]?.toString ?? ""
+//    }
+//    return result
+  }
+  
+}
+
+

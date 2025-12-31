@@ -48,6 +48,8 @@ package final class MarkdownHighlighter {
 
     for syntax in supported.syntax {
 
+      print("Building styles for \(syntax.name)")
+      
       /// Ensure we have a Regex pattern for this syntax
       guard let pattern = syntax.descriptor?.pattern else {
         throw SyntaxError.noRegexPattern
@@ -56,8 +58,7 @@ package final class MarkdownHighlighter {
       let matches = text.matches(of: pattern)
 
       guard !matches.isEmpty else {
-        print("No matches for \(syntax.name)")
-        return []
+        throw RegexError.noMatches(text: text, syntax: syntax)
       }
 
       for match in matches {
