@@ -15,12 +15,20 @@ import CoreTools
 /// Also, assoc. value would imply it is possible to express some specific
 /// *value*, based on the declared type for a case. However there is no
 /// value to be passed in; the type *is* the value.
-public enum RegexShape: Equatable, Hashable {
+public enum RegexShape: String, Equatable, Hashable {
   case wrap
   case prefix
   case single
   case codeBlock
   case wrapPair
+
+  public var name: String {
+    switch self {
+      case .codeBlock: "Code Block"
+      case .wrapPair: "Wrap Pair"
+      default: rawValue.capitalized
+    }
+  }
 
   public typealias Wrap = (
     Substring,
