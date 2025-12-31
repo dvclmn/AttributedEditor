@@ -17,7 +17,7 @@ extension Markdown.Syntax {
       case .heading4: return nil
       case .heading5: return nil
       case .heading6: return nil
-      case .bold:
+      case .bold: return nil
         
       case .italic:
         return Regex(
