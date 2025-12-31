@@ -17,3 +17,10 @@ package struct SyntaxRun {
   public let role: StyleRole
   public let range: Range<String.Index>
 }
+
+extension SyntaxRun {
+  struct Metadata {
+    let fragments: [Fragment]
+    let matches: [Regex<AnyRegexOutput>.Match]
+  }
+}

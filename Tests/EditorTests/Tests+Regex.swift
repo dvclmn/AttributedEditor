@@ -29,12 +29,13 @@ struct RegexTests {
     highlighter.supported = supported
 
     let runs = highlighter.buildStyles(in: asteriskText)
-
+//    let sameFragmentCount = runs.allSatisfy(\.)
 //    let
     
     print("Number of runs: \(runs.count)")
     //    #expect(runs)
     #expect(boldDesc?.shape == .wrap)
+//    #expect(runs.count == )
 
   }
 

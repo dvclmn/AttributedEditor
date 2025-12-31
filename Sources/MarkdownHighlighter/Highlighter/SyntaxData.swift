@@ -10,53 +10,50 @@ import Foundation
 
 /// This is kinda a way to unwrap all the optionals from these
 /// properties on Markdown.Syntax, and plop them in one place
-struct SyntaxData {
-  let syntax: Markdown.Syntax
-  let pattern: Regex<AnyRegexOutput>
-  let shape: RegexShape
-  let fragments: [Fragment]
-}
+//struct SyntaxData {
+//  let syntax: Markdown.Syntax
+////  let pattern: Regex<AnyRegexOutput>
+////  let shape: RegexShape
+////  let fragments: [Fragment]
+//}
 
-extension SyntaxData {
+//extension SyntaxData {
 
   // TODO: Expand on docs here
   /// Three basic components needed to style and find ranges for a syntax.
   /// 1. Shape
   /// 2. Regex Pattern
   /// 3. Fragments
-  init?(syntax: Markdown.Syntax) {
+//  init?(syntax: Markdown.Syntax) {
 
-    /// No need to initialise anything if provided Syntax has no regex shape
-    guard let shape = syntax.regexShape else { return nil }
-
-    /// Ensure we have a Regex pattern for this syntax
-    guard let pattern = syntax.descriptor?.pattern else {
-      print("No pattern for syntax \(syntax.name)")
-      return nil
-    }
-
-    /// Again, no fragments means no need to init
-    guard let fragments = syntax.fragments else { return nil }
-
-    self.init(
-      syntax: syntax,
-      pattern: pattern,
-      shape: shape,
-      fragments: fragments
-    )
-  }
+//  }
 
   func processMatch(
     _ match: Regex<AnyRegexOutput>.Match,
-    //    for syntax: Markdown.Syntax,
+        for syntax: Markdown.Syntax,
     runs: inout MarkdownRuns,
-  ) {
+  ) throws {
+    
+    
+    /// No need to initialise anything if provided Syntax has no regex shape
+    guard let shape = syntax.regexShape else {
+      throw SyntaxError.noRegexShape
+    }
+    
+    /// Ensure we have a Regex pattern for this syntax
+    guard let pattern = syntax.descriptor?.pattern else {
+      throw SyntaxError.noRegexPattern
+    }
+    
+    /// Again, no fragments means no need to init
+    guard let fragments = syntax.fragments else {
+      throw SyntaxError.noFragments
+    }
+
     for fragment in fragments {
       do {
         let range = try shape.range(for: match, fragment: fragment)
-        //        guard let range else {
-        //          print("No range for fragment: \(fragment)")
-        //          continue
+
         /// Currently using the range as the sole marker for 'equality' here
         let runAlreadyExists = runs.contains(where: { $0.range == range })
         guard !runAlreadyExists else { continue }
@@ -72,10 +69,10 @@ extension SyntaxData {
       } catch {
         print("Error getting range for a fragment. \(error)")
       }
-
     }
-
   }
+
+
 
   //  private func range(
   //    for fragment: Fragment,

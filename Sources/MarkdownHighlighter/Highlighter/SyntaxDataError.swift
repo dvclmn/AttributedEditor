@@ -7,9 +7,10 @@
 
 import Foundation
 
-enum SyntaxDataError: Error {
+enum SyntaxError: Error {
   case noRegexShape
   case noRegexPattern
+  case noFragments
 }
 
 enum RegexShapeError: Error {
