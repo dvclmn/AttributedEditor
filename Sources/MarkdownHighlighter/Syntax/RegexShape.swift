@@ -54,15 +54,18 @@ public enum RegexShape: String, Equatable, Hashable {
     content: Substring,
   )
 
-  public typealias WrapPair = (
+  public typealias Link = (
     Substring,
-    prefix: Substring,
-    leadingA: Substring,
-    title: Substring,
-    trailingA: Substring,
-    leadingB: Substring,
-    url: Substring,
-    trailingB: Substring,
+    text: Substring,
+    destination: Substring
+//    Substring,
+//    prefix: Substring,
+//    leadingA: Substring,
+//    title: Substring,
+//    trailingA: Substring,
+//    leadingB: Substring,
+//    url: Substring,
+//    trailingB: Substring,
   )
 }
 extension RegexShape {

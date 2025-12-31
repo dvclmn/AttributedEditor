@@ -8,5 +8,4 @@
 enum SyntaxDataError: Error {
   case noRegexShape
   case noRegexPattern
-  
 }
