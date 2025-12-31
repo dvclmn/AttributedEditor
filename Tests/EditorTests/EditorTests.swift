@@ -5,36 +5,36 @@
 //  Created by Dave Coleman on 11/8/2024.
 //
 
-import SwiftUI
-import Testing
+//import SwiftUI
+//import Testing
 
-@testable import EditorCore
-@testable import MarkdownHighlighter
-
-@MainActor
-struct EditorTests {
-  let highlighter: MarkdownHighlighter
-
-  let font = NSFont.monospacedSystemFont(ofSize: 14, weight: .regular)
-
-  @Test func findsInlineCode() {
-//    textView.string = "I have a portion of `inline code` text."
-//    let text = textView.string
-//    let affectedRange = textView.documentNSRange
+//@testable import EditorCore
+//@testable import MarkdownHighlighter
 //
-//    let runs = highlighter.buildStyles(in: text)
+//@MainActor
+//struct EditorTests {
+//  let highlighter: MarkdownHighlighter
 //
-//    highlighter.applyStyles(
-//      runs: runs,
-//      textView: textView,
-//      affectedRange: affectedRange,
-//      font: font,
-//      defaults: [:]
-//    )
-
-  }
-
-}
+//  let font = NSFont.monospacedSystemFont(ofSize: 14, weight: .regular)
+//
+//  @Test func findsInlineCode() {
+////    textView.string = "I have a portion of `inline code` text."
+////    let text = textView.string
+////    let affectedRange = textView.documentNSRange
+////
+////    let runs = highlighter.buildStyles(in: text)
+////
+////    highlighter.applyStyles(
+////      runs: runs,
+////      textView: textView,
+////      affectedRange: affectedRange,
+////      font: font,
+////      defaults: [:]
+////    )
+//
+//  }
+//
+//}
 
 //extension EditorTests {
 //  init() {

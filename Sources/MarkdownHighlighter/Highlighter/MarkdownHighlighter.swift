@@ -62,11 +62,7 @@ package final class MarkdownHighlighter {
       }
 
       for match in matches {
-        data.processMatch(
-          match,
-          for: syntax,
-          runs: &runs
-        )
+        data.processMatch(match, runs: &runs)
       }
     }
 

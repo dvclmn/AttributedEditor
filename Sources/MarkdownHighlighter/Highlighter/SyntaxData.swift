@@ -25,7 +25,7 @@ extension SyntaxData {
   /// 2. Regex Pattern
   /// 3. Fragments
   init?(syntax: Markdown.Syntax) {
-    //    print("Beginning optional syntax init for \(syntax.name)")
+
     /// No need to initialise anything if provided Syntax has no regex shape
     guard let shape = syntax.regexShape else { return nil }
 
@@ -38,8 +38,6 @@ extension SyntaxData {
     /// Again, no fragments means no need to init
     guard let fragments = syntax.fragments else { return nil }
 
-    //    print("Syntax \(syntax.name) had required properties regexShape, pattern, and fragments. Initialising")
-
     self.init(
       syntax: syntax,
       pattern: pattern,
@@ -50,7 +48,7 @@ extension SyntaxData {
 
   func processMatch(
     _ match: Regex<AnyRegexOutput>.Match,
-    for syntax: Markdown.Syntax,
+    //    for syntax: Markdown.Syntax,
     runs: inout MarkdownRuns,
   ) {
     for fragment in fragments {
