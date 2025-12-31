@@ -9,11 +9,10 @@ import Foundation
 import RegexBuilder
 
 struct WrapSpec {
-  //  let alternatives: [Character]
   let altA: Character
   let altB: Character?
   let count: Int
-  
+
   init(altA: Character, altB: Character? = nil, count: Int) {
     self.altA = altA
     self.altB = altB

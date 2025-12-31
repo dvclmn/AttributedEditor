@@ -24,14 +24,14 @@ extension LinkSpec {
     let pattern = Regex {
       Optionally("!")
       "["
-      Capture {
+      Capture(as: title) {
         ZeroOrMore {
           CharacterClass.anyOf("]").inverted
         }
       }
       "]"
       "("
-      Capture {
+      Capture(as: url) {
         ZeroOrMore {
           CharacterClass.anyOf(")").inverted
         }

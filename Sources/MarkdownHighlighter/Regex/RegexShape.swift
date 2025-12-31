@@ -57,14 +57,6 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
     Substring,
     title: Substring,
     url: Substring
-      //    Substring,
-      //    prefix: Substring,
-      //    leadingA: Substring,
-      //    title: Substring,
-      //    trailingA: Substring,
-      //    leadingB: Substring,
-      //    url: Substring,
-      //    trailingB: Substring,
   )
 }
 extension RegexShape {

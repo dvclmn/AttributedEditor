@@ -42,19 +42,18 @@ package final class MarkdownHighlighter {
   //  }
 
   /// Build attributed ranges for applying in the Editor
-  package func buildStyles(in text: String) -> MarkdownRuns {
+  package func buildStyles(in text: String) throws -> MarkdownRuns {
 
     var runs: MarkdownRuns = []
 
     for syntax in supported.syntax {
 
-      guard let data = SyntaxData(syntax: syntax) else {
-        print("Couldn't create data for \(syntax.name)")
-        assertionFailure("Syntax Data should not be nil.")
-        return []
+      /// Ensure we have a Regex pattern for this syntax
+      guard let pattern = syntax.descriptor?.pattern else {
+        throw SyntaxError.noRegexPattern
       }
 
-      let matches = text.matches(of: data.pattern)
+      let matches = text.matches(of: pattern)
 
       guard !matches.isEmpty else {
         print("No matches for \(syntax.name)")
@@ -62,7 +61,7 @@ package final class MarkdownHighlighter {
       }
 
       for match in matches {
-        data.processMatch(match, runs: &runs)
+        try processMatch(match, for: syntax, runs: &runs)
       }
     }
 

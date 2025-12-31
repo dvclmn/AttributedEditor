@@ -19,8 +19,8 @@ package struct SyntaxRun {
 }
 
 extension SyntaxRun {
+  var fragments: [Fragment]? { syntax.fragments }
   struct Metadata {
-    let fragments: [Fragment]
     let matches: [Regex<AnyRegexOutput>.Match]
   }
 }

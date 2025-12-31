@@ -24,14 +24,17 @@ extension AttributedEditorView.Coordinator {
 
     Task {
       await self.debouncer.execute { @MainActor in
+        do {
+          let runs = try highlighter.buildStyles(in: text)
+          self.applyStyles(runs: runs, affectedRange: affectedRange)
 
-        let runs = highlighter.buildStyles(in: text)
-        self.applyStyles(runs: runs, affectedRange: affectedRange)
-
-        /// Refresh line numbers
-        if self.hasLineNumbers {
-          textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
-          textView.needsDisplay = true
+          /// Refresh line numbers
+          if self.hasLineNumbers {
+            textView.enclosingScrollView?.verticalRulerView?.needsDisplay = true
+            textView.needsDisplay = true
+          }
+        } catch {
+          print("Error building styles: \(error)")
         }
       }
     }
@@ -62,12 +65,12 @@ extension AttributedEditorView.Coordinator {
       let resolved = ThemeResolver.resolveToken(with: theme, for: run)
       var attrs = resolved.attributes
       resolved.updateFont(using: font, in: &attrs)
-      
-//      let testAttrs: NSTextAttributes = [
-//        .strikethroughStyle: NSUnderlineStyle(.single).rawValue,
-//        .strikethroughColor: NSColor.red,
-//        .underlineStyle: NSUnderlineStyle(.single).rawValue,
-//      ]
+
+      //      let testAttrs: NSTextAttributes = [
+      //        .strikethroughStyle: NSUnderlineStyle(.single).rawValue,
+      //        .strikethroughColor: NSColor.red,
+      //        .underlineStyle: NSUnderlineStyle(.single).rawValue,
+      //      ]
 
       ts.setAttributes(attrs, range: range)
     }

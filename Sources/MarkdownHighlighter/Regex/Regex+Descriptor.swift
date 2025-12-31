@@ -8,13 +8,11 @@
 import CoreTools
 import Foundation
 
-//@AssociatedValues
 enum SyntaxDescriptor {
   case wrap(WrapSpec)
   case prefix(PrefixSpec)
   case link(LinkSpec)
   //  case codeBlock(CodeBlockSpec)
-  //  case pair(PairSpec)
 }
 extension SyntaxDescriptor {
   var shape: RegexShape {
@@ -25,8 +23,6 @@ extension SyntaxDescriptor {
     }
   }
   var pattern: Regex<AnyRegexOutput> {
-    //    precondition(syntax.regexShape == shape, "Syntax '\(syntax.name)' must have RegexShape \(shape.name).")
-
     return switch self {
       case .wrap(let spec): spec.pattern
       case .prefix(let spec): spec.pattern
