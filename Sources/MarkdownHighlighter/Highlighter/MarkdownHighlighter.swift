@@ -49,9 +49,10 @@ package final class MarkdownHighlighter {
 
       guard let data = SyntaxData(syntax: syntax) else {
         print("Couldn't create data for \(syntax.name)")
+        assertionFailure("Syntax Data should not be nil.")
         return []
       }
-      let pattern = 
+      
       let matches = text.matches(of: data.pattern)
 
       guard !matches.isEmpty else {

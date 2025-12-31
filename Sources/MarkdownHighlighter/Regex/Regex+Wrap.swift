@@ -16,8 +16,11 @@ struct WrapSpec {
 }
 
 extension WrapSpec {
-  
+
   func pattern() -> Regex<AnyRegexOutput> {
+    let leading = Reference(Substring.self)
+    let content = Reference(Substring.self)
+    let trailing = Reference(Substring.self)
     let pattern = Regex {
       let wrapper = Regex {
         ChoiceOf {
@@ -25,15 +28,15 @@ extension WrapSpec {
           Repeat(altB ?? altA, count: count)
         }
       }
-      Capture { wrapper }
+      Capture(as: leading) { wrapper }
 
-      Capture {
+      Capture(as: content) {
         OneOrMore {
-          CharacterClass.anyOf("\n").inverted
+          CharacterClass.anyNonNewline
         }
       }
 
-      Capture { wrapper }
+      Capture(as: trailing) { wrapper }
     }
 
     return Regex(pattern)

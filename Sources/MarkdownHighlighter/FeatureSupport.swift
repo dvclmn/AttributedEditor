@@ -20,8 +20,8 @@ public struct Supported {
       //      .heading6,
 
       .bold,
-//      .italic,
-//      .boldItalic,
+      .italic,
+      .boldItalic,
 
 //      .inlineCode,
       //      .codeBlock,

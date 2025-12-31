@@ -25,12 +25,12 @@ extension SyntaxData {
   /// 2. Regex Pattern
   /// 3. Fragments
   init?(syntax: Markdown.Syntax) {
-//    print("Beginning optional syntax init for \(syntax.name)")
+    //    print("Beginning optional syntax init for \(syntax.name)")
     /// No need to initialise anything if provided Syntax has no regex shape
     guard let shape = syntax.regexShape else { return nil }
 
     /// Ensure we have a Regex pattern for this syntax
-    guard let patternDescriptor = syntax.descriptor?. else {
+    guard let pattern = syntax.descriptor?.pattern(for: syntax) else {
       print("No pattern for syntax \(syntax.name)")
       return nil
     }
@@ -38,7 +38,7 @@ extension SyntaxData {
     /// Again, no fragments means no need to init
     guard let fragments = syntax.fragments else { return nil }
 
-//    print("Syntax \(syntax.name) had required properties regexShape, pattern, and fragments. Initialising")
+    //    print("Syntax \(syntax.name) had required properties regexShape, pattern, and fragments. Initialising")
 
     self.init(
       syntax: syntax,

@@ -17,13 +17,23 @@ extension Markdown.Syntax {
             count: 2
           )
         )
+        
+      case .italic:
+          .wrap(
+            WrapSpec(
+              altA: "*",
+              altB: "_",
+              count: 1
+            )
+          )
+        
       case .heading1,
         .heading2,
         .heading3,
         .heading4,
         .heading5,
         .heading6,
-        .italic,
+        
         .boldItalic,
         .inlineCode,
         .codeBlock,

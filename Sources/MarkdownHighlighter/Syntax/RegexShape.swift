@@ -15,6 +15,7 @@ import CoreTools
 /// Also, assoc. value would imply it is possible to express some specific
 /// *value*, based on the declared type for a case. However there is no
 /// value to be passed in; the type *is* the value.
+@CaseDetection
 public enum RegexShape: String, Equatable, Hashable {
   case wrap
   case prefix
@@ -66,15 +67,6 @@ public enum RegexShape: String, Equatable, Hashable {
 }
 extension RegexShape {
 
-  public var toFragments: [Fragment] {
-    switch self {
-      case .wrap: [.syntaxStart, .content, .syntaxEnd]
-      case .prefix: [.prefix, .content]
-      case .single: [.single]
-      case .codeBlock: [.syntaxStart, .languageHint, .content, .syntaxEnd]
-      case .wrapPair: fatalError("Not yet implemented")
-    }
-  }
 
   /// Return a range for a given Regex Match and shape part
   /// `text` is the original main text being searched for matches
