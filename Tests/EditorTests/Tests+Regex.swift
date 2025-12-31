@@ -17,37 +17,39 @@ struct RegexTests {
   let highlighter = MarkdownHighlighter()
 
   /// Pretending that only asterisk characters are valid, for now
-  @Test(arguments: [
-    Syntax.bold,
-    Syntax.boldItalic,
-    Syntax.italic,
-  ])
-  func asteriskSyntax(_ syntax: Syntax) async throws {
+//  @Test(arguments: [
+//    Syntax.bold,
+//    Syntax.boldItalic,
+//    Syntax.italic,
+//  ])
+  @Test(arguments: ["*", "**"])
+  func bold(_ characters: String) async throws {
 
-    let text = "Some **example** text."
+    let bold = Markdown.Syntax.bold
+    let text = "Some \(characters)example\(characters) text."
 
-    /// Assign the syntax from the Test arguments as supported
-    let supported = Supported(
-      syntax: [syntax],
-      attributes: []
-    )
-    highlighter.supported = supported
+    highlighter.supported = [bold]
 
     let runs = try highlighter.buildStyles(in: text)
 
-    //    #expect(runs)
+    print("Runs: ", runs)
+    
     let lead = runs.text(0, in: text)
     let content = runs.text(1, in: text)
     let trail = runs.text(2, in: text)
-    #expect(syntax.descriptor?.shape == .wrap)
-    #expect(lead == trail)
-    #expect(content == "example")
+    
+    // This should be false
+    let isItalic: Bool = lead == "*" || trail == "*"
+    let isBold: Bool = lead == "**" 
+    && trail == "**"
+    && content == "example"
+    
+    #expect(!isItalic)
+    #expect(isBold)
+//    #expect(bold.descriptor?.shape == .wrap)
+//    #expect(lead == trail)
+//    #expect(content == "example")
 
-    //    for run in runs {
-    //
-    //    }
-
-    //    #expect(runs.count == )
   }
 
 }

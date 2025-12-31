@@ -12,6 +12,7 @@ extension MarkdownHighlighter {
   func processMatch(
     _ match: Regex<AnyRegexOutput>.Match,
     for syntax: Markdown.Syntax,
+    in text: String,
     runs: inout MarkdownRuns,
   ) throws {
 
@@ -39,10 +40,10 @@ extension MarkdownHighlighter {
       /// If a run with this range is not already present, add a new one
       let run = SyntaxRun(
         syntax: syntax,
-        role: fragment.toStyleRole,
+        fragment: fragment,
         range: range
       )
-      print("🏃 Created new run: \(run)\n")
+      print("🏃 Created new run:\n\(run.withRangePreview(text: text))\n")
       runs.append(run)
     }
   }

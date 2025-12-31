@@ -57,12 +57,20 @@ package final class MarkdownHighlighter {
 
       let matches = text.matches(of: pattern)
 
+      /// It's ok if there's no matches, right? There's not always going
+      /// to be all instances of all syntaxes in a text
       guard !matches.isEmpty else {
-        throw RegexError.noMatches(text: text, syntax: syntax)
+//        throw RegexError.noMatches
+        continue
       }
 
       for match in matches {
-        try processMatch(match, for: syntax, runs: &runs)
+        try processMatch(
+          match,
+          for: syntax,
+          in: text,
+          runs: &runs
+        )
       }
     }
 

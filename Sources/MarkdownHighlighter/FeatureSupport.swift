@@ -13,11 +13,16 @@ public struct Supported {
   public let syntax: [Markdown.Syntax]
   public let textAttributes: [NSAttributedString.Key]
 
-  public init(syntax: [Markdown.Syntax], attributes: [NSAttributedString.Key]) {
+  public init(syntax: [Markdown.Syntax], attributes: [NSAttributedString.Key] = []) {
     self.syntax = syntax
     self.textAttributes = attributes
   }
+}
 
+extension Supported: ExpressibleByArrayLiteral {
+  public init(arrayLiteral elements: Markdown.Syntax...) {
+    self.init(syntax: elements, attributes: [])
+  }
 }
 
 extension Supported {
