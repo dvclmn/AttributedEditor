@@ -26,31 +26,32 @@ package final class MarkdownHighlighter {
   /// 1: `italic`
   /// 2: `bold`
   /// 3: `boldItalic`
-  public var declaredSyntax: [Markdown.Syntax] {
-    let elements = Markdown.Syntax.allCases.filter { $0.pattern != nil }
-    //    print("Declared syntax list:", elements.map(\.name).joined(separator: ", "))
-    return elements
-    //    [
-    //      .inlineCode,
-    //      .italic,
-    //      .bold,
-    ////      .boldItalic,
-    //      .highlight,
-    //      .
-    //    ]
-  }
+  //  public var declaredSyntax: [Markdown.Syntax] {
+  //    let elements = Markdown.Syntax.allCases.filter { $0.pattern != nil }
+  //    //    print("Declared syntax list:", elements.map(\.name).joined(separator: ", "))
+  //    return elements
+  //    //    [
+  //    //      .inlineCode,
+  //    //      .italic,
+  //    //      .bold,
+  //    ////      .boldItalic,
+  //    //      .highlight,
+  //    //      .
+  //    //    ]
+  //  }
 
   /// Build attributed ranges for applying in the Editor
   package func buildStyles(in text: String) -> MarkdownRuns {
 
     var runs: MarkdownRuns = []
 
-    for syntax in declaredSyntax {
+    for syntax in Supported.syntax {
 
       guard let data = SyntaxData(syntax: syntax) else {
         print("Couldn't create data for \(syntax.name)")
         return []
       }
+      let pattern = 
       let matches = text.matches(of: data.pattern)
 
       guard !matches.isEmpty else {

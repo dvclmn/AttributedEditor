@@ -20,20 +20,20 @@ public struct Supported {
       //      .heading6,
 
       .bold,
-      .italic,
-      .boldItalic,
+//      .italic,
+//      .boldItalic,
 
-      .inlineCode,
+//      .inlineCode,
       //      .codeBlock,
 
       //      .list,
       //      .quoteBlock,
       //      .callout,
-      .strikethrough,
-      .highlight,
+//      .strikethrough,
+//      .highlight,
       //      .link,
       //      .image,
-      .horizontalRule,
+//      .horizontalRule,
     ]
   }()
 
