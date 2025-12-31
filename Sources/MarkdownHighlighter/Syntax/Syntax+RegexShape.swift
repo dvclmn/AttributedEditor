@@ -89,47 +89,47 @@ extension RegexShape {
     return result
   }
 
-  func prefixCharacters(for syntax: Markdown.Syntax) -> [Repeat<Substring>] {
-  }
+//  func prefixCharacters(for syntax: Markdown.Syntax) -> [Repeat<Substring>] {
+//  }
 }
 
 extension Markdown.Syntax {
 
-  func buildWrapRegex() -> some RegexComponent {
-    precondition(self.regexShape == .wrap, "Must be a wrap syntax to build a wrap regex")
-
-    /// `(?:…)` = Non-capturing group
-    /// `{2}` = Match two of the preceeding token
-    let leading = Reference(Substring.self)
-    let content = Reference(Substring.self)
-    let trailing = Reference(Substring.self)
-
-    let thing = RegexShape.wrap.wrapCharacters(for: self)
-    let syntax = ChoiceOf {
-      
-//      Repeat("*", count: 2)
-    case .bold: (boldItalicPreset, 2)
-    case .italic: (boldItalicPreset, 1)
-    case .boldItalic: (boldItalicPreset, 3)
-    case .inlineCode: (["`"], 1)
-    case .strikethrough: (["~"], 2)
-    case .highlight: (["="], 2)
-    }
-//      let thing = RegexShape.wrap.wrapCharacters(for: self)
-//      return thing
-////      Repeat("_", count: 2)
+//  func buildWrapRegex() -> some RegexComponent {
+//    precondition(self.regexShape == .wrap, "Must be a wrap syntax to build a wrap regex")
+//
+//    /// `(?:…)` = Non-capturing group
+//    /// `{2}` = Match two of the preceeding token
+//    let leading = Reference(Substring.self)
+//    let content = Reference(Substring.self)
+//    let trailing = Reference(Substring.self)
+//
+//    let thing = RegexShape.wrap.wrapCharacters(for: self)
+//    let syntax = ChoiceOf {
+//      
+////      Repeat("*", count: 2)
+//    case .bold: (boldItalicPreset, 2)
+//    case .italic: (boldItalicPreset, 1)
+//    case .boldItalic: (boldItalicPreset, 3)
+//    case .inlineCode: (["`"], 1)
+//    case .strikethrough: (["~"], 2)
+//    case .highlight: (["="], 2)
 //    }
-
-    return Regex(
-      Regex {
-
-        Capture(as: leading) { syntax }
-        Capture(as: content) {
-          OneOrMore(.anyNonNewline.subtracting(.anyOf("*_")), .reluctant)
-        }
-        Capture(as: trailing) { syntax }
-
-      }
-    )
-  }
+////      let thing = RegexShape.wrap.wrapCharacters(for: self)
+////      return thing
+//////      Repeat("_", count: 2)
+////    }
+//
+//    return Regex(
+//      Regex {
+//
+//        Capture(as: leading) { syntax }
+//        Capture(as: content) {
+//          OneOrMore(.anyNonNewline.subtracting(.anyOf("*_")), .reluctant)
+//        }
+//        Capture(as: trailing) { syntax }
+//
+//      }
+//    )
+//  }
 }
