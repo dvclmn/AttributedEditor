@@ -35,19 +35,22 @@ extension SyntaxRun {
         Labeled("Fragment", value: fragment.name)
         Labeled("Range", value: range)
         Labeled(
-          "Range text",
+          "Range with text preview:\n",
           value: range.debugPreview(in: text, contextLength: 10)
         )
+        "End of Syntax Run"
+        Divider()
       }
     }.plainText
   }
 }
 
 extension Array where Element == SyntaxRun {
-  
-  func debugDescription(in source: String) -> String {
+
+  func debugPreview(in source: String) -> String {
     reduce(into: "") { partialResult, run in
-      partialResult += ("\n" + run.content(in: source))
+      partialResult += ("\n" + run.debugPreview(in: source))
+      //      partialResult += ("\n" + run.content(in: source))
     }
   }
   //  func text(_ index: Int, in text: String) -> String {

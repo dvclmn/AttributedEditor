@@ -18,15 +18,16 @@ struct RegexOrderTests {
   /// 1: `italic`
   /// 2: `bold`
   /// 3: `boldItalic`
-  func wrapShapeOrder() async throws {
-
-    let text = "Some **example** text."
-
-    /// This uses whatever items the highlighter has for it's `supported` property
+  func wrapRegexOrder() async throws {
+    
+    /// Will test whatever syntaxes the highlighter currently holds
     let syntaxes = highlighter.supported.syntax
 
     let precedenceRules: [[Markdown.Syntax]] = [
+      /// More specific → more general
       [.italic, .bold, .boldItalic],
+      
+      /// Inline must precede block
       [.inlineCode, .codeBlock],
     ]
 
@@ -36,8 +37,8 @@ struct RegexOrderTests {
         syntaxes.firstIndex(of: item)
       }
 
-      // If fewer than 2 are present, ordering is vacuously correct
-      guard indices.count >= 2 else { return }
+      /// If fewer than 2 are present, ordering is correct, so move onto the next rule
+      guard indices.count >= 2 else { continue }
 
       #expect(indices == indices.sorted())
       //      assertRelativeOrder(in: syntaxes, requiredOrder: rule)
