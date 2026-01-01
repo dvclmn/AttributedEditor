@@ -26,7 +26,7 @@ extension SyntaxRun {
   func content(in source: String) -> String {
     source[range].toString
   }
-  
+
   func withRangePreview(text: String) -> String {
     DisplayString {
       Labeled("Syntax", value: syntax.name)
@@ -42,12 +42,15 @@ extension SyntaxRun {
 }
 
 extension Array where Element == SyntaxRun {
-//  func text(_ index: Int, in text: String) -> String {
-//    self.reduce(into: "") { partialResult, run in
-//      partialResult += text[safe: run.range]?.toString ?? ""
-//    }
-//  }
-  
+  //  func text(_ index: Int, in text: String) -> String {
+  //    self.reduce(into: "") { partialResult, run in
+  //      partialResult += text[safe: run.range]?.toString ?? ""
+  //    }
+  //  }
+  func contains(_ syntax: Markdown.Syntax) -> Bool {
+    contains { $0.syntax == syntax }
+  }
+
   func contents(in source: String) -> [String] {
     map { $0.content(in: source) }
   }
