@@ -17,9 +17,9 @@ enum SyntaxDescriptor {
 extension SyntaxDescriptor {
   var shape: RegexShape {
     switch self {
-      case .wrap(_): .wrap
-      case .prefix(_): .prefix
-      case .link(_): .link
+      case .wrap: .wrap
+      case .prefix: .prefix
+      case .link: .link
     }
   }
   var pattern: Regex<AnyRegexOutput> {

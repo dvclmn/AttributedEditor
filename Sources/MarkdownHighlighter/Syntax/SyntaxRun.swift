@@ -27,21 +27,29 @@ extension SyntaxRun {
     source[range].toString
   }
 
-  func withRangePreview(text: String) -> String {
+  func debugPreview(in text: String) -> String {
     DisplayString {
-      Labeled("Syntax", value: syntax.name)
-      Labeled("Role", value: role.name)
-      Labeled("Fragment", value: fragment.name)
-      Labeled("Range", value: range)
-      Labeled(
-        "Range text",
-        value: range.withPreview(in: text, contextLength: 10)
-      )
+      Indented("Syntax Run") {
+        Labeled("Syntax", value: syntax.name)
+        Labeled("Role", value: role.name)
+        Labeled("Fragment", value: fragment.name)
+        Labeled("Range", value: range)
+        Labeled(
+          "Range text",
+          value: range.debugPreview(in: text, contextLength: 10)
+        )
+      }
     }.plainText
   }
 }
 
 extension Array where Element == SyntaxRun {
+  
+  func debugDescription(in source: String) -> String {
+    reduce(into: "") { partialResult, run in
+      partialResult += ("\n" + run.content(in: source))
+    }
+  }
   //  func text(_ index: Int, in text: String) -> String {
   //    self.reduce(into: "") { partialResult, run in
   //      partialResult += text[safe: run.range]?.toString ?? ""

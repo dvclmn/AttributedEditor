@@ -17,7 +17,7 @@ struct RegexTests {
   let highlighter = MarkdownHighlighter()
 
   @Test(arguments: ["**"])
-  func bold_matches_double_asterisk(marker: String) async throws {
+  func boldMatchesDoubleAsterisk(marker: String) async throws {
     let text = "Some \(marker)example\(marker) text."
     
     highlighter.supported = [.bold]
@@ -28,28 +28,30 @@ struct RegexTests {
   }
   
   @Test(arguments: ["*"])
-  func bold_does_not_match_single_asterisk(marker: String) async throws {
+  func boldDoesNotMatchSingleAsterisk(marker: String) async throws {
     let text = "Some \(marker)example\(marker) text."
     
     highlighter.supported = [.bold]
     let runs = try highlighter.buildStyles(in: text)
     
-    #expect(runs.count == 1) // or however “no match” manifests
+    #expect(runs.isEmpty)
   }
   
   @Test
-  func italic_does_not_match_inside_bold() async throws {
+  func italicDoesNotMatchInsideBold() async throws {
     let text = "Some **example** text."
     
     highlighter.supported = [.bold, .italic]
     let runs = try highlighter.buildStyles(in: text)
+    
+    print("Runs: \(runs.debugDescription(in: text))")
     
     #expect(runs.contains(.bold))
     #expect(!runs.contains(.italic))
   }
 
   @Test(arguments: ["*", "_"])
-  func italic_matches_supported_markers(marker: String) async throws {
+  func italicMatchesSupportedMarkers(marker: String) async throws {
     let text = "Some \(marker)example\(marker) text."
     
     highlighter.supported = [.italic]
@@ -60,7 +62,7 @@ struct RegexTests {
   }
 
   @Test(arguments: ["**", "__"])
-  func italic_does_not_match_double_markers(marker: String) async throws {
+  func italicDoesNotMatchDoubleMarkers(marker: String) async throws {
     let text = "Some \(marker)example\(marker) text."
     
     highlighter.supported = [.italic]
@@ -111,3 +113,4 @@ struct RegexTests {
 //  }
 
 }
+

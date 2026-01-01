@@ -43,7 +43,7 @@ extension MarkdownHighlighter {
         fragment: fragment,
         range: range
       )
-      print("🏃 Created new run:\n\(run.withRangePreview(text: text))\n")
+      print("🏃 Created new run:\n\(run.debugPreview(in: text))\n")
       runs.append(run)
     }
   }
