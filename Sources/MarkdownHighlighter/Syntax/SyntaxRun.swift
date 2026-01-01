@@ -13,19 +13,20 @@ package typealias MarkdownRuns = [SyntaxRun]
 /// No colours, fonts, background, attrs
 /// This is the output of the Highlighter.
 package struct SyntaxRun {
-  public let syntax: Markdown.Syntax
-//  public let role: StyleRole
-  public let fragment: Fragment
-  public let range: Range<String.Index>
+  let syntax: Markdown.Syntax
+  let fragment: Fragment
+  package let range: Range<String.Index>
 }
 
 extension SyntaxRun {
   var role: StyleRole { fragment.toStyleRole }
-//  var fragments: [Fragment]? { syntax.fragments }
-  //  struct Metadata {
-  //    let matches: [Regex<AnyRegexOutput>.Match]
-  //  }
 
+  /// Usage in a test:
+  /// `let content = runs[1].content(in: text)`
+  func content(in source: String) -> String {
+    source[range].toString
+  }
+  
   func withRangePreview(text: String) -> String {
     DisplayString {
       Labeled("Syntax", value: syntax.name)
@@ -41,16 +42,13 @@ extension SyntaxRun {
 }
 
 extension Array where Element == SyntaxRun {
-  func text(_ index: Int, in text: String) -> String {
-    var result = ""
-    for run in self {
-      result += text[safe: run.range]?.toString ?? ""
-    }
-    return result
-    //    for run in self {
-    //      result += text[safe: run.range.]?.toString ?? ""
-    //    }
-    //    return result
+//  func text(_ index: Int, in text: String) -> String {
+//    self.reduce(into: "") { partialResult, run in
+//      partialResult += text[safe: run.range]?.toString ?? ""
+//    }
+//  }
+  
+  func contents(in source: String) -> [String] {
+    map { $0.content(in: source) }
   }
-
 }

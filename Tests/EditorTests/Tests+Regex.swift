@@ -16,13 +16,8 @@ typealias Syntax = Markdown.Syntax
 struct RegexTests {
   let highlighter = MarkdownHighlighter()
 
-  /// Pretending that only asterisk characters are valid, for now
-//  @Test(arguments: [
-//    Syntax.bold,
-//    Syntax.boldItalic,
-//    Syntax.italic,
-//  ])
-  @Test(arguments: ["*", "**"])
+  @Test
+//  @Test(arguments: ["*", "**"])
   func bold(_ characters: String) async throws {
 
     let bold = Markdown.Syntax.bold
@@ -44,8 +39,15 @@ struct RegexTests {
     && trail == "**"
     && content == "example"
     
-    #expect(!isItalic)
-    #expect(isBold)
+    if characters == "**" {
+      #expect(isBold)
+      #expect(!isItalic)
+    } else {
+      #expect(!isBold)
+    }
+    
+//    #expect(!isItalic)
+//    #expect(isBold)
 //    #expect(bold.descriptor?.shape == .wrap)
 //    #expect(lead == trail)
 //    #expect(content == "example")
