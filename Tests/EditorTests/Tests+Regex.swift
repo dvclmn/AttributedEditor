@@ -36,12 +36,15 @@ struct RegexTests {
     
     #expect(runs.isEmpty)
   }
-  
+
   @Test
   func italicDoesNotMatchInsideBold() async throws {
     let text = "Some **example** text."
     
-    highlighter.supported = [.bold, .italic]
+    highlighter.supported = [
+      .italic,
+      .bold,
+    ]
     let runs = try highlighter.buildStyles(in: text)
     
     print("Runs: \(runs.debugDescription(in: text))")
@@ -70,6 +73,9 @@ struct RegexTests {
     
     #expect(!runs.contains(.italic))
   }
+  
+
+
 
 
   

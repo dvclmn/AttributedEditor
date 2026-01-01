@@ -23,10 +23,7 @@ package final class MarkdownHighlighter {
     self.theme = theme
   }
 
-  /// 📣 Important: This ordering matters:
-  /// 1: `italic`
-  /// 2: `bold`
-  /// 3: `boldItalic`
+
   //  public var declaredSyntax: [Markdown.Syntax] {
   //    let elements = Markdown.Syntax.allCases.filter { $0.pattern != nil }
   //    //    print("Declared syntax list:", elements.map(\.name).joined(separator: ", "))

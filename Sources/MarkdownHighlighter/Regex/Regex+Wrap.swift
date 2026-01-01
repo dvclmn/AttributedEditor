@@ -23,46 +23,36 @@ struct WrapSpec {
 }
 
 extension WrapSpec {
-  
+
   var wrapper: Regex<Substring> {
     Regex {
-      if requiresIsolation {
-        NegativeLookbehind {
-          altA
-        }
-      }
-      
       ChoiceOf {
         Repeat(altA, count: count)
-        if let altB {
-          Repeat(altB, count: count)
-        }
-      }
-      
-      if requiresIsolation {
-        NegativeLookahead {
-          altA
-        }
+        Repeat(altB ?? altA, count: count)
       }
     }
   }
 
+  var wrapperForIsolation: Regex<Substring> {
+    Regex {
+      wrapper
+      NegativeLookahead {
+        ChoiceOf {
+          altA
+          altB ?? altA
+        }
+      }
+    }
+  }
 
   var pattern: Regex<AnyRegexOutput> {
     let leading = Reference(Substring.self)
     let content = Reference(Substring.self)
     let trailing = Reference(Substring.self)
 
-    let wrapper = Regex {
-      ChoiceOf {
-        Repeat(altA, count: count)
-        Repeat(altB ?? altA, count: count)
-      }
-    }
-
     let pattern = Regex {
       Capture(as: leading) {
-        wrapper
+        requiresIsolation ? wrapper : wrapperForIsolation
       }
 
       Capture(as: content) {
@@ -71,7 +61,9 @@ extension WrapSpec {
         }
       }
 
-      Capture(as: trailing) { wrapper }
+      Capture(as: trailing) {
+        requiresIsolation ? wrapper : wrapperForIsolation
+      }
     }
 
     return Regex(pattern)

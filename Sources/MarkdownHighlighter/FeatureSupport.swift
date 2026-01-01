@@ -10,6 +10,10 @@ import AppKit
 /// Trying to get compiler checked support coverage
 public struct Supported {
 
+  /// 📣 Important: This ordering matters:
+  /// 1: `italic`
+  /// 2: `bold`
+  /// 3: `boldItalic`
   public let syntax: [Markdown.Syntax]
   public let textAttributes: [NSAttributedString.Key]
 
@@ -35,8 +39,8 @@ extension Supported {
       //      .heading5,
       //      .heading6,
 
-      .bold,
       .italic,
+      .bold,
       .boldItalic,
 
       //      .inlineCode,
