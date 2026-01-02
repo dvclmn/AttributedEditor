@@ -9,7 +9,7 @@ import Foundation
 
 /// The available possible parts, found within Regex Shapes
 /// This loosely relates to `StyleRole`, just more granular
-public enum Fragment: String, Sendable {
+public enum Fragment: String, Sendable, CaseIterable {
   case content  // Or title? For link, image?
   case syntaxLeading  // Aka leading
   case syntaxTrailing  //  Aka trailing

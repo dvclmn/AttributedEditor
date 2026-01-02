@@ -36,6 +36,11 @@ extension StyleRoles {
   mutating func set(_ role: StyleRole, style token: StyleToken?) {
     values[role] = token
   }
+  
+//  mutating func set(fragment: Fragment, style token: StyleToken?) {
+//
+//    values[role] = token
+//  }
 
   /// iterate in deterministic order
   public func forEach(_ body: (StyleRole, StyleToken) -> Void) {
