@@ -29,6 +29,13 @@ struct RegexTests {
     let runs = try highlighter.buildStyles(in: text)
     #expect(runs.isEmpty)
   }
+  
+  @Test
+  func headingOneDoesNotMatchInHeadingTwo() async throws {
+    let text = "## Header two, not header one"
+    let runs = try highlighter.buildStyles(in: text)
+    #expect(!runs.contains(.heading(level: 1)))
+  }
   //  @Test(arguments: ["**"])
   //  func boldMatchesDoubleAsterisk(marker: String) async throws {
   //    let text = "Some \(marker)example\(marker) text."

@@ -10,15 +10,26 @@ import Foundation
 /// The available possible parts, found within Regex Shapes
 /// This loosely relates to `StyleRole`, just more granular
 public enum Fragment: String, Sendable {
-  case content // Or title? For link, image?
+  case content  // Or title? For link, image?
   case syntaxLeading  // Aka leading
   case syntaxTrailing  //  Aka trailing
-  case prefix  // Image "!", Quote ">", etc
+  case prefix  // List "-", Image "!", Quote ">", Heading "#"
   case languageHint  // Of type `StyleRole.metadata`
   case url
   case single  // ---
 }
 
+extension Fragment {
+  var toStyleRole: StyleRole {
+    switch self {
+      case .content, .single: .content
+      case .syntaxLeading, .syntaxTrailing: .syntax
+      case .languageHint, .url, .prefix: .metadata
+    }
+  }
+}
+
+// MARK: - Fragment Metadata
 extension Fragment {
   public var name: String {
     switch self {
@@ -29,15 +40,8 @@ extension Fragment {
       case .url: "URL"
     }
   }
-
-  var toStyleRole: StyleRole {
-    switch self {
-      case .content, .single: .content
-      case .syntaxLeading, .syntaxTrailing: .syntax
-      case .languageHint, .url, .prefix: .metadata
-    }
-  }
 }
+
 extension Fragment: CustomStringConvertible {
   public var description: String { rawValue }
 }

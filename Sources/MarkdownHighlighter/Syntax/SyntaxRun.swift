@@ -28,16 +28,18 @@ extension SyntaxRun {
   }
 
   func debugPreview(in text: String) -> String {
-    DisplayString {
+    let rangeText = range.debugPreview(
+      in: text,
+//      captureName: fragment.rawValue,
+      maxContextLength: 20
+    )
+    return DisplayString {
       Indented("Syntax Run") {
         Labeled("Syntax", value: syntax.name)
         Labeled("Role", value: role.name)
         Labeled("Fragment", value: fragment.name)
         Labeled("Range", value: range)
-        Labeled(
-          "Range with text preview",
-          value: range.debugPreview(in: text, contextLength: 10)
-        )
+        Labeled("Range Text", value: rangeText)
         "End of Syntax Run"
         Divider()
       }

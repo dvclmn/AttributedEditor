@@ -45,10 +45,14 @@ extension MarkdownTheme {
 //        roles.set(.syntax, style: StyleToken(colour: .red, font: .monoSpace))
       }
 
-      Syntax(Markdown.Syntax.allHeadings) { roles in
-        roles.set(.content, style: StyleToken(colour: .primary, font: .bold))
-        roles.set(.syntax, style: StyleToken(colour: .tertiary))
+      Syntax(.heading(level: 1)) { roles in
+        roles.set(.content, style: StyleToken(colour: .gray, font: .bold))
+        roles.set(.syntax, style: StyleToken(colour: .pink))
       }
+//      Syntax(Markdown.Syntax.allHeadings) { roles in
+//        roles.set(.content, style: StyleToken(colour: .primary, font: .bold))
+//        roles.set(.syntax, style: StyleToken(colour: .tertiary))
+//      }
     }
   }
 }

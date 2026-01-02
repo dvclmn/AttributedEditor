@@ -27,12 +27,11 @@ extension MarkdownHighlighter {
     }
 
     print("⏳ Process match for \(syntax.name), with fragments: \(fragments)\n")
-//    print("Process match '\(match)' for \(syntax.name), with fragments: \(fragments)")
-    
+
     for fragment in fragments {
 
       let range = try shape.range(for: match, fragment: fragment)
-      
+
       /// Currently using the range as the sole marker for 'equality' here
       let runAlreadyExists = runs.contains(where: { $0.range == range })
       guard !runAlreadyExists else { continue }

@@ -58,6 +58,13 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
     title: Substring,
     url: Substring
   )
+
+  //  public typealias Image = (
+  //    Substring,
+  //    prefix: Substring, // "!"
+  //    title: Substring,
+  //    url: Substring
+  //  )
 }
 extension RegexShape {
 
@@ -88,7 +95,7 @@ extension RegexShape {
           case .syntaxLeading: values.start.indexRange
           case .syntaxTrailing: values.end.indexRange
           case .languageHint: values.langHint.indexRange
-          default: fatalError("Fragment \(fragment) not supported for RegexShape.codeBlock")
+          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
       case .single:
@@ -97,7 +104,7 @@ extension RegexShape {
         }
         return switch fragment {
           case .single: values.indexRange
-          default: fatalError("Fragment \(fragment) not supported for RegexShape.single")
+          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
       case .prefix:
@@ -107,12 +114,19 @@ extension RegexShape {
         return switch fragment {
           case .prefix: values.prefix.indexRange
           case .content: values.content.indexRange
-          default: fatalError("Fragment \(fragment) not supported for RegexShape.codeBlock")
+          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
       // TODO: Complete these
       case .link:
-        fatalError("Fragment \(fragment) not supported for RegexShape.prefix or .link")
+        guard let values = match.output.extractValues(as: Link.self) else {
+          throw RegexError.failedValueExtraction(.link, fragment)
+        }
+        return switch fragment {
+          case .content: values.title.indexRange
+          case .url: values.url.indexRange
+          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
+        }
     }
   }
 
