@@ -17,15 +17,16 @@ extension MarkdownHighlighter {
   ) throws {
 
     /// No need to initialise anything if provided Syntax has no regex shape
-    guard let shape = syntax.regexShape else {
-      throw SyntaxError.noRegexShape
-    }
-
+//    guard let shape = syntax.regexShape else {
+//      throw SyntaxError.noRegexShape
+//    }
     /// Again, no fragments means no need to init
-    guard let fragments = syntax.fragments else {
-      throw SyntaxError.noFragments
-    }
+//    guard let fragments = syntax.fragments else {
+//      throw SyntaxError.noFragments
+//    }
 
+    let shape = syntax.regexShape
+    let fragments = syntax.fragments
     print("⏳ Process match for \(syntax.name), with fragments: \(fragments)\n")
 
     for fragment in fragments {

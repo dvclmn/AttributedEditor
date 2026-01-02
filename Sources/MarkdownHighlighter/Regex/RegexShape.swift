@@ -22,7 +22,7 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   case single
   case codeBlock
   case link
-//  case list
+  //  case list
   case callout
 
   public var name: String {
@@ -60,13 +60,13 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
     title: Substring,
     url: Substring
   )
-  
-//  public typealias List = (
-//    Substring,            
-//    marker: Substring,    
-//    content: Substring    
-//  )
-  
+
+  //  public typealias List = (
+  //    Substring,
+  //    marker: Substring,
+  //    content: Substring
+  //  )
+
   public typealias Callout = (
     Substring,
     prefix: Substring,
@@ -90,9 +90,10 @@ extension RegexShape {
     fragment: Fragment,
   ) throws -> Range<String.Index> {
     switch self {
+      // MARK: - Warp
       case .wrap:
         guard let values = match.output.extractValues(as: Wrap.self) else {
-          throw RegexError.failedValueExtraction(.wrap, fragment)
+          throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
           case .content: values.content.indexRange
@@ -100,10 +101,31 @@ extension RegexShape {
           case .syntaxTrailing: values.trailing.indexRange
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
+      // MARK: - Prefix
+      case .prefix:
+        guard let values = match.output.extractValues(as: Prefix.self) else {
+          throw RegexError.failedValueExtraction(self, fragment)
+        }
+        return switch fragment {
+          case .syntaxLeading: values.prefix.indexRange
+          case .content: values.content.indexRange
+          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
+        }
 
+      // MARK: - Single
+      case .single:
+        guard let values = match.output.extractValues(as: Single.self) else {
+          throw RegexError.failedValueExtraction(self, fragment)
+        }
+        return switch fragment {
+          case .single: values.indexRange
+          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
+        }
+
+      // MARK: - Code Block
       case .codeBlock:
         guard let values = match.output.extractValues(as: CodeBlock.self) else {
-          throw RegexError.failedValueExtraction(.codeBlock, fragment)
+          throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
           case .content: values.content.indexRange
@@ -113,34 +135,29 @@ extension RegexShape {
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
-      case .single:
-        guard let values = match.output.extractValues(as: Single.self) else {
-          throw RegexError.failedValueExtraction(.single, fragment)
-        }
-        return switch fragment {
-          case .single: values.indexRange
-          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
-        }
-
-      case .prefix:
-        guard let values = match.output.extractValues(as: Prefix.self) else {
-          throw RegexError.failedValueExtraction(.prefix, fragment)
-        }
-        return switch fragment {
-          case .syntaxLeading: values.prefix.indexRange
-          case .content: values.content.indexRange
-          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
-        }
-
-      // TODO: Complete these
+      // MARK: - Link
       case .link:
         guard let values = match.output.extractValues(as: Link.self) else {
-          throw RegexError.failedValueExtraction(.link, fragment)
+          throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
           case .content: values.title.indexRange
           case .url: values.url.indexRange
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
+
+        }
+
+      // MARK: - Callout
+      case .callout:
+        guard let values = match.output.extractValues(as: Callout.self) else {
+          throw RegexError.failedValueExtraction(self, fragment)
+        }
+        return switch fragment {
+          case .syntaxLeading: values.prefix.indexRange
+          case .label: values.label.indexRange
+          case .content: values.content.indexRange
+          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
+
         }
     }
   }

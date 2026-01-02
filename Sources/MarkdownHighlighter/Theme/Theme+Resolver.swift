@@ -18,7 +18,7 @@ package struct ThemeResolver {
       for: run.syntax,
       role: run.role
     )
-
+    
     let attrs = theme.textAttributes(for: token)
 
     return ResolvedRun(

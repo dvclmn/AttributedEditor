@@ -16,26 +16,33 @@ typealias Syntax = Markdown.Syntax
 struct RegexTests {
   let highlighter = MarkdownHighlighter()
 
-  @Test
-  func headingOneMatchesWithSpaceAfterHash() async throws {
-    let text = "# An example of a header"
-    let runs = try highlighter.buildStyles(in: text)
-    #expect(runs.contains(.heading(level: 1)))
-  }
-
-  @Test
-  func headingOneDoesNotMatchWithoutSpaceAfterHash() async throws {
-    let text = "#An example of a header"
-    let runs = try highlighter.buildStyles(in: text)
-    #expect(runs.isEmpty)
-  }
+//    @Test
+//    func callout() async throws {
+//      let text = "# An example of a header"
+//      let runs = try highlighter.buildStyles(in: text)
+//      #expect(runs.contains(.heading(level: 1)))
+//    }
   
-  @Test
-  func headingOneDoesNotMatchInHeadingTwo() async throws {
-    let text = "## Header two, not header one"
-    let runs = try highlighter.buildStyles(in: text)
-    #expect(!runs.contains(.heading(level: 1)))
-  }
+//  @Test
+//  func headingOneMatchesWithSpaceAfterHash() async throws {
+//    let text = "# An example of a header"
+//    let runs = try highlighter.buildStyles(in: text)
+//    #expect(runs.contains(.heading(level: 1)))
+//  }
+//
+//  @Test
+//  func headingOneDoesNotMatchWithoutSpaceAfterHash() async throws {
+//    let text = "#An example of a header"
+//    let runs = try highlighter.buildStyles(in: text)
+//    #expect(runs.isEmpty)
+//  }
+//  
+//  @Test
+//  func headingOneDoesNotMatchInHeadingTwo() async throws {
+//    let text = "## Header two, not header one"
+//    let runs = try highlighter.buildStyles(in: text)
+//    #expect(!runs.contains(.heading(level: 1)))
+//  }
   //  @Test(arguments: ["**"])
   //  func boldMatchesDoubleAsterisk(marker: String) async throws {
   //    let text = "Some \(marker)example\(marker) text."

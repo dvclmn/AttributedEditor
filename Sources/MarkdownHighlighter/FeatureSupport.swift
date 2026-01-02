@@ -40,18 +40,16 @@ extension Supported {
       .heading(level: 6),
 
       .italic,
-//      .bold,
-//      .boldItalic,
-
-      //      .inlineCode,
-      //      .codeBlock,
-
-      //      .list,
-      //      .quoteBlock,
-      //      .callout,
-      //      .strikethrough,
-      //      .highlight,
-      //      .link,
+      //  .bold,
+      //  .boldItalic,
+      //  .inlineCode,
+      //  .codeBlock,
+      //  .list,
+      //  .quoteBlock,
+      //  .callout,
+      .strikethrough,
+      .highlight,
+//      .link,
       //      .image,
       //      .horizontalRule,
     ]

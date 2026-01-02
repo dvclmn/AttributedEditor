@@ -12,6 +12,7 @@ public enum Markdown {}
 
 /// For RegexShape, go to ``Markdown/Syntax/regexShape``
 extension Markdown {
+
   @CaseDetection
   public enum Syntax: CaseIterable, Identifiable, Equatable, Hashable, Sendable {
 
@@ -34,7 +35,6 @@ extension Markdown {
         .horizontalRule,
       ]
       return allHeadings + base
-
     }
 
     case heading(level: Int)

@@ -46,13 +46,11 @@ extension MarkdownTheme {
       }
 
       Syntax(.heading(level: 1)) { roles in
-        roles.set(.content, style: StyleToken(colour: .gray, font: .bold))
-        roles.set(.syntax, style: StyleToken(colour: .pink))
+        roles.set(.content, style: StyleToken(colour: .primary, font: .bold))
+        roles.set(.syntax, style: StyleToken(colour: .gray))
       }
-//      Syntax(Markdown.Syntax.allHeadings) { roles in
-//        roles.set(.content, style: StyleToken(colour: .primary, font: .bold))
-//        roles.set(.syntax, style: StyleToken(colour: .tertiary))
-//      }
+
+
     }
   }
 }

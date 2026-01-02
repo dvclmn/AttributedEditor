@@ -14,7 +14,7 @@ public enum Fragment: String, Sendable {
   case syntaxLeading  // Aka leading
   case syntaxTrailing  //  Aka trailing
   
-  case label
+  case label // Image, link, callout
   /// Not sure, but I think anything after here should be something
   /// that I can't logically categorise as leading or trailing syntax
   case exclamation // For image
