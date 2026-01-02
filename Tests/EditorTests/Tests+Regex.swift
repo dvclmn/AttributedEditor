@@ -16,20 +16,23 @@ typealias Syntax = Markdown.Syntax
 struct RegexTests {
   let highlighter = MarkdownHighlighter()
 
-//    @Test
-//    func callout() async throws {
-//      let text = "# An example of a header"
-//      let runs = try highlighter.buildStyles(in: text)
+    @Test
+    func link() async throws {
+      let text = "My link: [hello](http://website.com)"
+      let runs = try highlighter.buildStyles(in: text)
+      print("Link Runs: \(runs)")
+      
 //      #expect(runs.contains(.heading(level: 1)))
-//    }
+    }
   
 //  @Test
 //  func headingOneMatchesWithSpaceAfterHash() async throws {
 //    let text = "# An example of a header"
+//    highlighter.supported = [.heading(level: 1)]
 //    let runs = try highlighter.buildStyles(in: text)
 //    #expect(runs.contains(.heading(level: 1)))
 //  }
-//
+
 //  @Test
 //  func headingOneDoesNotMatchWithoutSpaceAfterHash() async throws {
 //    let text = "#An example of a header"

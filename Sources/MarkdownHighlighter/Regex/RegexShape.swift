@@ -96,8 +96,8 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .content: values.content.indexRange
           case .syntaxLeading: values.leading.indexRange
+          case .content: values.content.indexRange
           case .syntaxTrailing: values.trailing.indexRange
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
@@ -128,8 +128,8 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .content: values.content.indexRange
           case .syntaxLeading: values.start.indexRange
+          case .content: values.content.indexRange
           case .syntaxTrailing: values.end.indexRange
           case .languageHint: values.langHint.indexRange
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
@@ -141,8 +141,14 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .content: values.title.indexRange
-          case .url: values.url.indexRange
+            
+//          case .syntaxLeading: values.start.indexRange
+//          case .content: values.content.indexRange
+//          case .syntaxTrailing: values.end.indexRange
+//          case .syntaxLeading: values.start.indexRange
+//          case .languageHint: values.langHint.indexRange
+//          case .content: values.title.indexRange
+//          case .url: values.url.indexRange
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
 
         }

@@ -33,7 +33,7 @@ extension Markdown.Syntax {
         /// Handles optional trailing hashes (e.g., # Title ##) and finds the end of the line.
         return Regex(
           /^[ ]{0,3}(?<prefix>#{1,6})(?![#])[ \t]+(?<content>.+?)(?:[ \t]+#+)?$/
-//          /^(?<prefix>#{1,6})[ \t]+(?<content>.*?)(?:[ \t]+#+)?$/
+          //          /^(?<prefix>#{1,6})[ \t]+(?<content>.*?)(?:[ \t]+#+)?$/
         )
         .anchorsMatchLineEndings()
 
@@ -98,17 +98,16 @@ extension Markdown.Syntax {
           /#
         )
       case .link:
-        //        Regex(
-        //          #/
-        //          (?<leadingA>\[)
-        //          (?<title>[^\]\n]+)
-        //          (?<trailingA>\])
-        //          (?<leadingB>\()
-        //          (?<url>[^\)\n]+)
-        //          (?<trailingB>\))
-        //          /#
-        //        )
-        return nil
+          return Regex(
+            #/
+            (?<leading>\[)
+            (?<content>[^\]\n]+)
+            (?<trailingA>\])
+            (?<leadingB>\()
+            (?<url>[^\)\n]+)
+            (?<trailingB>\))
+            /#
+            )
       case .image:
         //        Regex(
         //          #/
@@ -130,3 +129,4 @@ extension Markdown.Syntax {
     }
   }
 }
+

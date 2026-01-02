@@ -13,15 +13,15 @@ public enum Fragment: String, Sendable {
   case content  // Or title? For link, image?
   case syntaxLeading  // Aka leading
   case syntaxTrailing  //  Aka trailing
-  
-  case label // Image, link, callout
+
+  case label  // Image, link, callout
   /// Not sure, but I think anything after here should be something
   /// that I can't logically categorise as leading or trailing syntax
-  case exclamation // For image
-//  case prefix  // List "-", Image "!", Quote ">", Heading "#"
+  case exclamation  // For image
+  //  case prefix  // List "-", Image "!", Quote ">", Heading "#"
   case languageHint  // Of type `StyleRole.metadata`
   case url
-  
+
   /// Should/cloud this actually be covered under `content`?
   case single  // ---
 }

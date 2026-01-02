@@ -33,14 +33,6 @@ extension StyleRoles {
     set { values[role] = newValue }
   }
 
-  /// convenience initializer
-  //    @inlinable
-  //    public init(_ pairs: (StyleRole, StyleToken)...) {
-  //      var dict: [StyleRole: StyleToken] = [:]
-  //      for (r, t) in pairs { dict[r] = t }
-  //      self.init(values: dict)
-  //    }
-
   mutating func set(_ role: StyleRole, style token: StyleToken?) {
     values[role] = token
   }

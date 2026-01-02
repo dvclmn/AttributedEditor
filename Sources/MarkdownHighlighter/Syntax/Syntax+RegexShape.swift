@@ -11,12 +11,36 @@ extension Markdown.Syntax {
 
   var fragments: [Fragment] {
     switch regexShape {
-      case .wrap: [.syntaxLeading, .content, .syntaxTrailing]
-      case .prefix: [.syntaxLeading, .content]
+      case .wrap: [
+        .syntaxLeading,
+        .content,
+        .syntaxTrailing
+      ]
+      case .prefix: [
+        .syntaxLeading,
+        .content
+      ]
       case .single: [.single]
-      case .codeBlock: [.syntaxLeading, .languageHint, .content, .syntaxTrailing]
-      case .link: [.syntaxLeading, .content, .syntaxTrailing, .syntaxLeading, .url, .syntaxTrailing]
-      case .callout: [.syntaxLeading, .label, .content]
+        
+      case .codeBlock: [
+        .syntaxLeading,
+        .languageHint,
+        .content,
+        .syntaxTrailing
+      ]
+      case .link: [
+        .syntaxLeading,
+        .content,
+        .syntaxTrailing,
+        .syntaxLeading,
+        .url,
+        .syntaxTrailing
+      ]
+      case .callout: [
+        .syntaxLeading,
+        .label,
+        .content
+      ]
     }
   }
 

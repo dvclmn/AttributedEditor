@@ -30,8 +30,8 @@ package final class MarkdownHighlighter {
       print("🪛 Building styles for \(syntax.name)")
 
       let pattern = syntax.pattern
-//      let pattern = usingRegexBuilders ? syntax.descriptor?.pattern : syntax.pattern
-      
+      //      let pattern = usingRegexBuilders ? syntax.descriptor?.pattern : syntax.pattern
+
       guard let pattern else {
         throw SyntaxError.noRegexPattern
       }
