@@ -12,22 +12,26 @@ extension Markdown.Syntax {
   public var pattern: Regex<AnyRegexOutput>? {
     switch self {
 
-      case .heading(let level):
-        let prefix = Reference(Substring.self)
-        let content = Reference(Substring.self)
+      case .heading:
         return Regex(
-          Regex {
-            Capture(as: prefix) {
-              Repeat(count: level) {
-                "#"
-              }
-            }
-            Capture(as: content) {
-              OneOrMore(CharacterClass(.anyOf("#").inverted), .reluctant)
-              //          OneOrMore(.reluctant, CharacterClass.anyOf("#").inverted)
-            }
-          }
+          /^(?<prefix>#{1,6})[ \t]+(?<content>.*?)(?:[ \t]+#+)?$/
+            .anchorsMatchLineEndings()
         )
+//        let prefix = Reference(Substring.self)
+//        let content = Reference(Substring.self)
+//        return Regex(
+//          Regex {
+//            Capture(as: prefix) {
+//              Repeat(count: level) {
+//                "#"
+//              }
+//            }
+//            Capture(as: content) {
+//              OneOrMore(CharacterClass(.anyOf("#").inverted), .reluctant)
+//              //          OneOrMore(.reluctant, CharacterClass.anyOf("#").inverted)
+//            }
+//          }
+//        )
 
       //        case .heading2: return nil
       //        case .heading3: return nil

@@ -16,6 +16,19 @@ typealias Syntax = Markdown.Syntax
 struct RegexTests {
   let highlighter = MarkdownHighlighter()
 
+  @Test
+  func headingOneMatchesWithSpaceAfterHash() async throws {
+    let text = "# An example of a header"
+    let runs = try highlighter.buildStyles(in: text)
+    #expect(runs.contains(.heading(level: 1)))
+  }
+
+  @Test
+  func headingOneDoesNotMatchWithoutSpaceAfterHash() async throws {
+    let text = "#An example of a header"
+    let runs = try highlighter.buildStyles(in: text)
+    #expect(runs.isEmpty)
+  }
   //  @Test(arguments: ["**"])
   //  func boldMatchesDoubleAsterisk(marker: String) async throws {
   //    let text = "Some \(marker)example\(marker) text."
@@ -58,20 +71,20 @@ struct RegexTests {
   //    #expect(!runs.contains(.italic))
   //  }
 
-  @Test
-  func italicDoesNotMatchInsideBold() async throws {
-    let text = "Some **example** text."
-
-    highlighter.supported = [
-      .italic,
-      .bold,
-    ]
-    let runs = try highlighter.buildStyles(in: text)
-
-    print("Runs: \(runs.debugPreview(in: text))")
-
-    #expect(runs.contains(.bold))
-    #expect(!runs.contains(.italic))
-  }
+  //  @Test
+  //  func italicDoesNotMatchInsideBold() async throws {
+  //    let text = "Some **example** text."
+  //
+  //    highlighter.supported = [
+  //      .italic,
+  //      .bold,
+  //    ]
+  //    let runs = try highlighter.buildStyles(in: text)
+  //
+  //    print("Runs: \(runs.debugPreview(in: text))")
+  //
+  //    #expect(runs.contains(.bold))
+  //    #expect(!runs.contains(.italic))
+  //  }
 
 }

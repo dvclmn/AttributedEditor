@@ -77,6 +77,4 @@ extension Markdown.Syntax {
 
     }
   }
-
- 
 }
