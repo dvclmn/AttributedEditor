@@ -35,7 +35,7 @@ extension SyntaxRun {
         Labeled("Fragment", value: fragment.name)
         Labeled("Range", value: range)
         Labeled(
-          "Range with text preview:\n",
+          "Range with text preview",
           value: range.debugPreview(in: text, contextLength: 10)
         )
         "End of Syntax Run"

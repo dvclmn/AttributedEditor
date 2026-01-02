@@ -18,7 +18,10 @@ package final class MarkdownHighlighter {
   }
 
   /// Build attributed ranges for applying in the Editor
-  package func buildStyles(in text: String) throws -> MarkdownRuns {
+  package func buildStyles(
+    in text: String,
+    usingRegexBuilders: Bool = false
+  ) throws -> MarkdownRuns {
 
     var runs: MarkdownRuns = []
 
@@ -27,7 +30,9 @@ package final class MarkdownHighlighter {
       print("🪛 Building styles for \(syntax.name)")
 
       /// Ensure we have a Regex pattern for this syntax
-      guard let pattern = syntax.descriptor?.pattern else {
+      let pattern = usingRegexBuilders ? syntax.descriptor?.pattern : syntax.pattern
+      
+      guard let pattern else {
         throw SyntaxError.noRegexPattern
       }
 

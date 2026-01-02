@@ -27,23 +27,29 @@ extension WrapSpec {
   var wrapper: Regex<Substring> {
     Regex {
       ChoiceOf {
-        Repeat(altA, count: count)
-        Repeat(altB ?? altA, count: count)
+        NegativeLookahead {
+          Repeat(altA, count: count)
+          
+        }
+//        Regex {
+//
+//        }
+        //        Repeat(altB ?? altA, count: count)
       }
     }
   }
 
-  var wrapperForIsolation: Regex<Substring> {
-    Regex {
-      wrapper
-      NegativeLookahead {
-        ChoiceOf {
-          altA
-          altB ?? altA
-        }
-      }
-    }
-  }
+  //  var wrapperForIsolation: Regex<Substring> {
+  //    Regex {
+  //      wrapper
+  //      NegativeLookahead {
+  //        ChoiceOf {
+  //          altA
+  //          altB ?? altA
+  //        }
+  //      }
+  //    }
+  //  }
 
   var pattern: Regex<AnyRegexOutput> {
     let leading = Reference(Substring.self)
@@ -52,7 +58,8 @@ extension WrapSpec {
 
     let pattern = Regex {
       Capture(as: leading) {
-        requiresIsolation ? wrapper : wrapperForIsolation
+        wrapper
+        //        requiresIsolation ? wrapper : wrapperForIsolation
       }
 
       Capture(as: content) {
@@ -62,7 +69,8 @@ extension WrapSpec {
       }
 
       Capture(as: trailing) {
-        requiresIsolation ? wrapper : wrapperForIsolation
+        wrapper
+        //        requiresIsolation ? wrapper : wrapperForIsolation
       }
     }
 

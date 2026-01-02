@@ -32,6 +32,7 @@ extension Supported: ExpressibleByArrayLiteral {
 extension Supported {
   public static var `default`: Supported {
     let syntax: [Markdown.Syntax] = [
+      .heading(level: 1),
       //      .heading1,
       //      .heading2,
       //      .heading3,
@@ -40,8 +41,8 @@ extension Supported {
       //      .heading6,
 
       .italic,
-      .bold,
-      .boldItalic,
+//      .bold,
+//      .boldItalic,
 
       //      .inlineCode,
       //      .codeBlock,
