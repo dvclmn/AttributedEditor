@@ -42,7 +42,7 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   public typealias CodeBlock = (
     Substring,
     syntaxLeading: Substring,
-    langHint: Substring, // Aka metadata
+    metadata: Substring, // Aka langHint
     content: Substring,
     syntaxTrailing: Substring
   )
@@ -130,7 +130,7 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .single: values.indexRange
+          case .content(.single): values.indexRange
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
@@ -140,10 +140,10 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .syntaxLeading: values.start.indexRange
+          case .syntaxLeading: values.syntaxLeading.indexRange
+          case .metadata(.languageHint): values.metadata.indexRange
           case .content: values.content.indexRange
-          case .syntaxTrailing: values.end.indexRange
-          case .languageHint: values.langHint.indexRange
+          case .syntaxTrailing: values.syntaxTrailing.indexRange
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
@@ -155,8 +155,8 @@ extension RegexShape {
         return switch fragment {
             
 //          case .syntaxLeading: values.start.indexRange
-//          case .content: values.content.indexRange
-//          case .syntaxTrailing: values.end.indexRange
+          case .content(.label): values.content.indexRange
+          case .metadata(.url): values.metadata.indexRange
 //          case .syntaxLeading: values.start.indexRange
 //          case .languageHint: values.langHint.indexRange
 //          case .content: values.title.indexRange
@@ -166,7 +166,8 @@ extension RegexShape {
         }
 
       // MARK: - Callout
-//      case .callout:
+      case .callout:
+        fatalError("Not yet implemented")
 //        guard let values = match.output.extractValues(as: Callout.self) else {
 //          throw RegexError.failedValueExtraction(self, fragment)
 //        }

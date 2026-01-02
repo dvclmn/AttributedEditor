@@ -14,6 +14,7 @@ public enum Fragment: Sendable, CaseIterable {
     [
       .content(.general),
       .content(.label),
+      .content(.single),
       .syntaxLeading,
       .syntaxTrailing,
       .metadata(.general),
@@ -59,6 +60,8 @@ extension Fragment {
   public enum ContentKind: Sendable {
     case general
     case label
+    case code
+    case single  // E.g. horizontal rule
   }
 }
 
@@ -81,13 +84,6 @@ extension Fragment {
       case .syntaxTrailing: "Syntax Trailing"
       case .metadata(let metadata): metadata.name
     }
-    //    switch self {
-    //      case .content, .label, .exclamation, .single: rawValue.capitalized
-    //      case .syntaxLeading: "Syntax Leading"
-    //      case .syntaxTrailing: "Syntax Trailing"
-    //    //      case .languageHint: "Language Hint"
-    //    //      case .url: "URL"
-    //    }
   }
 }
 

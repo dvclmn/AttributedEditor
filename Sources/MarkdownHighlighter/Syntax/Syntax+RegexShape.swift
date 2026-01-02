@@ -13,33 +13,33 @@ extension Markdown.Syntax {
     switch regexShape {
       case .wrap: [
         .syntaxLeading,
-        .content,
+        .content(),
         .syntaxTrailing
       ]
       case .prefix: [
         .syntaxLeading,
-        .content
+        .content()
       ]
-      case .single: [.single]
+      case .single: [.content(.single)]
         
       case .codeBlock: [
         .syntaxLeading,
-        .languageHint,
-        .content,
+        .metadata(.languageHint),
+        .content(.code),
         .syntaxTrailing
       ]
       case .link: [
-        .syntaxLeading,
-        .content,
-        .syntaxTrailing,
-        .syntaxLeading,
-        .url,
-        .syntaxTrailing
+//        .syntaxLeading,
+        .content(.label),
+//        .syntaxTrailing,
+//        .syntaxLeading,
+          .metadata(.url),
+//        .syntaxTrailing
       ]
       case .callout: [
-        .syntaxLeading,
-        .label,
-        .content
+//        .syntaxLeading,
+//        .label,
+//        .content
       ]
     }
   }

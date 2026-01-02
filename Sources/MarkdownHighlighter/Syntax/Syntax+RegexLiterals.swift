@@ -98,16 +98,20 @@ extension Markdown.Syntax {
           /#
         )
       case .link:
-          return Regex(
-            #/
-            (?<leading>\[)
-            (?<content>[^\]\n]+)
-            (?<trailingA>\])
-            (?<leadingB>\()
-            (?<url>[^\)\n]+)
-            (?<trailingB>\))
-            /#
-            )
+        return Regex(
+          #/
+          (?<content>\[[^\]\n]+\])
+          (?<metadata>\([^\)\n]+\))
+          /#
+          //            #/
+          //            (?<leading>\[)
+          //            (?<content>[^\]\n]+)
+          //            (?<trailingA>\])
+          //            (?<leadingB>\()
+          //            (?<url>[^\)\n]+)
+          //            (?<trailingB>\))
+          //            /#
+        )
       case .image:
         //        Regex(
         //          #/
@@ -129,4 +133,3 @@ extension Markdown.Syntax {
     }
   }
 }
-
