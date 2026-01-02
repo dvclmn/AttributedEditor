@@ -34,24 +34,24 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
 
   public typealias Wrap = (
     Substring,
-    syntaxLeading: Substring,
+    syntaxLeadingPrimary: Substring,
     content: Substring,
-    syntaxTrailing: Substring
+    syntaxTrailingPrimary: Substring
   )
 
   public typealias CodeBlock = (
     Substring,
-    syntaxLeading: Substring,
-    metadata: Substring, // Aka langHint
-    content: Substring,
-    syntaxTrailing: Substring
+    syntaxLeadingPrimary: Substring,
+    langHint: Substring,
+    code: Substring,
+    syntaxTrailingPrimary: Substring
   )
 
   public typealias Single = (Substring)
 
   public typealias Prefix = (
     Substring,
-    syntaxLeading: Substring, // Aka prefix
+    prefix: Substring, // Aka prefix
     content: Substring,
   )
 
@@ -59,8 +59,12 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   /// Link, from both content and metadata fragments
   public typealias Link = (
     Substring,
-    content: Substring, // Aka label
-    metadata: Substring // Aka url
+    syntaxLeadingPrimary: Substring,
+    label: Substring,
+    syntaxTrailingPrimary: Substring,
+    syntaxLeadingSecondary: Substring,
+    url: Substring,
+    syntaxTrailingSecondary: Substring,
   )
 
   //  public typealias List = (
@@ -98,14 +102,14 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .syntaxLeading:
-            values.syntaxLeading.indexRange
+          case .syntax(.wrapLeadingPrimary):
+            values.syntaxLeadingPrimary.indexRange
             
-          case .content:
+          case .content(.general):
             values.content.indexRange
             
-          case .syntaxTrailing:
-            values.syntaxTrailing.indexRange
+          case .syntax(.wrapTrailingPrimary):
+            values.syntaxTrailingPrimary.indexRange
             
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
@@ -115,10 +119,10 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .syntaxLeading:
-            values.syntaxLeading.indexRange
+          case .syntax(.prefix):
+            values.prefix.indexRange
             
-          case .content:
+          case .content(.general):
             values.content.indexRange
             
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
@@ -140,10 +144,18 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .syntaxLeading: values.syntaxLeading.indexRange
-          case .metadata(.languageHint): values.metadata.indexRange
-          case .content: values.content.indexRange
-          case .syntaxTrailing: values.syntaxTrailing.indexRange
+          case .syntax(.wrapLeadingPrimary):
+            values.syntaxLeadingPrimary.indexRange
+            
+          case .metadata(.languageHint):
+            values.langHint.indexRange
+            
+          case .content(.code):
+            values.code.indexRange
+            
+          case .syntax(.wrapTrailingPrimary):
+            values.syntaxTrailingPrimary.indexRange
+            
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
@@ -153,14 +165,24 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
+          case .syntax(.wrapLeadingPrimary):
+            values.syntaxLeadingPrimary.indexRange
             
-//          case .syntaxLeading: values.start.indexRange
-          case .content(.label): values.content.indexRange
-          case .metadata(.url): values.metadata.indexRange
-//          case .syntaxLeading: values.start.indexRange
-//          case .languageHint: values.langHint.indexRange
-//          case .content: values.title.indexRange
-//          case .url: values.url.indexRange
+          case .content(.label):
+            values.label.indexRange
+            
+          case .syntax(.wrapTrailingPrimary):
+            values.syntaxTrailingPrimary.indexRange
+            
+          case .syntax(.wrapLeadingSecondary):
+            values.syntaxLeadingSecondary.indexRange
+            
+          case .metadata(.url):
+            values.url.indexRange
+            
+          case .syntax(.wrapTrailingSecondary):
+            values.syntaxTrailingSecondary.indexRange
+
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
 
         }

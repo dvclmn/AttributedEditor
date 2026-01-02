@@ -9,12 +9,11 @@ import AppKit
 import CoreTools
 
 package final class MarkdownHighlighter {
-
-  public var theme: MarkdownTheme
   public var supported: Supported = .default
 
-  public init(theme: MarkdownTheme = .default) {
-    self.theme = theme
+  public init() {
+//  public init(theme: MarkdownTheme = .default) {
+//    self.theme = theme
   }
 
   /// Build attributed ranges for applying in the Editor
@@ -59,8 +58,8 @@ package final class MarkdownHighlighter {
   }
 
 }
-extension MarkdownHighlighter {
-  public func updateTheme(_ theme: MarkdownTheme) {
-    self.theme = theme
-  }
-}
+//extension MarkdownHighlighter {
+//  public func updateTheme(_ theme: MarkdownTheme) {
+//    self.theme = theme
+//  }
+//}

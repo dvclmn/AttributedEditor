@@ -11,36 +11,46 @@ extension Markdown.Syntax {
 
   var fragments: [Fragment] {
     switch regexShape {
-      case .wrap: [
-        .syntaxLeading,
-        .content(),
-        .syntaxTrailing
-      ]
-      case .prefix: [
-        .syntaxLeading,
-        .content()
-      ]
+      case .wrap:
+        [
+          .syntax(.wrapLeadingPrimary),
+          .content(),
+          .syntax(.wrapTrailingPrimary),
+        ]
+
+      case .prefix:
+        [
+          .syntax(.prefix),
+          .content(),
+        ]
+
       case .single: [.content(.single)]
-        
-      case .codeBlock: [
-        .syntaxLeading,
-        .metadata(.languageHint),
-        .content(.code),
-        .syntaxTrailing
-      ]
-      case .link: [
-//        .syntaxLeading,
-        .content(.label),
-//        .syntaxTrailing,
-//        .syntaxLeading,
+
+      case .codeBlock:
+        [
+          .syntax(.wrapLeadingPrimary),
+          .metadata(.languageHint),
+          .content(.code),
+          .syntax(.wrapTrailingPrimary),
+        ]
+
+      case .link:
+        [
+          .syntax(.wrapLeadingPrimary),
+          .content(.label),
+          .syntax(.wrapTrailingPrimary),
+          .syntax(.wrapLeadingSecondary),
           .metadata(.url),
-//        .syntaxTrailing
-      ]
-      case .callout: [
-//        .syntaxLeading,
-//        .label,
-//        .content
-      ]
+          .syntax(.wrapTrailingSecondary),
+
+        ]
+
+      case .callout:
+        [
+          //        .syntaxLeading,
+          //        .label,
+          //        .content
+        ]
     }
   }
 
@@ -48,7 +58,7 @@ extension Markdown.Syntax {
     switch self {
       case .heading,
         .quoteBlock, .list:
-          .prefix
+        .prefix
 
       case .bold,
         .italic,
@@ -68,7 +78,7 @@ extension Markdown.Syntax {
         .single
 
       case .callout: .callout
-        
+
     }
   }
 

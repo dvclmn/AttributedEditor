@@ -19,12 +19,15 @@ public struct AttributedEditorView: NSViewRepresentable {
   @Binding var text: String
 
   var highlighter: MarkdownHighlighter
-
+  var theme: MarkdownTheme
+  
   public init(
     text: Binding<String>,
+    theme: MarkdownTheme = .default
   ) {
     self._text = text
     self.highlighter = MarkdownHighlighter()
+    self.theme = theme
   }
 }
 

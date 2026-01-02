@@ -10,15 +10,25 @@ import CoreTools
 
 package struct ThemeResolver {
 
-  package static func resolveToken(
-    with theme: MarkdownTheme,
+  let theme: MarkdownTheme
+  let supported: Supported
+  package init(
+    theme: MarkdownTheme,
+    supported: Supported
+  ) {
+    self.theme = theme
+    self.supported = supported
+  }
+  package func resolveToken(
+    //  package static func resolveToken(
+    //    with theme: MarkdownTheme,
     for run: SyntaxRun
   ) -> ResolvedRun {
     let token = theme.styleToken(
       for: run.syntax,
       role: run.role
     )
-    
+
     let attrs = theme.textAttributes(for: token)
 
     return ResolvedRun(

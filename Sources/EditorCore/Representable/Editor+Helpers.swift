@@ -7,9 +7,15 @@
 
 import CoreTools
 import SwiftUI
+import MarkdownHighlighter
+
 
 extension AttributedEditorView {
 
+  var themeResolver: ThemeResolver {
+    .init(theme: theme, supported: highlighter.supported)
+  }
+  
   func configureTextDefaults(
     _ textView: NSTextView,
     scrollWidth: CGFloat,
@@ -48,7 +54,7 @@ extension AttributedEditorView {
   package var defaultAttributes: NSTextAttributes {
     return [
       .font: font,
-      .foregroundColor: highlighter.theme.textColour,
+      .foregroundColor: theme.textColour,
       .paragraphStyle: defaultParagraphStyle,
     ]
   }

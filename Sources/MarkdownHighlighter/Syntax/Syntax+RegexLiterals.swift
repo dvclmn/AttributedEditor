@@ -32,50 +32,70 @@ extension Markdown.Syntax {
         /// `(?:[ \t]+#+)?$`
         /// Handles optional trailing hashes (e.g., # Title ##) and finds the end of the line.
         return Regex(
-          /^[ ]{0,3}(?<prefix>#{1,6})(?![#])[ \t]+(?<content>.+?)(?:[ \t]+#+)?$/
-          //          /^(?<prefix>#{1,6})[ \t]+(?<content>.*?)(?:[ \t]+#+)?$/
+          #/
+          ^[\s]{0,3}(?<prefix>\#{1,6})
+          (?![\#])[ \t]+(?<content>.+?)
+          (?:[\s\t]+\#+)?$
+          /#
         )
         .anchorsMatchLineEndings()
-
-      case .bold: return nil
+      //          /^(?<prefix>#{1,6})[ \t]+(?<content>.*?)(?:[ \t]+#+)?$/
 
       case .italic:
         return Regex(
           #/
-          (?<leading>[\*_])
+          (?<syntaxLeadingPrimary>(?:\*{1}|_{1}))
           (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
-          (?<trailing>\k<leading>)
-          /#)
+          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
+          /#
+        )
+      //        return Regex(
+      //          #/
+      //          (?<syntaxLeadingPrimary>[\*_])
+      //          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
+      //          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
+      //          /#
+      //        )
+      case .bold:
+        return Regex(
+          #/
+          (?<syntaxLeadingPrimary>(?:\*{2}|_{2}))
+          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
+          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
+          /#
+        )
+
       case .boldItalic:
-        //        Regex(
-        //          #/
-        //          (?<leading>(?:\*{3}|_{3}))
-        //          (?<content>[^\n]+?)
-        //          (?<trailing>\k<leading>)
-        //          /#
-        //        )
-        return nil
+        return Regex(
+          #/
+          (?<syntaxLeadingPrimary>(?:\*{3}|_{3}))
+          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
+          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
+          /#
+        )
+      //        (?<content>[^\n]+?)
+      //        return nil
 
       case .inlineCode:
         return Regex(
           #/
-          (?<leading>`)
+          (?<syntaxLeadingPrimary>`)
           (?<content>(?:[^`\n])+?)
-          (?<trailing>`)
+          (?<syntaxTrailingPrimary>`)
           /#
         )
       case .codeBlock:
-        //        Regex(
-        //          #/
-        //          (?<start>```[ \t]*)
-        //          (?<langHint>[^\n]*)\n
-        //          (?<content>(?:.|\n)*?)
-        //          (?<end>^```[ \t]*$)
-        //          /#
-        //        )
-        //        .dotMatchesNewlines()
-        //        .anchorsMatchLineEndings()
-        return nil
+        return Regex(
+          #/
+          (?<syntaxLeadingPrimary>```[ \t]*)
+          (?<langHint>[^\n]*)\n
+          (?<code>(?:.|\n)*?)
+          (?<syntaxTrailingPrimary>^```[ \t]*$)
+          /#
+        )
+        .dotMatchesNewlines()
+        .anchorsMatchLineEndings()
+      //        return nil
       case .list:
         return nil
       case .quoteBlock: return nil
@@ -99,18 +119,18 @@ extension Markdown.Syntax {
         )
       case .link:
         return Regex(
+          //          #/
+          //          (?<content>\[[^\]\n]+\])
+          //          (?<metadata>\([^\)\n]+\))
+          //          /#
           #/
-          (?<content>\[[^\]\n]+\])
-          (?<metadata>\([^\)\n]+\))
+          (?<leading>\[)
+          (?<content>[^\]\n]+)
+          (?<trailingA>\])
+          (?<leadingB>\()
+          (?<url>[^\)\n]+)
+          (?<trailingB>\))
           /#
-          //            #/
-          //            (?<leading>\[)
-          //            (?<content>[^\]\n]+)
-          //            (?<trailingA>\])
-          //            (?<leadingB>\()
-          //            (?<url>[^\)\n]+)
-          //            (?<trailingB>\))
-          //            /#
         )
       case .image:
         //        Regex(

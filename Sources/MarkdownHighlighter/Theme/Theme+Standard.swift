@@ -24,9 +24,9 @@ extension MarkdownTheme {
       }
 
       Syntax(.link) { roles in
-        roles.set(.content, style: StyleToken(colour: .pink))
-        roles.set(.syntax, style: StyleToken(colour: .purple))
-        roles.set(.metadata, style: StyleToken(colour: .green))
+        roles.set(.content, style: StyleToken(colour: .secondary))
+        roles.set(.syntax, style: StyleToken(colour: .grey(0.3)))
+        roles.set(.metadata, style: StyleToken(colour: .link))
       }
 
       Syntax(.codeBlock) { roles in

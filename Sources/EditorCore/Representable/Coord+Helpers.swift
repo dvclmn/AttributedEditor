@@ -11,7 +11,8 @@ import MarkdownHighlighter
 
 extension AttributedEditorView.Coordinator {
   var defaults: NSTextAttributes { self.parent.defaultAttributes }
-  var theme: MarkdownTheme { self.parent.highlighter.theme }
+  var theme: MarkdownTheme { self.parent.theme }
+  var themeResolver: ThemeResolver { self.parent.themeResolver }
   var font: NSFont { self.parent.font }
   var hasLineNumbers: Bool { self.parent.editorOptions.contains(.lineNumbers) }
 
@@ -62,7 +63,7 @@ extension AttributedEditorView.Coordinator {
       let range = run.range.toNSRange(in: text)?.intersection(affectedRange)
       guard let range else { continue }
 
-      let resolved = ThemeResolver.resolveToken(with: theme, for: run)
+      let resolved = themeResolver.resolveToken(for: run)
       var attrs = resolved.attributes
       resolved.updateFont(using: font, in: &attrs)
 

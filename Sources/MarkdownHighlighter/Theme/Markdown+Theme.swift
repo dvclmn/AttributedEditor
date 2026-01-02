@@ -53,6 +53,7 @@ extension MarkdownTheme {
     for token: StyleToken
   ) -> NSTextAttributes {
     var attrs = NSTextAttributes()
+    
     attrs[.foregroundColor] = token.foreground?.nsColor
     attrs[.fontTraits] = token.fontTraits
     
