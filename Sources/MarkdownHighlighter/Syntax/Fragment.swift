@@ -13,18 +13,25 @@ public enum Fragment: String, Sendable {
   case content  // Or title? For link, image?
   case syntaxLeading  // Aka leading
   case syntaxTrailing  //  Aka trailing
-  case prefix  // List "-", Image "!", Quote ">", Heading "#"
+  
+  case label
+  /// Not sure, but I think anything after here should be something
+  /// that I can't logically categorise as leading or trailing syntax
+  case exclamation // For image
+//  case prefix  // List "-", Image "!", Quote ">", Heading "#"
   case languageHint  // Of type `StyleRole.metadata`
   case url
+  
+  /// Should/cloud this actually be covered under `content`?
   case single  // ---
 }
 
 extension Fragment {
   var toStyleRole: StyleRole {
     switch self {
-      case .content, .single: .content
+      case .content, .label, .single: .content
       case .syntaxLeading, .syntaxTrailing: .syntax
-      case .languageHint, .url, .prefix: .metadata
+      case .languageHint, .url, .exclamation: .metadata
     }
   }
 }
@@ -33,7 +40,7 @@ extension Fragment {
 extension Fragment {
   public var name: String {
     switch self {
-      case .content, .prefix, .single: rawValue.capitalized
+      case .content, .label, .exclamation, .single: rawValue.capitalized
       case .syntaxLeading: "Syntax Start"
       case .syntaxTrailing: "Syntax End"
       case .languageHint: "Language Hint"

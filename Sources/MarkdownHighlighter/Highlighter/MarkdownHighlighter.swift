@@ -29,8 +29,8 @@ package final class MarkdownHighlighter {
 
       print("🪛 Building styles for \(syntax.name)")
 
-      /// Ensure we have a Regex pattern for this syntax
-      let pattern = usingRegexBuilders ? syntax.descriptor?.pattern : syntax.pattern
+      let pattern = syntax.pattern
+//      let pattern = usingRegexBuilders ? syntax.descriptor?.pattern : syntax.pattern
       
       guard let pattern else {
         throw SyntaxError.noRegexPattern

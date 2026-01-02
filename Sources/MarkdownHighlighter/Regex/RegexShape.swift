@@ -22,6 +22,8 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   case single
   case codeBlock
   case link
+//  case list
+  case callout
 
   public var name: String {
     switch self {
@@ -57,6 +59,19 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
     Substring,
     title: Substring,
     url: Substring
+  )
+  
+//  public typealias List = (
+//    Substring,            
+//    marker: Substring,    
+//    content: Substring    
+//  )
+  
+  public typealias Callout = (
+    Substring,
+    prefix: Substring,
+    label: Substring,
+    content: Substring
   )
 
   //  public typealias Image = (
@@ -112,7 +127,7 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(.prefix, fragment)
         }
         return switch fragment {
-          case .prefix: values.prefix.indexRange
+          case .syntaxLeading: values.prefix.indexRange
           case .content: values.content.indexRange
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }

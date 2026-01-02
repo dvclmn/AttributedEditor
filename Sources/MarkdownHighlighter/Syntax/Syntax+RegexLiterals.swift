@@ -13,31 +13,30 @@ extension Markdown.Syntax {
     switch self {
 
       case .heading:
-        return Regex(
-          /^(?<prefix>#{1,6})[ \t]+(?<content>.*?)(?:[ \t]+#+)?$/
-            .anchorsMatchLineEndings()
-        )
-//        let prefix = Reference(Substring.self)
-//        let content = Reference(Substring.self)
-//        return Regex(
-//          Regex {
-//            Capture(as: prefix) {
-//              Repeat(count: level) {
-//                "#"
-//              }
-//            }
-//            Capture(as: content) {
-//              OneOrMore(CharacterClass(.anyOf("#").inverted), .reluctant)
-//              //          OneOrMore(.reluctant, CharacterClass.anyOf("#").inverted)
-//            }
-//          }
-//        )
 
-      //        case .heading2: return nil
-      //        case .heading3: return nil
-      //        case .heading4: return nil
-      //        case .heading5: return nil
-      //        case .heading6: return nil
+        /// `^`
+        /// Ensures we start at the beginning of a line.
+        ///
+        /// `(?<prefix>#{1,6})`
+        /// Captures the hashes
+        ///
+        /// `(?![#])`
+        /// Ensures the match doesn't stop prematurely if there are more hashes.
+        ///
+        /// `[ \t]+`
+        /// Ensures at least one space/tab exists after the hashes
+        ///
+        /// `(?<content>.+?)`
+        /// Captures the actual text of the heading.
+        ///
+        /// `(?:[ \t]+#+)?$`
+        /// Handles optional trailing hashes (e.g., # Title ##) and finds the end of the line.
+        return Regex(
+          /^[ ]{0,3}(?<prefix>#{1,6})(?![#])[ \t]+(?<content>.+?)(?:[ \t]+#+)?$/
+//          /^(?<prefix>#{1,6})[ \t]+(?<content>.*?)(?:[ \t]+#+)?$/
+        )
+        .anchorsMatchLineEndings()
+
       case .bold: return nil
 
       case .italic:

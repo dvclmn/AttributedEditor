@@ -8,25 +8,25 @@
 import CoreTools
 import Foundation
 
-enum SyntaxDescriptor {
-  case wrap(WrapSpec)
-  case prefix(PrefixSpec)
-  case link(LinkSpec)
-  //  case codeBlock(CodeBlockSpec)
-}
-extension SyntaxDescriptor {
-  var shape: RegexShape {
-    switch self {
-      case .wrap: .wrap
-      case .prefix: .prefix
-      case .link: .link
-    }
-  }
-  var pattern: Regex<AnyRegexOutput> {
-    return switch self {
-      case .wrap(let spec): spec.pattern
-      case .prefix(let spec): spec.pattern
-      case .link(let spec): spec.pattern
-    }
-  }
-}
+//enum SyntaxDescriptor {
+//  case wrap(WrapSpec)
+//  case prefix(PrefixSpec)
+//  case link(LinkSpec)
+//  //  case codeBlock(CodeBlockSpec)
+//}
+//extension SyntaxDescriptor {
+//  var shape: RegexShape {
+//    switch self {
+//      case .wrap: .wrap
+//      case .prefix: .prefix
+//      case .link: .link
+//    }
+//  }
+//  var pattern: Regex<AnyRegexOutput> {
+//    return switch self {
+//      case .wrap(let spec): spec.pattern
+//      case .prefix(let spec): spec.pattern
+//      case .link(let spec): spec.pattern
+//    }
+//  }
+//}

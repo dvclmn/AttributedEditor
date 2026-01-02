@@ -9,22 +9,22 @@ import RegexBuilder
 
 extension Markdown.Syntax {
 
-  var fragments: [Fragment]? {
+  var fragments: [Fragment] {
     switch regexShape {
       case .wrap: [.syntaxLeading, .content, .syntaxTrailing]
-      case .prefix: [.prefix, .content]
+      case .prefix: [.syntaxLeading, .content]
       case .single: [.single]
       case .codeBlock: [.syntaxLeading, .languageHint, .content, .syntaxTrailing]
       case .link: [.syntaxLeading, .content, .syntaxTrailing, .syntaxLeading, .url, .syntaxTrailing]
-      default: nil
+      case .callout: [.syntaxLeading, .label, .content]
     }
   }
 
-  var regexShape: RegexShape? {
+  var regexShape: RegexShape {
     switch self {
       case .heading,
-        .quoteBlock:
-        .prefix
+        .quoteBlock, .list:
+          .prefix
 
       case .bold,
         .italic,
@@ -43,8 +43,8 @@ extension Markdown.Syntax {
       case .horizontalRule:
         .single
 
-      case .list, .callout:
-        nil
+      case .callout: .callout
+        
     }
   }
 
