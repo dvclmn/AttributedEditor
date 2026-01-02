@@ -34,31 +34,33 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
 
   public typealias Wrap = (
     Substring,
-    leading: Substring,
+    syntaxLeading: Substring,
     content: Substring,
-    trailing: Substring
+    syntaxTrailing: Substring
   )
 
   public typealias CodeBlock = (
     Substring,
-    start: Substring,
-    langHint: Substring,
+    syntaxLeading: Substring,
+    langHint: Substring, // Aka metadata
     content: Substring,
-    end: Substring
+    syntaxTrailing: Substring
   )
 
   public typealias Single = (Substring)
 
   public typealias Prefix = (
     Substring,
-    prefix: Substring,
+    syntaxLeading: Substring, // Aka prefix
     content: Substring,
   )
 
+  /// Need to extract leading/trailing syntax specially for
+  /// Link, from both content and metadata fragments
   public typealias Link = (
     Substring,
-    title: Substring,
-    url: Substring
+    content: Substring, // Aka label
+    metadata: Substring // Aka url
   )
 
   //  public typealias List = (
@@ -67,12 +69,12 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   //    content: Substring
   //  )
 
-  public typealias Callout = (
-    Substring,
-    prefix: Substring,
-    label: Substring,
-    content: Substring
-  )
+//  public typealias Callout = (
+//    Substring,
+//    prefix: Substring,
+//    label: Substring,
+//    content: Substring
+//  )
 
   //  public typealias Image = (
   //    Substring,
@@ -96,9 +98,15 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .syntaxLeading: values.leading.indexRange
-          case .content: values.content.indexRange
-          case .syntaxTrailing: values.trailing.indexRange
+          case .syntaxLeading:
+            values.syntaxLeading.indexRange
+            
+          case .content:
+            values.content.indexRange
+            
+          case .syntaxTrailing:
+            values.syntaxTrailing.indexRange
+            
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
       // MARK: - Prefix
@@ -107,8 +115,12 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .syntaxLeading: values.prefix.indexRange
-          case .content: values.content.indexRange
+          case .syntaxLeading:
+            values.syntaxLeading.indexRange
+            
+          case .content:
+            values.content.indexRange
+            
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
@@ -154,17 +166,17 @@ extension RegexShape {
         }
 
       // MARK: - Callout
-      case .callout:
-        guard let values = match.output.extractValues(as: Callout.self) else {
-          throw RegexError.failedValueExtraction(self, fragment)
-        }
-        return switch fragment {
-          case .syntaxLeading: values.prefix.indexRange
-          case .label: values.label.indexRange
-          case .content: values.content.indexRange
-          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
-
-        }
+//      case .callout:
+//        guard let values = match.output.extractValues(as: Callout.self) else {
+//          throw RegexError.failedValueExtraction(self, fragment)
+//        }
+//        return switch fragment {
+//          case .syntaxLeading: values.prefix.indexRange
+//          case .label: values.label.indexRange
+//          case .content: values.content.indexRange
+//          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
+//
+//        }
     }
   }
 

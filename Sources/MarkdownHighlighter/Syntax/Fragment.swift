@@ -9,29 +9,65 @@ import Foundation
 
 /// The available possible parts, found within Regex Shapes
 /// This loosely relates to `StyleRole`, just more granular
-public enum Fragment: String, Sendable, CaseIterable {
-  case content  // Or title? For link, image?
+public enum Fragment: Sendable, CaseIterable {
+  public static var allCases: [Fragment] {
+    [
+      .content(.general),
+      .content(.label),
+      .syntaxLeading,
+      .syntaxTrailing,
+      .metadata(.general),
+      .metadata(.url),
+      .metadata(.languageHint),
+      .metadata(.exclamation),
+    ]
+  }
+
+  case content(ContentKind = .general)  // Or title? For link, image?
   case syntaxLeading  // Aka leading
   case syntaxTrailing  //  Aka trailing
-
-  case label  // Image, link, callout
+  case metadata(Metadata = .general)
+  //  case label  // Image, link, callout
   /// Not sure, but I think anything after here should be something
   /// that I can't logically categorise as leading or trailing syntax
-  case exclamation  // For image
+  //  case exclamation  // For image
   //  case prefix  // List "-", Image "!", Quote ">", Heading "#"
-  case languageHint  // Of type `StyleRole.metadata`
-  case url
+  //  case languageHint  // Of type `StyleRole.metadata`
+  //  case url
 
   /// Should/cloud this actually be covered under `content`?
-  case single  // ---
+  //  case single  // ---
+}
+
+extension Fragment {
+  public enum Metadata: Sendable {
+    case general
+    case url
+    case languageHint
+    case exclamation
+
+    public var name: String {
+      switch self {
+        case .general: "General"
+        case .url: "URL"
+        case .languageHint: "Language Hint"
+        case .exclamation: "Exclamation"
+      }
+    }
+  }
+
+  public enum ContentKind: Sendable {
+    case general
+    case label
+  }
 }
 
 extension Fragment {
   var toStyleRole: StyleRole {
     switch self {
-      case .content, .label, .single: .content
+      case .content: .content
       case .syntaxLeading, .syntaxTrailing: .syntax
-      case .languageHint, .url, .exclamation: .metadata
+      case .metadata: .metadata
     }
   }
 }
@@ -40,15 +76,21 @@ extension Fragment {
 extension Fragment {
   public var name: String {
     switch self {
-      case .content, .label, .exclamation, .single: rawValue.capitalized
-      case .syntaxLeading: "Syntax Start"
-      case .syntaxTrailing: "Syntax End"
-      case .languageHint: "Language Hint"
-      case .url: "URL"
+      case .content: "Content"
+      case .syntaxLeading: "Syntax Leading"
+      case .syntaxTrailing: "Syntax Trailing"
+      case .metadata(let metadata): metadata.name
     }
+    //    switch self {
+    //      case .content, .label, .exclamation, .single: rawValue.capitalized
+    //      case .syntaxLeading: "Syntax Leading"
+    //      case .syntaxTrailing: "Syntax Trailing"
+    //    //      case .languageHint: "Language Hint"
+    //    //      case .url: "URL"
+    //    }
   }
 }
 
 extension Fragment: CustomStringConvertible {
-  public var description: String { rawValue }
+  public var description: String { name }
 }
