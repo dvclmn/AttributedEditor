@@ -15,8 +15,13 @@ public enum Fragment: Sendable, CaseIterable {
       .content(.general),
       .content(.label),
       .content(.single),
-      .syntaxLeading,
-      .syntaxTrailing,
+      .syntax(.prefix),
+      .syntax(.wrapLeadingPrimary),
+      .syntax(.wrapTrailingPrimary),
+      .syntax(.wrapLeadingSecondary),
+      .syntax(.wrapTrailingSecondary),
+      //      .syntaxLeading,
+      //      .syntaxTrailing,
       .metadata(.general),
       .metadata(.url),
       .metadata(.languageHint),
@@ -25,8 +30,9 @@ public enum Fragment: Sendable, CaseIterable {
   }
 
   case content(ContentKind = .general)  // Or title? For link, image?
-  case syntaxLeading  // Aka leading
-  case syntaxTrailing  //  Aka trailing
+  case syntax(SyntaxKind = .wrapLeadingPrimary)
+  //  case syntaxLeading  // Aka leading
+  //  case syntaxTrailing  //  Aka trailing
   case metadata(Metadata = .general)
   //  case label  // Image, link, callout
   /// Not sure, but I think anything after here should be something
@@ -63,13 +69,31 @@ extension Fragment {
     case code
     case single  // E.g. horizontal rule
   }
+
+  public enum SyntaxKind: Sendable {
+    case prefix
+    case wrapLeadingPrimary
+    case wrapTrailingPrimary
+    case wrapLeadingSecondary
+    case wrapTrailingSecondary
+
+    public var name: String {
+      switch self {
+        case .prefix: "Prefix"
+        case .wrapLeadingPrimary: "Wrap Leading Primary"
+        case .wrapTrailingPrimary: "Wrap Trailing Primary"
+        case .wrapLeadingSecondary: "Wrap Leading Secondary"
+        case .wrapTrailingSecondary: "Wrap Trailing Secondary"
+      }
+    }
+  }
 }
 
 extension Fragment {
   var toStyleRole: StyleRole {
     switch self {
       case .content: .content
-      case .syntaxLeading, .syntaxTrailing: .syntax
+      case .syntax: .syntax
       case .metadata: .metadata
     }
   }
@@ -80,8 +104,8 @@ extension Fragment {
   public var name: String {
     switch self {
       case .content: "Content"
-      case .syntaxLeading: "Syntax Leading"
-      case .syntaxTrailing: "Syntax Trailing"
+      case .syntax(let kind): "Syntax \(kind.name)"
+      //      case .syntaxTrailing: "Syntax Trailing"
       case .metadata(let metadata): metadata.name
     }
   }
