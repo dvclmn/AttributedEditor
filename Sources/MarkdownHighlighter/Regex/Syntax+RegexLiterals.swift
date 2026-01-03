@@ -14,12 +14,71 @@ extension Markdown.Syntax {
   /// `*` = Preceeding character zero or more times
   /// `+` = Preceeding character one or more times
   public var pattern: Regex<AnyRegexOutput>? {
+
     switch self {
 
-      case .list: return nil
-      case .quoteBlock: return nil
-      case .callout: return nil
+      // MARK: - Single
 
+      case .horizontalRule:
+        return Regex(/\n---+?/)
+          .anchorsMatchLineEndings()
+          .ignoresCase()
+
+      // MARK: - Wrap
+      case .italic:
+        return Regex(
+          #/
+          (?<leading>(?:\*{1}|_{1}))
+          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
+          (?<trailing>\k<leading>)
+          /#
+        )
+
+      case .bold:
+        return Regex(
+          #/
+          (?<leading>(?:\*{2}|_{2}))
+          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
+          (?<trailing>\k<leading>)
+          /#
+        )
+
+      case .boldItalic:
+        return Regex(
+          #/
+          (?<leading>(?:\*{3}|_{3}))
+          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
+          (?<trailing>\k<leading>)
+          /#
+        )
+      case .inlineCode:
+        return Regex(
+          #/
+          (?<leading>`)
+          (?<content>(?:[^`\n])+?)
+          (?<trailing>\k<leading>)
+          /#
+        )
+
+      case .strikethrough:
+        return Regex(
+          #/
+          (?<syntaxLeadingPrimary>(?:\~{2}))
+          (?<content>[^~ \n][^\n]*?[^~ \n])
+          (?<trailing>\k<syntaxLeadingPrimary>)
+          /#
+        )
+
+      case .highlight:
+        return Regex(
+          #/
+          (?<leading>==)
+          (?<content>[^== \n][^\n]*?[^== \n])
+          (?<trailing>\k<leading>)
+          /#
+        )
+
+      // MARK: - Prefix
       case .heading:
         return Regex(
           #/
@@ -30,40 +89,7 @@ extension Markdown.Syntax {
         )
         .anchorsMatchLineEndings()
 
-      case .italic:
-        return Regex(
-          #/
-          (?<syntaxLeadingPrimary>(?:\*{1}|_{1}))
-          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
-          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
-          /#
-        )
-
-      case .bold:
-        return Regex(
-          #/
-          (?<syntaxLeadingPrimary>(?:\*{2}|_{2}))
-          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
-          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
-          /#
-        )
-
-      case .boldItalic:
-        return Regex(
-          #/
-          (?<syntaxLeadingPrimary>(?:\*{3}|_{3}))
-          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
-          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
-          /#
-        )
-      case .inlineCode:
-        return Regex(
-          #/
-          (?<syntaxLeadingPrimary>`)
-          (?<content>(?:[^`\n])+?)
-          (?<syntaxTrailingPrimary>`)
-          /#
-        )
+      // MARK: - Code Block
       case .codeBlock:
         return Regex(
           #/
@@ -76,40 +102,28 @@ extension Markdown.Syntax {
         .dotMatchesNewlines()
         .anchorsMatchLineEndings()
 
-      case .strikethrough:
-        return Regex(
-          #/
-          (?<syntaxLeadingPrimary>(?:\~{2}))
-          (?<content>[^~ \n][^\n]*?[^~ \n])
-          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
-          /#
-        )
+      // MARK: - Link/Image
 
-      case .highlight:
-        return Regex(
-          #/
-          (?<leading>==)
-          (?<content>[^== \n][^\n]*?[^== \n])
-          (?<trailing>\k<leading>)
-          /#
-        )
       case .image, .link:
         return Regex(
           #/
-          (?<exclamation>(!)?)
-          (?<syntaxLeadingPrimary>\[)
+          (?<exclamation>!?)
+          (?<leading>\[)
           (?<label>[^\]\n]+)
-          (?<syntaxTrailingPrimary>\])
-          (?<syntaxLeadingSecondary>\()
+          (?<trailing>\])
+          (?<leadingSecondary>\()
           (?<url>[^\)\n]+)
-          (?<syntaxTrailingSecondary>\))
+          (?<trailingSecondary>\))
           /#
         )
 
-      case .horizontalRule:
-        return Regex(/\n---+?/)
-          .anchorsMatchLineEndings()
-          .ignoresCase()
+      // MARK: - Callout
+
+      case .callout: return nil
+
+      case .list: return nil
+      case .quoteBlock: return nil
+
     }
   }
 }

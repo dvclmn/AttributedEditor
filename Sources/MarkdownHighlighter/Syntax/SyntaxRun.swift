@@ -66,7 +66,7 @@ extension Array where Element == SyntaxRun {
     map { $0.content(in: source) }
   }
 
-  func textContent(for fragment: Fragment, in text: String) -> String? {
+  func content(for fragment: Fragment, in text: String) -> String? {
     //  package subscript(fragment: Fragment, source text: String) -> String? {
     guard let run = first(where: { $0.fragment == fragment }) else {
       print("No run for found with Fragment '\(fragment)'")

@@ -58,7 +58,8 @@ extension RegexShape {
           .trailing: values.trailing.indexRange,
         ]
 
-        fragments[.metadata(.languageHint)] = values.languageHint?.indexRange
+        guard let langHint = values.languageHint, !langHint.isEmpty else { return fragments }
+        fragments[.metadata(.languageHint)] = langHint.indexRange
 
         return fragments
 
@@ -87,7 +88,10 @@ extension RegexShape {
             values.trailingSecondary.indexRange,
         ]
 
-        fragments[.metadata(.exclamation)] = values.exclamation?.indexRange
+        guard let exclam = values.exclamation, !exclam.isEmpty else { return fragments }
+        fragments[.metadata(.exclamation)] = exclam.indexRange
+
+//        fragments[.metadata(.exclamation)] = values.exclamation?.indexRange
 
         return fragments
 

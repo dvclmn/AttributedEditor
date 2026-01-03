@@ -18,52 +18,63 @@ struct RegexTests {
 
   @Test
   func linkHasSixFragments() async throws {
-    let text = "My link: [hello](http://website.com)"
+    let text = "My link: [web site](http://website.com)"
     highlighter.supported = [.link]
     let runs = try highlighter.buildStyles(in: text)
 
     #expect(runs.count == 6)
+    #expect(runs.content(for: .content(.label), in: text) == "web site")
+    #expect(runs.content(for: .metadata(.url), in: text) == "http://website.com")
   }
-  
+  @Test
+  func imageHasSevenFragments() async throws {
+    let text = "My image: ![cool image](http://website.com/image.jpg)"
+    highlighter.supported = [.image]
+    let runs = try highlighter.buildStyles(in: text)
+
+    #expect(runs.count == 7)
+    #expect(runs.content(for: .content(.label), in: text) == "cool image")
+    #expect(runs.content(for: .metadata(.url), in: text) == "http://website.com/image.jpg")
+  }
+
   // MARK: - Italics
-//  @Test(arguments: ["*", "_"])
-//  func italicMatchesSupportedMarkers(marker: String) async throws {
-//    let text = "Some \(marker)example\(marker) text."
-//    
-//    highlighter.supported = [.italic]
-//    let runs = try highlighter.buildStyles(in: text)
-//    
-//    #expect(runs.count == 3)
-//    #expect(runs.contains(.italic))
-//    #expect(runs.textContent(for: .content, in: text) == "example")
-//  }
+  //  @Test(arguments: ["*", "_"])
+  //  func italicMatchesSupportedMarkers(marker: String) async throws {
+  //    let text = "Some \(marker)example\(marker) text."
+  //
+  //    highlighter.supported = [.italic]
+  //    let runs = try highlighter.buildStyles(in: text)
+  //
+  //    #expect(runs.count == 3)
+  //    #expect(runs.contains(.italic))
+  //    #expect(runs.textContent(for: .content, in: text) == "example")
+  //  }
 
-
-//  @Test
-//  func imageHasSevenFragments() async throws {
-//    let text = "My image: ![hello](http://website.com/image.jpg)"
-//    highlighter.supported = [.image]
-//    let runs = try highlighter.buildStyles(in: text)
-//
-//    #expect(runs.count == 7)
-//  }
-//
-//  @Test
-//  func headingOneMatchesWithSpaceAfterHash() async throws {
-//    let text = "# An example of a header"
-//    highlighter.supported = [.heading(level: 1)]
-//    let runs = try highlighter.buildStyles(in: text)
-//
-//    #expect(runs.contains(.heading(level: 1)))
-//  }
-//
-//  @Test
-//  func headingOneDoesNotMatchWithoutSpaceAfterHash() async throws {
-//    let text = "#An example of a header"
-//    highlighter.supported = [.heading(level: 1)]
-//    let runs = try highlighter.buildStyles(in: text)
-//    #expect(runs.isEmpty)
-//  }
+  //  @Test
+  //  func imageHasSevenFragments() async throws {
+  //    let text = "My image: ![hello](http://website.com/image.jpg)"
+  //    highlighter.supported = [.image]
+  //    let runs = try highlighter.buildStyles(in: text)
+  //
+  //    #expect(runs.count == 7)
+  //  }
+  //
+  //  @Test
+  //  func headingOneMatchesWithSpaceAfterHash() async throws {
+  //    let text = "# An example of a header"
+  //    highlighter.supported = [.heading(level: 1)]
+  //    let runs = try highlighter.buildStyles(in: text)
+  //
+  //    #expect(runs.contains(.heading(level: 1)))
+  //  }
+  //
+  //  @Test
+  //  func headingOneDoesNotMatchWithoutSpaceAfterHash() async throws {
+  //    let text = "#An example of a header"
+  //    highlighter.supported = [.heading(level: 1)]
+  //    let runs = try highlighter.buildStyles(in: text)
+  //    #expect(runs.isEmpty)
+  //  }
   //
   //  @Test
   //  func headingOneDoesNotMatchInHeadingTwo() async throws {
@@ -91,7 +102,6 @@ struct RegexTests {
   //
   //    #expect(runs.isEmpty)
   //  }
-
 
   //  @Test(arguments: ["**", "__"])
   //  func italicDoesNotMatchDoubleMarkers(marker: String) async throws {
