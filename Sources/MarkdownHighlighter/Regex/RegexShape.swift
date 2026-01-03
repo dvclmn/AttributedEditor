@@ -21,7 +21,7 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   case prefix
   case single
   case codeBlock
-  case link
+  case linkOrImage
   case callout
 
   public var name: String {
@@ -50,14 +50,15 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
 
   public typealias Prefix = (
     Substring,
-    prefix: Substring, // Aka prefix
+    prefix: Substring,  // Aka prefix
     content: Substring,
   )
 
   /// Need to extract leading/trailing syntax specially for
   /// Link, from both content and metadata fragments
-  public typealias Link = (
+  public typealias LinkOrImage = (
     Substring,
+    prefix: Substring,
     syntaxLeadingPrimary: Substring,
     label: Substring,
     syntaxTrailingPrimary: Substring,
@@ -72,21 +73,21 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   //    content: Substring
   //  )
 
-/// ```
-/// > [!NOTE] The title part
-/// > The normal text part
-/// ```
-///
-/// Callout types:
-/// NOTE
-/// TIP
-/// IMPORTANT
-/// WARNING
-/// CAUTION
+  /// ```
+  /// > [!NOTE] The title part
+  /// > The normal text part
+  /// ```
+  ///
+  /// Callout types:
+  /// NOTE
+  /// TIP
+  /// IMPORTANT
+  /// WARNING
+  /// CAUTION
 
   public typealias Callout = (
     Substring,
-    prefix: Substring, // Just like quoteBlock
+    prefix: Substring,  // Just like quoteBlock
     syntaxLeadingPrimary: Substring,
     exclamation: Substring,
     label: Substring,
@@ -94,14 +95,6 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
     title: Substring,
     content: Substring,
   )
-
-  
-//  public typealias Callout = (
-//    Substring,
-//    prefix: Substring,
-//    label: Substring,
-//    content: Substring
-//  )
 
   //  public typealias Image = (
   //    Substring,
@@ -127,13 +120,13 @@ extension RegexShape {
         return switch fragment {
           case .syntax(.wrapLeadingPrimary):
             values.syntaxLeadingPrimary.indexRange
-            
+
           case .content(.general):
             values.content.indexRange
-            
+
           case .syntax(.wrapTrailingPrimary):
             values.syntaxTrailingPrimary.indexRange
-            
+
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
       // MARK: - Prefix
@@ -144,10 +137,10 @@ extension RegexShape {
         return switch fragment {
           case .syntax(.prefix):
             values.prefix.indexRange
-            
+
           case .content(.general):
             values.content.indexRange
-            
+
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
@@ -169,40 +162,43 @@ extension RegexShape {
         return switch fragment {
           case .syntax(.wrapLeadingPrimary):
             values.syntaxLeadingPrimary.indexRange
-            
+
           case .metadata(.languageHint):
             values.langHint.indexRange
-            
+
           case .content(.code):
             values.code.indexRange
-            
+
           case .syntax(.wrapTrailingPrimary):
             values.syntaxTrailingPrimary.indexRange
-            
+
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
         }
 
       // MARK: - Link
-      case .link:
-        guard let values = match.output.extractValues(as: Link.self) else {
+      case .linkOrImage:
+        guard let values = match.output.extractValues(as: LinkOrImage.self) else {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
+          case .syntax(.prefix):
+            values.prefix.indexRange  // Present only for Image, not Link
+
           case .syntax(.wrapLeadingPrimary):
             values.syntaxLeadingPrimary.indexRange
-            
+
           case .content(.label):
             values.label.indexRange
-            
+
           case .syntax(.wrapTrailingPrimary):
             values.syntaxTrailingPrimary.indexRange
-            
+
           case .syntax(.wrapLeadingSecondary):
             values.syntaxLeadingSecondary.indexRange
-            
+
           case .metadata(.url):
             values.url.indexRange
-            
+
           case .syntax(.wrapTrailingSecondary):
             values.syntaxTrailingSecondary.indexRange
 
@@ -213,16 +209,16 @@ extension RegexShape {
       // MARK: - Callout
       case .callout:
         fatalError("Not yet implemented")
-//        guard let values = match.output.extractValues(as: Callout.self) else {
-//          throw RegexError.failedValueExtraction(self, fragment)
-//        }
-//        return switch fragment {
-//          case .syntaxLeading: values.prefix.indexRange
-//          case .label: values.label.indexRange
-//          case .content: values.content.indexRange
-//          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
-//
-//        }
+    //        guard let values = match.output.extractValues(as: Callout.self) else {
+    //          throw RegexError.failedValueExtraction(self, fragment)
+    //        }
+    //        return switch fragment {
+    //          case .syntaxLeading: values.prefix.indexRange
+    //          case .label: values.label.indexRange
+    //          case .content: values.content.indexRange
+    //          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
+    //
+    //        }
     }
   }
 

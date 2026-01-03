@@ -34,6 +34,12 @@ package final class MarkdownHighlighter {
       /// to be all instances of all syntaxes in a text
       guard !matches.isEmpty else { continue }
 
+      /// Determine if Image or Link, if needed.
+      /// This is currently the only 'edge-case' needing special handling
+//      if syntax.isLink {
+//        
+//      }
+      
       for match in matches {
         try processMatch(
           match,
