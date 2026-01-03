@@ -77,16 +77,16 @@ struct RegexTests {
   //    #expect(runs.isEmpty)
   //  }
 
-  //  @Test(arguments: ["*", "_"])
-  //  func italicMatchesSupportedMarkers(marker: String) async throws {
-  //    let text = "Some \(marker)example\(marker) text."
-  //
-  //    highlighter.supported = [.italic]
-  //    let runs = try highlighter.buildStyles(in: text)
-  //
-  //    #expect(runs.contains(.italic))
-  //    #expect(runs[1].content(in: text) == "example")
-  //  }
+    @Test(arguments: ["*", "_"])
+    func italicMatchesSupportedMarkers(marker: String) async throws {
+      let text = "Some \(marker)example\(marker) text."
+  
+      highlighter.supported = [.italic]
+      let runs = try highlighter.buildStyles(in: text)
+  
+      #expect(runs.contains(.italic))
+      #expect(runs[1].content(in: text) == "example")
+    }
   //
   //  @Test(arguments: ["**", "__"])
   //  func italicDoesNotMatchDoubleMarkers(marker: String) async throws {

@@ -23,6 +23,12 @@ package struct SyntaxRun {
 extension SyntaxRun {
   var role: StyleRole { Fragment.Meta(fragment) }
 
+  /// Helpful for Testing, for quickly extracting string for a range
+  /// `let content = runs[1].content(in: text)`
+  func content(in source: String) -> String {
+    source[range].toString
+  }
+  
   func debugPreview(in text: String) -> String {
     let rangeText = range.debugPreview(
       in: text,
@@ -53,6 +59,11 @@ extension Array where Element == SyntaxRun {
   /// This is very useful in tests
   func contains(_ syntax: Markdown.Syntax) -> Bool {
     contains { $0.syntax == syntax }
+  }
+  
+  /// Handy for Testing
+  func contents(in source: String) -> [String] {
+    map { $0.content(in: source) }
   }
 
 }

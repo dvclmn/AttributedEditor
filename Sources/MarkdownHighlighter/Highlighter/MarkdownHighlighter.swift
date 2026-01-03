@@ -36,17 +36,40 @@ package final class MarkdownHighlighter {
 
       /// Determine if Image or Link, if needed.
       /// This is currently the only 'edge-case' needing special handling
-//      if syntax.isLink {
-//
-//      }
-      
+      //      if syntax.isLink {
+      //
+      //      }
+
       for match in matches {
-        try processMatch(
-          match,
-          for: syntax,
-          in: text,
-          runs: &runs
-        )
+
+        let fragments = try syntax.regexShape.fragments(from: match)
+
+        for (fragment, range) in fragments {
+
+          /// If a run with this range is not already present, add a new one
+          let newRun = SyntaxRun(
+            syntax: syntax,
+            fragment: fragment,
+            range: range
+          )
+
+          //          let newRun = try processFragment(
+          //            fragment,
+          //            in: range,
+          //            for: syntax,
+          ////            runs: &runs
+          //          )
+
+          print("🏃 Created new run:\n\(newRun.debugPreview(in: text))")
+          runs.append(newRun)
+        }
+
+        //        try processMatch(
+        //          match,
+        //          for: syntax,
+        //          in: text,
+        //          runs: &runs
+        //        )
       }
     }
 
