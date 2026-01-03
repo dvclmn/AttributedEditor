@@ -58,7 +58,7 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   /// Link, from both content and metadata fragments
   public typealias LinkOrImage = (
     Substring,
-    prefix: Substring,
+    exclamation: Substring?,
     syntaxLeadingPrimary: Substring,
     label: Substring,
     syntaxTrailingPrimary: Substring,

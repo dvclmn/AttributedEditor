@@ -28,6 +28,12 @@ extension MarkdownTheme {
         roles.set(.syntax, style: StyleToken(colour: .defaultSyntaxColour))
         roles.set(.metadata, style: StyleToken(colour: .link))
       }
+      
+      Syntax(.image) { roles in
+        //        roles.set(.content, style: StyleToken(colour: .grey(0.8)))
+        roles.set(.syntax, style: StyleToken(colour: .defaultSyntaxColour))
+        roles.set(.metadata, style: StyleToken(colour: .link))
+      }
 
       Syntax(.codeBlock) { roles in
         roles.set(.content, style: StyleToken(colour: .secondary, font: .monoSpace))

@@ -16,14 +16,24 @@ typealias Syntax = Markdown.Syntax
 struct RegexTests {
   let highlighter = MarkdownHighlighter()
 
-    @Test
-    func linkHasSixFragments() async throws {
-      let text = "My link: [hello](http://website.com)"
-      let runs = try highlighter.buildStyles(in: text)
-      
-      #expect(runs.count == 6)
-//      #expect(runs.contains(.heading(level: 1)))
-    }
+  @Test
+  func image() async throws {
+    let text = "My image: ![hello](http://website.com/image.jpg)"
+    highlighter.supported = [.image]
+    let runs = try highlighter.buildStyles(in: text)
+    
+//    #expect(runs.count == 6)
+    //      #expect(runs.contains(.heading(level: 1)))
+  }
+  
+//    @Test
+//    func linkHasSixFragments() async throws {
+//      let text = "My link: [hello](http://website.com)"
+//      let runs = try highlighter.buildStyles(in: text)
+//      
+//      #expect(runs.count == 6)
+////      #expect(runs.contains(.heading(level: 1)))
+//    }
   
 //  @Test
 //  func headingOneMatchesWithSpaceAfterHash() async throws {

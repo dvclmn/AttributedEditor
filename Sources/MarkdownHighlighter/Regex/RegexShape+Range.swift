@@ -85,8 +85,8 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .syntax(.prefix):
-            values.prefix.indexRange  // Present only for Image, not Link
+          case .metadata(.exclamation):
+            values.exclamation.indexRange  // Present only for Image, not Link
 
           case .syntax(.wrapLeadingPrimary):
             values.syntaxLeadingPrimary.indexRange

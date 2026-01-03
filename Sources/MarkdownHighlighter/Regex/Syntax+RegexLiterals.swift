@@ -12,8 +12,6 @@ extension Markdown.Syntax {
   public var pattern: Regex<AnyRegexOutput>? {
     switch self {
 
-      case .heading:
-
         /// `^`
         /// Ensures we start at the beginning of a line.
         ///
@@ -31,6 +29,7 @@ extension Markdown.Syntax {
         ///
         /// `(?:[ \t]+#+)?$`
         /// Handles optional trailing hashes (e.g., # Title ##) and finds the end of the line.
+      case .heading:
         return Regex(
           #/
           ^[\s]{0,3}(?<prefix>\#{1,6})
@@ -96,8 +95,7 @@ extension Markdown.Syntax {
         .dotMatchesNewlines()
         .anchorsMatchLineEndings()
       //        return nil
-      case .list:
-        return nil
+      case .list: return nil
       case .quoteBlock: return nil
       case .callout: return nil
       case .strikethrough:
@@ -117,22 +115,28 @@ extension Markdown.Syntax {
           (?<trailing>\k<leading>)
           /#
         )
-      case .link:
+//        return Regex(
+//          #/
+//          (?<leading>\[)
+//          (?<content>[^\]\n]+)
+//          (?<trailingA>\])
+//          (?<leadingB>\()
+//          (?<url>[^\)\n]+)
+//          (?<trailingB>\))
+//          /#
+//        )
+      case .image, .link:
         return Regex(
-          //          #/
-          //          (?<content>\[[^\]\n]+\])
-          //          (?<metadata>\([^\)\n]+\))
-          //          /#
           #/
-          (?<leading>\[)
-          (?<content>[^\]\n]+)
-          (?<trailingA>\])
-          (?<leadingB>\()
+          (?<exclamation>(!)?)
+          (?<syntaxLeadingPrimary>\[)
+          (?<label>[^\]\n]+)
+          (?<syntaxTrailingPrimary>\])
+          (?<syntaxLeadingSecondary>\()
           (?<url>[^\)\n]+)
-          (?<trailingB>\))
+          (?<syntaxTrailingSecondary>\))
           /#
         )
-      case .image:
         //        Regex(
         //          #/
         //          (?<prefix>!?)
@@ -144,7 +148,6 @@ extension Markdown.Syntax {
         //          (?<trailingB>\))
         //          /#
         //        )
-        return nil
       case .horizontalRule:
         return nil
     //            Regex(/\n---+?/)
