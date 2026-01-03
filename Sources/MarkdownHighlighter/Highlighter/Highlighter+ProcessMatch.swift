@@ -99,8 +99,8 @@ extension MarkdownHighlighter {
   //    }
   //  }
 
-  private func imageOrLink() {
-
-  }
+//  private func imageOrLink() {
+//
+//  }
 
 }

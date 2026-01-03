@@ -15,7 +15,7 @@ enum SyntaxError: Error {
 
 enum RegexError: Error {
   /// Referring to `AnyRegexOutput/extractValues(as:)`
-  case failedValueExtraction(RegexShape)
+  case failedValueExtraction(for: RegexShape)
   case noMatches(text: String, syntax: Markdown.Syntax)
   
 }

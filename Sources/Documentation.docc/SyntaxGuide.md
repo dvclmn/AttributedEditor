@@ -193,3 +193,18 @@ var count: Int = 0
 
 - term Layout: Block
 - term Syntax: 
+
+## Callouts
+
+
+```
+> [!NOTE] The title part
+> The normal text part
+```
+Callout types:
+NOTE
+TIP
+IMPORTANT
+WARNING
+CAUTION
+

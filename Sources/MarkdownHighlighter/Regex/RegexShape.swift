@@ -8,18 +8,11 @@
 import AppKit
 import CoreTools
 
-/// I think we don't need assoc. values here, because would mean I'm
-/// attempting to handle type erasure, and `AnyRegexOutput` should
-/// be handling this entirely.
-///
-/// Also, assoc. value would imply it is possible to express some specific
-/// *value*, based on the declared type for a case. However there is no
-/// value to be passed in; the type *is* the value.
 @CaseDetection
 public enum RegexShape: String, Equatable, Hashable, Sendable {
+  case single
   case wrap
   case prefix
-  case single
   case codeBlock
   case linkOrImage
   case callout
@@ -27,26 +20,22 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   public var name: String {
     switch self {
       case .codeBlock: "Code Block"
+      case .linkOrImage: "Link/Image"
       default: rawValue.capitalized
     }
   }
+}
+
+extension RegexShape {
+
+  public typealias Single = (Substring)
 
   public typealias Wrap = (
     Substring,
-    syntaxLeadingPrimary: Substring,
+    leading: Substring,
     content: Substring,
-    syntaxTrailingPrimary: Substring
+    trailing: Substring
   )
-
-  public typealias CodeBlock = (
-    Substring,
-    syntaxLeadingPrimary: Substring,
-    languageHint: Substring?,
-    code: Substring,
-    syntaxTrailingPrimary: Substring
-  )
-
-  public typealias Single = (Substring)
 
   public typealias Prefix = (
     Substring,
@@ -54,38 +43,34 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
     content: Substring,
   )
 
+  public typealias CodeBlock = (
+    Substring,
+    leading: Substring,
+    languageHint: Substring?,
+    code: Substring,
+    trailing: Substring
+  )
+
   /// Need to extract leading/trailing syntax specially for
   /// Link, from both content and metadata fragments
   public typealias LinkOrImage = (
     Substring,
     exclamation: Substring?,
-    syntaxLeadingPrimary: Substring,
+    leading: Substring,
     label: Substring,
-    syntaxTrailingPrimary: Substring,
-    syntaxLeadingSecondary: Substring,
+    trailing: Substring,
+    leadingSecondary: Substring,
     url: Substring,
-    syntaxTrailingSecondary: Substring,
+    trailingSecondary: Substring,
   )
-
-  /// ```
-  /// > [!NOTE] The title part
-  /// > The normal text part
-  /// ```
-  ///
-  /// Callout types:
-  /// NOTE
-  /// TIP
-  /// IMPORTANT
-  /// WARNING
-  /// CAUTION
 
   public typealias Callout = (
     Substring,
-    prefix: Substring,  // Just like quoteBlock
-    syntaxLeadingPrimary: Substring,
+    prefix: Substring,  // ">" Just like quoteBlock
+    leading: Substring,
     exclamation: Substring,
     label: Substring,
-    syntaxTrailingPrimary: Substring,
+    trailing: Substring,
     title: Substring,
     content: Substring,
   )

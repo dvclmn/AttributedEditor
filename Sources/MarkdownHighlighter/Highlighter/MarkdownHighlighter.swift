@@ -30,21 +30,13 @@ package final class MarkdownHighlighter {
 
       let matches = text.matches(of: pattern)
 
-      /// It's ok if there's no matches, right? There's not always going
-      /// to be all instances of all syntaxes in a text
-      guard !matches.isEmpty else { continue }
-
-      /// Determine if Image or Link, if needed.
-      /// This is currently the only 'edge-case' needing special handling
-      //      if syntax.isLink {
-      //
-      //      }
+      print("🔎 Found \(matches.count) match(es) in the provided text for \(syntax.name).")
 
       for match in matches {
 
-        let fragments = try syntax.regexShape.fragments(from: match)
+        let fragmentRanges = try syntax.regexShape.fragmentRanges(from: match)
 
-        for (fragment, range) in fragments {
+        for (fragment, range) in fragmentRanges {
 
           /// If a run with this range is not already present, add a new one
           let newRun = SyntaxRun(

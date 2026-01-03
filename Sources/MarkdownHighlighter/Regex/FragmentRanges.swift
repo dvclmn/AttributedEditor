@@ -11,96 +11,113 @@ extension RegexShape {
 
   /// Explode a regex match into semantic fragments and their ranges.
   /// This is the *only* place where we cast to concrete regex output types.
-  public func fragments(
+  public func fragmentRanges(
     from match: Regex<AnyRegexOutput>.Match
   ) throws -> [Fragment: Range<String.Index>] {
 
     switch self {
 
+      // MARK: - Single
+      case .single:
+        guard let values = match.output.extractValues(as: Single.self) else {
+          throw RegexError.failedValueExtraction(for: self)
+        }
+        return [.content(.single): values.indexRange]
+
+      // MARK: - Wrap
+
       case .wrap:
         guard let values = match.output.extractValues(as: Wrap.self) else {
-          throw RegexError.failedValueExtraction(self)
+          throw RegexError.failedValueExtraction(for: self)
         }
-
         return [
-          .leading: values.syntaxLeadingPrimary.indexRange,
+          .leading: values.leading.indexRange,
           .content: values.content.indexRange,
-          .trailing: values.syntaxTrailingPrimary.indexRange,
+          .trailing: values.trailing.indexRange,
         ]
 
+      // MARK: - Prefix
       case .prefix:
         guard let values = match.output.extractValues(as: Prefix.self) else {
-          throw RegexError.failedValueExtraction(self)
+          throw RegexError.failedValueExtraction(for: self)
         }
-
         return [
           .prefix: values.prefix.indexRange,
           .content: values.content.indexRange,
         ]
 
-      // MARK: - Single
-      case .single:
-        guard let values = match.output.extractValues(as: Single.self) else {
-          throw RegexError.failedValueExtraction(self)
-        }
-
-        return [
-          .content(.single): values.indexRange
-        ]
-
       // MARK: - Code Block
       case .codeBlock:
         guard let values = match.output.extractValues(as: CodeBlock.self) else {
-          throw RegexError.failedValueExtraction(self)
+          throw RegexError.failedValueExtraction(for: self)
         }
 
         var fragments: [Fragment: Range<String.Index>] = [
-          .leading: values.syntaxLeadingPrimary.indexRange,
+          .leading: values.leading.indexRange,
           .content(.code): values.code.indexRange,
-          .trailing: values.syntaxTrailingPrimary.indexRange,
+          .trailing: values.trailing.indexRange,
         ]
 
-        if let langHint = values.languageHint {
-          fragments[.metadata(.languageHint)] = langHint.indexRange
-        }
+        fragments[.metadata(.languageHint)] = values.languageHint?.indexRange
 
         return fragments
 
       // MARK: - Image/Link
       case .linkOrImage:
         guard let values = match.output.extractValues(as: LinkOrImage.self) else {
-          throw RegexError.failedValueExtraction(self)
+          throw RegexError.failedValueExtraction(for: self)
         }
-
         var fragments: [Fragment: Range<String.Index>] = [
-          .leading: values.syntaxLeadingPrimary.indexRange,
-          .content(.label): values.label.indexRange,
-          .trailing: values.syntaxTrailingPrimary.indexRange,
-          .syntax(.syntaxLeadingSecondary): values.syntaxLeadingSecondary.indexRange,
-          .metadata(.url): values.url.indexRange,
-          .syntax(.syntaxTrailingSecondary): values.syntaxTrailingSecondary.indexRange,
+          .leading:
+            values.leading.indexRange,
+
+          .content(.label):
+            values.label.indexRange,
+
+          .trailing:
+            values.trailing.indexRange,
+
+          .syntax(.syntaxLeadingSecondary):
+            values.leadingSecondary.indexRange,
+
+          .metadata(.url):
+            values.url.indexRange,
+
+          .syntax(.syntaxTrailingSecondary):
+            values.trailingSecondary.indexRange,
         ]
 
-        if let exclam = values.exclamation {
-          fragments[.metadata(.exclamation)] = exclam.indexRange
-        }
+        fragments[.metadata(.exclamation)] = values.exclamation?.indexRange
 
         return fragments
 
       // MARK: - Callout
       case .callout:
         guard let values = match.output.extractValues(as: Callout.self) else {
-          throw RegexError.failedValueExtraction(self)
+          throw RegexError.failedValueExtraction(for: self)
         }
 
         return [
-          .prefix: values.prefix.indexRange,
-          .leading: values.syntaxLeadingPrimary.indexRange,
-          .metadata(.exclamation): values.exclamation.indexRange,
-          .content(.label): values.label.indexRange,
-          .trailing: values.syntaxTrailingPrimary.indexRange,
-          .content(.heading): values.title.indexRange,
-          .content: values.content.indexRange,
+          .prefix:
+            values.prefix.indexRange,
+
+          .leading:
+            values.leading.indexRange,
+
+          .metadata(.exclamation):
+            values.exclamation.indexRange,
+
+          .content(.label):
+            values.label.indexRange,
+
+          .trailing:
+            values.trailing.indexRange,
+
+          .content(.heading):
+            values.title.indexRange,
+
+          .content:
+            values.content.indexRange,
         ]
     }
   }
