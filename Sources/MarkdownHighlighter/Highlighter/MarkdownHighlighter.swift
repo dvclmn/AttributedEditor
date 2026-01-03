@@ -14,10 +14,7 @@ package final class MarkdownHighlighter {
   public init() {}
 
   /// Build attributed ranges for applying to the text in the Editor
-  package func buildStyles(
-    in text: String,
-    usingRegexBuilders: Bool = false
-  ) throws -> MarkdownRuns {
+  package func buildStyles(in text: String) throws -> MarkdownRuns {
 
     var runs: MarkdownRuns = []
 

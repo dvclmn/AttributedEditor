@@ -22,7 +22,6 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   case single
   case codeBlock
   case link
-  //  case list
   case callout
 
   public var name: String {
