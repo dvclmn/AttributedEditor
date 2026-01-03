@@ -11,12 +11,9 @@ import CoreTools
 package final class MarkdownHighlighter {
   public var supported: Supported = .default
 
-  public init() {
-//  public init(theme: MarkdownTheme = .default) {
-//    self.theme = theme
-  }
+  public init() {}
 
-  /// Build attributed ranges for applying in the Editor
+  /// Build attributed ranges for applying to the text in the Editor
   package func buildStyles(
     in text: String,
     usingRegexBuilders: Bool = false
@@ -29,7 +26,6 @@ package final class MarkdownHighlighter {
       print("🪛 Building styles for \(syntax.name)")
 
       let pattern = syntax.pattern
-      //      let pattern = usingRegexBuilders ? syntax.descriptor?.pattern : syntax.pattern
 
       guard let pattern else {
         throw SyntaxError.noRegexPattern
@@ -39,10 +35,7 @@ package final class MarkdownHighlighter {
 
       /// It's ok if there's no matches, right? There's not always going
       /// to be all instances of all syntaxes in a text
-      guard !matches.isEmpty else {
-        //        throw RegexError.noMatches
-        continue
-      }
+      guard !matches.isEmpty else { continue }
 
       for match in matches {
         try processMatch(
@@ -56,10 +49,4 @@ package final class MarkdownHighlighter {
 
     return runs
   }
-
 }
-//extension MarkdownHighlighter {
-//  public func updateTheme(_ theme: MarkdownTheme) {
-//    self.theme = theme
-//  }
-//}

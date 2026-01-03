@@ -17,11 +17,11 @@ struct RegexTests {
   let highlighter = MarkdownHighlighter()
 
     @Test
-    func link() async throws {
+    func linkHasSixFragments() async throws {
       let text = "My link: [hello](http://website.com)"
       let runs = try highlighter.buildStyles(in: text)
-      print("Link Runs: \(runs)")
       
+      #expect(runs.count == 6)
 //      #expect(runs.contains(.heading(level: 1)))
     }
   

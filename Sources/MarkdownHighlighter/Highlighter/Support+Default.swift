@@ -10,17 +10,17 @@ import AppKit
 extension Supported {
   public static var `default`: Supported {
     let syntax: [Markdown.Syntax] = [
-      //      .heading(level: 1),
-      //      .heading(level: 2),
-      //      .heading(level: 3),
-      //      .heading(level: 4),
-      //      .heading(level: 5),
-      //      .heading(level: 6),
+      .heading(level: 1),
+      .heading(level: 2),
+      .heading(level: 3),
+      .heading(level: 4),
+      .heading(level: 5),
+      .heading(level: 6),
 
       //      .italic,
       .bold,
       //  .boldItalic,
-      //  .inlineCode,
+      .inlineCode,
       //  .codeBlock,
       //        .list,
       //  .quoteBlock,
