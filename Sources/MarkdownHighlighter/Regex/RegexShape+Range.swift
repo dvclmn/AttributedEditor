@@ -7,13 +7,114 @@
 
 import AppKit
 
+extension RegexShape {
+
+  /// Explode a regex match into semantic fragments and their ranges.
+  /// This is the *only* place where we cast to concrete regex output types.
+  public func fragments(
+    from match: Regex<AnyRegexOutput>.Match
+  ) throws -> [Fragment: Range<String.Index>] {
+
+    switch self {
+
+      case .wrap:
+        guard let values = match.output.extractValues(as: Wrap.self) else {
+          throw RegexError.failedValueExtraction(self)
+        }
+
+        return [
+          .leading: values.syntaxLeadingPrimary.indexRange,
+          .content: values.content.indexRange,
+          .trailing: values.syntaxTrailingPrimary.indexRange,
+        ]
+
+      case .prefix:
+        guard let values = match.output.extractValues(as: Prefix.self) else {
+          throw RegexError.failedValueExtraction(self)
+        }
+
+        return [
+          .prefix: values.prefix.indexRange,
+          .content: values.content.indexRange,
+        ]
+
+      // MARK: - Single
+      case .single:
+        guard let values = match.output.extractValues(as: Single.self) else {
+          throw RegexError.failedValueExtraction(self)
+        }
+
+        return [
+          .content(.single): values.indexRange
+        ]
+
+      // MARK: - Code Block
+      case .codeBlock:
+        guard let values = match.output.extractValues(as: CodeBlock.self) else {
+          throw RegexError.failedValueExtraction(self)
+        }
+
+        var fragments: [Fragment: Range<String.Index>] = [
+          .leading: values.syntaxLeadingPrimary.indexRange,
+          .content(.code): values.code.indexRange,
+          .trailing: values.syntaxTrailingPrimary.indexRange,
+        ]
+
+        if let langHint = values.languageHint {
+          fragments[.metadata(.languageHint)] = langHint.indexRange
+        }
+
+        return fragments
+
+      // MARK: - Image/Link
+      case .linkOrImage:
+        guard let values = match.output.extractValues(as: LinkOrImage.self) else {
+          throw RegexError.failedValueExtraction(self)
+        }
+
+        var fragments: [Fragment: Range<String.Index>] = [
+          .leading: values.syntaxLeadingPrimary.indexRange,
+          .content(.label): values.label.indexRange,
+          .trailing: values.syntaxTrailingPrimary.indexRange,
+          .syntax(.syntaxLeadingSecondary): values.syntaxLeadingSecondary.indexRange,
+          .metadata(.url): values.url.indexRange,
+          .syntax(.syntaxTrailingSecondary): values.syntaxTrailingSecondary.indexRange,
+        ]
+
+        if let exclam = values.exclamation {
+          fragments[.metadata(.exclamation)] = exclam.indexRange
+        }
+
+        return fragments
+
+      // MARK: - Callout
+      case .callout:
+        guard let values = match.output.extractValues(as: Callout.self) else {
+          throw RegexError.failedValueExtraction(self)
+        }
+
+        var fragments: [Fragment: Range<String.Index>] = [
+          .prefix: values.prefix.indexRange,
+          .leading: values.syntaxLeadingPrimary.indexRange,
+          .metadata(.exclamation): values.exclamation.indexRange,
+          .content(.label): values.label.indexRange,
+          .trailing: values.syntaxTrailingPrimary.indexRange,
+          .content(.heading): values.title.indexRange,
+          .content: values.content.indexRange,
+        ]
+
+        return fragments
+    }
+  }
+}
+
 //extension Regex where Output == AnyRegexOutput {
 //  public subscript<T>(
 //    as type: T.Type,
 //    _ paths: (KeyPath<T, Substring>) -> Void
 ////    keypath: KeyPath<T, Substring>
 //  ) -> Range<String.Index> {
-//    
+//
 //  }
 //}
 
@@ -35,23 +136,19 @@ extension RegexShape {
         guard let values = match.output.extractValues(as: Wrap.self) else {
           throw RegexError.failedValueExtraction(self, fragment)
         }
-        
-        values.content.indexRange
-//        return switch values {
-//          case .
-//        }
-//        return switch fragment {
-//          case .syntax(.syntaxLeadingPrimary):
-//            values.syntaxLeadingPrimary.indexRange
-//
-//          case .content(.general):
-//            values.content.indexRange
-//
-//          case .syntax(.syntaxTrailingPrimary):
-//            values.syntaxTrailingPrimary.indexRange
-//
-//          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
-//        }
+
+        return switch fragment {
+          case .syntax(.syntaxLeadingPrimary):
+            values.syntaxLeadingPrimary.indexRange
+
+          case .content(.general):
+            values.content.indexRange
+
+          case .syntax(.syntaxTrailingPrimary):
+            values.syntaxTrailingPrimary.indexRange
+
+          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
+        }
       // MARK: - Prefix
       case .prefix:
         guard let values = match.output.extractValues(as: Prefix.self) else {

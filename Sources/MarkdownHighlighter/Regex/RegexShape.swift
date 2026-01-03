@@ -41,7 +41,7 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   public typealias CodeBlock = (
     Substring,
     syntaxLeadingPrimary: Substring,
-    langHint: Substring,
+    languageHint: Substring?,
     code: Substring,
     syntaxTrailingPrimary: Substring
   )

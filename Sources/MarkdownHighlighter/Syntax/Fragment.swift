@@ -22,6 +22,11 @@ extension Fragment.Meta: CustomStringConvertible {
 }
 
 extension Fragment {
+  /// Convenience properties
+  public static let leading: Self = .syntax(.syntaxLeadingPrimary)
+  public static let trailing: Self = .syntax(.syntaxTrailingPrimary)
+  public static let content: Self = content(.general)
+  public static let prefix: Self = syntax(.prefix)
 
   public static var allCases: [Fragment] {
     [
