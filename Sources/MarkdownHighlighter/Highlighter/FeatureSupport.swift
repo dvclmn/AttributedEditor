@@ -8,6 +8,11 @@
 import AppKit
 
 /// Trying to get compiler checked support coverage
+///
+/// For future support:
+/// - Backslash-escape syntax, to ignore formatting
+///
+///
 public struct Supported {
 
   /// 📣 Important: This ordering matters:

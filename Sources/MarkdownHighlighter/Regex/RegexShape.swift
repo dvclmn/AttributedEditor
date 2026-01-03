@@ -72,6 +72,30 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   //    content: Substring
   //  )
 
+/// ```
+/// > [!NOTE] The title part
+/// > The normal text part
+/// ```
+///
+/// Callout types:
+/// NOTE
+/// TIP
+/// IMPORTANT
+/// WARNING
+/// CAUTION
+
+  public typealias Callout = (
+    Substring,
+    syntaxLeadingPrimary: Substring,
+    exclamation: Substring,
+    label: Substring,
+    syntaxTrailingPrimary: Substring,
+    syntaxLeadingSecondary: Substring,
+    url: Substring,
+    syntaxTrailingSecondary: Substring,
+  )
+
+  
 //  public typealias Callout = (
 //    Substring,
 //    prefix: Substring,
