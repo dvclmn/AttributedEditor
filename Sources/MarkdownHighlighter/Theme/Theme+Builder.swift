@@ -50,3 +50,7 @@ func Syntax(
 ) -> [SyntaxRoleDef] {
   Syntax(syntax, build: build)
 }
+
+//func Headings(build: (inout StyleRoles) -> Void) -> [SyntaxRoleDef] {
+//  Syntax(syntax, build: build)
+//}

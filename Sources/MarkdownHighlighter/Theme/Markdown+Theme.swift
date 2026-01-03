@@ -29,8 +29,9 @@ extension MarkdownTheme {
   }
 
   subscript(syntax: Markdown.Syntax, role: StyleRole) -> StyleToken? {
-    get { styleDefinitions[syntax]?[role] }
-    set { styleDefinitions[syntax]?[role] = newValue }
+    get { styleDefinitions[syntax]?.values[role] }
+//    get { styleDefinitions[syntax]?[role] }
+    set { styleDefinitions[syntax]?.values[role] = newValue }
   }
 
   /// Looks up tokens given a syntax type and style role.

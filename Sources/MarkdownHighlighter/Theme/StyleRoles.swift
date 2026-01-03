@@ -7,18 +7,9 @@
 
 import CoreTools
 
-/// the role domain
-//public enum StyleRole: String, CaseIterable, Hashable, Sendable {
-//  case content
-//  case syntax
-//  case metadata
-//
-//  public var name: String { rawValue.capitalized }
-//}
-
 public typealias StyleRole = Fragment.Meta
 
-/// container for treatments of roles
+/// Container for treatments of roles
 public struct StyleRoles: Sendable {
 
   public var values: [StyleRole: StyleToken] = [:]
@@ -29,11 +20,6 @@ public struct StyleRoles: Sendable {
 }
 
 extension StyleRoles {
-
-  public subscript(_ role: StyleRole) -> StyleToken? {
-    get { values[role] }
-    set { values[role] = newValue }
-  }
 
   mutating func set(_ role: StyleRole, style token: StyleToken?) {
     values[role] = token

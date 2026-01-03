@@ -65,7 +65,7 @@ struct RegexTests {
     #expect(runs.content(for: .content, in: text) == "Header one example")
   }
   
-  @Test(arguments: [1, 2, 3, 4, 5, 6])
+  @Test(.tags(.heading), arguments: [1, 2, 3, 4, 5, 6])
   func allSixHeadingLevelsMatch(_ level: Int) async throws {
     let levelString = String(repeating: "#", count: level)
     let text = "\(levelString) Header \(level) example"
