@@ -13,7 +13,7 @@ import Foundation
 @MetaEnum
 public enum Fragment: Sendable, CaseIterable, Hashable {
   case content(ContentKind = .general)
-  case syntax(SyntaxKind = .wrapLeadingPrimary)
+  case syntax(SyntaxKind = .syntaxLeadingPrimary)
   case metadata(Metadata = .general)
 }
 extension Fragment.Meta: Sendable, Hashable, CaseIterable {}

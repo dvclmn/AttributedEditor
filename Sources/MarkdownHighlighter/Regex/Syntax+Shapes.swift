@@ -41,9 +41,9 @@ extension Markdown.Syntax {
     switch regexShape {
       case .wrap:
         [
-          .syntax(.wrapLeadingPrimary),
+          .syntax(.syntaxLeadingPrimary),
           .content(),
-          .syntax(.wrapTrailingPrimary),
+          .syntax(.syntaxTrailingPrimary),
         ]
 
       case .prefix:
@@ -56,30 +56,30 @@ extension Markdown.Syntax {
 
       case .codeBlock:
         [
-          .syntax(.wrapLeadingPrimary),
+          .syntax(.syntaxLeadingPrimary),
           .metadata(.languageHint),
           .content(.code),
-          .syntax(.wrapTrailingPrimary),
+          .syntax(.syntaxTrailingPrimary),
         ]
 
       case .linkOrImage:
         [
           .metadata(.exclamation),  // Optional, Only for Image
-          .syntax(.wrapLeadingPrimary),
+          .syntax(.syntaxLeadingPrimary),
           .content(.label),
-          .syntax(.wrapTrailingPrimary),
-          .syntax(.wrapLeadingSecondary),
+          .syntax(.syntaxTrailingPrimary),
+          .syntax(.syntaxLeadingSecondary),
           .metadata(.url),
-          .syntax(.wrapTrailingSecondary),
+          .syntax(.syntaxTrailingSecondary),
         ]
 
       case .callout:
         [
           .syntax(.prefix),
-          .syntax(.wrapLeadingPrimary),
+          .syntax(.syntaxLeadingPrimary),
           .metadata(.exclamation),
           .content(.label),
-          .syntax(.wrapTrailingPrimary),
+          .syntax(.syntaxTrailingPrimary),
           .content(.heading),
           .content(.general),
 

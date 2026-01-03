@@ -16,7 +16,6 @@ extension MarkdownHighlighter {
     runs: inout MarkdownRuns,
   ) throws {
 
-    
     let shape = syntax.regexShape
     let fragments = syntax.fragments
     print("⏳ Processing match for \(syntax.name), with fragments: \(fragments)\n")

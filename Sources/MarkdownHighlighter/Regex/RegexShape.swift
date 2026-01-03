@@ -91,4 +91,3 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
   )
 
 }
-

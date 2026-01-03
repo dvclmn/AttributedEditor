@@ -9,13 +9,16 @@ import Foundation
 import RegexBuilder
 
 extension Markdown.Syntax {
+
+  /// Reminder:
+  /// `*` = Preceeding character zero or more times
+  /// `+` = Preceeding character one or more times
   public var pattern: Regex<AnyRegexOutput>? {
     switch self {
 
       case .list: return nil
       case .quoteBlock: return nil
       case .callout: return nil
-      case .strikethrough:
 
       case .heading:
         return Regex(
@@ -73,11 +76,12 @@ extension Markdown.Syntax {
         .dotMatchesNewlines()
         .anchorsMatchLineEndings()
 
+      case .strikethrough:
         return Regex(
           #/
-          (?<leading>(?:\~{2}))
-          (?<content>[^\n]+?)
-          (?<trailing>\k<leading>)
+          (?<syntaxLeadingPrimary>(?:\~{2}))
+          (?<content>[^~ \n][^\n]*?[^~ \n])
+          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
           /#
         )
 

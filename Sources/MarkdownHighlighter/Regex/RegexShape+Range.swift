@@ -7,6 +7,16 @@
 
 import AppKit
 
+//extension Regex where Output == AnyRegexOutput {
+//  public subscript<T>(
+//    as type: T.Type,
+//    _ paths: (KeyPath<T, Substring>) -> Void
+////    keypath: KeyPath<T, Substring>
+//  ) -> Range<String.Index> {
+//    
+//  }
+//}
+
 extension RegexShape {
 
   /// Return a range for a given Regex Match and shape part
@@ -25,18 +35,23 @@ extension RegexShape {
         guard let values = match.output.extractValues(as: Wrap.self) else {
           throw RegexError.failedValueExtraction(self, fragment)
         }
-        return switch fragment {
-          case .syntax(.wrapLeadingPrimary):
-            values.syntaxLeadingPrimary.indexRange
-
-          case .content(.general):
-            values.content.indexRange
-
-          case .syntax(.wrapTrailingPrimary):
-            values.syntaxTrailingPrimary.indexRange
-
-          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
-        }
+        
+        values.content.indexRange
+//        return switch values {
+//          case .
+//        }
+//        return switch fragment {
+//          case .syntax(.syntaxLeadingPrimary):
+//            values.syntaxLeadingPrimary.indexRange
+//
+//          case .content(.general):
+//            values.content.indexRange
+//
+//          case .syntax(.syntaxTrailingPrimary):
+//            values.syntaxTrailingPrimary.indexRange
+//
+//          default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
+//        }
       // MARK: - Prefix
       case .prefix:
         guard let values = match.output.extractValues(as: Prefix.self) else {
@@ -68,7 +83,7 @@ extension RegexShape {
           throw RegexError.failedValueExtraction(self, fragment)
         }
         return switch fragment {
-          case .syntax(.wrapLeadingPrimary):
+          case .syntax(.syntaxLeadingPrimary):
             values.syntaxLeadingPrimary.indexRange
 
           case .metadata(.languageHint):
@@ -77,7 +92,7 @@ extension RegexShape {
           case .content(.code):
             values.code.indexRange
 
-          case .syntax(.wrapTrailingPrimary):
+          case .syntax(.syntaxTrailingPrimary):
             values.syntaxTrailingPrimary.indexRange
 
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
@@ -92,22 +107,22 @@ extension RegexShape {
           case .metadata(.exclamation):
             values.exclamation?.indexRange  // Present only for Image, not Link
 
-          case .syntax(.wrapLeadingPrimary):
+          case .syntax(.syntaxLeadingPrimary):
             values.syntaxLeadingPrimary.indexRange
 
           case .content(.label):
             values.label.indexRange
 
-          case .syntax(.wrapTrailingPrimary):
+          case .syntax(.syntaxTrailingPrimary):
             values.syntaxTrailingPrimary.indexRange
 
-          case .syntax(.wrapLeadingSecondary):
+          case .syntax(.syntaxLeadingSecondary):
             values.syntaxLeadingSecondary.indexRange
 
           case .metadata(.url):
             values.url.indexRange
 
-          case .syntax(.wrapTrailingSecondary):
+          case .syntax(.syntaxTrailingSecondary):
             values.syntaxTrailingSecondary.indexRange
 
           default: fatalError("Fragment \(fragment) not supported for RegexShape \(self.name)")
@@ -123,7 +138,7 @@ extension RegexShape {
           case .syntax(.prefix):
             values.prefix.indexRange  // Present only for Image, not Link
 
-          case .syntax(.wrapLeadingPrimary):
+          case .syntax(.syntaxLeadingPrimary):
             values.syntaxLeadingPrimary.indexRange
 
           case .metadata(.exclamation):
@@ -132,7 +147,7 @@ extension RegexShape {
           case .content(.label):
             values.label.indexRange
 
-          case .syntax(.wrapTrailingPrimary):
+          case .syntax(.syntaxTrailingPrimary):
             values.syntaxTrailingPrimary.indexRange
 
           case .content(.heading):

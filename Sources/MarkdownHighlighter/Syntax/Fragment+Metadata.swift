@@ -19,18 +19,18 @@ extension Fragment {
   // MARK: - Syntax Kind
   public enum SyntaxKind: Sendable, CaseIterable {
     case prefix
-    case wrapLeadingPrimary
-    case wrapTrailingPrimary
-    case wrapLeadingSecondary
-    case wrapTrailingSecondary
+    case syntaxLeadingPrimary
+    case syntaxTrailingPrimary
+    case syntaxLeadingSecondary
+    case syntaxTrailingSecondary
 
     public var name: String {
       switch self {
         case .prefix: "Prefix"
-        case .wrapLeadingPrimary: "Wrap Leading Primary"
-        case .wrapTrailingPrimary: "Wrap Trailing Primary"
-        case .wrapLeadingSecondary: "Wrap Leading Secondary"
-        case .wrapTrailingSecondary: "Wrap Trailing Secondary"
+        case .syntaxLeadingPrimary: "Syntax Leading Primary"
+        case .syntaxTrailingPrimary: "Syntax Trailing Primary"
+        case .syntaxLeadingSecondary: "Syntax Leading Secondary"
+        case .syntaxTrailingSecondary: "Syntax Trailing Secondary"
       }
     }
   }
