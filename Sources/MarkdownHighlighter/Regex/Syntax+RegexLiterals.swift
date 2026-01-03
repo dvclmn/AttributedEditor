@@ -12,23 +12,11 @@ extension Markdown.Syntax {
   public var pattern: Regex<AnyRegexOutput>? {
     switch self {
 
-        /// `^`
-        /// Ensures we start at the beginning of a line.
-        ///
-        /// `(?<prefix>#{1,6})`
-        /// Captures the hashes
-        ///
-        /// `(?![#])`
-        /// Ensures the match doesn't stop prematurely if there are more hashes.
-        ///
-        /// `[ \t]+`
-        /// Ensures at least one space/tab exists after the hashes
-        ///
-        /// `(?<content>.+?)`
-        /// Captures the actual text of the heading.
-        ///
-        /// `(?:[ \t]+#+)?$`
-        /// Handles optional trailing hashes (e.g., # Title ##) and finds the end of the line.
+      case .list: return nil
+      case .quoteBlock: return nil
+      case .callout: return nil
+      case .strikethrough:
+
       case .heading:
         return Regex(
           #/
@@ -38,7 +26,6 @@ extension Markdown.Syntax {
           /#
         )
         .anchorsMatchLineEndings()
-      //          /^(?<prefix>#{1,6})[ \t]+(?<content>.*?)(?:[ \t]+#+)?$/
 
       case .italic:
         return Regex(
@@ -48,13 +35,7 @@ extension Markdown.Syntax {
           (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
           /#
         )
-      //        return Regex(
-      //          #/
-      //          (?<syntaxLeadingPrimary>[\*_])
-      //          (?<content>[^\*_ \n][^\n]*?[^\*_ \n])
-      //          (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
-      //          /#
-      //        )
+
       case .bold:
         return Regex(
           #/
@@ -72,9 +53,6 @@ extension Markdown.Syntax {
           (?<syntaxTrailingPrimary>\k<syntaxLeadingPrimary>)
           /#
         )
-      //        (?<content>[^\n]+?)
-      //        return nil
-
       case .inlineCode:
         return Regex(
           #/
@@ -94,11 +72,7 @@ extension Markdown.Syntax {
         )
         .dotMatchesNewlines()
         .anchorsMatchLineEndings()
-      //        return nil
-      case .list: return nil
-      case .quoteBlock: return nil
-      case .callout: return nil
-      case .strikethrough:
+
         return Regex(
           #/
           (?<leading>(?:\~{2}))
@@ -115,16 +89,6 @@ extension Markdown.Syntax {
           (?<trailing>\k<leading>)
           /#
         )
-//        return Regex(
-//          #/
-//          (?<leading>\[)
-//          (?<content>[^\]\n]+)
-//          (?<trailingA>\])
-//          (?<leadingB>\()
-//          (?<url>[^\)\n]+)
-//          (?<trailingB>\))
-//          /#
-//        )
       case .image, .link:
         return Regex(
           #/
@@ -137,22 +101,11 @@ extension Markdown.Syntax {
           (?<syntaxTrailingSecondary>\))
           /#
         )
-        //        Regex(
-        //          #/
-        //          (?<prefix>!?)
-        //          (?<leadingA>\[)
-        //          (?<title>[^\]\n]+)
-        //          (?<trailingA>\])
-        //          (?<leadingB>\()
-        //          (?<url>[^\)\n]+)
-        //          (?<trailingB>\))
-        //          /#
-        //        )
+
       case .horizontalRule:
-        return nil
-    //            Regex(/\n---+?/)
-    //          .anchorsMatchLineEndings()
-    //          .ignoresCase()
+        return Regex(/\n---+?/)
+          .anchorsMatchLineEndings()
+          .ignoresCase()
     }
   }
 }

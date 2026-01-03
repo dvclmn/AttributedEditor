@@ -9,57 +9,6 @@ import RegexBuilder
 
 extension Markdown.Syntax {
 
-  var fragments: [Fragment] {
-    switch regexShape {
-      case .wrap:
-        [
-          .syntax(.wrapLeadingPrimary),
-          .content(),
-          .syntax(.wrapTrailingPrimary),
-        ]
-
-      case .prefix:
-        [
-          .syntax(.prefix),
-          .content(),
-        ]
-
-      case .single: [.content(.single)]
-
-      case .codeBlock:
-        [
-          .syntax(.wrapLeadingPrimary),
-          .metadata(.languageHint),
-          .content(.code),
-          .syntax(.wrapTrailingPrimary),
-        ]
-
-      case .linkOrImage:
-        [
-          .metadata(.exclamation),  // Only for Image
-          .syntax(.wrapLeadingPrimary),
-          .content(.label),
-          .syntax(.wrapTrailingPrimary),
-          .syntax(.wrapLeadingSecondary),
-          .metadata(.url),
-          .syntax(.wrapTrailingSecondary),
-
-        ]
-
-      case .callout:
-        [
-          .syntax(.prefix),
-          .syntax(.wrapLeadingPrimary),
-          .metadata(.exclamation),
-          .content(.label),
-          .syntax(.wrapTrailingPrimary),
-          .content(.heading),
-          .content(.general),
-
-        ]
-    }
-  }
-
   var regexShape: RegexShape {
     switch self {
       case .heading,
@@ -87,4 +36,55 @@ extension Markdown.Syntax {
 
     }
   }
+
+  var fragments: [Fragment] {
+    switch regexShape {
+      case .wrap:
+        [
+          .syntax(.wrapLeadingPrimary),
+          .content(),
+          .syntax(.wrapTrailingPrimary),
+        ]
+
+      case .prefix:
+        [
+          .syntax(.prefix),
+          .content(),
+        ]
+
+      case .single: [.content(.single)]
+
+      case .codeBlock:
+        [
+          .syntax(.wrapLeadingPrimary),
+          .metadata(.languageHint),
+          .content(.code),
+          .syntax(.wrapTrailingPrimary),
+        ]
+
+      case .linkOrImage:
+        [
+          .metadata(.exclamation),  // Optional, Only for Image
+          .syntax(.wrapLeadingPrimary),
+          .content(.label),
+          .syntax(.wrapTrailingPrimary),
+          .syntax(.wrapLeadingSecondary),
+          .metadata(.url),
+          .syntax(.wrapTrailingSecondary),
+        ]
+
+      case .callout:
+        [
+          .syntax(.prefix),
+          .syntax(.wrapLeadingPrimary),
+          .metadata(.exclamation),
+          .content(.label),
+          .syntax(.wrapTrailingPrimary),
+          .content(.heading),
+          .content(.general),
+
+        ]
+    }
+  }
+
 }

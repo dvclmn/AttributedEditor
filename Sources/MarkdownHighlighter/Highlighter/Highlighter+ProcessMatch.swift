@@ -16,6 +16,7 @@ extension MarkdownHighlighter {
     runs: inout MarkdownRuns,
   ) throws {
 
+    
     let shape = syntax.regexShape
     let fragments = syntax.fragments
     print("⏳ Processing match for \(syntax.name), with fragments: \(fragments)\n")
@@ -24,6 +25,11 @@ extension MarkdownHighlighter {
 
       let range = try shape.range(for: match, fragment: fragment)
 
+      guard let range else {
+//        if fragment == .metadata(.exclamation)
+//        print("If there is no range for this fragment '\(fragment.name)', it's likely/possible that this is a link/image fragment, which has optional `exclamation`.")
+      }
+      
       /// Currently using the range as the sole marker for equality here
       let runAlreadyExists = runs.contains(where: { $0.range == range })
       guard !runAlreadyExists else { continue }
@@ -37,6 +43,12 @@ extension MarkdownHighlighter {
       print("🏃 Created new run:\n\(run.debugPreview(in: text))")
       runs.append(run)
     }
+  }
+  
+  private func imageOrLink(
+    
+  ) {
+    
   }
 
 }

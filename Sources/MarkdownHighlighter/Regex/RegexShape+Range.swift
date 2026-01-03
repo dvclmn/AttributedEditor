@@ -11,10 +11,14 @@ extension RegexShape {
 
   /// Return a range for a given Regex Match and shape part
   /// `text` is the original main text being searched for matches
+  ///
+  /// This throws to indicate failure to cast values to concrete Regex shape,
+  /// and is optional to represent e.g. image/link, which has an optional
+  /// `exclamation` character, depending which it is.
   public func range(
     for match: Regex<AnyRegexOutput>.Match,
     fragment: Fragment,
-  ) throws -> Range<String.Index> {
+  ) throws -> Range<String.Index>? {
     switch self {
       // MARK: - Warp
       case .wrap:
@@ -86,7 +90,7 @@ extension RegexShape {
         }
         return switch fragment {
           case .metadata(.exclamation):
-            values.exclamation.indexRange  // Present only for Image, not Link
+            values.exclamation?.indexRange  // Present only for Image, not Link
 
           case .syntax(.wrapLeadingPrimary):
             values.syntaxLeadingPrimary.indexRange

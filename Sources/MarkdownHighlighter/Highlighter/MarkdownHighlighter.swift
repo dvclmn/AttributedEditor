@@ -37,7 +37,7 @@ package final class MarkdownHighlighter {
       /// Determine if Image or Link, if needed.
       /// This is currently the only 'edge-case' needing special handling
 //      if syntax.isLink {
-//        
+//
 //      }
       
       for match in matches {
