@@ -8,13 +8,15 @@
 import CoreTools
 
 /// the role domain
-public enum StyleRole: String, CaseIterable, Hashable, Sendable {
-  case content
-  case syntax
-  case metadata
+//public enum StyleRole: String, CaseIterable, Hashable, Sendable {
+//  case content
+//  case syntax
+//  case metadata
+//
+//  public var name: String { rawValue.capitalized }
+//}
 
-  public var name: String { rawValue.capitalized }
-}
+public typealias StyleRole = Fragment.Meta
 
 /// container for treatments of roles
 public struct StyleRoles: Sendable {
@@ -63,6 +65,4 @@ extension StyleRoles {
   }
 
 }
-extension StyleRole: CustomStringConvertible {
-  public var description: String { rawValue }
-}
+

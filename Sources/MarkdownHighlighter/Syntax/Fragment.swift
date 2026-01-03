@@ -5,15 +5,21 @@
 //  Created by Dave Coleman on 22/12/2025.
 //
 
-import Foundation
 import CoreTools
+import Foundation
 
 /// The available possible parts, found within Regex Shapes
 /// This loosely relates to `StyleRole`, just more granular
-public enum Fragment: Sendable, CaseIterable {
-  case content(ContentKind = .general)  // Or title? For link, image?
+@MetaEnum
+public enum Fragment: Sendable, CaseIterable, Hashable {
+  case content(ContentKind = .general)
   case syntax(SyntaxKind = .wrapLeadingPrimary)
   case metadata(Metadata = .general)
+}
+extension Fragment.Meta: Sendable, Hashable, CaseIterable {}
+extension Fragment.Meta: CustomStringConvertible {
+  public var description: String { self.name }
+
 }
 
 extension Fragment {
@@ -39,15 +45,15 @@ extension Fragment {
 
 }
 
-extension Fragment {
-  var toStyleRole: StyleRole {
-    switch self {
-      case .content: .content
-      case .syntax: .syntax
-      case .metadata: .metadata
-    }
-  }
-}
+//extension Fragment {
+//  var toStyleRole: StyleRole {
+//    switch self {
+//      case .content: .content
+//      case .syntax: .syntax
+//      case .metadata: .metadata
+//    }
+//  }
+//}
 
 // MARK: - Fragment Metadata
 extension Fragment {
