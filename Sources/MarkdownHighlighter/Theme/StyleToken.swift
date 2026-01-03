@@ -33,6 +33,8 @@ public struct StyleToken: Sendable, Hashable {
 
 extension StyleToken {
   static var `default`: StyleToken { .init() }
+//  static var syntaxDefaultColour: StyleToken { .init(colour: .grey(0.3)) }
+  
   var nsColour: NSColor? { foreground?.nsColor }
   
   func addStrikeStylesIfNeeded(_ attrs: inout NSTextAttributes) {

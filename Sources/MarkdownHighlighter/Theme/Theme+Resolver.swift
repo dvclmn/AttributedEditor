@@ -19,9 +19,11 @@ package struct ThemeResolver {
     self.theme = theme
     self.supported = supported
   }
+}
+
+extension ThemeResolver {
+  
   package func resolveToken(
-    //  package static func resolveToken(
-    //    with theme: MarkdownTheme,
     for run: SyntaxRun
   ) -> ResolvedRun {
     let token = theme.styleToken(

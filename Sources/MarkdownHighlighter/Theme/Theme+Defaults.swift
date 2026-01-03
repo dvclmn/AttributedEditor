@@ -5,6 +5,7 @@
 //  Created by Dave Coleman on 29/12/2025.
 //
 
+import ColourKit
 import AppKit
 
 extension MarkdownTheme {
@@ -15,10 +16,12 @@ extension MarkdownTheme {
   func defaultToken(for role: StyleRole) -> StyleToken {
     switch role {
       case .content: StyleToken(colour: .primary)
-      case .syntax: StyleToken(colour: .grey(0.3), font: .monoSpace, fontScale: 0.94)
+      case .syntax: StyleToken(colour: .defaultSyntaxColour, font: .monoSpace, fontScale: 0.94)
       case .metadata: StyleToken(colour: .secondary)
     }
   }
+  
+  
 
   //  func backgroundStyle(
   //    for syntax: Markdown.Syntax,
@@ -38,4 +41,8 @@ extension MarkdownTheme {
   //
   //  static var basicCodeBackground: CodeBackground { .init() }
 
+}
+
+extension CodableColour {
+  static var defaultSyntaxColour: CodableColour { .grey(0.3) }
 }
