@@ -19,41 +19,19 @@ public enum Fragment: Sendable, CaseIterable, Hashable {
 extension Fragment.Meta: Sendable, Hashable, CaseIterable {}
 extension Fragment.Meta: CustomStringConvertible {
   public var description: String { self.name }
-
 }
 
 extension Fragment {
 
   public static var allCases: [Fragment] {
     [
-      .content(.general),
-      .content(.label),
-      .content(.single),
-      .syntax(.prefix),
-      .syntax(.wrapLeadingPrimary),
-      .syntax(.wrapTrailingPrimary),
-      .syntax(.wrapLeadingSecondary),
-      .syntax(.wrapTrailingSecondary),
-      //      .syntaxLeading,
-      //      .syntaxTrailing,
-      .metadata(.general),
-      .metadata(.url),
-      .metadata(.languageHint),
-      .metadata(.exclamation),
+      ContentKind.allCases.map(Self.content),
+      SyntaxKind.allCases.map(Self.syntax),
+      Metadata.allCases.map(Self.metadata),
     ]
+    .flatMap(\.self)
   }
-
 }
-
-//extension Fragment {
-//  var toStyleRole: StyleRole {
-//    switch self {
-//      case .content: .content
-//      case .syntax: .syntax
-//      case .metadata: .metadata
-//    }
-//  }
-//}
 
 // MARK: - Fragment Metadata
 extension Fragment {
@@ -61,7 +39,6 @@ extension Fragment {
     switch self {
       case .content: "Content"
       case .syntax(let kind): "Syntax \(kind.name)"
-      //      case .syntaxTrailing: "Syntax Trailing"
       case .metadata(let metadata): metadata.name
     }
   }

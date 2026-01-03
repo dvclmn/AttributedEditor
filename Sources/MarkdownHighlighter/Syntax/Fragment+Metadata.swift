@@ -8,15 +8,16 @@
 extension Fragment {
 
   // MARK: - Content Kind
-  public enum ContentKind: Sendable {
+  public enum ContentKind: Sendable, CaseIterable {
     case general
     case label
     case code
+    case heading
     case single  // E.g. horizontal rule
   }
 
   // MARK: - Syntax Kind
-  public enum SyntaxKind: Sendable {
+  public enum SyntaxKind: Sendable, CaseIterable {
     case prefix
     case wrapLeadingPrimary
     case wrapTrailingPrimary
@@ -35,7 +36,7 @@ extension Fragment {
   }
 
   // MARK: - Metadata
-  public enum Metadata: Sendable {
+  public enum Metadata: Sendable, CaseIterable {
     case general
     case url
     case languageHint

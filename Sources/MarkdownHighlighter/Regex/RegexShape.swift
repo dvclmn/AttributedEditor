@@ -86,13 +86,13 @@ public enum RegexShape: String, Equatable, Hashable, Sendable {
 
   public typealias Callout = (
     Substring,
+    prefix: Substring, // Just like quoteBlock
     syntaxLeadingPrimary: Substring,
     exclamation: Substring,
     label: Substring,
     syntaxTrailingPrimary: Substring,
-    syntaxLeadingSecondary: Substring,
-    url: Substring,
-    syntaxTrailingSecondary: Substring,
+    title: Substring,
+    content: Substring,
   )
 
   

@@ -21,7 +21,7 @@ package struct SyntaxRun {
 }
 
 extension SyntaxRun {
-  var role: StyleRole { fragment.toStyleRole }
+  var role: StyleRole { Fragment.Meta(fragment) }
 
   func debugPreview(in text: String) -> String {
     let rangeText = range.debugPreview(
