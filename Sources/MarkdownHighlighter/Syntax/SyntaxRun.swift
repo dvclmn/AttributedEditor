@@ -28,11 +28,11 @@ extension SyntaxRun {
   func content(in source: String) -> String {
     source[range].toString
   }
-  
+
   func debugPreview(in text: String) -> String {
     let rangeText = range.debugPreview(
       in: text,
-      captureName: nil, // fragment.name
+      captureName: nil,  // fragment.name
       maxContextLength: 20
     )
     return DisplayString {
@@ -60,10 +60,19 @@ extension Array where Element == SyntaxRun {
   func contains(_ syntax: Markdown.Syntax) -> Bool {
     contains { $0.syntax == syntax }
   }
-  
+
   /// Handy for Testing
   func contents(in source: String) -> [String] {
     map { $0.content(in: source) }
+  }
+
+  func textContent(for fragment: Fragment, in text: String) -> String? {
+    //  package subscript(fragment: Fragment, source text: String) -> String? {
+    guard let run = first(where: { $0.fragment == fragment }) else {
+      print("No run for found with Fragment '\(fragment)'")
+      return nil
+    }
+    return run.content(in: text)
   }
 
 }

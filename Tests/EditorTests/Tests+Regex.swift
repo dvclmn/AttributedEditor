@@ -84,8 +84,9 @@ struct RegexTests {
       highlighter.supported = [.italic]
       let runs = try highlighter.buildStyles(in: text)
   
+      #expect(runs.count == 3)
       #expect(runs.contains(.italic))
-      #expect(runs[1].content(in: text) == "example")
+      #expect(runs.textContent(for: .content, in: text) == "example")
     }
   //
   //  @Test(arguments: ["**", "__"])
