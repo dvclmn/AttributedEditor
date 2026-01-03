@@ -80,7 +80,7 @@ extension Markdown.Syntax {
           .metadata(.exclamation),
           .content(.label),
           .syntax(.syntaxTrailingPrimary),
-          .content(.heading),
+          .content(.calloutTitle),
           .content(.general),
 
         ]

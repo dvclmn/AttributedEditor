@@ -11,7 +11,8 @@ import AppKit
 extension MarkdownTheme {
 
   //  public var font: NSFont { NSFont.systemFont(ofSize: 14) }
-  public var textColour: NSColor { .textColor }
+  public var textColour: NSColor { NSColor(.primary) }
+//  public var textColour: NSColor { .textColor }
 
   func defaultToken(for role: StyleRole) -> StyleToken {
     switch role {

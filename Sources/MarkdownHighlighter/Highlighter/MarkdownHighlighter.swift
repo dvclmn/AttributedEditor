@@ -31,37 +31,22 @@ package final class MarkdownHighlighter {
       let matches = text.matches(of: pattern)
 
       print("🔎 Found \(matches.count) match(es) in the provided text for \(syntax.name).")
+      print("Provided text:\n\(text)")
 
       for match in matches {
 
         let fragmentRanges = try syntax.regexShape.fragmentRanges(from: match)
 
         for (fragment, range) in fragmentRanges {
-
-          /// If a run with this range is not already present, add a new one
           let newRun = SyntaxRun(
             syntax: syntax,
             fragment: fragment,
             range: range
           )
 
-          //          let newRun = try processFragment(
-          //            fragment,
-          //            in: range,
-          //            for: syntax,
-          ////            runs: &runs
-          //          )
-
           print("🏃 Created new run:\n\(newRun.debugPreview(in: text))")
           runs.append(newRun)
         }
-
-        //        try processMatch(
-        //          match,
-        //          for: syntax,
-        //          in: text,
-        //          runs: &runs
-        //        )
       }
     }
 

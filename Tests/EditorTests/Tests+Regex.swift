@@ -12,6 +12,10 @@ import Testing
 
 @testable import MarkdownHighlighter
 
+extension Tag {
+  @Tag static var heading: Self
+}
+
 typealias Syntax = Markdown.Syntax
 struct RegexTests {
   let highlighter = MarkdownHighlighter()
@@ -38,36 +42,40 @@ struct RegexTests {
   }
 
   // MARK: - Italics
-  //  @Test(arguments: ["*", "_"])
-  //  func italicMatchesSupportedMarkers(marker: String) async throws {
-  //    let text = "Some \(marker)example\(marker) text."
-  //
-  //    highlighter.supported = [.italic]
-  //    let runs = try highlighter.buildStyles(in: text)
-  //
-  //    #expect(runs.count == 3)
-  //    #expect(runs.contains(.italic))
-  //    #expect(runs.textContent(for: .content, in: text) == "example")
-  //  }
+  @Test(arguments: ["*", "_"])
+  func italicMatchesSupportedMarkers(marker: String) async throws {
+    let text = "Some \(marker)example\(marker) text."
 
-  //  @Test
-  //  func imageHasSevenFragments() async throws {
-  //    let text = "My image: ![hello](http://website.com/image.jpg)"
-  //    highlighter.supported = [.image]
-  //    let runs = try highlighter.buildStyles(in: text)
-  //
-  //    #expect(runs.count == 7)
-  //  }
-  //
-  //  @Test
-  //  func headingOneMatchesWithSpaceAfterHash() async throws {
-  //    let text = "# An example of a header"
-  //    highlighter.supported = [.heading(level: 1)]
-  //    let runs = try highlighter.buildStyles(in: text)
-  //
-  //    #expect(runs.contains(.heading(level: 1)))
-  //  }
-  //
+    highlighter.supported = [.italic]
+    let runs = try highlighter.buildStyles(in: text)
+
+    #expect(runs.count == 3)
+    #expect(runs.content(for: .content, in: text) == "example")
+  }
+
+  // MARK: - Headings
+  @Test(.tags(.heading))
+  func headingOneMatchesWithSpaceAfterHash() async throws {
+    let text = "# Header one example"
+    highlighter.supported = [.heading(level: 1)]
+    let runs = try highlighter.buildStyles(in: text)
+
+    #expect(runs.count == 2)
+    #expect(runs.contains(.heading(level: 1)))
+    #expect(runs.content(for: .content, in: text) == "Header one example")
+  }
+  
+  @Test(arguments: [1, 2, 3, 4, 5, 6])
+  func allSixHeadingLevelsMatch(_ level: Int) async throws {
+    let levelString = String(repeating: "#", count: level)
+    let text = "\(levelString) Header \(level) example"
+    highlighter.supported = Supported(arrayLiteral: Markdown.Syntax.allHeadings)
+    let runs = try highlighter.buildStyles(in: text)
+    
+    #expect(runs.contains(.heading(level: level)))
+    #expect(runs.content(for: .syntax(.prefix), in: text) == levelString)
+  }
+
   //  @Test
   //  func headingOneDoesNotMatchWithoutSpaceAfterHash() async throws {
   //    let text = "#An example of a header"

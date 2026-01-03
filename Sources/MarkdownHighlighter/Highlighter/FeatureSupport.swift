@@ -35,6 +35,9 @@ extension Supported: ExpressibleByArrayLiteral {
   public init(arrayLiteral elements: Markdown.Syntax...) {
     self.init(syntax: elements, attributes: [])
   }
+  public init(arrayLiteral elements: [Markdown.Syntax]) {
+    self.init(syntax: elements, attributes: [])
+  }
 }
 
 extension Supported {

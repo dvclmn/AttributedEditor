@@ -80,10 +80,13 @@ extension Markdown.Syntax {
 
       // MARK: - Prefix
       case .heading:
+        ///
         return Regex(
           #/
-          ^[\s]{0,3}(?<prefix>\#{1,6})
-          (?![\#])[ \t]+(?<content>.+?)
+          ^[\s]{0,3}
+          (?<prefix>\#{1,6})
+          (?![\#])[\s\t]+
+          (?<content>.+?)
           (?:[\s\t]+\#+)?$
           /#
         )

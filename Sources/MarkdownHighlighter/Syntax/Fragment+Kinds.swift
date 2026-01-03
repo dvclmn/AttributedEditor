@@ -12,7 +12,7 @@ extension Fragment {
     case general
     case label
     case code
-    case heading
+    case calloutTitle
     case single  // E.g. horizontal rule
   }
 

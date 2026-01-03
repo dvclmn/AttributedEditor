@@ -117,7 +117,7 @@ extension RegexShape {
           .trailing:
             values.trailing.indexRange,
 
-          .content(.heading):
+          .content(.calloutTitle):
             values.title.indexRange,
 
           .content:
